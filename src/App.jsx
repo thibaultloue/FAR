@@ -710,6 +710,12 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
+    // Scène : largeur du viewport (pour que les polices px soient proportionnellement
+    // identiques à l'écran), hauteur forcée à 16:9. Après le rendu React, toutes les
+    // unités `vh` sont converties en `px` calibrées sur cette hauteur 16:9.
+    const stageW = Math.max(1280, window.innerWidth);
+    const stageH = Math.round(stageW * 9 / 16);
+
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
@@ -720,11 +726,6 @@ function Pres({id,onBack,onNav}) {
     const pageH = pdf.internal.pageSize.getHeight();
     const footerLabel = id === "cyrilmp4" ? "confidentiel" : "confidentiel – thibault loué";
 
-    // Scène 16:9 exacte. Le fond de la scène et celui de la page PDF sont identiques
-    // (t.bg), donc même si le contenu de la slide est centré avec sa respiration
-    // naturelle, il n'y a AUCUNE bordure visible en plein écran.
-    const stageW = PDF_STAGE_PX_W;
-    const stageH = PDF_STAGE_PX_H;
     const container = document.createElement("div");
     container.style.cssText = `position:fixed;left:-12000px;top:0;width:${stageW}px;height:${stageH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};`;
     document.body.appendChild(container);
@@ -734,14 +735,14 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:20px 40px 10px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:32px 36px 20px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
           "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;";
         const inner = document.createElement("div");
-        inner.style.cssText = "width:100%;max-width:1840px;";
+        inner.style.cssText = "width:100%;max-width:1580px;";
         const footer = document.createElement("div");
-        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:10px;line-height:1;opacity:.22;letter-spacing:0.8px;color:${t.m};padding-top:6px;font-family:${sa.fontFamily};`;
+        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:12px;line-height:1;opacity:.25;letter-spacing:1px;color:${t.m};padding-top:8px;font-family:${sa.fontFamily};`;
         footer.textContent = footerLabel;
 
         slideArea.appendChild(inner);
@@ -758,6 +759,22 @@ function Pres({id,onBack,onNav}) {
         });
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         await new Promise((resolve) => setTimeout(resolve, 220));
+
+        // Convertit toutes les valeurs `vh`/`vw` en `px` calibrées sur le container 16:9
+        // pour que les minHeight etc. correspondent au cadre réel de la scène.
+        inner.querySelectorAll("*").forEach(el => {
+          for (let j = 0; j < el.style.length; j++) {
+            const prop = el.style[j];
+            const val = el.style.getPropertyValue(prop);
+            if (val && (val.includes("vh") || val.includes("vw"))) {
+              const fixed = val
+                .replace(/(\d+(?:\.\d+)?)vh/g, (_, num) => (parseFloat(num) * stageH / 100) + "px")
+                .replace(/(\d+(?:\.\d+)?)vw/g, (_, num) => (parseFloat(num) * stageW / 100) + "px");
+              el.style.setProperty(prop, fixed);
+            }
+          }
+        });
+        await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
           scale: PDF_HTML2CANVAS_SCALE,
