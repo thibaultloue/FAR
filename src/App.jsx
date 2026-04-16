@@ -634,6 +634,13 @@ const META = {
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
+/** Export PDF: page 16:9 (mm, type PowerPoint widescreen) + scène 1920×1080 px pour un rendu pleine page sans déformation. */
+const PDF_PAGE_W_MM = 338.67;
+const PDF_PAGE_H_MM = 190.5;
+const PDF_STAGE_PX_W = 1920;
+const PDF_STAGE_PX_H = 1080;
+const PDF_HTML2CANVAS_SCALE = 2;
+
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
   const [hovered,setHovered]=useState(false);
@@ -691,40 +698,82 @@ function Pres({id,onBack,onNav}) {
     );
   };
 
-  const exportPDF = async()=>{
+  const exportPDF = async () => {
     setPdfing(true);
-    const saved=cur;
-    const W=1920,H=1080;
-    const pdf=new jsPDF({orientation:"landscape",unit:"px",format:[W,H]});
-    const container=document.createElement("div");
-    container.style.cssText=`position:fixed;left:-9999px;top:0;width:${W}px;height:${H}px;overflow:hidden;z-index:-1;`;
-    document.body.appendChild(container);
-    for(let i=0;i<n;i++){
-      const wrapper=document.createElement("div");
-      wrapper.style.cssText=`width:${W}px;height:${H}px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 100px;background:${t.bg};color:${t.c};box-sizing:border-box;font-family:${sa.fontFamily};overflow:hidden;`;
-      const inner=document.createElement("div");
-      inner.style.cssText=`width:100%;flex:1;display:flex;align-items:center;justify-content:center;`;
-      const content=document.createElement("div");
-      content.style.cssText="width:100%;";
-      inner.appendChild(content);
-      const footer=document.createElement("div");
-      footer.style.cssText=`width:100%;text-align:center;font-size:11px;opacity:.25;letter-spacing:1px;color:${t.m};padding-top:20px;flex-shrink:0;`;
-      footer.textContent=id==="cyrilmp4"?"confidentiel":"confidentiel – thibault loué";
-      const root=await import("react-dom/client");
-      const tempRoot=root.createRoot(content);
-      await new Promise(r=>{tempRoot.render(slides[i].r(t,null));setTimeout(r,400);});
-      wrapper.appendChild(inner);
-      wrapper.appendChild(footer);
-      container.innerHTML="";
-      container.appendChild(wrapper);
-      await new Promise(r=>setTimeout(r,300));
-      const canvas=await html2canvas(container,{scale:2,useCORS:true,backgroundColor:t.bg,width:W,height:H});
-      if(i>0)pdf.addPage();
-      pdf.addImage(canvas.toDataURL("image/jpeg",.92),"JPEG",0,0,W,H);
-      tempRoot.unmount();
+    const saved = cur;
+    try {
+      await document.fonts?.ready?.catch(() => {});
+    } catch {
+      /* ignore */
     }
-    document.body.removeChild(container);
-    pdf.save(`${META[id].l.replace(/\s/g,"_")}.pdf`);
+
+    const pdf = new jsPDF({
+      orientation: "landscape",
+      unit: "mm",
+      format: [PDF_PAGE_W_MM, PDF_PAGE_H_MM],
+      compress: true,
+    });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const footerLabel = id === "cyrilmp4" ? "confidentiel" : "confidentiel – thibault loué";
+
+    const container = document.createElement("div");
+    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${PDF_STAGE_PX_W}px;height:${PDF_STAGE_PX_H}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};`;
+    document.body.appendChild(container);
+
+    const rdom = await import("react-dom/client");
+
+    try {
+      for (let i = 0; i < n; i++) {
+        const wrapper = document.createElement("div");
+        wrapper.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;padding:36px 48px 18px;`;
+        const inner = document.createElement("div");
+        inner.style.cssText =
+          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
+        const content = document.createElement("div");
+        content.style.cssText = "width:100%;max-width:100%;max-height:100%;overflow:hidden;";
+        const footer = document.createElement("div");
+        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:10px;line-height:1.2;opacity:.32;letter-spacing:0.4px;color:${t.m};padding-top:10px;font-family:${sa.fontFamily};`;
+        footer.textContent = footerLabel;
+
+        inner.appendChild(content);
+        wrapper.appendChild(inner);
+        wrapper.appendChild(footer);
+
+        container.innerHTML = "";
+        container.appendChild(wrapper);
+
+        const tempRoot = rdom.createRoot(content);
+        await new Promise((resolve) => {
+          tempRoot.render(slides[i].r(t, null));
+          setTimeout(resolve, 480);
+        });
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        await new Promise((resolve) => setTimeout(resolve, 220));
+
+        const canvas = await html2canvas(wrapper, {
+          scale: PDF_HTML2CANVAS_SCALE,
+          useCORS: true,
+          allowTaint: false,
+          backgroundColor: t.bg,
+          width: PDF_STAGE_PX_W,
+          height: PDF_STAGE_PX_H,
+          windowWidth: PDF_STAGE_PX_W,
+          windowHeight: PDF_STAGE_PX_H,
+          logging: false,
+          imageTimeout: 20000,
+        });
+
+        const imgData = canvas.toDataURL("image/jpeg", 0.92);
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, 0, pageW, pageH, undefined, "MEDIUM");
+        tempRoot.unmount();
+      }
+    } finally {
+      document.body.removeChild(container);
+    }
+
+    pdf.save(`${META[id].l.replace(/\s/g, "_")}.pdf`);
     setCur(saved);
     setPdfing(false);
   };
