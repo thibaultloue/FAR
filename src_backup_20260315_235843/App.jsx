@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback, useRef, Children } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import PptxGenJS from "pptxgenjs";
 
 // ─── THEMES  -  TRICOLOR ────────────────────────────────────────────────────────
 const W = "#F8F6F1";
@@ -66,28 +65,11 @@ const TR = {
   section:"#fff", sectionT:"#C62828", cR:10, lv:"white",
 };
 
-const TC = {
-  bg:B, c:W, c2:A, m:"rgba(248,246,241,.55)", d:"rgba(248,246,241,.2)",
-  a:A, a2:W,
-  card:"rgba(255,255,255,.06)", cardT:W,
-  cardAlt:"rgba(255,176,0,.08)",
-  pill:"rgba(255,176,0,.1)", pillA:"rgba(255,176,0,.18)",
-  brd:"rgba(255,255,255,.08)",
-  bar:"rgba(255,255,255,.08)", barF:A,
-  nav:A, navT:B, note:W, noteT:B,
-  th:A, thT:B,
-  th2:"rgba(255,255,255,.08)", th2T:W,
-  ex:A, exT:B, no:"rgba(255,255,255,.05)", noT:W, noBrd:"rgba(255,255,255,.08)",
-  section:A, sectionT:B, cR:16, cBf:"blur(12px)", lv:"yellow",
-};
-const TProfil = T1;
-const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, cyrilmp4:TC, profil:TProfil };
+const TM = { case1:T1, case2:T2, shopify:TS, rode:TR };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 html{-webkit-text-size-adjust:100%;}
-@keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}
-.far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}
 @media(max-width:1024px){
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}
@@ -191,8 +173,6 @@ const DeckMotif = ({deck}) => {
   if(deck==="case2") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
-  if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
-  if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
 
@@ -205,8 +185,6 @@ const SV={
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
-  cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
-  profil:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
 };
 function AC({v,s="",p="",d=1.2}){const[c,setC]=useState(0);const ref=useRef(false);useEffect(()=>{if(ref.current)return;ref.current=true;const st=performance.now(),ms=d*1000;(function step(now){const pr=Math.min((now-st)/ms,1);setC(Math.round(v*(1-Math.pow(1-pr,3))));if(pr<1)requestAnimationFrame(step);})(performance.now());},[v,d]);return<>{p}{c}{s}</>;}
 
@@ -336,7 +314,7 @@ const S1 = [
 
 {title:"FAR aujourd'hui",r:t=><div><Tg t={t}>DIAGNOSTIC</Tg><Hl t={t} s={{fontSize:44}}>FAR aujourd'hui.</Hl><Sh t={t} white s={{maxWidth:"none"}}>Une base solide, un historique crédible et 4 créateurs exclusifs. Le point de départ pour construire un système commercial plus structuré, plus lisible et plus prévisible.</Sh><G2 s={{marginTop:8}}><div><Wc t={t} s={{padding:28,marginBottom:16}}><Lb t={t}>CE QUE FAR A DÉJÀ</Lb><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{["1 an et demi d'expérimentation","10 ans d'expérience","+50 marques","+100 campagnes","4 créateurs exclusifs","Environnement La Porte"].map((a,i)=><Pl t={t} key={i} s={{fontSize:14,padding:"10px 18px"}}>{a}</Pl>)}</div></Wc><Wc t={t} s={{padding:28}}><Lb t={t}>LES 4 TALENTS EXCLUSIFS</Lb><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>{[{n:"Fast Good Cuisine",img:"/fgc.webp"},{n:"Toinelag",img:"/toinelag.webp"},{n:"Le Routin",img:"/leroutin.webp"},{n:"CYRILmp4",img:"/cyrilmp4.webp"}].map((c,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,background:t.a+"10",borderRadius:10,padding:"8px 12px"}}><img src={c.img} alt={c.n} style={{width:40,height:40,borderRadius:8,objectFit:"cover"}}/><div style={{...sa,fontSize:13,fontWeight:700,color:t.cardT}}>{c.n}</div></div>)}</div></Wc></div><Wc t={t} s={{padding:28}}><Lb t={t}>LES ENJEUX À ADRESSER</Lb><Ar t={t} items={["Augmenter les revenus tout en préservant la marque FAR","Aller au-delà du simple placement de talents","Garder la sélectivité tout en élargissant la surface commerciale","Renforcer la récurrence et la prévisibilité du chiffre d'affaires","Structurer des relais de croissance disciplinés : non-exclusif et conseil","Réduire la dépendance à un trop petit nombre de talents ou de deals"]}/></Wc></G2><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",color:"#FFFFFF",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:17,lineHeight:1,whiteSpace:"nowrap",color:"#FFFFFF"}}>Comment se servir de l'existant et de nos learnings pour passer un cap dans le développement commercial ?</div></div></div>},
 
-{title:"Ma conviction",r:t=><div><Tg t={t}>MA CONVICTION</Tg><Hl t={t} s={{fontSize:40}}>FAR a tout pour devenir une structure qui transforme des univers de créateurs en plateformes de revenus organisées.</Hl><Sh t={t} white>Tant que FAR se présente comme une « agence de talents », elle se bat sur le même terrain que tout le monde. Le vrai levier de différenciation réside dans la capacité à structurer des revenus, à protéger des catégories, à construire des actifs propriétaires et à défendre un pricing fondé sur la valeur.</Sh><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:16}}>UN ÉCOSYSTÈME BASÉ SUR :</div><div style={{display:"flex",flexDirection:"column",gap:12}}>{[{t:"La récurrence",d:"Revenus longs, partenariats de catégorie, annualisation"},{t:"La cohérence",d:"Catégories protégées, frontières claires, deals sélectionnés"},{t:"La valeur / deal",d:"Pricing structuré, packaging multi-surfaces, droits"},{t:"Les actifs propriétaires",d:"Podcast, chaîne secondaire, format récurrent, événement, live, merch, drop…"},{t:"La sérénité",d:"Rigueur d'exécution, conformité, brand safety"}].map((p,i)=><div key={i} style={{display:"flex",alignItems:"baseline",gap:12,padding:"4px 0"}}><div style={{...sa,fontSize:15,color:t.c,flexShrink:0}}>•</div><div><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{p.t}</span><span style={{...sa,fontSize:15,color:t.m}}> : {p.d}</span></div></div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1,color:"#FFFFFF"}}>Le centre de gravité se déplace du reach brut vers la capacité à construire de la valeur durable.</div></div></div>},
+{title:"Ma conviction",r:t=><div><Tg t={t}>MA CONVICTION</Tg><Hl t={t} s={{fontSize:40}}>FAR a tout pour devenir une structure qui transforme des univers de créateurs en plateformes de revenus organisées.</Hl><Sh t={t} white>Tant que FAR se présente comme une agence qui place des talents, elle se bat sur le même terrain que tout le monde. Le vrai levier de différenciation réside dans la capacité à structurer des revenus, à protéger des catégories, à construire des actifs propriétaires et à défendre un pricing fondé sur la valeur.</Sh><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:16}}>UN ÉCOSYSTÈME BASÉ SUR :</div><div style={{display:"flex",flexDirection:"column",gap:12}}>{[{t:"La récurrence",d:"Revenus longs, partenariats de catégorie, annualisation"},{t:"La cohérence",d:"Catégories protégées, frontières claires, deals sélectionnés"},{t:"La valeur / deal",d:"Pricing structuré, packaging multi-surfaces, droits"},{t:"Les actifs propriétaires",d:"Podcast, chaîne secondaire, format récurrent, événement, live, merch, drop, communauté…"},{t:"La sérénité",d:"Rigueur d'exécution, conformité, brand safety"}].map((p,i)=><div key={i} style={{display:"flex",alignItems:"baseline",gap:12,padding:"4px 0"}}><div style={{...sa,fontSize:15,color:t.c,flexShrink:0}}>•</div><div><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{p.t}</span><span style={{...sa,fontSize:15,color:t.m}}> — {p.d}</span></div></div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1,color:"#FFFFFF"}}>Le centre de gravité se déplace du reach brut vers la capacité à construire de la valeur durable.</div></div></div>},
 
 {title:"Priorités",r:t=>{const rows=[{n:"01",title:"Optimiser le roster",d:"Augmenter le rendement des 4 talents actuels. Mieux monétiser ce que FAR contrôle déjà : pricing, récurrence, actifs propriétaires. C'est le premier levier de croissance avant toute expansion.",p:"PARTIE 1"},{n:"02",title:"Stabiliser le portefeuille",d:"Réduire le risque de concentration en passant de 4 à 8 talents exclusifs à 12 mois. Diversifier les verticales (ex : lifestyle, gaming, entertainment), élargir la surface commerciale et renforcer la résilience de l'agence.",p:"PARTIES 1 & 2"},{n:"03",title:"Étendre l'offre commerciale",d:"Construire 2 relais disciplinés : un à destination des talents non-exclusifs et une offre conseil pour les marques. 2 leviers qui nourrissent aussi l'activité des talents in-house.",p:"PARTIES 2 & 3"},{n:"04",title:"Travailler l'attraction",d:"Rendre la marque FAR désirable des 2 côtés du marché (talents & marques).",p:"PARTIE 4"}];return <div><Tg t={t}>PRIORITÉS</Tg><Hl t={t} s={{fontSize:40}}>4 axes pour structurer le développement commercial.</Hl><Sh t={t} white>Chaque axe répond à un enjeu identifié dans le diagnostic. L'ordre reflète la logique de construction : consolider d'abord, étendre ensuite.</Sh><div style={{display:"flex",flexDirection:"column",gap:12,marginTop:28}}>{rows.map((item,i)=><div key={i} style={{display:"flex",gap:16,alignItems:"stretch"}}><Wc t={t} s={{flex:5,padding:"18px 24px",display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:6}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a,letterSpacing:1}}>{item.n}</div><div style={{...sa,fontSize:18,fontWeight:700,color:t.cardT}}>{item.title}</div></div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55}}>{item.d}</div></Wc><div style={{display:"flex",alignItems:"center",flexShrink:0}}><div style={{...mo,fontSize:14,color:t.a,marginRight:10}}>→</div></div><div style={{flex:3,padding:"14px 18px",borderRadius:10,background:t.a+"18",border:`1px solid ${t.a}40`,display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,letterSpacing:1}}>{item.p}</div></div></div>)}</div></div>}},
 
@@ -344,13 +322,9 @@ const S1 = [
 
 {title:"4 business plans",r:t=><div><Tg t={t}>APPROCHE</Tg><Hl t={t} s={{fontSize:40}}>4 talents = 4 business plans individualisés.</Hl><Sh t={t} white>Chaque créateur exclusif mérite une approche sur-mesure. Territoire, catégories, formats, actifs, références, pricing, trajectoire : un plan complet qui rend le talent vendable côté marques et pilotable côté agence.</Sh><div style={{display:"flex",gap:16,margin:"36px 0"}}>{[{n:"Fast Good Cuisine",img:"/fgc.webp"},{n:"Toinelag",img:"/toinelag.webp"},{n:"Le Routin",img:"/leroutin.webp"},{n:"CYRILmp4",img:"/cyrilmp4.webp"}].map((c,i)=><div key={i} style={{flex:1,background:t.card,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}><div style={{aspectRatio:"1/1",overflow:"hidden",margin:10,borderRadius:12}}><img src={c.img} alt={c.n} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/></div><div style={{padding:"12px 20px 16px"}}><div style={{...se,fontSize:20,fontWeight:700,color:t.cardT}}>{c.n}</div></div></div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>À 4 talents, pas de micro-segmentation artificielle. La bonne granularité, c'est un business plan par talent. Chaque créateur doit être piloté comme une mini business unit avec un territoire clair, des catégories protégées, un plan de revenus et un plan d'actifs.</div></div></div>},
 
-{title:"ID card business",r:t=><div><Tg t={t}>ID CARD BUSINESS</Tg><Hl t={t} s={{fontSize:32}}>Un outil indispensable pour comprendre nos talents.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0,borderRadius:16,overflow:"hidden",marginTop:24}}>{[{t:"Territoire éditorial exact",d:"Ce que le créateur incarne vraiment, son positionnement naturel"},{t:"Catégories marques naturelles, possibles et interdites",d:"Où vendre, où ne pas vendre, les frontières claires"},{t:"Formats forts",d:"YouTube, live, podcast, shorts, IRL, formats récurrents…"},{t:"Actifs propriétaires existants ou à créer",d:"Podcast, marque, format récurrent, événement, live, communauté"},{t:"Références commerciales",d:"Ce qui crédibilise le dossier auprès des annonceurs"},{t:"Signaux de brand safety",d:"Ce qui rassure les marques : historique, tonalité, risques"},{t:"Shortlist de 20 annonceurs prioritaires",d:"Cibles qualifiées à 12 mois avec hypothèses de partenariat"},{t:"Trajectoire de revenus + plan d'actifs",d:"One-shots, récurrence, ticket moyen, construction d'actifs propriétaires"}].map((f,i)=><div key={i} style={{padding:"20px 24px",background:i%2===0?"#F5F5F0":"#FFFFFF",borderBottom:i<6?"1px solid #E8E8E3":"none"}}><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:4,color:t.cardT}}>{f.t}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.5}}>{f.d}</div></div>)}</div><div style={{display:"flex",gap:8,marginTop:20,width:"100%"}}>{["Plus lisible pour les marques","Plus pilotable côté agence","Plus robuste en pricing","Plus utile pour la récurrence"].map((b,i)=><div key={i} style={{flex:1,textAlign:"center",...mo,fontSize:10,fontWeight:600,padding:"10px 14px",borderRadius:10,background:t.card,color:t.cardT}}>{b}</div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>L'ID card business, c'est l'outil de pilotage central pour chaque talent exclusif. Elle permet de rendre le talent vendable côté marque et pilotable côté agence.</div></div></div>},
+{title:"ID card business",r:t=><div><Tg t={t}>ID CARD BUSINESS</Tg><Hl t={t} s={{fontSize:32}}>Un outil indispensable pour comprendre nos talents.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0,borderRadius:16,overflow:"hidden",marginTop:24}}>{[{t:"Territoire éditorial exact",d:"Ce que le créateur incarne vraiment, son positionnement naturel"},{t:"Catégories marques naturelles, possibles et interdites",d:"Où vendre, où ne pas vendre, les frontières claires"},{t:"Formats forts",d:"YouTube, live, podcast, shorts, IRL, formats récurrents…"},{t:"Actifs propriétaires existants ou à créer",d:"Podcast, marque, format récurrent, événement, live, communauté"},{t:"Références commerciales",d:"Ce qui crédibilise le dossier auprès des annonceurs"},{t:"Signaux de brand safety",d:"Ce qui rassure les marques - historique, tonalité, risques"},{t:"Shortlist de 20 annonceurs prioritaires",d:"Cibles qualifiées à 12 mois avec hypothèses de partenariat"},{t:"Trajectoire de revenus + plan d'actifs",d:"One-shots, récurrence, ticket moyen, construction d'actifs propriétaires"}].map((f,i)=><div key={i} style={{padding:"20px 24px",background:i%2===0?"#F5F5F0":"#FFFFFF",borderBottom:i<6?"1px solid #E8E8E3":"none"}}><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:4,color:t.cardT}}>{f.t}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.5}}>{f.d}</div></div>)}</div><div style={{display:"flex",gap:8,marginTop:20,width:"100%"}}>{["Plus lisible pour les marques","Plus pilotable côté agence","Plus robuste en pricing","Plus utile pour la récurrence"].map((b,i)=><div key={i} style={{flex:1,textAlign:"center",...mo,fontSize:10,fontWeight:600,padding:"10px 14px",borderRadius:10,background:t.card,color:t.cardT}}>{b}</div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>L'ID card business, c'est l'outil de pilotage central pour chaque talent exclusif. Elle permet de rendre le talent vendable côté marque et pilotable côté agence.</div></div></div>},
 
-{title:"Les 5 lignes d'offre exclusive",r:t=><div><Tg t={t}>OFFRE EXCLUSIVE</Tg><Hl t={t} s={{fontSize:28}}>5 piliers d'offres complémentaires pour structurer la valeur d'un talent exclusif.</Hl><div style={{display:"flex",gap:10,marginTop:28}}>{[{n:"01",t:"Sponsoring éditorial",d:"Une marque sponsorise un format existant du créateur (vidéo YouTube, live, épisode), avec une intégration native et des déclinaisons (cutdowns, whitelisting)."},
-{n:"02",t:"Partenariats de catégorie",d:"Une marque achète un territoire exclusif (catégorie) sur une durée longue (6-12 mois). Objectif : récurrence, cohérence, mémorisation."},
-{n:"03",t:"Brand content co-construit",d:"Un concept sur-mesure conçu avec la marque, où la marque est structurellement utile au récit (pas une démo) et génère des assets exploitables."},
-{n:"04",t:"Sponsoring d'actifs propriétaires",d:"Une marque sponsorise un actif que le créateur possède (podcast, marque, format récurrent, événement), avec une présence plus rare mais plus mémorable."},
-{n:"05",t:"Partenariats B2B / projets talents",d:"Des deals liés au business du créateur (entrepreneur) : infrastructure, outils, opérations (drop, merch, IRL). Plus partenariat que pub."}].map((b,i)=><div key={i} style={{flex:1,background:t.card,borderRadius:14,padding:"20px 16px",display:"flex",flexDirection:"column",border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,letterSpacing:1,marginBottom:8}}>{b.n}</div><div style={{...sa,fontSize:14,fontWeight:700,color:t.cardT,marginBottom:8}}>{b.t}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.5}}>{b.d}</div></div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>Chaque talent exclusif devient une offre commerciale multi-surfaces, pas un simple espace publicitaire.</div></div></div>},
+{title:"Les 5 lignes d'offre exclusive",r:t=><div><Tg t={t}>OFFRE EXCLUSIVE</Tg><Hl t={t} s={{fontSize:28}}>5 piliers complémentaires pour structurer la valeur d'un talent exclusif.</Hl><div style={{display:"flex",gap:10,marginTop:28}}>{[{n:"01",t:"Sponsoring éditorial",d:"Format maître + amplification (Shorts, Reels, Stories, Discord, newsletter) + exploitation (droits, whitelisting, cutdowns). Une narration cohérente sur plusieurs surfaces."},{n:"02",t:"Partenariats de catégorie",d:"2-3 partenaires max par talent, 6-12 mois. Plus de récurrence, plus de ticket moyen. Le bon partenaire est utile, crédible et structurant."},{n:"03",t:"Brand content co-construit",d:"Un format où la marque a une vraie utilité narrative. Moins de placement opportuniste, plus de concept co-construit."},{n:"04",t:"Sponsoring d'actifs propriétaires",d:"Podcast, chaîne secondaire, format récurrent, événement, live, communauté. Plus rares, plus contextualisés, plus mémorables."},{n:"05",t:"Partenariats B2B / projets talents",d:"Le créateur comme entrepreneur. Drop merch, événement IRL, communauté premium - des partenariats d'infrastructure, plus crédibles et plus durables."}].map((b,i)=><div key={i} style={{flex:1,background:t.card,borderRadius:14,padding:"20px 16px",display:"flex",flexDirection:"column",border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,letterSpacing:1,marginBottom:8}}>{b.n}</div><div style={{...sa,fontSize:14,fontWeight:700,color:t.cardT,marginBottom:8}}>{b.t}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.5}}>{b.d}</div></div>)}</div><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>Chaque talent exclusif devient une offre commerciale multi-surfaces, pas un simple espace publicitaire.</div></div></div>},
 
 {title:"Pricing & proposition commerciale",r:t=><div><Tg t={t}>PRICING & MONÉTISATION</Tg><Hl t={t} s={{fontSize:34}}>Un pricing fondé sur la valeur produite, pas sur la seule portée.</Hl><Sh t={t} white>Défendre un prix structuré permet de sortir d'une logique 100% CPM et de valoriser l'ensemble de ce qu'un talent apporte : créativité, actifs, audience qualifiée, droits, exclusivité.</Sh><G2 s={{marginTop:20}}><Wc t={t} s={{padding:28}}><Lb t={t}>STRUCTURE DES DEVIS - 8 BLOCS</Lb><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5,marginBottom:12}}>Chaque proposition commerciale est systématiquement décomposée en 8 blocs distincts pour rendre le pricing lisible et défendable auprès des annonceurs.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:8}}>{[{n:"Fee talent",d:"Rémunération du créateur"},{n:"Fee agence",d:"Commission FAR"},{n:"Stratégie / créa",d:"Conception et direction artistique"},{n:"Production",d:"Tournage, montage, post-prod"},{n:"Droits",d:"Exploitation, durée, territoires"},{n:"Exclusivité",d:"Protection catégorielle"},{n:"Amplification",d:"Paid media, whitelisting"},{n:"Performance",d:"Affiliation, tracking, conversion"}].map((b,i)=><div key={i} style={{padding:"12px 14px",borderRadius:10,background:t.a+"15"}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,marginBottom:4}}>{b.n}</div><div style={{...sa,fontSize:11,color:t.m,lineHeight:1.4}}>{b.d}</div></div>)}</div></Wc><Wc t={t} s={{padding:28}}><Lb t={t}>POUR ALLER PLUS LOIN : PRICING ENGINE IA</Lb><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5,marginBottom:12}}>On pourrait imaginer un outil interne assisté par IA qui recommande un prix en fonction de données objectives. L'outil ne décide pas, l'équipe commerciale valide. L'objectif : être plus juste dans le pricing et plus rapide dans la réponse.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:8}}>{[{n:"Performances réelles",d:"Vues, engagement, taux de complétion"},{n:"Évolution audience",d:"Croissance, démographie, qualité"},{n:"Tension marché",d:"Demande sur la catégorie"},{n:"Niveau de production",d:"Complexité du livrable"},{n:"Durée des droits",d:"Exploitation temporelle et géo"},{n:"Pression d'exclusivité",d:"Nombre de catégories bloquées"},{n:"Urgence du deal",d:"Délai et disponibilité"}].map((b,i)=><div key={i} style={{padding:"12px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...sa,fontSize:12,fontWeight:700,color:t.cardT,marginBottom:3}}>{b.n}</div><div style={{...sa,fontSize:11,color:t.m,lineHeight:1.4}}>{b.d}</div></div>)}</div></Wc></G2><div style={{marginTop:24,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>Chaque devis devient un outil de négociation transparent, basé sur du rationnel, pour faciliter les discussions commerciales.</div></div></div>},
 
@@ -360,7 +334,7 @@ const S1 = [
 
 {title:"2 nouveaux concepts",r:t=><div><Tg t={t}>HORS-ROSTER</Tg><Hl t={t} s={{fontSize:32}}>Structurer le hors-roster et couvrir l'intégralité du spectre des talents non exclusifs.</Hl><div style={{display:"flex",gap:24,marginTop:40}}><div style={{flex:1,padding:"48px 40px",borderRadius:16,background:t.card,border:`1px solid ${t.brd}`,display:"flex",flexDirection:"column",alignItems:"flex-start"}}><div style={{display:"flex",alignItems:"center",gap:12,marginBottom:24}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:t.a,padding:"8px 20px",background:t.a+"20",borderRadius:8}}>OFFRE</div><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1,color:"#FFFFFF",background:"#1A1A1A",padding:"4px 12px",borderRadius:6,border:`1px solid ${t.a}`}}>NOUVEAU</div></div><div style={{...se,fontSize:32,fontWeight:800,marginBottom:16,color:t.a,lineHeight:1.2}}>FAR Talent Solutions</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.6}}>Une offre dédiée pour les créateurs non représentés.</div></div><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",flexShrink:0,gap:4}}><div style={{...mo,fontSize:11,color:t.d}}>nourrit</div><div style={{fontSize:28,color:t.d}}>←</div></div><div style={{flex:1,padding:"48px 40px",borderRadius:16,background:"#1A1A1A",border:"2px solid #333",display:"flex",flexDirection:"column",alignItems:"flex-start"}}><div style={{display:"flex",alignItems:"center",gap:12,marginBottom:24}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:"#FFFFFF",padding:"8px 20px",background:"rgba(255,255,255,.1)",borderRadius:8}}>OUTIL</div><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1,color:"#FFFFFF",background:"#1A1A1A",padding:"4px 12px",borderRadius:6,border:`1px solid ${t.a}`}}>NOUVEAU</div></div><div style={{...se,fontSize:32,fontWeight:800,marginBottom:16,color:"#FFFFFF",lineHeight:1.2}}>Radar Talents</div><div style={{...sa,fontSize:18,color:"#AAAAAA",lineHeight:1.6}}>Un dispositif permanent de scouting et de qualification qui alimente FAR Talent Solutions.</div></div></div></div>},
 
-{title:"FAR Talent Solutions",r:t=><div><Tg t={t}>FAR TALENT SOLUTIONS</Tg><Hl t={t} s={{fontSize:34}}>Le non-exclusif comme accélérateur.</Hl><Sh t={t} white>FAR Talent Solutions la structure sous une offre dédiée, avec ses propres règles.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16,marginTop:20}}><div style={{padding:24,borderRadius:16,background:t.a+"15",border:`1px solid ${t.a}30`}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:t.a,marginBottom:14}}>OFFRE CONCRÈTE</div><Ar t={t} sm items={["Deal desk premium sur brief ou opportunité","Négociation, production, conformité, paiement"]}/></div><Wc t={t} s={{padding:24}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:t.cardT,marginBottom:14}}>RÈGLES DU JEU</div><Ar t={t} sm items={["Logique deal par deal, sans engagement long","Pas de cannibalisation du roster exclusif, priorité absolue aux talents signés","Pas de deals lourds à faible marge, discipline de sélection","Rôle FAR clarifié dès le départ avec le talent et l'agent","Go / no-go rapide, pas de process interminable"]}/></Wc><div style={{padding:24,borderRadius:16,background:"#1A1A1A",border:"1px solid #333"}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:"#FFFFFF",marginBottom:14}}>FONCTIONS</div><Ar t={{...t,c:"#E0E0E0",m:"#BBBBBB",a:"#FFFFFF",d:"#999999"}} sm items={["Gagner plus de briefs avec un meilleur casting, avec ou sans agent","Collaboration test et gain de briefs","Générer du CA complémentaire sans gonfler artificiellement le roster","Source de recrutement pour le roster exclusif","Gagner en notoriété auprès des marques et des talents"]}/></div></div></div>},
+{title:"FAR Talent Solutions",r:t=><div><Tg t={t}>FAR TALENT SOLUTIONS</Tg><Hl t={t} s={{fontSize:34}}>Le non-exclusif comme accélérateur.</Hl><Sh t={t} white>FAR Talent Solutions la structure sous une offre dédiée, avec ses propres règles.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16,marginTop:20}}><div style={{padding:24,borderRadius:16,background:t.a+"15",border:`1px solid ${t.a}30`}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:t.a,marginBottom:14}}>OFFRE CONCRÈTE</div><Ar t={t} sm items={["Deal desk premium sur brief ou opportunité","Négociation, production, conformité, paiement","Collaboration test et gain de briefs","Logique deal par deal, sans engagement long","Source de recrutement pour le roster exclusif"]}/></div><Wc t={t} s={{padding:24}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:t.cardT,marginBottom:14}}>RÈGLES DU JEU</div><Ar t={t} sm items={["Pas de cannibalisation du roster exclusif, priorité absolue aux talents signés","Pas de deals lourds à faible marge, discipline de sélection","Rôle FAR clarifié dès le départ avec le talent et l'agent","Go / no-go rapide, pas de process interminable","Juridique, production et paiement standardisés"]}/></Wc><div style={{padding:24,borderRadius:16,background:"#1A1A1A",border:"1px solid #333"}}><div style={{...sa,fontSize:14,fontWeight:800,letterSpacing:1,color:"#FFFFFF",marginBottom:14}}>FONCTIONS</div><Ar t={{...t,c:"#E0E0E0",m:"#BBBBBB",a:"#FFFFFF",d:"#999999"}} sm items={["Gagner plus de briefs avec un meilleur casting, avec ou sans agent","Générer du CA complémentaire sans gonfler artificiellement le roster","Nourrir le pipeline de futurs talents exclusifs, le non-exclusif devient source de recrutement","Gagner en notoriété auprès des marques et des talents"]}/></div></div></div>},
 
 {title:"Viviers et Radar Talents",r:t=><div><Tg t={t}>SCOUTING & PIPELINE</Tg><Hl t={t} s={{fontSize:34}}>Un outil pour identifier les talents.</Hl><Sh t={t} white>Le scouting doit devenir un vrai dispositif permanent, structuré, alimenté par l'IA et le réseau, avec des viviers clairement segmentés.</Sh><div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:32,margin:"32px 0"}}><Wc t={t} s={{flex:1,padding:24,textAlign:"center"}}><div style={{...sa,fontSize:18,fontWeight:700,marginBottom:6}}>Brief-ready</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>Créateurs ou agents déjà qualifiés et activables rapidement. Vivier de réponse aux briefs entrants.</div></Wc><div style={{display:"flex",alignItems:"center",gap:16}}><div style={{width:2,height:40,background:t.brd}}/><motion.div initial={{scale:0}} animate={{scale:1}} transition={{type:"spring",stiffness:180,damping:15}} style={{width:160,height:160,borderRadius:"50%",background:t.th,color:t.thT,display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center",...se,fontSize:20,fontWeight:800,flexShrink:0,lineHeight:1.2,padding:16}}>Radar<br/>Talents</motion.div><div style={{width:2,height:40,background:t.brd}}/></div><Wc t={t} s={{flex:1,padding:24,textAlign:"center"}}><div style={{...sa,fontSize:18,fontWeight:700,marginBottom:6}}>Exclusive pipeline</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>Les potentielles futures signatures du roster.</div></Wc></div><div style={{display:"flex",justifyContent:"center",margin:"-8px 0 24px"}}><Wc t={t} s={{padding:24,textAlign:"center",maxWidth:400}}><div style={{...sa,fontSize:18,fontWeight:700,marginBottom:6}}>Test pool</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>Créateurs prometteurs mais pas encore totalement validés commercialement. À tester sur des opérations non risquées.</div></Wc></div><Lb t={t}>COMPOSANTES DU RADAR</Lb><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:20}}>{["Veille plateforme continue","Alertes de croissance et viralité","Analyse des signaux d'engagement","Suivi des scènes émergentes","Recommandations du réseau","Repérage des créateurs qui construisent des actifs"].map((r,i)=><div key={i} style={{...mo,fontSize:12,fontWeight:600,padding:"14px 18px",borderRadius:10,background:t.a+"15",color:t.a,textAlign:"center"}}>{r}</div>)}</div><div style={{marginTop:16,padding:"16px 32px",borderRadius:14,background:"#1A1A1A",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...sa,fontSize:16,lineHeight:1.4,color:"#FFFFFF"}}>L'IA fait gagner du temps : détection de profils montants, clustering de territoires, signaux de risque, synthèse de tendances, enrichissement de fiches. Nous gardons bien sûr la décision finale.</div></div></div>},
 
@@ -377,7 +351,7 @@ const S1 = [
 
 {title:"Attractivité FAR",r:t=><div><Tg t={t}>ATTRACTIVITÉ</Tg><Hl t={t} s={{fontSize:34}}>Rendre FAR désirable des 2 côtés du marché.</Hl><Sh t={t} white>La performance commerciale et la désirabilité vont de pair et se construit des 2 côtés du marché.</Sh><div style={{display:"flex",gap:16,marginTop:20}}><div style={{flex:1,padding:28,borderRadius:16,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...sa,fontSize:16,fontWeight:800,color:t.a,marginBottom:14}}>POUR LES TALENTS</div><Ar t={t} items={["Agence sélective, donc valorisante","Agence qui vend bien et défend un pricing juste","Aide à construire des revenus plus intelligents","Accompagne des projets plus larges que la campagne","Ouvre des portes plateformes, marques, écosystème","Aide à faire émerger des formats propriétaires"]}/></div><div style={{flex:1,padding:28,borderRadius:16,background:"#1A1A1A",border:"1px solid #333"}}><div style={{...sa,fontSize:16,fontWeight:800,color:"#FFFFFF",marginBottom:14}}>POUR LES MARQUES</div><Ar t={{...t,c:"#E0E0E0",m:"#BBBBBB",d:"#999"}} items={["Propose des créateurs ET des concepts","Plus agile qu'une grosse agence de volume","Comprend la culture créateur au-delà du média","Capable de monter des opérations premium multi-surfaces","Packaging structuré, pricing transparent, droits clairs"]}/></div></div><div style={{marginTop:24,padding:"24px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:20}}><div style={{...se,fontSize:48,flexShrink:0}}>🏎️</div><div><div style={{...sa,fontSize:16,fontWeight:700,color:t.thT,marginBottom:6}}>L'exemple du GP Explorer (Bump/Squeezie)</div><div style={{...sa,fontSize:15,color:t.thT,lineHeight:1.5,opacity:.85}}>Un créateur peut devenir le point de départ d'un projet commercial, éditorial et événementiel beaucoup plus large. FAR a intérêt à explorer cette possibilité avec certains talents comme CYRILmp4.</div></div></div></div>},
 
-{title:"Plateformes & marché",r:t=><div><Tg t={t}>PLATEFORMES, ÉVÉNEMENTS & VISIBILITÉ</Tg><Hl t={t} s={{fontSize:30}}>Branchée aux écosystèmes, présente aux bons rendez-vous.</Hl><Sh t={t} white>La stratégie commerciale ne se joue pas seulement dans le CRM. FAR doit être connectée aux plateformes comme partenaire reconnu et sa présence événementielle doit servir 3 objectifs : business, scouting et marque FAR.</Sh><G2 s={{marginTop:16}}><Wc t={t} s={{padding:28}}><Lb t={t}>PLATEFORMES</Lb>{[{n:"Instagram",d:"Découverte, casting et mise en relation marques créateurs via l'écosystème créateurs"},{n:"YouTube",d:"Contenus sponsorisés, deals long format, accès à l'écosystème BrandConnect et aux équipes partenaires"},{n:"TikTok",d:"Collaborations marques créateurs, amplification et formats courts à très fort reach"},{n:"Twitch",d:"Partenariats live, dispositifs récurrents et intégrations community first"}].map((p,i)=><div key={i} style={{padding:"12px 0",borderBottom:i<3?`1px solid ${t.brd}`:"",marginBottom:4}}><div style={{...sa,fontSize:15,fontWeight:700}}>{p.n}</div></div>)}<Lb t={t} s={{marginTop:20}}>ACTIONS CONCRÈTES</Lb><Ar t={t} items={["RDV réguliers avec les équipes plateformes","Circulation d'insights catégories et tendances","Accès aux bêtas et learnings","Cas communs et co-selling quand pertinent"]} sm/></Wc><div><Lb t={t} w>RENDEZ-VOUS PRIORITAIRES</Lb><Sh t={t}>Chaque événement doit servir 3 choses : générer du business, scouter des talents, et renforcer la marque FAR.</Sh><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{[{n:"One to One Monaco",d:"Business"},{n:"VivaTech",d:"Tech & innovation"},{n:"Cannes Lions",d:"Créativité & marques"},{n:"Paris Creator Week",d:"Créateurs & marché"},{n:"TwitchCon Europe",d:"Gaming & communautés"},{n:"gamescom",d:"Gaming & entertainment"},{n:"DMEXCO",d:"Digital marketing"},{n:"Paris Games Week",d:"Gaming grand public"}].map((e,i)=><div key={i} style={{...mo,fontSize:11,fontWeight:600,padding:"12px 16px",borderRadius:8,background:t.card,color:t.cardT,display:"flex",flexDirection:"column",gap:2}}><span>{e.n}</span><span style={{fontSize:9,opacity:.5,fontWeight:400}}>{e.d}</span></div>)}</div></div></G2></div>},
+{title:"Plateformes & marché",r:t=><div><Tg t={t}>PLATEFORMES, ÉVÉNEMENTS & VISIBILITÉ</Tg><Hl t={t} s={{fontSize:30}}>Branchée aux écosystèmes, présente aux bons rendez-vous.</Hl><Sh t={t} white>La stratégie commerciale ne se joue pas seulement dans le CRM. FAR doit être connectée aux plateformes comme partenaire reconnu et sa présence événementielle doit servir 3 objectifs : business, scouting et marque FAR.</Sh><G2 s={{marginTop:16}}><Wc t={t} s={{padding:28}}><Lb t={t}>PLATEFORMES</Lb>{[{n:"YouTube BrandConnect",d:"Collaborations marques-créateurs sur du contenu sponsorisé"},{n:"Instagram Creator Marketplace",d:"Découverte et mise en relation marques-créateurs"},{n:"TikTok One",d:"Plateforme tout-en-un collaborations marques-créateurs"}].map((p,i)=><div key={i} style={{padding:"12px 0",borderBottom:i<2?`1px solid ${t.brd}`:"",marginBottom:4}}><div style={{...sa,fontSize:15,fontWeight:700}}>{p.n}</div><div style={{...sa,fontSize:12,color:t.m}}>{p.d}</div></div>)}<Lb t={t} s={{marginTop:20}}>ACTIONS CONCRÈTES</Lb><Ar t={t} items={["RDV réguliers avec les équipes plateformes","Circulation d'insights catégories et tendances","Accès aux bêtas et learnings","Cas communs et co-selling quand pertinent"]} sm/></Wc><div><Lb t={t} w>RENDEZ-VOUS PRIORITAIRES</Lb><Sh t={t}>Chaque événement doit servir 3 choses : générer du business, scouter des talents, et renforcer la marque FAR.</Sh><div style={{display:"flex",flexWrap:"wrap",gap:8}}>{[{n:"One to One Monaco",d:"Business"},{n:"VivaTech",d:"Tech & innovation"},{n:"Cannes Lions",d:"Créativité & marques"},{n:"Paris Creator Week",d:"Créateurs & marché"},{n:"TwitchCon Europe",d:"Gaming & communautés"},{n:"gamescom",d:"Gaming & entertainment"},{n:"DMEXCO",d:"Digital marketing"},{n:"Paris Games Week",d:"Gaming grand public"}].map((e,i)=><div key={i} style={{...mo,fontSize:11,fontWeight:600,padding:"12px 16px",borderRadius:8,background:t.card,color:t.cardT,display:"flex",flexDirection:"column",gap:2}}><span>{e.n}</span><span style={{fontSize:9,opacity:.5,fontWeight:400}}>{e.d}</span></div>)}</div></div></G2></div>},
 
 
 {title:"Partie 5 - Intercalaire",r:t=><div style={{textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:16}}>PARTIE 5</div><Hl t={t} s={{fontSize:44,textAlign:"center",maxWidth:800,margin:"0 auto 24px"}}>Plan d'action</Hl><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto"}}/></div>},
@@ -399,7 +373,7 @@ const S1 = [
 // CAS 2  -  14 SLIDES (migré V3 → composants V4)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const PlanSlide=(t,active)=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"55vh",textAlign:"center"}}><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:24}}>NOTRE FEUILLE DE ROUTE</div><div style={{...se,fontSize:42,fontWeight:800,lineHeight:1.15,marginBottom:48}}>4 étapes pour développer ton business.</div><div style={{display:"flex",gap:0,width:"100%",borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"Construire ton business plan",d:"Ton ID card business, tes KPIs, ta trajectoire revenus.",c:"#F5C518"},{n:"02",t:"Structurer précisément ton offre",d:"Ta vision, tes catégories, tes 5 lignes d'offre.",c:"#5B8DEF"},{n:"03",t:"Identifier les bons partenaires",d:"Ton portefeuille cible, Lockd, ton podcast.",c:"#81B840"},{n:"04",t:"Développer tes opérations premium",d:"Tes activations concrètes, prêtes à vendre.",c:"#E53935"}].map((s,i)=><div key={i} style={{flex:1,padding:"36px 24px",borderRight:i<3?`1px solid ${t.brd}`:"none",background:i+1===active?s.c+"18":"transparent"}}><div style={{...se,fontSize:48,fontWeight:800,color:i+1===active?s.c:(t.d||"#999")+"50",marginBottom:16}}>{s.n}</div><div style={{...sa,fontSize:17,fontWeight:700,marginBottom:8,lineHeight:1.3,color:i+1===active?t.c:(t.d||"#999")+"60"}}>{s.t}</div><div style={{...sa,fontSize:15,color:i+1===active?t.m:(t.d||"#999")+"50",lineHeight:1.5}}>{s.d}</div></div>)}</div></div>;
+const PlanSlide=(t,active)=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"55vh",textAlign:"center"}}><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:24}}>NOTRE FEUILLE DE ROUTE</div><div style={{...se,fontSize:42,fontWeight:800,lineHeight:1.15,marginBottom:48}}>4 étapes pour structurer ton business.</div><div style={{display:"flex",gap:0,width:"100%",borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"Construire ton business plan",d:"Ton ID card business, tes KPIs, ta trajectoire revenus.",c:"#F5C518"},{n:"02",t:"Structurer précisément ton offre",d:"Ta vision, tes catégories, tes 5 lignes d'offre.",c:"#5B8DEF"},{n:"03",t:"Identifier les bons partenaires",d:"Ton portefeuille cible, Lockd, ton podcast.",c:"#81B840"},{n:"04",t:"Développer tes opérations premium",d:"Tes activations concrètes, prêtes à vendre.",c:"#E53935"}].map((s,i)=><div key={i} style={{flex:1,padding:"36px 24px",borderRight:i<3?`1px solid ${t.brd}`:"none",background:i+1===active?s.c+"18":"transparent"}}><div style={{...se,fontSize:48,fontWeight:800,color:i+1===active?s.c:(t.d||"#999")+"50",marginBottom:16}}>{s.n}</div><div style={{...sa,fontSize:17,fontWeight:700,marginBottom:8,lineHeight:1.3,color:i+1===active?t.c:(t.d||"#999")+"60"}}>{s.t}</div><div style={{...sa,fontSize:15,color:i+1===active?t.m:(t.d||"#999")+"50",lineHeight:1.5}}>{s.d}</div></div>)}</div></div>;
 
 const S2 = [
 
@@ -412,11 +386,11 @@ r:t=><div><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:28
 {title:"Principes de collaboration",
 r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>NOS PRINCIPES DE COLLABORATION</div><div style={{...se,fontSize:36,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Ce qu'on fait. Ce qu'on ne fait pas.</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:28}}>FAR n'est pas une agence qui impose. C'est un partenaire qui structure, accompagne et protège. Voici nos engagements concrets.</div><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{do:"On structure ton business et ta stratégie commerciale",dont:"On ne touche jamais à ta ligne éditoriale ni à ta créativité"},{do:"On est un support disponible au quotidien",dont:"On ne te surcharge pas de briefs ou de sollicitations inutiles"},{do:"On te présente uniquement des partenaires cohérents avec ton univers",dont:"On ne te propose pas de deals juste pour faire du volume"},{do:"On protège tes catégories et tes associations existantes",dont:"On n'accepte jamais un partenaire qui pourrait fragiliser ton image"},{do:"On t'implique dans chaque décision commerciale importante",dont:"On ne signe rien en ton nom sans ton accord explicite"},{do:"On construit avec toi un plan à 12 mois lisible et ambitieux",dont:"On ne te demande pas d'exclusivité sans contrepartie de valeur claire"},{do:"On négocie pour maximiser ta valeur par deal",dont:"On ne brade pas tes tarifs pour closer plus vite"}].map((item,i)=><div key={i} style={{display:"flex",alignItems:"stretch",gap:0,borderBottom:i<6?`1px solid ${t.brd}`:"none"}}><div style={{flex:1,padding:"14px 16px",display:"flex",alignItems:"center",gap:10}}><div style={{width:8,height:8,borderRadius:4,background:"#81B840",flexShrink:0}}/><div style={{...sa,fontSize:14,color:t.c,lineHeight:1.4}}>{item.do}</div></div><div style={{flex:1,padding:"14px 16px",display:"flex",alignItems:"center",gap:10,borderLeft:`1px solid ${t.brd}`}}><div style={{width:8,height:8,borderRadius:4,background:"#C62828",flexShrink:0}}/><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4}}>{item.dont}</div></div></div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:28,textAlign:"center"}}><div style={{...se,fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.3}}>Notre rôle : te rendre plus fort commercialement, sans jamais compromettre ce qui fait ta singularité.</div></div></div>},
 
-{title:"Tes actifs",
-r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POURQUOI TOI</div><div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.2,marginBottom:12}}>Tu es déjà structuré.</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:28}}>On cherche des créateurs qui possèdent des actifs monétisables au-delà du simple inventaire média. Tu en as 3.</div><div style={{display:"flex",gap:16}}>{[{img:"/case2_imgs/slide3_img4.jpg",n:"ACTIF 1",t:"Ton audience",d:"4,61M abonnés YouTube + 2,1M followers Twitch. Le socle qui te permet de porter des opérations premium et de crédibiliser tes actifs propriétaires."},{img:"/bouseuh-lockd2.png",n:"ACTIF 2",t:"Lockd  -  ta marque",d:"Ton site structuré avec lignes produits, FAQ, programme d'affiliation. Un vrai business, pas du merch. C'est exactement le type d'actif qu'on sait monétiser."},{img:"/case2_imgs/slide3_img6.jpg",n:"ACTIF 3",t:"Ton podcast",d:"Ton format hebdomadaire hébergé par Acast, tes invités de tous horizons. Format long, incarné, vendable en sponsoring récurrent."}].map((c,i)=><div key={i} style={{flex:1,borderRadius:16,overflow:"hidden",background:t.card,border:`1px solid ${t.brd}`}}><div style={{height:200,overflow:"hidden"}}><img src={c.img} alt={c.t} style={{width:"100%",height:"100%",objectFit:c.cover||"cover",background:c.bg||"transparent"}}/></div><div style={{padding:"20px 20px 24px"}}><div style={{...mo,fontSize:14,fontWeight:700,color:t.a,letterSpacing:1,marginBottom:6}}>{c.n}</div><div style={{...sa,fontSize:16,fontWeight:700,marginBottom:6}}>{c.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{c.d}</div></div></div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:32,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:"#fff",lineHeight:1.3}}>Tu es exactement le profil que FAR veut dans son roster.</div></div></div>},
-
 {title:"Pourquoi toi",
-r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POURQUOI TOI</div><div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Le Bouseuh × FAR = le fit parfait.</div><div style={{...sa,fontSize:16,color:t.m,lineHeight:1.7,marginBottom:36}}>FAR est volontairement sélectif : 4 talents aujourd'hui, 8 à horizon 12 mois. Voici pourquoi tu corresponds exactement à ce qu'on cherche.</div><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{c:"Territoire éditorial clair",v:"Gaming, lifestyle, entrepreneuriat. Tu incarnes un récit de passage : du gaming pur au business structuré."},{c:"Partenariats longs",v:"Tu es ambassadeur Samsung France, partenaire Nutripure. Tu sais tenir une association durable."},{c:"Actif propriétaire",v:"Lockd et ton podcast hebdomadaire. 2 actifs à toi, monétisables indépendamment, en plus de ton audience."},{c:"Fiabilité & brand safety",v:"Ton audience est mature, ton ton est maîtrisé, tes associations existantes rassurent les marques."},{c:"Envie de construire",v:"Lockd prouve que tu as une ambition entrepreneuriale concrète. Tu ne monétises pas passivement."}].map((item,i)=><div key={i} style={{display:"flex",alignItems:"stretch",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:48,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><div style={{width:24,height:24,borderRadius:12,background:t.a,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{...mo,fontSize:14,fontWeight:700,color:t.bg}}>✓</span></div></div><div style={{flex:1,padding:"18px 16px"}}><div style={{...sa,fontSize:15,fontWeight:700,color:t.c,marginBottom:4}}>{item.c}</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5}}>{item.v}</div></div></div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:32,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:"#fff",lineHeight:1.3}}>Comment on t'amène encore plus loin ?</div></div></div>},
+r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POURQUOI TOI</div><div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Le Bouseuh × FAR = le fit parfait.</div><div style={{...sa,fontSize:16,color:t.m,lineHeight:1.7,marginBottom:36}}>FAR est volontairement sélectif : 4 talents aujourd'hui, 8 à horizon 12 mois. Voici pourquoi tu corresponds exactement à ce qu'on cherche.</div><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{c:"Territoire éditorial clair",v:"Gaming, lifestyle, entrepreneuriat. Tu incarnes un récit de passage : du gaming pur au business structuré."},{c:"Partenariats longs",v:"Tu es ambassadeur Samsung France, partenaire Nutripure. Tu sais tenir une association durable."},{c:"Actif propriétaire",v:"Lockd et ton podcast hebdomadaire. 2 actifs à toi, monétisables indépendamment."},{c:"Fiabilité & brand safety",v:"Ton audience est mature, ton ton est maîtrisé, tes associations existantes rassurent les marques."},{c:"Envie de construire",v:"Lockd prouve que tu as une ambition entrepreneuriale concrète. Tu ne monétises pas passivement."}].map((item,i)=><div key={i} style={{display:"flex",alignItems:"stretch",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:48,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><div style={{width:24,height:24,borderRadius:12,background:t.a,display:"flex",alignItems:"center",justifyContent:"center"}}><span style={{...mo,fontSize:14,fontWeight:700,color:t.bg}}>✓</span></div></div><div style={{flex:1,padding:"18px 16px"}}><div style={{...sa,fontSize:15,fontWeight:700,color:t.c,marginBottom:4}}>{item.c}</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5}}>{item.v}</div></div></div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:32,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:"#fff",lineHeight:1.3}}>Tu es exactement le profil que FAR veut dans son roster.</div></div></div>},
+
+{title:"Tes actifs",
+r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>TES 3 ACTIFS PROPRIÉTAIRES</div><div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.2,marginBottom:12}}>Tu es déjà structuré.</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:28}}>On cherche des créateurs qui possèdent des actifs monétisables au-delà du simple inventaire média. Tu en as 3.</div><div style={{display:"flex",gap:16}}>{[{img:"/case2_imgs/slide3_img4.jpg",n:"ACTIF 1",t:"Ton audience",d:"4,61M abonnés YouTube + 2,1M followers Twitch. Le socle qui te permet de porter des opérations premium et de crédibiliser tes actifs propriétaires."},{img:"/bouseuh-lockd2.png",n:"ACTIF 2",t:"Lockd  -  ta marque",d:"Ton site structuré avec lignes produits, FAQ, programme d'affiliation. Un vrai business, pas du merch. C'est exactement le type d'actif qu'on sait monétiser."},{img:"/case2_imgs/slide3_img6.jpg",n:"ACTIF 3",t:"Ton podcast",d:"Ton format hebdomadaire hébergé par Acast, tes invités de tous horizons. Format long, incarné, vendable en sponsoring récurrent."}].map((c,i)=><div key={i} style={{flex:1,borderRadius:16,overflow:"hidden",background:t.card,border:`1px solid ${t.brd}`}}><div style={{height:200,overflow:"hidden"}}><img src={c.img} alt={c.t} style={{width:"100%",height:"100%",objectFit:c.cover||"cover",background:c.bg||"transparent"}}/></div><div style={{padding:"20px 20px 24px"}}><div style={{...mo,fontSize:14,fontWeight:700,color:t.a,letterSpacing:1,marginBottom:6}}>{c.n}</div><div style={{...sa,fontSize:16,fontWeight:700,marginBottom:6}}>{c.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{c.d}</div></div></div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:32,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:"#fff",lineHeight:1.3}}>Comment on t'amène encore plus loin ?</div></div></div>},
 
 {title:"Étape 1",r:t=>PlanSlide(t,1)},
 
@@ -425,14 +399,14 @@ r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.
 
 {title:"Étape 2",r:t=>PlanSlide(t,2)},
 
-{title:"Tes catégories",
-r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>TES CATÉGORIES</div><div style={{...se,fontSize:42,fontWeight:800,lineHeight:1.15,marginBottom:16}}>D'abord protéger ce que tu as, ensuite ouvrir.</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:32}}>Avant d'ouvrir de nouvelles marques pour toi, il faut poser tes frontières. 3 catégories à sanctuariser parce qu'elles sont déjà liées à ton univers, 5 territoires à ouvrir intelligemment.</div><div style={{display:"flex",gap:32}}><div style={{flex:1}}><div style={{...mo,fontSize:14,fontWeight:700,letterSpacing:2,color:"#C62828",marginBottom:16}}>🔒 À SANCTUARISER</div>{["Habillement : Lockd est ton actif propriétaire, pas négociable","Nutrition / supplémentation : Nutripure est déjà associé publiquement à toi","Tech grand public (partiel) : Samsung France reste ton association forte à protéger"].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:`1px solid ${t.brd}`}}><div style={{width:8,height:8,borderRadius:4,background:"#C62828",flexShrink:0,marginTop:5}}/><div style={{...sa,fontSize:14,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div><div style={{flex:1}}><div style={{...mo,fontSize:14,fontWeight:700,letterSpacing:2,color:"#81B840",marginBottom:16}}>→ TERRITOIRES À OUVRIR POUR TOI</div>{["Commerce / e-commerce / fondateur : extension naturelle de Lockd","Finance / pilotage / comptabilité : le récit de ton passage à entrepreneur","Logistique / expérience client : le backstage de ton business","Audio / conversation / mobilité éditoriale : extension de ton podcast","Lifestyle adulte / performance / auto / culture : la maturité de ton profil"].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:8,height:8,borderRadius:4,background:"#81B840",flexShrink:0,marginTop:5}}/><div style={{...sa,fontSize:14,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div></div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:28,textAlign:"center"}}><div style={{...se,fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.3}}>Le bon accompagnement commercial se voit aussi dans les deals qu'on refuse pour toi.</div></div></div>},
-
 {title:"Vision pour toi",
 r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>CE QU'ON VIENT FAIRE POUR TOI</div><div style={{...se,fontSize:42,fontWeight:800,lineHeight:1.15,marginBottom:16}}>Ne pas te vendre davantage, mais te vendre mieux.</div><div style={{padding:"24px 32px",borderRadius:14,borderLeft:`4px solid ${t.a}`,background:t.a+"10",marginBottom:36}}><div style={{...sa,fontSize:17,fontWeight:600,lineHeight:1.5,color:t.c}}>Te faire passer de « créateur gaming à forte audience » à « créateur-entrepreneur multi-actifs ». C'est un glissement de catégorie et c'est ce qui justifie un pricing fondé sur ta valeur, pas sur ton reach.</div></div><div style={{display:"flex",alignItems:"flex-start",gap:0,marginTop:8}}>{[{n:"01",t:"Protéger",d:"Sanctuariser tes catégories sensibles"},{n:"02",t:"Élever",d:"Lockd = actif business, pas du merch"},{n:"03",t:"Stabiliser",d:"Ton podcast = franchise récurrente sponsorisable"},{n:"04",t:"Sélectionner",d:"YouTube/Twitch = surfaces premium réservées"}].map((s,i)=><div key={i} style={{display:"contents"}}><div style={{flex:1,textAlign:"center"}}><div style={{width:40,height:40,borderRadius:"50%",background:t.a,color:"#000",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 12px",...mo,fontSize:14,fontWeight:800}}>{s.n}</div><div style={{...sa,fontSize:17,fontWeight:700,marginBottom:6}}>{s.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,padding:"0 8px"}}>{s.d}</div></div>{i<3&&<div style={{display:"flex",alignItems:"center",paddingTop:8,flexShrink:0}}><div style={{width:40,height:2,background:t.a+"60"}}/><div style={{width:0,height:0,borderTop:"5px solid transparent",borderBottom:"5px solid transparent",borderLeft:`6px solid ${t.a}60`}}/></div>}</div>)}</div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:32,textAlign:"center"}}><div style={{...se,fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.3}}>Conséquence directe : plus de cohérence, plus de rareté, plus de valeur par deal.</div></div></div>},
 
+{title:"Tes catégories",
+r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>TES CATÉGORIES</div><div style={{...se,fontSize:42,fontWeight:800,lineHeight:1.15,marginBottom:16}}>D'abord protéger ce que tu as, ensuite ouvrir.</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:32}}>Avant d'ouvrir de nouvelles marques pour toi, il faut poser tes frontières. 3 catégories à sanctuariser parce qu'elles sont déjà liées à ton univers, 5 territoires à ouvrir intelligemment.</div><div style={{display:"flex",gap:32}}><div style={{flex:1}}><div style={{...mo,fontSize:14,fontWeight:700,letterSpacing:2,color:"#C62828",marginBottom:16}}>🔒 À SANCTUARISER</div>{["Habillement : Lockd est ton actif propriétaire, pas négociable","Nutrition / supplémentation : Nutripure est déjà associé publiquement à toi","Tech grand public (partiel) : Samsung France reste ton association forte à protéger"].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:`1px solid ${t.brd}`}}><div style={{width:8,height:8,borderRadius:4,background:"#C62828",flexShrink:0,marginTop:5}}/><div style={{...sa,fontSize:14,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div><div style={{flex:1}}><div style={{...mo,fontSize:14,fontWeight:700,letterSpacing:2,color:"#81B840",marginBottom:16}}>→ TERRITOIRES À OUVRIR POUR TOI</div>{["Commerce / e-commerce / fondateur : extension naturelle de Lockd","Finance / pilotage / comptabilité : le récit de ton passage à entrepreneur","Logistique / expérience client : le backstage de ton business","Audio / conversation / mobilité éditoriale : extension de ton podcast","Lifestyle adulte / performance / auto / culture : la maturité de ton profil"].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:8,height:8,borderRadius:4,background:"#81B840",flexShrink:0,marginTop:5}}/><div style={{...sa,fontSize:14,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div></div><div style={{padding:"28px 32px",borderRadius:14,background:"#1A1A1A",marginTop:28,textAlign:"center"}}><div style={{...se,fontSize:22,fontWeight:800,color:"#fff",lineHeight:1.3}}>Le bon accompagnement commercial se voit aussi dans les deals qu'on refuse pour toi.</div></div></div>},
+
 {title:"Ton offre",
-r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>TON OFFRE COMMERCIALE  -  5 LIGNES</div><div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.2,marginBottom:12}}>Les 5 piliers d'offre FAR, traduits pour toi.</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6,marginBottom:28}}>Chaque ligne d'offre trouve une application concrète dans ton univers. Voici comment on te vend.</div><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{n:"01",t:"Sponsoring éditorial",def:"Une marque sponsorise un format existant du créateur (vidéo YouTube, live, épisode), avec une intégration native et des déclinaisons (cutdowns, whitelisting).",d:"Ton format maître YouTube (vidéo héros) + amplification Twitch, shorts, stories. Droits d'usage et whitelisting inclus. Ta surface principale de monétisation premium."},{n:"02",t:"Partenariats de catégorie",def:"Une marque achète un territoire exclusif (catégorie) sur une durée longue (6-12 mois). Objectif : récurrence, cohérence, mémorisation.",d:"2-3 partenaires max pour toi sur 6-12 mois. Chaque partenaire sur un territoire exclusif. Plus de récurrence et meilleure prévisibilité."},{n:"03",t:"Brand content co-construit",def:"Un concept sur-mesure conçu avec la marque, où la marque est structurellement utile au récit (pas une démo) et génère des assets exploitables.",d:"Formats où la marque a une vraie utilité narrative dans ton univers. Pas du placement, du concept intégré avec toi."},{n:"04",t:"Sponsoring de tes actifs propriétaires",def:"Une marque sponsorise un actif que le créateur possède (podcast, marque, format récurrent, événement), avec une présence plus rare mais plus mémorable.",d:"Ton podcast (sponsoring de saison), Lockd (partenaire e-commerce structurant). Tes actifs les plus rares, les plus contextualisés, les plus mémorables."},{n:"05",t:"Partenariats B2B / tes projets",def:"Des deals liés au business du créateur (entrepreneur) : infrastructure, outils, opérations (drop, merch, IRL). Plus partenariat que pub.",d:"Toi en tant qu'entrepreneur. Tes drops Lockd, événement IRL, communauté premium. Partenariats d'infrastructure plus crédibles et plus durables."}].map((item,i)=><div key={i} style={{display:"flex",gap:16,padding:"16px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{...mo,fontSize:15,fontWeight:700,color:t.a,letterSpacing:1,minWidth:24,paddingTop:2}}>{item.n}</div><div style={{flex:1}}><div style={{...sa,fontSize:15,fontWeight:700,color:t.c,marginBottom:4}}>{item.t}</div><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:1,color:t.d,marginBottom:6}}>Définition</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5,marginBottom:8}}>{item.def}</div><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:1,color:t.a,marginBottom:4}}>Pour toi</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div></div>},
+r:t=><div><div style={{...mo,fontSize:15,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>TON OFFRE COMMERCIALE  -  5 LIGNES</div><div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.2,marginBottom:12}}>Les 5 piliers d'offre FAR, traduits pour toi.</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6,marginBottom:28}}>Chaque ligne d'offre trouve une application concrète dans ton univers. Voici comment on te vend.</div><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{n:"01",t:"Sponsoring éditorial",d:"Ton format maître YouTube (vidéo héros) + amplification Twitch, shorts, stories. Droits d'usage et whitelisting inclus. Ta surface principale de monétisation premium.",ex:"Exemple : opération Samsung, renouvellement Nutripure"},{n:"02",t:"Partenariats de catégorie",d:"2-3 partenaires max pour toi sur 6-12 mois. Chaque partenaire sur un territoire exclusif. Plus de récurrence et meilleure prévisibilité.",ex:"Exemple : Shopify (commerce), RØDE (audio), BMW (lifestyle)"},{n:"03",t:"Brand content co-construit",d:"Formats où la marque a une vraie utilité narrative dans ton univers. Pas du placement, du concept intégré avec toi.",ex:"Exemple : série coulisses de ton drop Lockd avec Shopify"},{n:"04",t:"Sponsoring de tes actifs propriétaires",d:"Ton podcast (sponsoring de saison), Lockd (partenaire e-commerce structurant). Tes actifs les plus rares, les plus contextualisés, les plus mémorables.",ex:"Exemple : RØDE sponsor de ton podcast, Notion partenaire ops Lockd"},{n:"05",t:"Partenariats B2B / tes projets",d:"Toi en tant qu'entrepreneur. Tes drops Lockd, événement IRL, communauté premium. Partenariats d'infrastructure plus crédibles et plus durables.",ex:"Exemple : Sendcloud logistique de tes drops, Qonto pilotage financier"}].map((item,i)=><div key={i} style={{display:"flex",gap:16,padding:"16px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{...mo,fontSize:15,fontWeight:700,color:t.a,letterSpacing:1,minWidth:24,paddingTop:2}}>{item.n}</div><div style={{flex:1}}><div style={{...sa,fontSize:15,fontWeight:700,color:t.c,marginBottom:4}}>{item.t}</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5,marginBottom:4}}>{item.d}</div><div style={{...mo,fontSize:15,color:t.a,opacity:.7}}>{item.ex}</div></div></div>)}</div></div>},
 
 {title:"Étape 3",r:t=>PlanSlide(t,3)},
 
@@ -451,7 +425,7 @@ r:t=>{const rb="#DB0A40",rbBg="#1E1E2C",rbY="#F5C518";return <div><div style={{d
 {title:"Étape 4",r:t=>PlanSlide(t,4)},
 
 {title:"Activations",
-r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:800,margin:"0 auto 24px",textAlign:"center"}}>2 exemples concrets d'activation à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
+r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « Pas juste du merch »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:800,margin:"0 auto 24px",textAlign:"center"}}>2 exemples concrets d'activation à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
 
 {title:"Merci",
 r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
@@ -462,7 +436,7 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 // ═══════════════════════════════════════════════════════════════════════════════
 const SS = [
 {title:"Ouverture",
-r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:32,background:t.brd}}/><img src="/shopify-logo.png" alt="Shopify" style={{width:110,height:"auto",filter:"brightness(0)",opacity:.85}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:20}}>ACTIVATION SHOPIFY × LE BOUSEUH × LOCKD</div><Hl t={t} s={{fontSize:48,textAlign:"center",maxWidth:800,margin:"0 auto 24px"}}>L'envers du drop.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:700,margin:"0 auto"}}>Et si on montrait ce que ça implique vraiment de lancer un drop quand on est créateur-fondateur ?</div></div>},
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:32,background:t.brd}}/><img src="/shopify-logo.png" alt="Shopify" style={{width:110,height:"auto",filter:"brightness(0)",opacity:.85}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:20}}>ACTIVATION SHOPIFY × LE BOUSEUH × LOCKD</div><Hl t={t} s={{fontSize:48,textAlign:"center",maxWidth:800,margin:"0 auto 24px"}}>Pas juste du merch.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:700,margin:"0 auto"}}>Et si on montrait ce que ça implique vraiment de lancer un drop quand on est créateur-fondateur ?</div></div>},
 
 {title:"Le Bouseuh comme créateur partenaire",
 r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}><Tg t={t}>POURQUOI LE BOUSEUH</Tg><Hl t={t} s={{fontSize:36}}>Le créateur partenaire idéal pour cette opération.</Hl><Sh t={t}>Ce n'est pas juste un gros créateur disponible. C'est un profil qui coche les 3 cases que Shopify devrait chercher : puissance, preuve d'usage et récit authentique.</Sh><div style={{display:"flex",gap:12,marginBottom:24}}>{[{v:"4,61M",l:"abonnés YouTube"},{v:"2,1M",l:"followers Twitch"},{v:"6,7M+",l:"audience cumulée"}].map((s,i)=><div key={i} style={{flex:1,padding:"14px 12px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>{[{t:"Lockd",d:"Sa propre marque e-commerce. 2 lignes de produits (textile & accessoires), un site structuré avec FAQ, programme d'affiliation, drops réguliers et une communauté active. Pas du merch à logo, un vrai business avec gestion de stock, pricing, logistique et parcours d'achat complet."},{t:"Brand safety",d:"Audience mature, ton maîtrisé, associations existantes rassurantes (Samsung, Nutripure)."},{t:"Timing parfait",d:"Le prochain drop Lockd est un moment naturel de tension narrative où Shopify entre dans l'histoire."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"10px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:100}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}</div><div style={{flex:2,borderRadius:16,overflow:"hidden",flexShrink:0}}><img src="/lebouseuh.png" alt="Le Bouseuh" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16,filter:"grayscale(1)"}}/></div></div>},
@@ -471,7 +445,7 @@ r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex
 r:t=><div><Tg t={t}>INSIGHT</Tg><Hl t={t} s={{fontSize:36}}>La zone invisible du merch créateur.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,marginBottom:28}}>Beaucoup de créateurs sortent du merch, mais presque aucun ne montre ce que cela implique réellement au quotidien :</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:28}}>{["Décider d'une gamme","Fixer des prix","Préparer la mise en ligne","Gérer le stress du lancement","Absorber les imprévus","Tirer un bilan honnête"].map((p,i)=><span key={i} style={{...mo,fontSize:13,fontWeight:600,padding:"14px 20px",borderRadius:10,background:t.a+"15",color:t.a,textAlign:"center"}}>{p}</span>)}</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a}}>C'est exactement cette zone invisible qui nous intéresse pour Shopify. Pas comme sponsor démonstratif, mais comme infrastructure qui rend le projet crédible, fluide et scalable dans un moment de tension réelle.</div></Wc></div>},
 
 {title:"Positionnement",
-r:t=><div><Tg t={t}>POSITIONNEMENT</Tg><Hl t={t} s={{fontSize:36}}>Un concept commercial connecté à un actif réel.</Hl><Sh t={t}>Ce qui rend cette activation structurellement différente d'un placement créateur classique.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Un terrain de preuve existant",d:"Lockd est un business e-commerce qui tourne : 2 lignes produits, FAQ, affiliation, drops réguliers. Le créateur utilise déjà l'outil au quotidien. Shopify est visible parce qu'il est utilisé."},{t:"Un récit fondé sur la tension réelle",d:"Le drop est un moment de vérité entre arbitrages, stress, mise en ligne, lancement. Shopify est dans le sujet parce que le sujet c'est l'e-commerce. Le format produit une tension narrative naturelle et pas fabriquée."},{t:"Un écosystème, pas une vidéo",d:"Vidéo youtube, live twitch, capsules, podcast. Plusieurs points de contact pour un seul récit cohérent et exploitable. Et surtout, des assets réutilisables dans la durée et pas un contenu qui disparaît après 48h."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div><div style={{marginTop:24,padding:"20px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.5,flexShrink:0}}>MISSION FIT</div><div style={{...sa,fontSize:16,lineHeight:1.5,color:t.thT}}>Cette activation s'inscrit directement dans la mission de Shopify, <span style={{fontWeight:700,fontStyle:"italic"}}>« Make commerce better for everyone »</span>, en montrant qu'un créateur peut construire un vrai business e-commerce avec les bons outils.</div></div></div>},
+r:t=><div><Tg t={t}>POSITIONNEMENT</Tg><Hl t={t} s={{fontSize:36}}>Un concept commercial connecté à un actif réel.</Hl><Sh t={t}>Ce qui rend cette activation structurellement différente d'un placement créateur classique.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Un terrain de preuve existant",d:"Lockd est un business e-commerce qui tourne : 2 lignes produits, FAQ, affiliation, drops réguliers. Le créateur utilise déjà l'outil au quotidien. Shopify est visible parce qu'il est utilisé."},{t:"Un récit fondé sur la tension réelle",d:"Le drop est un moment de vérité entre arbitrages, stress, mise en ligne, lancement. Shopify est dans le sujet parce que le sujet c'est l'e-commerce. Le format produit une tension narrative naturelle et pas fabriquée."},{t:"Un écosystème, pas une vidéo",d:"Vidéo youtube, live twitch, capsules, podcast. Plusieurs points de contact pour un seul récit cohérent et exploitable. Et surtout, des assets réutilisables dans la durée et pas un contenu qui disparaît après 48h."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
 
 {title:"Big Idea",
 r:t=><div><div style={{textAlign:"center",padding:"24px 0"}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:t.a,marginBottom:20}}>BIG IDEA</div><div style={{...se,fontSize:52,fontWeight:800,lineHeight:1.1,marginBottom:28}}>« 7 jours pour préparer le prochain drop Lockd »</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,maxWidth:740,margin:"0 auto 36px"}}>Pendant une semaine, on est en totale immersion sur la préparation complète du drop : les choix de gamme, les arbitrages de prix, la mise en ligne, le stress du lancement, le regard du créateur sur ce qu'il construit en tant que fondateur.</div></div><div style={{display:"flex",justifyContent:"center"}}><div style={{borderRadius:16,overflow:"hidden",display:"inline-block"}}><img src="/bouseuh-lockd.png" alt="Le Bouseuh Lockd" style={{maxWidth:560,height:"auto",display:"block",filter:"grayscale(1)",borderRadius:16}}/></div></div></div>},
@@ -483,16 +457,16 @@ r:t=><div><Tg t={t}>EXÉCUTION</Tg><Hl t={t} s={{fontSize:36}}>Le récit du pass
 r:t=><div><Tg t={t}>PHASING</Tg><Hl t={t} s={{fontSize:34}}>Shopify apparaît naturellement à chaque étape.</Hl><div style={{position:"relative",marginTop:40}}><div style={{position:"absolute",top:22,left:0,right:0,height:3,background:t.brd,zIndex:0}}/><div style={{display:"flex",gap:0,position:"relative",zIndex:1}}>{[{day:"JOUR 1-2",t:"Choix & sourcing",d:"Sélection des pièces, arbitrages quantités/tailles, premiers doutes",shopify:"Gestion catalogue, fiches produits, collections"},{day:"JOUR 3-4",t:"Mise en ligne & pricing",d:"Pages produits, fixation des prix, tests du parcours d'achat",shopify:"Checkout, paiement, design du store, aperçu mobile"},{day:"JOUR 5-6",t:"Communication & stress",d:"Annonce du drop, gestion de l'attente et de la pression, derniers ajustements",shopify:"Analytics, suivi visites, gestion stocks, countdown"},{day:"JOUR 7",t:"Lancement & bilan",d:"Le drop est live, premières commandes, gestion en temps réel, bilan",shopify:"Commandes en direct, tableau de bord, bilan chiffré"}].map((phase,i)=><div key={i} style={{flex:1,paddingRight:i<3?16:0}}><div style={{width:44,height:44,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",...mo,fontSize:16,fontWeight:700,color:t.bg}}>{i+1}</div><div style={{padding:"20px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,minHeight:220}}><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:8}}>{phase.day}</div><div style={{...sa,fontSize:17,fontWeight:700,marginBottom:8}}>{phase.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5,marginBottom:12}}>{phase.d}</div><div style={{padding:"10px 12px",borderRadius:8,background:t.a+"10"}}><div style={{...mo,fontSize:10,fontWeight:600,color:t.a,marginBottom:3}}>SHOPIFY VISIBLE</div><div style={{...sa,fontSize:13,color:t.m}}>{phase.shopify}</div></div></div></div>)}</div></div></div>},
 
 {title:"Dispositif",
-r:t=>{const items=[{t:"Vidéo YouTube",d:"Film principal 15-20 min",angle:-60},{t:"Live Twitch",d:"Drop lancé en direct",angle:0},{t:"3 capsules courtes",d:"Shorts / Reels / TikTok",angle:60},{t:"Podcast",d:"Retour sur l'expérience",angle:120},{t:"Code promo créateur",d:"Offre exclusive audience",angle:180},{t:"Droits digitaux",d:"Social, paid, site, CRM",angle:240}];const R=190;return <div style={{textAlign:"center"}}><style>{`@keyframes _orb{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes _corb{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}._orbw{animation:_orb 20s linear infinite}._orbi{animation:_corb 20s linear infinite}._eco._paused ._orbw{animation-play-state:paused}._eco._paused ._orbi{animation-play-state:paused}`}</style><Tg t={t}>DISPOSITIF</Tg><Hl t={t} s={{fontSize:36,textAlign:"center"}}>Un écosystème de contenu, pas une vidéo isolée.</Hl><Sh t={t} s={{textAlign:"center",maxWidth:700,margin:"0 auto"}}>Chaque brique a un rôle narratif précis et une fonction dans l'exploitation pour la marque.</Sh><div className="_eco" style={{position:"relative",width:600,height:480,margin:"24px auto 0",cursor:"pointer"}}><div onMouseEnter={e=>e.currentTarget.closest("._eco").classList.add("_paused")} onMouseLeave={e=>e.currentTarget.closest("._eco").classList.remove("_paused")} style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",width:130,height:130,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,cursor:"default"}}><div style={{...se,fontSize:14,fontWeight:800,color:t.bg,textAlign:"center",lineHeight:1.2}}>7 JOURS<br/>DROP LOCKD</div></div><div className="_orbw" style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",transformOrigin:"300px 240px"}}>{items.map((it,i)=>{const rad=it.angle*Math.PI/180;const cx=300,cy=240;const x=cx+R*Math.cos(rad);const y=cy+R*Math.sin(rad);return <div key={i}><svg style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}}><line x1={300} y1={240} x2={x} y2={y} stroke={t.brd} strokeWidth={1.5} strokeDasharray="4 4"/></svg><div className="_orbi" style={{position:"absolute",left:x-80,top:y-30,width:160,zIndex:1,textAlign:"center"}}><div style={{width:14,height:14,borderRadius:"50%",background:t.a,margin:"0 auto 6px",opacity:.7}}/><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:2}}>{it.t}</div><div style={{...sa,fontSize:12,color:t.m}}>{it.d}</div></div></div>})}</div></div></div>}},
+r:t=>{const items=[{t:"Vidéo héros YouTube",d:"Film principal 15-20 min",angle:-90},{t:"Live Twitch",d:"Drop lancé en direct",angle:-18},{t:"3 capsules courtes",d:"Shorts / Reels / TikTok",angle:54},{t:"Podcast",d:"Retour sur l'expérience",angle:126},{t:"Droits digitaux",d:"Social, paid, site, CRM",angle:198}];const R=190;return <div style={{textAlign:"center"}}><style>{`@keyframes _orb{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes _corb{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}._orbw{animation:_orb 20s linear infinite}._orbi{animation:_corb 20s linear infinite}._eco._paused ._orbw{animation-play-state:paused}._eco._paused ._orbi{animation-play-state:paused}`}</style><Tg t={t}>DISPOSITIF</Tg><Hl t={t} s={{fontSize:36,textAlign:"center"}}>Un écosystème de contenu, pas une vidéo isolée.</Hl><Sh t={t} s={{textAlign:"center",maxWidth:700,margin:"0 auto"}}>Chaque brique a un rôle narratif précis et une fonction dans l'exploitation pour la marque.</Sh><div className="_eco" style={{position:"relative",width:600,height:480,margin:"24px auto 0",cursor:"pointer"}}><div onMouseEnter={e=>e.currentTarget.closest("._eco").classList.add("_paused")} onMouseLeave={e=>e.currentTarget.closest("._eco").classList.remove("_paused")} style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",width:130,height:130,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,cursor:"default"}}><div style={{...se,fontSize:14,fontWeight:800,color:t.bg,textAlign:"center",lineHeight:1.2}}>7 JOURS<br/>DROP LOCKD</div></div><div className="_orbw" style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",transformOrigin:"300px 240px"}}>{items.map((it,i)=>{const rad=it.angle*Math.PI/180;const cx=300,cy=240;const x=cx+R*Math.cos(rad);const y=cy+R*Math.sin(rad);return <div key={i}><svg style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}}><line x1={300} y1={240} x2={x} y2={y} stroke={t.brd} strokeWidth={1.5} strokeDasharray="4 4"/></svg><div className="_orbi" style={{position:"absolute",left:x-80,top:y-30,width:160,zIndex:1,textAlign:"center"}}><div style={{width:14,height:14,borderRadius:"50%",background:t.a,margin:"0 auto 6px",opacity:.7}}/><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:2}}>{it.t}</div><div style={{...sa,fontSize:12,color:t.m}}>{it.d}</div></div></div>})}</div></div></div>}},
 
 {title:"Amplification média",
 r:t=><div><Tg t={t}>AMPLIFICATION MÉDIA</Tg><Hl t={t} s={{fontSize:34}}>Ce que Shopify peut exploiter au-delà de l'organique.</Hl><Sh t={t}>L'opération produit un catalogue d'assets que Shopify peut activer sur ses propres canaux dans la durée.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"Whitelisting",d:"Shopify booste les contenus directement depuis le compte du créateur. L'audience perçoit du contenu natif : meilleur taux de clic, meilleur CPV, et la marque garde le contrôle du ciblage."},{n:"02",t:"Cutdowns paid social",d:"3 à 5 formats courts (15-30s) optimisés pour les campagnes paid de Shopify sur Meta, TikTok et YouTube. Chaque cutdown met en scène un usage réel de la plateforme par un créateur-fondateur."},{n:"03",t:"Retargeting viewers",d:"Shopify peut recibler les audiences qui ont vu la vidéo héros ou les capsules avec des messages de conversion : landing pages Shopify, témoignages marchands, offres d'essai."},{n:"04",t:"Assets site & CRM",d:"Vidéos, visuels et verbatims exploitables sur le site Shopify, dans les newsletters marchands, sur les pages « créateurs » et dans les présentations commerciales B2B."},{n:"05",t:"Earned media & RP",d:"Le cas Le Bouseuh × Lockd devient un proof point pour les relations presse de Shopify : un créateur français qui gère un vrai business e-commerce avec la plateforme."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:50,padding:"22px 16px",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a}}>{item.n}</div></div><div style={{width:220,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,fontWeight:700}}>{item.t}</div></div><div style={{flex:1,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div></div>},
 
 {title:"Extension & scalabilité",
-r:t=><div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"100%"}}><Tg t={t}>EXTENSION & SCALABILITÉ</Tg><Hl t={t} s={{fontSize:36}}>Une série de contenus réutilisables.</Hl><div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px 0",border:`1px solid ${t.brd}`}}>{[{t:"Saison 2",d:"Le prochain drop Lockd = le prochain épisode. Chaque collection est un nouveau récit avec Shopify au centre."},{t:"Partenariat annuel",d:"Passer du one-shot au deal récurrent : Shopify comme partenaire structurant de Lockd sur 12 mois."},{t:"Autres marques Lockd",d:"Le format est adaptable pour d'autres partenaires de l'écosystème Lockd : logistique, paiement, organisation."},{t:"Autres créateurs FAR",d:"Le template fonctionne pour tout créateur du roster qui construit un actif propriétaire. Un format duplicable."}].map((item,i)=><div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none"}}><div style={{...se,fontSize:18,fontWeight:700,marginBottom:10,color:t.thT}}>{item.t}</div><div style={{...sa,fontSize:14,color:t.thT,opacity:.85,lineHeight:1.55}}>{item.d}</div></div>)}</div></div>},
+r:t=><div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"100%"}}><Tg t={t}>EXTENSION & SCALABILITÉ</Tg><Hl t={t} s={{fontSize:36}}>Une série de contenus réutilisables.</Hl><div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px 0",border:`1px solid ${t.brd}`}}>{[{t:"Saison 2",d:"Le prochain drop Lockd = le prochain épisode. Chaque collection est un nouveau récit avec Shopify au centre."},{t:"Partenariat annuel",d:"Passer du one-shot au deal récurrent : Shopify comme partenaire structurant de Lockd sur 12 mois."},{t:"Autres marques Lockd",d:"Le format est re-skinnable pour d'autres partenaires de l'écosystème Lockd : logistique, paiement, organisation."},{t:"Autres créateurs FAR",d:"Le template fonctionne pour tout créateur du roster qui construit un actif propriétaire. Un format duplicable."}].map((item,i)=><div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none"}}><div style={{...se,fontSize:18,fontWeight:700,marginBottom:10,color:t.thT}}>{item.t}</div><div style={{...sa,fontSize:14,color:t.thT,opacity:.85,lineHeight:1.55}}>{item.d}</div></div>)}</div></div>},
 
 {title:"Estimatif",
-r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent & diffusion (YouTube, Twitch, capsules, podcast)",p:"140-160 k€"},{i:"Stratégie / concept / coordination FAR",p:"30 k€"},{i:"Production & post-production",p:"30-40 k€"},{i:"Droits d'usage digitaux (social, paid, site, CRM)",p:"20-30 k€"}]} total={{l:"Ballpark",v:"220-260 k€ HT"}} options={["Amplification paid / usage étendu : +40 k€","Extension saison 2 : à définir selon périmètre"]}/><div style={{marginTop:28}}><div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>ROI</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}}>{[{v:"6,7M+",l:"audience cumulée organique exposée (YouTube + Twitch + capsules)"},{v:"15-20",l:"assets exploitables en paid, site, CRM et RP, durée de vie 12 mois+"},{v:"1",l:"cas de référence « créateur-fondateur × Shopify » activable en RP et B2B"}].map((r,i)=><div key={i} style={{padding:"18px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a,marginBottom:6}}>{r.v}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.4}}>{r.l}</div></div>)}</div></div></div>},
+r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent & diffusion (YouTube, Twitch, capsules, podcast)",p:"140-160 k€"},{i:"Stratégie / concept / coordination FAR",p:"30 k€"},{i:"Production & post-production",p:"30-40 k€"},{i:"Droits d'usage digitaux (social, paid, site, CRM)",p:"20-30 k€"}]} total={{l:"Ballpark",v:"220-260 k€ HT"}} options={["Amplification paid / usage étendu : +40 k€","Extension saison 2 : à définir selon périmètre"]}/></div>},
 
 {title:"Next steps",
 r:t=><div><Tg t={t}>NEXT STEPS</Tg><div style={{height:20}}/><Stp t={t} items={["Workshop FAR × Shopify × Le Bouseuh  -  alignement créatif et stratégique","Identification du prochain temps fort Lockd  -  calage du calendrier de drop","Remise d'une note créative détaillée sous 10 jours ouvrés","Validation du dispositif et du budget","Production & post-production  -  tournage sur 7 jours + montage","Lancement synchronisé avec le drop Lockd"]}/></div>},
@@ -512,28 +486,28 @@ r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",just
 r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}><Tg t={t}>POURQUOI LE BOUSEUH</Tg><Hl t={t} s={{fontSize:36}}>Le créateur partenaire idéal pour ce format.</Hl><Sh t={t}>Un nom fort de la creator economy française avec un podcast déjà installé, une audience massive et la crédibilité pour porter un partenaire récurrent premium.</Sh><div style={{display:"flex",gap:12,marginBottom:24}}>{[{v:"52+",l:"épisodes / an"},{v:"Acast",l:"infra monétisation"},{v:"Large",l:"amplitude éditoriale"}].map((s,i)=><div key={i} style={{flex:1,padding:"14px 12px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>{[{t:"Podcast installé",d:"Minimum 1 épisode par semaine. Invités de tous horizons : créateurs, sportifs, artistes, entrepreneurs. Format long, incarné."},{t:"Image en expansion",d:"Au-delà du gaming pur. Crédibilité suffisante pour porter un partenaire récurrent et premium."},{t:"Infrastructure prête",d:"Hébergé par Acast : analytics, distribution, host-read sponsorship. Tout est en place pour la monétisation structurée."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"10px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}</div><div style={{flex:2,borderRadius:16,overflow:"hidden"}}><img src="/lebouseuh.png" alt="Le Bouseuh" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16}}/></div></div>},
 
 {title:"Insight",
-r:t=><div><Tg t={t}>INSIGHT</Tg><Hl t={t} s={{fontSize:36}}>Le podcast est partout. Et tout le monde fait la même chose.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,marginBottom:24}}>Même studio, même canapé, même cadrage : le sponsoring podcast se résume à un message lu en début d'épisode que personne n'écoute vraiment. Aucune marque ne construit de territoire avec ça et par conséquent, aucun auditeur ne s'en souvient.</div><div style={{textAlign:"center",margin:"20px 0",opacity:.3,fontSize:20}}>↓</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a,marginBottom:24}}>C'est exactement ce territoire mort qui nous intéresse pour RØDE : une marque qui va rendre possible un format que personne d'autre ne fait.</div></Wc></div>},
+r:t=><div><Tg t={t}>INSIGHT</Tg><Hl t={t} s={{fontSize:36}}>Le podcast est partout. Et tout le monde fait la même chose.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,marginBottom:24}}>Même studio, même canapé, même cadrage : le sponsoring podcast se résume à un message lu en début d'épisode que personne n'écoute vraiment. Aucune marque ne construit de territoire avec ça et par conséquent, aucun auditeur ne s'en souvient.</div><div style={{textAlign:"center",margin:"20px 0",opacity:.3,fontSize:20}}>↓</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a}}>C'est exactement ce territoire mort qui nous intéresse pour RØDE : une marque qui va rendre possible un format que personne d'autre ne fait.</div></Wc></div>},
 
 {title:"Big Idea",
-r:t=><div><div style={{textAlign:"center",padding:"24px 0"}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:t.a,marginBottom:20}}>BIG IDEA</div><div style={{...se,fontSize:52,fontWeight:800,lineHeight:1.1,marginBottom:28}}>« Hors du setup »</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,maxWidth:740,margin:"0 auto 36px"}}>Une fois par mois, le podcast quitte le studio et part dans l'univers réel de l'invité. On va deep sur les workflows, les décisions, les coulisses, comme le Colin & Samir Show, mais en terrain réel avec RØDE.</div></div><div style={{display:"flex",justifyContent:"center"}}><div style={{borderRadius:16,overflow:"hidden",display:"inline-block"}}><img src="/case2_imgs/slide10_img18.jpg" alt="Podcast terrain" style={{maxWidth:340,height:"auto",display:"block",filter:"grayscale(1)",borderRadius:16}}/></div></div><div style={{padding:"20px 24px",borderRadius:12,background:t.a+"10",border:`1px solid ${t.a}20`,marginTop:28,maxWidth:740,margin:"28px auto 0"}}><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:8}}>RÉFÉRENCE FORMAT</div><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,textAlign:"justify"}}>Le <span style={{fontWeight:700,color:t.c}}>Colin & Samir Show</span> a prouvé qu'un podcast qui va en profondeur sur les workflows et l'envers du décor des créateurs crée une audience ultra-engagée. Leur épisode avec <span style={{fontWeight:700,color:t.c}}>MrBeast</span>, où ils décryptent les process de production, les décisions business et les coulisses, est un des plus performants du format. C'est exactement cette mécanique d'immersion terrain qu'on transpose ici.</div></div></div>},
+r:t=><div><div style={{textAlign:"center",padding:"24px 0"}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:t.a,marginBottom:20}}>BIG IDEA</div><div style={{...se,fontSize:52,fontWeight:800,lineHeight:1.1,marginBottom:28}}>« Hors du setup »</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,maxWidth:740,margin:"0 auto 36px"}}>Une fois par mois, le podcast quitte le studio et part dans l'univers réel de l'invité.</div></div><div style={{display:"flex",justifyContent:"center"}}><div style={{borderRadius:16,overflow:"hidden",display:"inline-block"}}><img src="/case2_imgs/slide10_img18.jpg" alt="Podcast terrain" style={{maxWidth:560,height:"auto",display:"block",filter:"grayscale(1)",borderRadius:16}}/></div></div></div>},
 
 {title:"Exécution",
 r:t=><div><Tg t={t}>EXÉCUTION</Tg><Hl t={t} s={{fontSize:34}}>Créer un format qui se répète.</Hl><G2 s={{marginTop:24}}><Wc t={t} s={{background:t.a+"10",border:`1px solid ${t.a}25`,padding:32}}><Lb t={t} s={{color:t.a,fontSize:14}}>LA BONNE EXÉCUTION</Lb><div style={{...sa,fontSize:16,color:t.m,lineHeight:1.7,marginBottom:20}}>Le format construit un territoire sur la durée, pas un emplacement ponctuel.</div><Ar t={t} items={["Saison sponsorisée = répétition = mémorisation","Présence produit utile au récit, pas intrusive","Format exploitable en social, rights et paid","Le podcast grandit = la marque grandit avec","Logique de renouvellement annuel intégrée"]}/></Wc><Wc t={t} s={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.1)",padding:32}}><Lb t={t} s={{color:"rgba(255,100,100,.8)",fontSize:14}}>LA MAUVAISE EXÉCUTION</Lb><div style={{...sa,fontSize:16,color:t.m,lineHeight:1.7,marginBottom:20}}>Sponsoriser un épisode isolé.</div><Ar t={t} items={["Placement déconnecté du récit","Pas de construction de territoire","Contenu jetable après publication","Aucune logique de renouvellement"]}/></Wc></G2><div style={{textAlign:"center",padding:"32px 40px",marginTop:24,borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...se,fontSize:20,lineHeight:1.5,color:t.c}}>RØDE doit apparaître comme le sponsor qui rend le format possible.</div></div></div>},
 
 {title:"Positionnement",
-r:t=><div><Tg t={t}>POSITIONNEMENT</Tg><Hl t={t} s={{fontSize:36}}>Un format de saison qui construit un territoire, pas un achat média ponctuel.</Hl><Sh t={t}>La logique de saison est structurellement supérieure au sponsoring épisode par épisode.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Répétition = mémorisation",d:"L'audience associe progressivement RØDE au format. Véritable construction de territoire ou chaque épisode renforce le précédent."},{t:"Association long terme",d:"Le sponsor devient partie intégrante du format. L'audience ne perçoit pas un interrupteur publicitaire mais une marque qui rend possible. La logique de saison crée naturellement une base pour un renouvellement annuel."},{t:"Un format adaptable",d:"Après la saison pilote RØDE, la mécanique peut accueillir un sponsor plus statutaire. Contenu social, droits, cutdowns : chaque épisode génère des assets exploitables qui s'additionnent."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
+r:t=><div><Tg t={t}>POSITIONNEMENT</Tg><Hl t={t} s={{fontSize:36}}>Un format de saison qui construit un territoire, pas un achat média ponctuel.</Hl><Sh t={t}>La logique de saison est structurellement supérieure au sponsoring épisode par épisode.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Répétition = mémorisation",d:"L'audience associe progressivement RØDE au format. Véritable construction de territoire ou chaque épisode renforce le précédent."},{t:"Association long terme",d:"Le sponsor devient partie intégrante du format. L'audience ne perçoit pas un interrupteur publicitaire mais une marque qui rend possible. La logique de saison crée naturellement une base pour un renouvellement annuel."},{t:"Un format re-skinnable",d:"Après la saison pilote RØDE, la mécanique peut accueillir un sponsor plus statutaire. Contenu social, droits, cutdowns : chaque épisode génère des assets exploitables qui s'additionnent."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
 
 {title:"Phasing",
 r:t=><div><Tg t={t}>PHASING</Tg><Hl t={t} s={{fontSize:34}}>La mécanique de saison en 4 temps.</Hl><div style={{position:"relative",marginTop:40}}><div style={{position:"absolute",top:22,left:0,right:0,height:3,background:t.brd,zIndex:0}}/><div style={{display:"flex",gap:0,position:"relative",zIndex:1}}>{[{month:"MOIS 1",t:"Épisode 1  -  Salle de sport",d:"Coach / sportif. Territoire performance et discipline. Premier épisode terrain : installation du concept.",rode:"Micro mobile, captation terrain, qualité pro"},{month:"MOIS 2",t:"Épisode 2  -  Atelier",d:"Artisan / créateur physique. Territoire craft et savoir-faire. L'audience découvre un nouvel univers.",rode:"Setup adaptatif, enregistrement en conditions réelles"},{month:"MOIS 3",t:"Épisode 3  -  Backstage",d:"Artiste / musicien. Territoire création et scène. Le format prouve sa flexibilité.",rode:"Captation live, gestion du bruit ambiant"},{month:"MOIS 4",t:"Épisode 4 + best-of",d:"Entrepreneur / fondateur. Territoire business et terrain. Clôture de saison.",rode:"Bilan de saison, démonstration de la polyvalence RØDE"}].map((phase,i)=><div key={i} style={{flex:1,paddingRight:i<3?16:0}}><div style={{width:44,height:44,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",...mo,fontSize:16,fontWeight:700,color:t.bg}}>{i+1}</div><div style={{padding:"20px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,minHeight:220}}><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:8}}>{phase.month}</div><div style={{...sa,fontSize:16,fontWeight:700,marginBottom:8}}>{phase.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5,marginBottom:12}}>{phase.d}</div><div style={{padding:"10px 12px",borderRadius:8,background:t.a+"10"}}><div style={{...mo,fontSize:10,fontWeight:600,color:t.a,marginBottom:3}}>RØDE VISIBLE</div><div style={{...sa,fontSize:13,color:t.m}}>{phase.rode}</div></div></div></div>)}</div></div></div>},
 
 {title:"Dispositif",
-r:t=>{const items=[{t:"4 épisodes terrain",d:"1 / mois, univers différent",angle:-72},{t:"Vidéo YouTube",d:"Épisode long format",angle:0},{t:"Branding de saison",d:"Présence produit récurrente",angle:72},{t:"8-12 cutdowns sociaux",d:"TikTok, Reels, Shorts",angle:144},{t:"Best-of / live final",d:"Capitalisation audience",angle:216}];const R=190;return <div style={{textAlign:"center"}}><style>{`@keyframes _orb{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes _corb{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}._orbw{animation:_orb 20s linear infinite}._orbi{animation:_corb 20s linear infinite}._eco._paused ._orbw{animation-play-state:paused}._eco._paused ._orbi{animation-play-state:paused}`}</style><Tg t={t}>DISPOSITIF</Tg><Hl t={t} s={{fontSize:34,textAlign:"center"}}>Un système de contenu, pas une vidéo isolée.</Hl><Sh t={t} s={{textAlign:"center",maxWidth:700,margin:"0 auto"}}>Chaque brique du dispositif a un rôle précis dans le récit et dans l'exploitation.</Sh><div className="_eco" style={{position:"relative",width:600,height:480,margin:"24px auto 0",cursor:"pointer"}}><div onMouseEnter={e=>e.currentTarget.closest("._eco").classList.add("_paused")} onMouseLeave={e=>e.currentTarget.closest("._eco").classList.remove("_paused")} style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",width:130,height:130,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,cursor:"default"}}><div style={{...se,fontSize:13,fontWeight:800,color:t.bg,textAlign:"center",lineHeight:1.2}}>HORS DU<br/>SETUP</div></div><div className="_orbw" style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",transformOrigin:"300px 240px"}}>{items.map((it,i)=>{const rad=it.angle*Math.PI/180;const cx=300,cy=240;const x=cx+R*Math.cos(rad);const y=cy+R*Math.sin(rad);return <div key={i}><svg style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}}><line x1={300} y1={240} x2={x} y2={y} stroke={t.brd} strokeWidth={1.5} strokeDasharray="4 4"/></svg><div className="_orbi" style={{position:"absolute",left:x-80,top:y-30,width:160,zIndex:1,textAlign:"center"}}><div style={{width:14,height:14,borderRadius:"50%",background:t.a,margin:"0 auto 6px",opacity:.7}}/><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:2}}>{it.t}</div><div style={{...sa,fontSize:12,color:t.m}}>{it.d}</div></div></div>})}</div></div></div>}},
+r:t=>{const items=[{t:"4 épisodes terrain",d:"1 / mois, univers différent",angle:-90},{t:"Branding de saison",d:"Présence produit récurrente",angle:0},{t:"8-12 cutdowns sociaux",d:"TikTok, Reels, Shorts",angle:90},{t:"Best-of / live final",d:"Capitalisation audience",angle:180}];const R=190;return <div style={{textAlign:"center"}}><style>{`@keyframes _orb{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes _corb{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}._orbw{animation:_orb 20s linear infinite}._orbi{animation:_corb 20s linear infinite}._eco._paused ._orbw{animation-play-state:paused}._eco._paused ._orbi{animation-play-state:paused}`}</style><Tg t={t}>DISPOSITIF</Tg><Hl t={t} s={{fontSize:34,textAlign:"center"}}>Un système de contenu, pas une vidéo isolée.</Hl><Sh t={t} s={{textAlign:"center",maxWidth:700,margin:"0 auto"}}>Chaque brique du dispositif a un rôle précis dans le récit et dans l'exploitation.</Sh><div className="_eco" style={{position:"relative",width:600,height:480,margin:"24px auto 0",cursor:"pointer"}}><div onMouseEnter={e=>e.currentTarget.closest("._eco").classList.add("_paused")} onMouseLeave={e=>e.currentTarget.closest("._eco").classList.remove("_paused")} style={{position:"absolute",left:"50%",top:"50%",transform:"translate(-50%,-50%)",width:130,height:130,borderRadius:"50%",background:t.a,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,cursor:"default"}}><div style={{...se,fontSize:13,fontWeight:800,color:t.bg,textAlign:"center",lineHeight:1.2}}>HORS DU<br/>SETUP</div></div><div className="_orbw" style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",transformOrigin:"300px 240px"}}>{items.map((it,i)=>{const rad=it.angle*Math.PI/180;const cx=300,cy=240;const x=cx+R*Math.cos(rad);const y=cy+R*Math.sin(rad);return <div key={i}><svg style={{position:"absolute",left:0,top:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}}><line x1={300} y1={240} x2={x} y2={y} stroke={t.brd} strokeWidth={1.5} strokeDasharray="4 4"/></svg><div className="_orbi" style={{position:"absolute",left:x-80,top:y-30,width:160,zIndex:1,textAlign:"center"}}><div style={{width:14,height:14,borderRadius:"50%",background:t.a,margin:"0 auto 6px",opacity:.7}}/><div style={{...sa,fontSize:14,fontWeight:700,marginBottom:2}}>{it.t}</div><div style={{...sa,fontSize:12,color:t.m}}>{it.d}</div></div></div>})}</div></div></div>}},
 
 {title:"Amplification média",
 r:t=><div><Tg t={t}>AMPLIFICATION MÉDIA</Tg><Hl t={t} s={{fontSize:34}}>Ce que RØDE peut exploiter au-delà de l'organique.</Hl><Sh t={t}>La saison produit un catalogue d'assets que RØDE peut activer sur ses propres canaux épisode après épisode.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"Whitelisting",d:"RØDE booste les contenus directement depuis le compte du créateur. Le format natif surperforme les publicités classiques : meilleur CPV, meilleur taux d'engagement, ciblage maîtrisé par la marque."},{n:"02",t:"Cutdowns paid social",d:"2 à 3 formats courts par épisode pour les campagnes paid de RØDE sur Meta, TikTok et YouTube. Chaque cutdown montre le matériel RØDE en conditions réelles, hors studio."},{n:"03",t:"Retargeting cumulatif",d:"RØDE recibler les viewers d'un épisode avec le suivant. L'audience de la saison se construit mois après mois : chaque épisode amplifie le précédent."},{n:"04",t:"Assets site & CRM",d:"Vidéos, visuels et verbatims exploitables sur le site RØDE, dans les newsletters, les pages produits et les présentations retail. Le podcast terrain devient un argument de vente B2B."},{n:"05",t:"Earned media & RP",d:"Le format « Hors du setup » devient un proof point pour les RP de RØDE : une marque qui rend possible un podcast professionnel en toutes conditions, pas juste du matériel en studio."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:50,padding:"22px 16px",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a}}>{item.n}</div></div><div style={{width:220,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,fontWeight:700}}>{item.t}</div></div><div style={{flex:1,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div></div>},
 
 {title:"Estimatif",
-r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent / host-read / diffusion",p:"90-110 k€"},{i:"Conception de format & coordination FAR",p:"20-30 k€"},{i:"Production terrain / montage / habillage",p:"30-40 k€"},{i:"Droits d'usage digitaux",p:"20 k€"}]} total={{l:"Ballpark",v:"160-190 k€ HT"}} options={["Option annuelle : sur devis"]}/><div style={{marginTop:28}}><div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>ROI</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}}>{[{v:"4 mois",l:"de présence continue avec construction de territoire cumulatif"},{v:"20+",l:"assets exploitables en paid, social, site, CRM et RP"},{v:"1",l:"format propriétaire « Hors du setup » activable en renouvellement annuel"}].map((r,i)=><div key={i} style={{padding:"18px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a,marginBottom:6}}>{r.v}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.4}}>{r.l}</div></div>)}</div></div></div>},
+r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent / host-read / diffusion",p:"90-110 k€"},{i:"Conception de format & coordination FAR",p:"20-30 k€"},{i:"Production terrain / montage / habillage",p:"30-40 k€"},{i:"Droits d'usage digitaux",p:"20 k€"}]} total={{l:"Ballpark",v:"160-190 k€ HT"}} options={["Option annuelle : sur devis"]}/></div>},
 
 {title:"Next steps",
 r:t=><div><Tg t={t}>NEXT STEPS</Tg><div style={{height:20}}/><Stp t={t} items={["Choix des 4 territoires et invités de la saison 1","Cadrage créatif FAR × RØDE × Le Bouseuh","Validation de la charte d'intégration produit","Calendrier de tournage sur 4 mois","Mise à l'antenne du premier épisode « Hors du setup »"]}/></div>},
@@ -543,690 +517,14 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// CYRILMP4  -  ACTIVATION AUTO  -  6 SLIDES
-// ═══════════════════════════════════════════════════════════════════════════════
-const SCyril = [
-{title:"Sur la route avec CYRILmp4",
-r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:32,background:t.brd}}/><img src="/cyrilmp4.png" alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.brd}`}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:20}}>ACTIVATION [MARQUE] × CYRILMP4</div><Hl t={t} s={{fontSize:48,textAlign:"center",maxWidth:800,margin:"0 auto 24px"}}>[MARQUE] × CYRILmp4 — la route fait partie de l'histoire.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:700,margin:"0 auto"}}>Le véhicule officiel des aventures MP4. Un partenariat annuel emblématique dans lequel le véhicule devient le fil rouge naturel de ses explorations, road trips et formats docu-divertissement.</div></div>},
-
-{title:"Pourquoi Cyril",
-r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}><Tg t={t}>POURQUOI CYRILMP4</Tg><Hl t={t} s={{fontSize:36}}>Le créateur partenaire idéal pour un deal auto exclusif.</Hl><Sh t={t}>Créateur depuis plus de 15 ans, Cyril a construit une audience massive et fidèle. Son territoire éditorial mêle divertissement, docu/vlog et aventure — un terrain rare et crédible pour une marque automobile.</Sh><div style={{display:"flex",gap:12,marginBottom:24}}>{[{v:"5,21M",l:"abonnés YouTube"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"}].map((s,i)=><div key={i} style={{flex:1,padding:"14px 12px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>{[{t:"MP4",d:"La chaîne dédiée à la découverte et l'exploration. Promesse éditoriale : « J'explore la création ! »."},{t:"Formats forts",d:"« 300 heures sur les traces d'animaux sauvages en Namibie », « 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif »."},{t:"Brand safety",d:"Audience large et engagée, tonalité maîtrisée, récit positif centré sur l'aventure, la curiosité et la découverte."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"10px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}</div><div style={{flex:2,borderRadius:16,overflow:"hidden",flexShrink:0}}><img src="/cyrilmp4.png" alt="CYRILmp4" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16}}/></div></div>},
-
-{title:"Pourquoi l'automobile est un fit évident",
-r:t=><div><Tg t={t}>FIT AUTOMOBILE</Tg><Hl t={t} s={{fontSize:36}}>La voiture est au cœur du récit, pas dans le décor.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,marginBottom:28}}>Sur MP4, la voiture n'est pas un accessoire. Elle permet de partir plus loin, d'accéder à l'inattendu, de gérer la logistique, le confort, la sécurité et l'autonomie.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:28}}>{["Partir plus loin","Accéder à l'inattendu","Gérer la logistique","Confort & sécurité","Autonomie terrain","Gérer l'imprévu"].map((p,i)=><span key={i} style={{...mo,fontSize:13,fontWeight:600,padding:"14px 20px",borderRadius:10,background:t.a+"15",color:t.a,textAlign:"center"}}>{p}</span>)}</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a}}>On ne montre pas seulement un véhicule. On montre ce qu'il permet de vivre. La voiture est vue en usage réel, au cœur du récit, sans casser l'authenticité du contenu.</div></Wc></div>},
-
-{title:"Le territoire créatif",
-r:t=><div><Tg t={t}>TERRITOIRE CRÉATIF</Tg><Hl t={t} s={{fontSize:36}}>4 axes d'activation naturels pour une marque auto.</Hl><Sh t={t}>Le deck FAR montre que CYRILmp4 sait activer du dédié, de l'intégration, de l'ambassadeur et du concours — un vrai territoire d'expression.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Road trips de découverte",d:"Lieux sans avis, spots isolés, destinations méconnues, routes improbables. Le véhicule est le compagnon constant."},{t:"Expéditions",d:"Météo, terrain, préparation, embarquement, autonomie, conditions réelles. Le véhicule est mis à l'épreuve."},{t:"Vie à bord",d:"Confort, modularité, technologie, sécurité, recharge ou performance. Le véhicule est montré en usage quotidien."},{t:"Activation communauté",d:"Concours, destination choisie par l'audience, défi spécial, arrivée surprise. Le véhicule génère de l'engagement."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
-
-{title:"Le partenariat recommandé",
-r:t=><div><Tg t={t}>PARTENARIAT</Tg><Hl t={t} s={{fontSize:34}}>Un partenariat annuel exclusif sur MP4, pensé comme une saison.</Hl><Sh t={t}>Pas une suite de placements, mais un fil rouge sur l'année entière.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"3 à 4 vidéos fortes",d:"[MARQUE] fait partie intégrante de l'aventure, pas un logo en post-roll."},{n:"02",t:"Présence organique",d:"Le véhicule apparaît naturellement dans d'autres épisodes de l'année."},{n:"03",t:"Déclinaisons sociales",d:"Capsules courtes, stories, cutdowns pour prolonger la mémorisation."},{n:"04",t:"Droits de reprise",d:"Assets exploitables par la marque sur ses propres canaux : social, paid, site, CRM."},{n:"05",t:"Temps fort possible",d:"Lancement modèle, road trip signature, défi spécial ou événement."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:50,padding:"22px 16px",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a}}>{item.n}</div></div><div style={{width:220,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,fontWeight:700}}>{item.t}</div></div><div style={{flex:1,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div><div style={{marginTop:24,padding:"20px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.5,flexShrink:0}}>VISION</div><div style={{...sa,fontSize:16,lineHeight:1.5,color:t.thT}}>L'opportunité n'est pas d'être le sponsor d'une vidéo, mais <span style={{fontWeight:700,fontStyle:"italic"}}>la marque qui accompagne durablement toutes les prochaines aventures de Cyril</span>.</div></div></div>},
-
-{title:"Ce que gagne [MARQUE]",
-r:(t,back)=>{
-  const gains=[
-    {t:"Territoire éditorial propriétaire",d:"L\u2019exploration et l\u2019aventure deviennent le territoire de la marque dans la creator economy."},
-    {t:"Visibilité répétée et crédible",d:"Un partenariat annuel construit de la mémorisation, pas un placement éphémère."},
-    {t:"Démonstration produit en usage réel",d:"Le véhicule est vu dans des conditions authentiques, pas sur un plateau."},
-    {t:"Association long terme",d:"FAR cherche explicitement à construire des partenariats annuels emblématiques sur MP4."},
-  ];
-  return(
-    <div>
-      <Tg t={t}>{"BÉNÉFICES"}</Tg>
-      <Hl t={t} s={{fontSize:36}}>{"Ce que gagne [MARQUE]."}</Hl>
-      <div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px 0",border:`1px solid ${t.brd}`}}>
-        {gains.map((item,i)=>(
-          <div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none"}}>
-            <div style={{...se,fontSize:18,fontWeight:700,marginBottom:10,color:t.thT}}>{item.t}</div>
-            <div style={{...sa,fontSize:14,color:t.thT,opacity:.85,lineHeight:1.55}}>{item.d}</div>
-          </div>
-        ))}
-      </div>
-      <div style={{textAlign:"center",padding:"40px 0"}}>
-        <div style={{...se,fontSize:28,fontWeight:800,lineHeight:1.2,marginBottom:20}}>{"[MARQUE] \u00d7 CYRILmp4"}</div>
-        <div style={{...sa,fontSize:18,color:t.m,maxWidth:600,margin:"0 auto",lineHeight:1.6}}>{"La route fait partie de l\u2019histoire."}</div>
-        <div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}></div>
-        {back && <button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>{"\u2190 Retour"}</button>}
-      </div>
-    </div>
-  );
-}},
-];
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// PROFIL / CV  -  contenu issu du CV Thibault Loué
-// ═══════════════════════════════════════════════════════════════════════════════
-const SProfil = [
-{title:"Présentation",
-r:t=><div><Tg t={t}>MON PROFIL</Tg><Hl t={t} s={{fontSize:42}}>Thibault Loué</Hl><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.45,marginBottom:20}}>Business developer · Advertiser · Athlète & content creator</div><Sh t={t}>Je m'appelle Thibault. Business developer et publicitaire avec plus de 10 ans dans des agences de premier plan, j'ai conçu des campagnes 360° pour des dizaines de marques nationales et internationales, piloté des P&L et des équipes. Athlète et créateur de contenu, je transforme les courses les plus exigeantes en films pour YouTube et les réseaux sociaux. Un profil hybride entre branding, storytelling, production et social media.</Sh><div style={{display:"flex",flexWrap:"wrap",gap:10}}>{["thibault.loue@gmail.com","+33 6 26 28 11 05","Instagram @Thibaultloue","YouTube @thibault8349","Né le 18/12/1992"].map((x,i)=><span key={i} style={{...mo,fontSize:12,padding:"8px 14px",borderRadius:8,background:t.card,border:`1px solid ${t.brd}`,color:t.cardT}}>{x}</span>)}</div></div>},
-
-{title:"Compétences",
-r:t=><div><Tg t={t}>COMPÉTENCES</Tg><Hl t={t} s={{fontSize:32}}>Expertises opérationnelles</Hl><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:12}}>DOMAINES</div><div style={{display:"flex",flexWrap:"wrap",gap:8,marginBottom:28}}>{["Account direction","Advertising","Creative direction","Content creation","Project management","Management","Campaign management","Content strategy","Social media","Shooting","Video editing","Campagnes 360°","Influence","Activation","Copywriting"].map((w,i)=><span key={i} style={{...mo,fontSize:12,fontWeight:600,padding:"6px 12px",borderRadius:6,background:t.a+"18",color:t.a}}>{w}</span>)}</div><div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2,color:t.d,marginBottom:12}}>CORE COMPETENCIES</div><div style={{display:"flex",flexWrap:"wrap",gap:6}}>{["Business Development","Advertising","Marketing Strategy","Content Creation","Digital Marketing","Brand Partnerships","360° Campaigns","Account Management","Account Direction","Team Leadership","Project Management","P&L","Budget Management","ROI","Influencer Marketing","Social Media","Video Production","Video Editing","Creative Direction","Content Strategy","Campaign Management","Strategic Partnerships","New Business","Entrepreneurship","Storytelling","Celebrity Partnerships","Key Account Management"].map((w,i)=><span key={i} style={{...sa,fontSize:11,padding:"5px 10px",borderRadius:4,background:t.card,border:`1px solid ${t.brd}`,color:t.m}}>{w}</span>)}</div></div>},
-
-{title:"Expérience pro",
-r:t=><div><Tg t={t}>EXPÉRIENCES</Tg><Hl t={t} s={{fontSize:32}}>Parcours professionnel</Hl><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{per:"Depuis 2019",role:"Athlète / Content creator",org:"Salomon · ASICS · YouTube · Instagram · TikTok",tags:["Content strategy","Creative direction","Video production","Video editing","Copywriting","Influencer marketing","Social media"]},{per:"2021 – 2025",role:"Business Director & Partner",org:"Ogilvy Paris — France",tags:["Account management","Advertising","Team leadership","P&L","ROI","Campagnes 360°","Influence","Activation"]},{per:"2017 – 2020",role:"Account Director & New Business",org:"Romance (DDB) — France",tags:["Key accounts","Advertising","Creative production","Strategic partnerships","Business development","Campagnes 360°"]},{per:"2015 – 2017",role:"Account Manager",org:"FRED & FARID Paris — France",tags:["Campagnes 360°","Advertising","Celebrity partnerships","Influencer marketing","Activation"]},{per:"2010 – 2014",role:"Co-fondateur & Managing Director",org:"SAS SOWEB AGENCY — France",tags:["Entrepreneuriat","Business strategy","Digital strategy","Web development","Sales"]}].map((x,i)=><div key={i} style={{padding:"18px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{display:"flex",flexWrap:"wrap",alignItems:"baseline",gap:12,marginBottom:6}}><span style={{...mo,fontSize:11,fontWeight:700,color:t.a}}>{x.per}</span><span style={{...sa,fontSize:17,fontWeight:700,color:t.c}}>{x.role}</span></div><div style={{...sa,fontSize:14,color:t.m,marginBottom:8}}>{x.org}</div><div style={{display:"flex",flexWrap:"wrap",gap:6}}>{x.tags.map((tg,j)=><span key={j} style={{...mo,fontSize:10,padding:"4px 8px",borderRadius:4,background:t.card,border:`1px solid ${t.brd}`,color:t.cardT}}>{tg}</span>)}</div></div>)}</div></div>},
-
-{title:"Réalisations",
-r:t=><div><Tg t={t}>RÉALISATIONS</Tg><Hl t={t} s={{fontSize:30}}>Missions & projets marquants</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}}><div style={{borderRadius:14,padding:22,border:`1px solid ${t.brd}`,background:t.card}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>ATHLÈTE & CRÉATEUR</div>{["Chaîne YouTube avec des milliers d'abonnés","Documentaire INVISIBLES — écriture & réalisation","Documentaire Winter Spine Race 2026 (UK) avec Salomon France","Documentaire MT FUJI 100 (Japon) avec ASICS Europe","Écriture, tournage et montage en autonomie (YouTube / Instagram)","Collaboration quotidienne avec les marques"].map((b,i)=><div key={i} style={{...sa,fontSize:13,color:t.m,lineHeight:1.5,padding:"6px 0",borderBottom:i<5?`1px solid ${t.brd}`:"none"}}>→ {b}</div>)}</div><div style={{borderRadius:14,padding:22,border:`1px solid ${t.brd}`,background:t.card}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>AGENCES & ENTREPRENEURIAT</div>{["Portefeuille clients ~3M$ : IKEA, Doctolib, Atlantic, Monkey Shoulder, Candia, Panzani","Direction d'une équipe de 15 personnes","Pilotage de la rentabilité et de la croissance de l'agence","Campagnes 360° intégrées : TV, influence sociale, outdoor, PR, radio, IA","Account Director Intermarché — campagnes « C'est magnifique »","Partenariat Fédération française de football","Libération « Libé des Réfugiés » — 36 prix, invitation Élysée","Schweppes « What Did You Expect ? » avec Penélope Cruz","Carambar avec Marilou Berry — autres comptes : HP, Audi, Orangina, Pulco, Humanis","Co-fondation SOWEB avec 3 associés — offre web, apps iPhone, formation social media"].map((b,i)=><div key={i} style={{...sa,fontSize:13,color:t.m,lineHeight:1.5,padding:"6px 0",borderBottom:i<9?`1px solid ${t.brd}`:"none"}}>→ {b}</div>)}</div></div></div>},
-
-{title:"Formations",
-r:t=><div><Tg t={t}>ÉTUDES</Tg><Hl t={t} s={{fontSize:32}}>Formations & diplômes</Hl><div style={{display:"flex",flexDirection:"column",gap:0}}>{[{y:"2024",d:"Design Thinking & Innovation Degree",s:"Harvard Business School — USA"},{y:"2013 – 2015",d:"Master 2 Marketing Digital Web",s:"INSEEC Bordeaux — France"},{y:"2012 – 2013",d:"Bachelor of Arts Marketing & Advertising",s:"University of Hull — Angleterre"},{y:"2012 – 2013",d:"DU International Studies",s:"Université d'Angers — France"},{y:"2010 – 2012",d:"DUT Sales and Marketing",s:"IUT Angers — France"},{y:"2010",d:"Bac ES",s:"Lycée Montesquieu — Le Mans — France"}].map((e,i)=><div key={i} style={{display:"flex",gap:20,padding:"16px 0",borderBottom:i<5?`1px solid ${t.brd}`:"none",alignItems:"flex-start"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a,minWidth:100,flexShrink:0}}>{e.y}</div><div><div style={{...sa,fontSize:16,fontWeight:700,color:t.c}}>{e.d}</div><div style={{...sa,fontSize:14,color:t.m,marginTop:4}}>{e.s}</div></div></div>)}</div></div>},
-
-{title:"Sport & langues",
-r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultra trail, marathon & culture</Hl><div style={{display:"flex",gap:28,flexWrap:"wrap"}}><div style={{flex:"1 1 320px"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>ULTRA & TRAIL</div>{["Winter Spine Race — 430 km, 11 000 D+ (UK)","UTMB — 175 km, 10 800 D+ (France)","Diagonale des Fous — 175 km, 10 000 D+ (2018 & 2019)","MT Fuji 100 — 168 km, 6 600 D+ (Japon)","Madeira MIUT — 120 km, 7 600 D+ (Portugal)","Marathon de Paris ×5 (dont une édition les yeux bandés) — pacer en 2024","Des dizaines de trails 30–80 km sur 4 continents"].map((l,i)=><div key={i} style={{...sa,fontSize:14,color:t.m,lineHeight:1.5,padding:"5px 0"}}>• {l}</div>)}</div><div style={{flex:"1 1 280px"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>AUTRES SPORTS & INTÉRÊTS</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.65,marginBottom:20}}>Football (20 ans) · Tennis (15 ans) · Golf (index 21)<br/>Musique — batterie (15 ans), piano (10 ans)<br/>Échecs — stratégie & compétition</div><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>LANGUES</div><div style={{...sa,fontSize:15,color:t.c,lineHeight:1.6}}>Français — langue maternelle<br/>Anglais — courant (expérience de vie en Angleterre)</div></div></div><div style={{textAlign:"center",marginTop:40}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
-];
-
-// ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, cyrilmp4:SCyril, profil:SProfil };
+const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR };
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
-  shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
+  shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « Pas juste du merch »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
-  cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
-  profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
-};
-
-const BRAND_PRESETS = {
-  shopify: {
-    deckName: "Activation Shopify",
-    clientName: "Shopify",
-    accent: "#81B840",
-    text: "#1a2e05",
-    tag: "ACTIVATION",
-  },
-  rode: {
-    deckName: "Activation RODE",
-    clientName: "RODE",
-    accent: "#C62828",
-    text: "#FFFFFF",
-    tag: "ACTIVATION",
-  },
-  cyrilmp4: {
-    deckName: "Activation Auto CYRILmp4",
-    clientName: "[MARQUE]",
-    accent: "#1A1A1A",
-    text: "#FFAA00",
-    tag: "ACTIVATION",
-  },
-};
-
-const hexToPptx = (hex, fallback = "1A1A1A") => {
-  if (!hex) return fallback;
-  const cleaned = hex.replace("#", "").trim();
-  if (cleaned.length === 3) {
-    return cleaned
-      .split("")
-      .map((ch) => ch + ch)
-      .join("")
-      .toUpperCase();
-  }
-  if (cleaned.length === 6) return cleaned.toUpperCase();
-  return fallback;
-};
-
-const rgbToHex = (rgb, fallback = "1A1A1A") => {
-  if (!rgb) return fallback;
-  const match = rgb.match(/\d+/g);
-  if (!match || match.length < 3) return fallback;
-  const [r, g, b] = match.slice(0, 3).map((n) => Number(n));
-  return [r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("").toUpperCase();
-};
-
-const pickFontFace = (fontFamily) => {
-  const ff = (fontFamily || "").toLowerCase();
-  if (ff.includes("jetbrains")) return "Courier New";
-  if (ff.includes("figtree")) return "Arial";
-  return "Arial";
-};
-
-const overlapRatio = (a, b) => {
-  const left = Math.max(a.x, b.x);
-  const top = Math.max(a.y, b.y);
-  const right = Math.min(a.x + a.w, b.x + b.w);
-  const bottom = Math.min(a.y + a.h, b.y + b.h);
-  if (right <= left || bottom <= top) return 0;
-  const inter = (right - left) * (bottom - top);
-  const minArea = Math.min(a.w * a.h, b.w * b.h);
-  if (minArea <= 0) return 0;
-  return inter / minArea;
-};
-
-const extractEditableBlocks = (rootElement, stageW, stageH) => {
-  if (!rootElement) return [];
-  const rootRect = rootElement.getBoundingClientRect();
-  const toX = 13.333 / stageW;
-  const toY = 7.5 / stageH;
-  const rawBlocks = [];
-
-  const walker = document.createTreeWalker(rootElement, NodeFilter.SHOW_TEXT);
-  let textNode = walker.nextNode();
-  while (textNode) {
-    const text = (textNode.textContent || "").replace(/\s+/g, " ").trim();
-    if (!text) {
-      textNode = walker.nextNode();
-      continue;
-    }
-    const parent = textNode.parentElement;
-    if (!parent) {
-      textNode = walker.nextNode();
-      continue;
-    }
-    const style = window.getComputedStyle(parent);
-    if (style.display === "none" || style.visibility === "hidden" || Number(style.opacity) === 0) {
-      textNode = walker.nextNode();
-      continue;
-    }
-    const range = document.createRange();
-    range.selectNodeContents(textNode);
-    const rect = range.getBoundingClientRect();
-    if (rect.width < 8 || rect.height < 8) {
-      textNode = walker.nextNode();
-      continue;
-    }
-    const x = (rect.left - rootRect.left) * toX;
-    const y = (rect.top - rootRect.top) * toY;
-    const w = rect.width * toX;
-    const h = Math.max(rect.height * toY, 0.12);
-    if (x < 0 || y < 0 || x + w > 13.35 || y + h > 7.55) {
-      textNode = walker.nextNode();
-      continue;
-    }
-    const fontSizePx = parseFloat(style.fontSize || "16");
-    const fontSize = Math.max(8, Math.min(44, (fontSizePx * 72) / 96));
-    rawBlocks.push({
-      text,
-      x,
-      y,
-      w,
-      h,
-      fontSize,
-      bold: Number(style.fontWeight || 400) >= 600,
-      color: rgbToHex(style.color, "1A1A1A"),
-      align: style.textAlign === "center" ? "center" : style.textAlign === "right" ? "right" : "left",
-      fontFace: pickFontFace(style.fontFamily),
-      area: w * h,
-    });
-    textNode = walker.nextNode();
-  }
-
-  rawBlocks.sort((a, b) => b.area - a.area);
-  const deduped = [];
-  rawBlocks.forEach((candidate) => {
-    const sameTextOverlap = deduped.some(
-      (existing) =>
-        existing.text === candidate.text &&
-        Math.abs(existing.x - candidate.x) < 0.03 &&
-        Math.abs(existing.y - candidate.y) < 0.03
-    );
-    if (sameTextOverlap) return;
-    const collides = deduped.some((existing) => overlapRatio(existing, candidate) > 0.8);
-    if (collides) return;
-    deduped.push(candidate);
-  });
-
-  deduped.sort((a, b) => a.y - b.y || a.x - b.x);
-  return deduped.slice(0, 260);
-};
-
-const maskTextForSnapshot = (rootElement) => {
-  const touched = [];
-  const all = rootElement.querySelectorAll("*");
-  all.forEach((el) => {
-    if (!el.childNodes || el.childNodes.length === 0) return;
-    const hasTextNode = Array.from(el.childNodes).some(
-      (node) => node.nodeType === Node.TEXT_NODE && node.textContent && node.textContent.trim()
-    );
-    if (!hasTextNode) return;
-    touched.push({
-      el,
-      color: el.style.color,
-      webkitTextFillColor: el.style.webkitTextFillColor,
-      textShadow: el.style.textShadow,
-    });
-    el.style.color = "transparent";
-    el.style.webkitTextFillColor = "transparent";
-    el.style.textShadow = "none";
-  });
-  return () => {
-    touched.forEach(({ el, color, webkitTextFillColor, textShadow }) => {
-      el.style.color = color;
-      el.style.webkitTextFillColor = webkitTextFillColor;
-      el.style.textShadow = textShadow;
-    });
-  };
-};
-
-const collectSlideTextLines = (rootElement) => {
-  if (!rootElement) return [];
-  return rootElement.innerText
-    .split("\n")
-    .map((line) => line.replace(/\s+/g, " ").trim())
-    .filter(Boolean)
-    .filter((line, idx, arr) => arr.indexOf(line) === idx);
-};
-
-const SLIDE_IMAGE_BY_DECK = {
-  shopify: {
-    "Ouverture": "/shopify-logo.png",
-    "Le Bouseuh comme créateur partenaire": "/lebouseuh.png",
-    "Big Idea": "/bouseuh-lockd.png",
-  },
-  rode: {
-    "Ouverture": "/rode-logo-white.png",
-    "Le Bouseuh comme créateur partenaire": "/lebouseuh.png",
-    "Big Idea": "/case2_imgs/slide10_img18.jpg",
-  },
-  cyrilmp4: {
-    "Sur la route avec CYRILmp4": "/cyrilmp4.png",
-    "Pourquoi Cyril": "/cyrilmp4.png",
-  },
-};
-
-/** Per-slide export strategy: native layout vs pixel-faithful hybrid (image + editable text). */
-const NATIVE_SLIDE_PRESETS = {
-  shopify: {
-    Ouverture: { mode: "hero", hideTitle: true, textFont: 20, textY: 2.35, textH: 3.5 },
-    "Le Bouseuh comme créateur partenaire": {
-      mode: "split",
-      textW: 7.35,
-      textH: 4.05,
-      imageX: 8.15,
-      imageW: 4.35,
-      imageH: 4.05,
-    },
-    Insight: { mode: "full", textW: 11.2, textY: 2.15, textH: 4.25, textFont: 17 },
-    Positionnement: { mode: "full", textW: 11.2, textY: 2.1, textH: 4.35, textFont: 16 },
-    "Big Idea": { mode: "stack", textW: 11.0, textY: 2.05, textH: 2.35, textFont: 17, imageY: 4.55, imageH: 2.85 },
-    Exécution: { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 15 },
-    Phasing: { mode: "hybridDiagram", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 14 },
-    Dispositif: { mode: "hybridDiagram", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 14 },
-    "Amplification média": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 15 },
-    "Extension & scalabilité": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 16 },
-    Estimatif: { mode: "pricing", textW: 7.35, textH: 4.05, panelX: 8.15, panelW: 4.35 },
-    "Next steps": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 16 },
-    Merci: { mode: "thanks" },
-  },
-  rode: {
-    Ouverture: { mode: "hero", hideTitle: true, textFont: 20, textY: 2.35, textH: 3.5 },
-    "Le Bouseuh comme créateur partenaire": {
-      mode: "split",
-      textW: 7.35,
-      textH: 4.05,
-      imageX: 8.15,
-      imageW: 4.35,
-      imageH: 4.05,
-    },
-    Insight: { mode: "full", textW: 11.2, textY: 2.15, textH: 4.25, textFont: 17 },
-    "Big Idea": { mode: "stack", textW: 11.0, textY: 2.05, textH: 2.55, textFont: 17, imageY: 4.45, imageH: 2.85 },
-    Exécution: { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 15 },
-    Positionnement: { mode: "full", textW: 11.2, textY: 2.1, textH: 4.35, textFont: 16 },
-    Phasing: { mode: "hybridDiagram", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 14 },
-    Dispositif: { mode: "hybridDiagram", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 14 },
-    "Amplification média": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 15 },
-    Estimatif: { mode: "pricing", textW: 7.35, textH: 4.05, panelX: 8.15, panelW: 4.35 },
-    "Next steps": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 16 },
-    Merci: { mode: "thanks" },
-  },
-  cyrilmp4: {
-    "Sur la route avec CYRILmp4": { mode: "hero", hideTitle: true, textFont: 20, textY: 2.35, textH: 3.5 },
-    "Pourquoi Cyril": { mode: "split", textW: 7.35, textH: 4.05, imageX: 8.15, imageW: 4.35, imageH: 4.05 },
-    "Pourquoi l'automobile est un fit évident": { mode: "full", textW: 11.2, textY: 2.15, textH: 4.25, textFont: 17 },
-    "Le territoire créatif": { mode: "full", textW: 11.2, textY: 2.1, textH: 4.35, textFont: 16 },
-    "Le partenariat recommandé": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 15 },
-    "Ce que gagne [MARQUE]": { mode: "full", textW: 11.2, textY: 2.05, textH: 4.45, textFont: 16 },
-  },
-};
-
-const addNativeEditableSlide = ({ pptx, lines, slideTitle, brand, theme, index, total, deckId }) => {
-  const slide = pptx.addSlide();
-  slide.background = { color: hexToPptx(theme.bg, "FFFFFF") };
-
-  const preset = NATIVE_SLIDE_PRESETS[deckId]?.[slideTitle] || {};
-  const mode = preset.mode || "split";
-
-  // Top brand ribbon
-  slide.addShape(pptx.ShapeType.rect, {
-    x: 0,
-    y: 0,
-    w: 13.333,
-    h: 0.78,
-    fill: { color: hexToPptx(brand.accent, "1A1A1A"), transparency: 0 },
-    line: { color: hexToPptx(brand.accent, "1A1A1A"), transparency: 100 },
-  });
-  slide.addText(`${brand.tag} | ${brand.clientName}`, {
-    x: 0.45,
-    y: 0.21,
-    w: 9.2,
-    h: 0.3,
-    fontFace: "Arial",
-    fontSize: 12,
-    bold: true,
-    color: "FFFFFF",
-  });
-  slide.addText(`${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`, {
-    x: 11.9,
-    y: 0.21,
-    w: 1.0,
-    h: 0.3,
-    fontFace: "Courier New",
-    fontSize: 10,
-    bold: true,
-    align: "right",
-    color: "FFFFFF",
-  });
-
-  const showCardFrame = mode !== "hero" && mode !== "thanks";
-  if (showCardFrame) {
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: 0.55,
-      y: 1.02,
-      w: 12.23,
-      h: 5.92,
-      rectRadius: 0.08,
-      fill: { color: hexToPptx(theme.card || "FFFFFF"), transparency: 0 },
-      line: { color: hexToPptx(theme.brd || "DDDDDD"), transparency: 10, pt: 1 },
-    });
-  }
-
-  if (!preset.hideTitle) {
-    slide.addText(slideTitle, {
-      x: 0.9,
-      y: 1.35,
-      w: 11.5,
-      h: 0.72,
-      fontFace: "Arial",
-      fontSize: 30,
-      bold: true,
-      color: hexToPptx(theme.c, "1A1A1A"),
-      fit: "shrink",
-      valign: "top",
-    });
-  }
-
-  const body = lines.filter((line) => line !== slideTitle);
-  const bulletRuns = body.length
-    ? body.map((line) => ({ text: `• ${line}`, options: { breakLine: true } }))
-    : [{ text: "• Remplacer ce contenu par le texte final de la marque", options: { breakLine: true } }];
-
-  const isThanks = mode === "thanks" || slideTitle.toLowerCase().includes("merci");
-  const isPricing = mode === "pricing" || slideTitle.toLowerCase().includes("estimatif");
-
-  const textX = preset.textX ?? 1.0;
-  const textY = preset.textY ?? 2.25;
-  const textW = preset.textW ?? (mode === "hero" ? 11.2 : 7.2);
-  const textH = preset.textH ?? (mode === "hero" ? 3.5 : 3.95);
-  const textFont = preset.textFont ?? (mode === "hero" ? 20 : 18);
-
-  if (!isThanks) {
-    slide.addText(bulletRuns, {
-      x: textX,
-      y: textY,
-      w: textW,
-      h: textH,
-      fontFace: "Arial",
-      fontSize: textFont,
-      color: hexToPptx(theme.cardT || theme.c, "1A1A1A"),
-      valign: "top",
-      breakLine: false,
-      margin: 0.05,
-      fit: "resize",
-    });
-  }
-
-  const imagePath = SLIDE_IMAGE_BY_DECK[deckId]?.[slideTitle];
-  const imageX = preset.imageX ?? 8.45;
-  const imageY = preset.imageY ?? 2.2;
-  const imageW = preset.imageW ?? 3.85;
-  const imageH = preset.imageH ?? 3.95;
-
-  if (mode === "split" && !isThanks && !isPricing) {
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: imageX,
-      y: imageY,
-      w: imageW,
-      h: imageH,
-      rectRadius: 0.06,
-      fill: { color: hexToPptx(theme.cardAlt || "EDEDED"), transparency: 0 },
-      line: { color: hexToPptx(theme.brd || "CCCCCC"), transparency: 0, pt: 1 },
-    });
-    if (imagePath) {
-      slide.addImage({
-        path: imagePath,
-        x: imageX,
-        y: imageY,
-        w: imageW,
-        h: imageH,
-        sizing: { type: "cover", x: imageX, y: imageY, w: imageW, h: imageH },
-      });
-    } else {
-      slide.addText("ZONE VISUELLE\n(importe image / logo)", {
-        x: imageX + 0.2,
-        y: imageY + imageH / 2 - 0.35,
-        w: imageW - 0.4,
-        h: 0.75,
-        fontFace: "Courier New",
-        fontSize: 11,
-        bold: true,
-        align: "center",
-        valign: "mid",
-        color: hexToPptx(theme.m || "666666", "666666"),
-      });
-    }
-  }
-
-  if (mode === "stack" && imagePath && !isThanks) {
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: 1.0,
-      y: imageY,
-      w: 11.25,
-      h: imageH,
-      rectRadius: 0.08,
-      fill: { color: hexToPptx(theme.cardAlt || "EDEDED"), transparency: 0 },
-      line: { color: hexToPptx(theme.brd || "CCCCCC"), transparency: 0, pt: 1 },
-    });
-    slide.addImage({
-      path: imagePath,
-      x: 1.0,
-      y: imageY,
-      w: 11.25,
-      h: imageH,
-      sizing: { type: "contain", x: 1.0, y: imageY, w: 11.25, h: imageH },
-    });
-  }
-
-  if (isPricing) {
-    const panelX = preset.panelX ?? 8.45;
-    const panelW = preset.panelW ?? 3.85;
-    slide.addShape(pptx.ShapeType.roundRect, {
-      x: panelX,
-      y: imageY,
-      w: panelW,
-      h: imageH,
-      rectRadius: 0.06,
-      fill: { color: hexToPptx(theme.th || "333333"), transparency: 0 },
-      line: { color: hexToPptx(theme.th || "333333"), transparency: 100 },
-    });
-    slide.addText("BALLPARK", {
-      x: panelX + 0.15,
-      y: imageY + 0.35,
-      w: panelW - 0.3,
-      h: 0.4,
-      fontFace: "Courier New",
-      fontSize: 11,
-      bold: true,
-      color: hexToPptx(theme.thT || "FFFFFF", "FFFFFF"),
-      align: "center",
-    });
-    const estimateLine = body.find((line) => /k€|HT|Ballpark|Ball park/i.test(line)) || "A ajuster selon perimetre";
-    slide.addText(estimateLine, {
-      x: panelX + 0.2,
-      y: imageY + 0.95,
-      w: panelW - 0.4,
-      h: 1.2,
-      fontFace: "Arial",
-      fontSize: 24,
-      bold: true,
-      color: hexToPptx(theme.thT || "FFFFFF", "FFFFFF"),
-      align: "center",
-      valign: "mid",
-      fit: "shrink",
-    });
-  }
-
-  if (isThanks) {
-    slide.addText("Merci.", {
-      x: 0.9,
-      y: 2.95,
-      w: 11.5,
-      h: 1.0,
-      fontFace: "Arial",
-      fontSize: 60,
-      bold: true,
-      color: hexToPptx(theme.c, "1A1A1A"),
-      align: "center",
-      valign: "mid",
-    });
-  }
-
-  slide.addShape(pptx.ShapeType.line, {
-    x: 0.9,
-    y: 6.45,
-    w: 11.5,
-    h: 0,
-    line: { color: hexToPptx(theme.brd || "DDDDDD"), pt: 1 },
-  });
-  slide.addText(`${brand.deckName} - template editable natif`, {
-    x: 0.9,
-    y: 6.58,
-    w: 11.4,
-    h: 0.26,
-    fontFace: "Courier New",
-    fontSize: 9,
-    color: hexToPptx(theme.m || "666666", "666666"),
-  });
-};
-
-/** Pixel-faithful slide: full-slide image (text masked) + editable text in a dedicated column (no overlap with diagram). */
-const addHybridFaithfulSlide = async ({
-  pptx,
-  slideRenderFn,
-  theme,
-  tObj,
-  onNav,
-  slideTitle,
-  brand,
-  index,
-  total,
-  W,
-  H,
-}) => {
-  const container = document.createElement("div");
-  container.style.cssText = `position:fixed;left:-9999px;top:0;width:${W}px;height:${H}px;overflow:hidden;z-index:-1;`;
-  document.body.appendChild(container);
-  const root = await import("react-dom/client");
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = `width:${W}px;height:${H}px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 100px;background:${theme.bg};color:${theme.c};box-sizing:border-box;font-family:${sa.fontFamily};overflow:hidden;`;
-  const inner = document.createElement("div");
-  inner.style.cssText = "width:100%;flex:1;display:flex;align-items:center;justify-content:center;";
-  const content = document.createElement("div");
-  content.style.cssText = "width:100%;";
-  inner.appendChild(content);
-  const footer = document.createElement("div");
-  footer.style.cssText = `width:100%;text-align:center;font-size:11px;opacity:.25;letter-spacing:1px;color:${theme.m};padding-top:20px;flex-shrink:0;`;
-  footer.textContent = "confidentiel – thibault loué";
-  wrapper.appendChild(inner);
-  wrapper.appendChild(footer);
-  container.appendChild(wrapper);
-  const tempRoot = root.createRoot(content);
-  await new Promise((resolve) => {
-    tempRoot.render(slideRenderFn(tObj, null, onNav));
-    setTimeout(resolve, 400);
-  });
-  const lines = collectSlideTextLines(content);
-  const restoreText = maskTextForSnapshot(content);
-  const canvas = await html2canvas(container, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: theme.bg,
-    width: W,
-    height: H,
-  });
-  restoreText();
-  tempRoot.unmount();
-  document.body.removeChild(container);
-
-  const slide = pptx.addSlide();
-  slide.background = { color: hexToPptx(theme.bg, "FFFFFF") };
-  slide.addShape(pptx.ShapeType.rect, {
-    x: 0,
-    y: 0,
-    w: 13.333,
-    h: 0.78,
-    fill: { color: hexToPptx(brand.accent, "1A1A1A"), transparency: 0 },
-    line: { color: hexToPptx(brand.accent, "1A1A1A"), transparency: 100 },
-  });
-  slide.addText(`${brand.tag} | ${brand.clientName}`, {
-    x: 0.45,
-    y: 0.21,
-    w: 9.2,
-    h: 0.3,
-    fontFace: "Arial",
-    fontSize: 12,
-    bold: true,
-    color: "FFFFFF",
-  });
-  slide.addText(`${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`, {
-    x: 11.9,
-    y: 0.21,
-    w: 1.0,
-    h: 0.3,
-    fontFace: "Courier New",
-    fontSize: 10,
-    bold: true,
-    align: "right",
-    color: "FFFFFF",
-  });
-
-  const imgData = canvas.toDataURL("image/png", 1);
-  slide.addImage({ data: imgData, x: 0, y: 0.78, w: 9.55, h: 6.72 });
-
-  slide.addShape(pptx.ShapeType.roundRect, {
-    x: 9.65,
-    y: 0.88,
-    w: 3.55,
-    h: 6.52,
-    rectRadius: 0.06,
-    fill: { color: "FFFFFF", transparency: 8 },
-    line: { color: hexToPptx(theme.brd || "DDDDDD"), transparency: 0, pt: 1 },
-  });
-  slide.addText(slideTitle, {
-    x: 9.85,
-    y: 1.05,
-    w: 3.15,
-    h: 0.55,
-    fontFace: "Arial",
-    fontSize: 16,
-    bold: true,
-    color: hexToPptx(theme.c, "1A1A1A"),
-    fit: "shrink",
-  });
-  const body = lines.filter((l) => l !== slideTitle);
-  const runs = body.length
-    ? body.map((line) => ({ text: `• ${line}`, options: { breakLine: true } }))
-    : [{ text: "• Texte editable (le diagramme est fige a gauche)", options: { breakLine: true } }];
-  slide.addText(runs, {
-    x: 9.85,
-    y: 1.72,
-    w: 3.15,
-    h: 5.45,
-    fontFace: "Arial",
-    fontSize: 11,
-    color: hexToPptx(theme.c, "1A1A1A"),
-    valign: "top",
-    fit: "resize",
-  });
 };
 
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
@@ -1256,43 +554,14 @@ function ActCard({a,nav}){
 
 // ─── PRESENTATION ─────────────────────────────────────────────────────────────
 function Pres({id,onBack,onNav}) {
-  const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
-  const setCur = useCallback(v=>{setCurRaw(prev=>{const next=typeof v==="function"?v(prev):v;window.location.hash=`${id}/${next}`;return next;});},[id]);
+  const [cur,setCur] = useState(0);
   const [notes,setNotes] = useState(false);
   const [nav,setNav] = useState(false);
   const [pdfing,setPdfing] = useState(false);
-  const [slidesExporting,setSlidesExporting] = useState(false);
   const t = TM[id];
-  const [brand, setBrand] = useState(() => {
-    const preset = BRAND_PRESETS[id];
-    if (!preset) {
-      return { deckName: META[id].l, clientName: "Marque", accent: TM[id]?.a || "#1A1A1A", text: TM[id]?.c || "#1A1A1A", tag: META[id].tag };
-    }
-    return { ...preset };
-  });
   const slides = ALL[id];
   const n = slides.length;
   const s = slides[cur];
-
-  const AxesProgress = ({slideNo})=>{
-    if(id!=="case1") return null;
-    if(slideNo<5 || slideNo>21) return null;
-    const axes=[
-      {k:1,l:"Axe 1 : Optimiser le roster",a:slideNo>=5&&slideNo<=9},
-      {k:2,l:"Axe 2 : Stabiliser le portefeuille",a:slideNo===10},
-      {k:3,l:"Axe 3 : Étendre l'offre commerciale",a:slideNo>=11&&slideNo<=18},
-      {k:4,l:"Axe 4 : Travailler l'attraction",a:slideNo>=18&&slideNo<=21},
-    ];
-    return (
-      <div style={{position:"absolute",top:18,right:18,zIndex:5,display:"flex",flexDirection:"column",gap:6,alignItems:"flex-end",pointerEvents:"none"}}>
-        {axes.map(x=>(
-          <div key={x.k} style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.4,padding:"6px 10px",borderRadius:999,background:x.a?t.a:t.card,border:`1px solid ${x.a?t.a:t.brd}`,color:x.a?t.bg:t.m,opacity:x.a?1:.65,whiteSpace:"nowrap"}}>
-            {x.l}
-          </div>
-        ))}
-      </div>
-    );
-  };
 
   const exportPDF = async()=>{
     setPdfing(true);
@@ -1332,124 +601,6 @@ function Pres({id,onBack,onNav}) {
     setPdfing(false);
   };
 
-  const exportGoogleSlides = async () => {
-    setSlidesExporting(true);
-    const W = 1920;
-    const H = 1080;
-    const container = document.createElement("div");
-    container.style.cssText = `position:fixed;left:-9999px;top:0;width:${W}px;height:${H}px;overflow:hidden;z-index:-1;`;
-    document.body.appendChild(container);
-    const root = await import("react-dom/client");
-    const pptx = new PptxGenJS();
-    pptx.defineLayout({ name: "FAR_WIDE", width: 13.333, height: 7.5 });
-    pptx.layout = "FAR_WIDE";
-    pptx.author = "FAR";
-    pptx.subject = "Activation template";
-    pptx.title = `${brand.deckName} - Template`;
-    pptx.company = "FAR";
-
-    try {
-      for (let i = 0; i < n; i++) {
-        const wrapper = document.createElement("div");
-        wrapper.style.cssText = `width:${W}px;height:${H}px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px 100px;background:${t.bg};color:${t.c};box-sizing:border-box;font-family:${sa.fontFamily};overflow:hidden;`;
-        const inner = document.createElement("div");
-        inner.style.cssText = "width:100%;flex:1;display:flex;align-items:center;justify-content:center;";
-        const content = document.createElement("div");
-        content.style.cssText = "width:100%;";
-        inner.appendChild(content);
-        wrapper.appendChild(inner);
-        container.innerHTML = "";
-        container.appendChild(wrapper);
-        const tempRoot = root.createRoot(content);
-        await new Promise((resolve) => {
-          tempRoot.render(slides[i].r(t, null, onNav));
-          setTimeout(resolve, 350);
-        });
-        const lines = collectSlideTextLines(content);
-
-        if (id === "shopify" || id === "rode" || id === "cyrilmp4") {
-          const presetMode = NATIVE_SLIDE_PRESETS[id]?.[slides[i].title]?.mode;
-          tempRoot.unmount();
-          if (presetMode === "hybridDiagram") {
-            await addHybridFaithfulSlide({
-              pptx,
-              slideRenderFn: slides[i].r,
-              theme: t,
-              tObj: t,
-              onNav,
-              slideTitle: slides[i].title,
-              brand,
-              index: i,
-              total: n,
-              W,
-              H,
-            });
-          } else {
-            addNativeEditableSlide({
-              pptx,
-              lines,
-              slideTitle: slides[i].title,
-              brand,
-              theme: t,
-              index: i,
-              total: n,
-              deckId: id,
-            });
-          }
-          continue;
-        }
-
-        const blocks = extractEditableBlocks(content, W, H);
-        const restoreText = maskTextForSnapshot(content);
-        const canvas = await html2canvas(container, {
-          scale: 2,
-          useCORS: true,
-          backgroundColor: t.bg,
-          width: W,
-          height: H,
-        });
-        restoreText();
-        const image = canvas.toDataURL("image/png", 1);
-        tempRoot.unmount();
-        const slide = pptx.addSlide();
-        slide.addImage({ data: image, x: 0, y: 0, w: 13.333, h: 7.5 });
-        blocks.forEach((block) => {
-          slide.addText(block.text, {
-            x: block.x,
-            y: block.y,
-            w: block.w,
-            h: block.h,
-            fontSize: block.fontSize,
-            bold: block.bold,
-            color: block.color,
-            fontFace: block.fontFace,
-            align: block.align,
-            valign: "top",
-            fill: { color: "FFFFFF", transparency: 100 },
-            line: { color: "FFFFFF", transparency: 100 },
-          });
-        });
-        if (slides[i].note) {
-          slide.addText(slides[i].note, {
-            x: 0.4,
-            y: 6.9,
-            w: 12.45,
-            h: 0.45,
-            fontSize: 10,
-            color: hexToPptx(t.m, "666666"),
-            fontFace: "Figtree",
-          });
-        }
-      }
-
-      const filename = `${brand.deckName.replace(/\s+/g, "_")}_editable_slides.pptx`;
-      await pptx.writeFile({ fileName: filename });
-    } finally {
-      document.body.removeChild(container);
-      setSlidesExporting(false);
-    }
-  };
-
   const hk = useCallback(e=>{
     if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" "){e.preventDefault();setCur(c=>Math.min(c+1,n-1));setNotes(false);}
     else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();setCur(c=>Math.max(c-1,0));setNotes(false);}
@@ -1479,7 +630,7 @@ function Pres({id,onBack,onNav}) {
       <div className="far-header" style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 36px",flexShrink:0,position:"relative",zIndex:12}}>
         <div style={{display:"flex",alignItems:"center",gap:18,flexWrap:"wrap",minWidth:0}}>
           <button onClick={onBack} style={{background:"none",border:`1px solid ${t.brd}`,color:t.c,...sa,fontSize:13,padding:"7px 18px",borderRadius:8,cursor:"pointer",opacity:.4,flexShrink:0}}>← Retour</button>
-          <div className="far-logo-hover" style={{flexShrink:0}} onClick={onBack}><FarLogo size={52} variant={t.lv}/></div>
+          <FarLogo size={52} variant={t.lv}/>
           <span style={{...sa,fontSize:14,fontWeight:600,opacity:.4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{META[id].l}</span>
           <span style={{...mo,fontSize:13,opacity:.2,flexShrink:0}}>{String(cur+1).padStart(2,"0")} / {String(n).padStart(2,"0")}</span>
         </div>
@@ -1496,8 +647,7 @@ function Pres({id,onBack,onNav}) {
       </motion.div>}</AnimatePresence>
       <div ref={slideRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
         <AnimatePresence mode="wait">
-          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
-            <AxesProgress slideNo={cur+1}/>
+          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
             <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>confidentiel – thibault loué</div></div>
           </motion.div>
         </AnimatePresence>
@@ -1508,25 +658,6 @@ function Pres({id,onBack,onNav}) {
         <button onClick={()=>{setCur(c=>Math.min(c+1,n-1));setNotes(false);}} disabled={cur===n-1} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"10px 26px",borderRadius:8,cursor:cur===n-1?"not-allowed":"pointer",opacity:cur===n-1?.2:1,border:"none"}}>→</button>
       </div>
       <button className="far-btn-pdf" onClick={exportPDF} disabled={pdfing} style={{position:"fixed",bottom:24,right:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:pdfing?"wait":"pointer",opacity:pdfing?.5:1,transition:"opacity .2s"}}>{pdfing?"Export en cours…":"↓ PDF"}</button>
-      {(id==="shopify"||id==="rode"||id==="cyrilmp4") && (
-        <>
-          <button
-            onClick={exportGoogleSlides}
-            disabled={slidesExporting}
-            style={{position:"fixed",bottom:68,right:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:slidesExporting?"wait":"pointer",opacity:slidesExporting?.5:1,transition:"opacity .2s"}}
-          >
-            {slidesExporting ? "Export Slides editables..." : "↓ Slides editables (.pptx)"}
-          </button>
-          <div style={{position:"fixed",top:76,right:24,zIndex:20,display:"flex",gap:8,alignItems:"center",background:t.card,border:`1px solid ${t.brd}`,borderRadius:10,padding:"8px 10px"}}>
-            <label style={{...mo,fontSize:10,opacity:.6}}>Marque</label>
-            <input
-              value={brand.clientName}
-              onChange={(e)=>setBrand((b)=>({...b, clientName:e.target.value || "Marque"}))}
-              style={{...sa,fontSize:12,padding:"6px 8px",borderRadius:6,border:`1px solid ${t.brd}`,background:t.bg,color:t.c,width:140}}
-            />
-          </div>
-        </>
-      )}
       {s.note&&<button onClick={()=>setNotes(x=>!x)} style={{position:"fixed",bottom:24,right:120,zIndex:30,background:notes?t.cardAlt:"none",border:`1px solid ${t.brd}`,color:t.c,...mo,fontSize:11,fontWeight:600,padding:"10px 16px",borderRadius:8,cursor:"pointer",opacity:notes?.9:.3}}>📝 Web note</button>}
       <AnimatePresence>{notes&&s.note&&<motion.div initial={{opacity:0,scale:.96,y:8}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.96,y:8}} transition={{duration:.2}} style={{position:"fixed",bottom:70,right:24,width:500,maxHeight:440,borderRadius:16,padding:32,zIndex:30,overflowY:"auto",background:t.note,color:t.noteT}}><div style={{...mo,fontSize:11,letterSpacing:2,textTransform:"uppercase",opacity:.3,marginBottom:16}}>WEB NOTE  -  SLIDE {cur+1}</div><p style={{...sa,fontSize:15,lineHeight:1.85,opacity:.85}}>{s.note}</p></motion.div>}</AnimatePresence>
     </div>
@@ -1536,7 +667,7 @@ function Pres({id,onBack,onNav}) {
 // ─── DECK CARD ───────────────────────────────────────────────────────────────
 function DeckCard({id,st,d,onOpen,delay,children}) {
   const [hovered,setHovered] = useState(false);
-  const logoVar = st.bg===B||st.bg==="#C62828"||st.bg==="#81B840"||st.bg==="#1A1A1A"?"white":"black";
+  const logoVar = st.bg===B||st.bg==="#C62828"||st.bg==="#81B840"?"white":"black";
 
   return(
     <motion.div
@@ -1576,8 +707,8 @@ function Home({onOpen}) {
     <div className="far-home" style={{minHeight:"100vh",background:A,padding:"44px 52px",...sa,color:B}}>
       <style>{FC}</style>
       <motion.div initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} transition={{duration:.5}} style={{marginBottom:72}}>
-        <div onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} style={{display:"flex",alignItems:"center",gap:16,flexWrap:"wrap",cursor:"pointer"}}>
-          <div className="far-logo-hover"><FarLogo size={80} variant="black"/></div>
+        <div style={{display:"flex",alignItems:"center",gap:16,flexWrap:"wrap"}}>
+          <FarLogo size={80} variant="black"/>
           <div style={{width:1,height:32,background:"rgba(0,0,0,.12)"}}/>
           <span style={{...se,fontSize:22,fontWeight:700}}>THIBAULT LOUÉ</span>
         </div>
@@ -1595,16 +726,13 @@ function Home({onOpen}) {
       </div>
       <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>ACTIVATIONS MARQUES</div>
       <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,maxWidth:1155}}>
-        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
+        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"}].map(({id,img,imgW,filter},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
-            {imgType==="photo"?<img src={img} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={img} alt="" style={{width:imgW,height:"auto",filter,opacity:.85,flexShrink:0}}/>}
+            <img src={img} alt="" style={{width:imgW,height:"auto",filter,opacity:.85,flexShrink:0}}/>
           </DeckCard>
         );})}
       </div>
-      <div style={{maxWidth:1155,margin:"0 auto",marginTop:8}}>
-        <motion.button type="button" onClick={()=>onOpen("profil")} whileHover={{opacity:.55}} whileTap={{scale:.98}} style={{display:"block",width:"100%",background:"transparent",border:"none",borderTop:"1px solid rgba(26,26,26,.1)",padding:"20px 12px 4px",cursor:"pointer",...mo,fontSize:9,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:B,opacity:.26,textAlign:"center"}}>Mon profil · CV</motion.button>
-      </div>
-      <div style={{...sa,fontSize:12,color:B,opacity:.25,textAlign:"center",marginTop:36,letterSpacing:1}}>confidentiel – thibault loué</div>
+      <div style={{...sa,fontSize:12,color:B,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>confidentiel – thibault loué</div>
     </div>
   );
 }
@@ -1613,20 +741,18 @@ function Home({onOpen}) {
 const LaPorteLogo = ({size=120,color="#fff"}) => <svg viewBox="0 0 87 40" fill={color} style={{width:size,height:size*40/87}}><path d="M29.17 0h-3.5v18.56h3.5V0Z"/><path d="M36.33 21.97a6.6 6.6 0 0 0-3.16-.85c-1.11 0-2.05.28-2.82.85a4.9 4.9 0 0 0-1.23 1.33l-.16-1.87h-3.28V40h3.5v-7.1c.33.51.72.93 1.18 1.27.77.56 1.71.85 2.82.85 1.22 0 2.27-.28 3.16-.85.9-.56 1.59-1.37 2.08-2.41.5-1.05.74-2.27.74-3.69s-.25-2.66-.74-3.7c-.49-1.03-1.18-1.83-2.08-2.4Zm-1.23 8.03c-.28.57-.67 1.01-1.15 1.33a2.83 2.83 0 0 1-1.68.48c-.6 0-1.13-.16-1.6-.48s-.84-.57-1.1-1.14a4.16 4.16 0 0 1-.4-1.93c0-.73.13-1.37.4-1.92.27-.56.64-1 1.11-1.32.48-.32 1.02-.48 1.62-.48.64 0 1.2.16 1.7.48.48.32.86.76 1.13 1.32.28.56.41 1.2.41 1.92 0 .73-.14 1.37-.43 1.93Z"/><path d="M42.85 11.21c.02-1.34-.19-2.48-.63-3.4a4.32 4.32 0 0 0-2-2.11c-.89-.48-2-.72-3.32-.72-1.11 0-2.05.17-2.82.52-.77.34-1.39.79-1.87 1.33a6.1 6.1 0 0 0-1.08 1.66l3.18 1.09c.3-.51.66-.88 1.09-1.11.42-.23.9-.34 1.43-.34.6 0 1.08.15 1.44.44.36.29.63.71.81 1.27.07.22.13.47.17.73h-3.03c-1.71 0-3.04.36-3.98 1.07-.95.72-1.42 1.78-1.42 3.2 0 1.29.44 2.29 1.31 3 .87.71 2.1 1.06 3.69 1.06s2.71-.5 3.4-1.51l.07 1.48h3.31l.08-7.34Zm-3.9 3.27a2.63 2.63 0 0 1-1.05 1.06 2.9 2.9 0 0 1-1.51.41c-.64 0-1.13-.11-1.48-.33-.35-.22-.53-.53-.53-.92 0-.49.22-.88.66-1.15.44-.27 1.24-.41 2.38-.41h1.91c0 .46-.13.91-.38 1.34Z"/><path d="M50.66 22.01c-1.04-.59-2.24-.89-3.6-.89s-2.53.3-3.57.89c-1.04.59-1.85 1.41-2.44 2.45-.58 1.04-.87 2.25-.87 3.61s.29 2.56.89 3.61c.59 1.04 1.41 1.86 2.45 2.45s2.2.89 3.56.89 2.53-.3 3.56-.89 1.84-1.41 2.42-2.45c.58-1.05.87-2.25.87-3.61s-.29-2.56-.87-3.61a6.17 6.17 0 0 0-2.44-2.45Zm-.69 7.98a3.1 3.1 0 0 1-1.15 1.31c-.49.32-1.05.48-1.71.48s-1.24-.16-1.75-.48a3.2 3.2 0 0 1-1.19-1.31 4.22 4.22 0 0 1-.42-1.92c0-.73.14-1.37.42-1.92.28-.56.67-1 1.18-1.32.5-.32 1.08-.48 1.73-.48.65 0 1.21.16 1.71.48s.89.76 1.18 1.32c.28.56.42 1.2.42 1.92s-.14 1.37-.42 1.92Z"/><path d="M58.81 23.88v-2.47h-3.5v13.26h3.5V27.7c0-.69.22-1.6.66-2.04.44-.44 1.02-.76 1.73-.96.67-.18 1.39-.28 2.15-.29v-3c-.9.02-1.77.25-2.59.69-.78.41-1.42 1-1.95 1.78Z"/><path d="M71.16 31.66a1.3 1.3 0 0 1-.58.12c-.48 0-.84-.15-1.09-.44-.25-.29-.37-.72-.37-1.29v-5.65h3.31v-2.97h-3.31v-4.14h-3.49v4.14h-1.44v2.97h1.44v6.42c0 1.34.37 2.38 1.12 3.1.75.72 1.86 1.09 3.33 1.09.51 0 1.03-.1 1.55-.31.52-.2.99-.46 1.42-.78l-1.22-2.63c-.23.16-.45.28-.66.36Z"/><path d="M84.84 29h1.72c0-1.68-.3-3.11-.9-4.28-.6-1.17-1.39-2.07-2.37-2.68a6.1 6.1 0 0 0-3.19-1.92c-1.34 0-2.53.3-3.56.89-1.03.59-1.84 1.41-2.44 2.45-.59 1.04-.89 2.25-.89 3.61 0 1.36.29 2.56.86 3.61s1.33 1.86 2.34 2.45c1.01.59 2.16.89 3.47.89 1.04 0 1.97-.14 2.78-.42.81-.28 1.51-.7 2.1-1.23.51-.47.94-1.01 1.29-1.63l-3.12-1.56c-.23.47-.56.86-1 1.16-.43.3-1 .45-1.69.45s-1.22-.14-1.75-.41a2.76 2.76 0 0 1-1.27-1.21 3.4 3.4 0 0 1-.41-1.17h7.98Zm-7.81-2.73c.04-.12.07-.23.12-.33.24-.57.6-1 1.07-1.29.48-.28 1.07-.43 1.75-.43.62 0 1.16.15 1.62.47.46.31.82.81 1.07 1.51l.02.07h-5.65Z"/><path d="m2.85 9.99 11.42 5.72v17.15l5.71-2.86V12.85L8.56 7.13 2.85 9.99Z"/><path d="m5.71 14.28-5.71 2.86v17.15l11.41 5.71 5.71-2.86L5.71 31.43V14.28Z"/></svg>;
 
 // ─── PASSWORD GATE ───────────────────────────────────────────────────────────
-const PASS_HASH = "thibault";
+const PASS_HASH = "workwiththibault";
 function Gate({children}){
   const [ok,setOk] = useState(()=>sessionStorage.getItem("far_auth")==="1");
   const [v,setV] = useState("");
   const [err,setErr] = useState(false);
-  const [focused,setFocused] = useState(false);
   const submit = e=>{e.preventDefault();if(v===PASS_HASH){sessionStorage.setItem("far_auth","1");setOk(true);}else{setErr(true);setTimeout(()=>setErr(false),1500);}};
   if(ok) return children;
   return <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#FFAA00",padding:20}}>
-    <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');@keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}.far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}`}</style>
-    <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} style={{display:"flex",flexDirection:"column",alignItems:"center",maxWidth:400,width:"100%"}}>
-      <div className="far-logo-hover" onClick={()=>window.location.reload()} style={{display:"flex",alignItems:"center",gap:16,marginBottom:40,cursor:"pointer"}}><FarLogo size={80} variant="black"/><div style={{width:1,height:32,background:"rgba(0,0,0,.25)"}}/><span style={{...se,fontSize:22,fontWeight:700,color:"#1A1A1A"}}>THIBAULT LOUÉ</span></div>
-      <form onSubmit={submit} style={{display:"flex",flexDirection:"column",gap:16,width:"100%"}}>
-        <input value={v} onChange={e=>setV(e.target.value)} onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)} type="password" placeholder={focused?"":"Mot de passe"} style={{...sa,fontSize:16,padding:"14px 20px",borderRadius:10,border:`1px solid ${err?"#e53935":"rgba(0,0,0,.15)"}`,background:"rgba(0,0,0,.08)",color:"#1A1A1A",outline:"none",textAlign:"center",transition:"border .3s"}}/>
+    <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} style={{textAlign:"center",maxWidth:400,width:"100%"}}>
+      <div style={{marginBottom:40}}><FarLogo size={80} variant="black"/></div>
+      <form onSubmit={submit} style={{display:"flex",flexDirection:"column",gap:16}}>
+        <input value={v} onChange={e=>setV(e.target.value)} type="password" placeholder="Mot de passe" autoFocus style={{...sa,fontSize:16,padding:"14px 20px",borderRadius:10,border:`1px solid ${err?"#e53935":"rgba(0,0,0,.15)"}`,background:"rgba(0,0,0,.08)",color:"#1A1A1A",outline:"none",textAlign:"center",transition:"border .3s"}}/>
         <button type="submit" style={{...mo,fontSize:13,fontWeight:700,letterSpacing:2,padding:"14px 32px",borderRadius:10,border:"none",background:"#1A1A1A",color:"#FFAA00",cursor:"pointer"}}>ACCÉDER</button>
       </form>
       {err&&<motion.div initial={{opacity:0}} animate={{opacity:1}} style={{...sa,fontSize:13,color:"#e53935",marginTop:12}}>Mot de passe incorrect</motion.div>}
@@ -1635,11 +761,7 @@ function Gate({children}){
 }
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
-function parseHash(){const h=window.location.hash.replace(/^#/,"");if(!h)return{d:null,s:0};const [d,s]=h.split("/");return{d:d||null,s:parseInt(s)||0};}
 export default function App() {
-  const [deck,setDeck] = useState(()=>parseHash().d);
-  const navDeck=useCallback(d=>{setDeck(d);window.location.hash=d?`${d}/0`:"";},[]);
-  const goBack=useCallback(()=>{setDeck(null);window.location.hash="";},[]);
-  useEffect(()=>{const h=()=>{const{d}=parseHash();setDeck(d);};window.addEventListener("hashchange",h);return()=>window.removeEventListener("hashchange",h);},[]);
-  return <Gate>{deck ? <Pres key={deck} id={deck} onBack={goBack} onNav={navDeck}/> : <Home onOpen={navDeck}/>}</Gate>;
+  const [deck,setDeck] = useState(null);
+  return <Gate>{deck ? <Pres key={deck} id={deck} onBack={()=>setDeck(null)} onNav={setDeck}/> : <Home onOpen={setDeck}/>}</Gate>;
 }
