@@ -721,19 +721,43 @@ function Pres({id,onBack,onNav}) {
     container.style.cssText = `position:fixed;left:-12000px;top:0;width:${PDF_STAGE_PX_W}px;height:${PDF_STAGE_PX_H}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};`;
     document.body.appendChild(container);
 
+    // Force les slides à occuper toute la hauteur de la scène (1040px ~ 1080 - padding - footer)
+    // et neutralise les `min-height:NNvh` des renderers dans le contexte PDF.
+    const stageStyle = document.createElement("style");
+    stageStyle.textContent = `
+      #pdf-stage-content { height: 100%; }
+      #pdf-stage-content > * {
+        min-height: 1040px !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #pdf-stage-content [style*="min-height: 55vh"],
+      #pdf-stage-content [style*="min-height: 60vh"],
+      #pdf-stage-content [style*="min-height: 65vh"],
+      #pdf-stage-content [style*="min-height: 70vh"],
+      #pdf-stage-content [style*="min-height: 75vh"] {
+        min-height: 1000px !important;
+      }
+    `;
+    document.head.appendChild(stageStyle);
+
     const rdom = await import("react-dom/client");
 
     try {
       for (let i = 0; i < n; i++) {
         const wrapper = document.createElement("div");
-        wrapper.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;padding:36px 48px 18px;`;
+        wrapper.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;padding:14px 56px 6px;`;
         const inner = document.createElement("div");
         inner.style.cssText =
-          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
+          "flex:1;min-height:0;width:100%;display:flex;align-items:stretch;justify-content:center;overflow:hidden;";
         const content = document.createElement("div");
-        content.style.cssText = "width:100%;max-width:100%;max-height:100%;overflow:hidden;";
+        content.id = "pdf-stage-content";
+        content.style.cssText =
+          "width:100%;max-width:1760px;height:100%;overflow:hidden;display:flex;flex-direction:column;";
         const footer = document.createElement("div");
-        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:10px;line-height:1.2;opacity:.32;letter-spacing:0.4px;color:${t.m};padding-top:10px;font-family:${sa.fontFamily};`;
+        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.28;letter-spacing:0.4px;color:${t.m};padding-top:4px;font-family:${sa.fontFamily};`;
         footer.textContent = footerLabel;
 
         inner.appendChild(content);
@@ -771,6 +795,7 @@ function Pres({id,onBack,onNav}) {
       }
     } finally {
       document.body.removeChild(container);
+      stageStyle.remove();
     }
 
     pdf.save(`${META[id].l.replace(/\s/g, "_")}.pdf`);
