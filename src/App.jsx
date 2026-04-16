@@ -634,11 +634,16 @@ const META = {
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
-/** Export PDF: la scène reproduit exactement le viewer (même largeur max, mêmes vh).
- *  La page PDF est calée sur l'aspect du viewport pour remplir sans bandes blanches. */
-const PDF_STAGE_MAX_WIDTH = 1580;
+/** Export PDF en 16:9 strict (standard widescreen) pour plein écran sans bandes.
+ *  - Scène de rendu 1920×1080 (16:9) : les `vh` des renderers s'y calibrent proprement.
+ *  - Page PDF 338.67 × 190.5 mm (PowerPoint widescreen 16:9).
+ *  - Fond de page = fond du thème, donc aucune bordure visible quand le slide est centré. */
+const PDF_STAGE_PX_W = 1920;
+const PDF_STAGE_PX_H = 1080;
+const PDF_STAGE_MAX_WIDTH = 1760;
 const PDF_HTML2CANVAS_SCALE = 2;
-const PDF_PAGE_LONG_SIDE_MM = 380;
+const PDF_PAGE_W_MM = 338.67;
+const PDF_PAGE_H_MM = 190.5;
 
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
@@ -706,26 +711,21 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
-    // Aspect de la scène = aspect du viewport du viewer => les `vh` des renderers
-    // se résolvent exactement comme à l'écran et la disposition est préservée.
-    const stageW = Math.max(1280, window.innerWidth);
-    const stageH = Math.max(720, window.innerHeight);
-    const aspect = stageW / stageH;
-
-    const pageLong = PDF_PAGE_LONG_SIDE_MM;
-    const pageW_mm = pageLong;
-    const pageH_mm = +(pageLong / aspect).toFixed(2);
-
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
-      format: [pageW_mm, pageH_mm],
+      format: [PDF_PAGE_W_MM, PDF_PAGE_H_MM],
       compress: true,
     });
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
     const footerLabel = id === "cyrilmp4" ? "confidentiel" : "confidentiel – thibault loué";
 
+    // Scène 16:9 exacte. Le fond de la scène et celui de la page PDF sont identiques
+    // (t.bg), donc même si le contenu de la slide est centré avec sa respiration
+    // naturelle, il n'y a AUCUNE bordure visible en plein écran.
+    const stageW = PDF_STAGE_PX_W;
+    const stageH = PDF_STAGE_PX_H;
     const container = document.createElement("div");
     container.style.cssText = `position:fixed;left:-12000px;top:0;width:${stageW}px;height:${stageH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};`;
     document.body.appendChild(container);
@@ -736,18 +736,24 @@ function Pres({id,onBack,onNav}) {
       for (let i = 0; i < n; i++) {
         // Réplique exacte de `.far-slide-wrap` du viewer : même padding, même centrage,
         // même `.far-slide-inner` (maxWidth 1580), même footer « confidentiel ».
+        // L'inner est placé dans un élément `scaler` qui, APRÈS le rendu React,
+        // mesure la taille naturelle de la slide et applique un `transform: scale`
+        // uniforme pour remplir 16:9 AU MAXIMUM (sans distorsion, sans overflow).
         const wrap = document.createElement("div");
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:40px 36px 24px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:48px 56px 28px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
-          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;position:relative;";
+          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;";
+        const scaler = document.createElement("div");
+        scaler.style.cssText = "transform-origin:center center;display:inline-block;";
         const inner = document.createElement("div");
-        inner.style.cssText = `width:100%;max-width:${PDF_STAGE_MAX_WIDTH}px;`;
+        inner.style.cssText = `width:${PDF_STAGE_MAX_WIDTH}px;max-width:${PDF_STAGE_MAX_WIDTH}px;`;
         const footer = document.createElement("div");
         footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:12px;line-height:1;opacity:.25;letter-spacing:1px;color:${t.m};padding-top:16px;font-family:${sa.fontFamily};`;
         footer.textContent = footerLabel;
 
-        slideArea.appendChild(inner);
+        scaler.appendChild(inner);
+        slideArea.appendChild(scaler);
         wrap.appendChild(slideArea);
         wrap.appendChild(footer);
 
@@ -761,6 +767,17 @@ function Pres({id,onBack,onNav}) {
         });
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         await new Promise((resolve) => setTimeout(resolve, 220));
+
+        // Auto-fit : agrandit uniformément la slide pour remplir la zone disponible
+        // sans déformation et sans overflow. Caps à 1.4x pour ne pas pixeliser.
+        const areaRect = slideArea.getBoundingClientRect();
+        const innerRect = inner.getBoundingClientRect();
+        if (innerRect.width > 0 && innerRect.height > 0 && areaRect.width > 0 && areaRect.height > 0) {
+          const fit = Math.min(areaRect.width / innerRect.width, areaRect.height / innerRect.height);
+          const scale = Math.min(1.4, Math.max(0.6, fit));
+          scaler.style.transform = `scale(${scale})`;
+          await new Promise((resolve) => requestAnimationFrame(resolve));
+        }
 
         const canvas = await html2canvas(container, {
           scale: PDF_HTML2CANVAS_SCALE,
