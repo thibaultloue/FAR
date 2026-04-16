@@ -619,6 +619,13 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
 const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, cyrilmp4:SCyril, profil:SProfil };
+/** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4" };
+function normalizeDeckId(raw) {
+  if (!raw) return null;
+  const id = DECK_ALIASES[raw] ?? raw;
+  return ALL[id] ? id : null;
+}
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
@@ -1635,11 +1642,48 @@ function Gate({children}){
 }
 
 // ─── APP ──────────────────────────────────────────────────────────────────────
-function parseHash(){const h=window.location.hash.replace(/^#/,"");if(!h)return{d:null,s:0};const [d,s]=h.split("/");return{d:d||null,s:parseInt(s)||0};}
+function parseHash() {
+  const h = window.location.hash.replace(/^#/, "");
+  if (!h) return { d: null, s: 0 };
+  const [raw, s] = h.split("/");
+  const d = normalizeDeckId(raw);
+  const slide = parseInt(s, 10);
+  return { d, s: Number.isFinite(slide) && slide >= 0 ? slide : 0 };
+}
 export default function App() {
-  const [deck,setDeck] = useState(()=>parseHash().d);
-  const navDeck=useCallback(d=>{setDeck(d);window.location.hash=d?`${d}/0`:"";},[]);
-  const goBack=useCallback(()=>{setDeck(null);window.location.hash="";},[]);
-  useEffect(()=>{const h=()=>{const{d}=parseHash();setDeck(d);};window.addEventListener("hashchange",h);return()=>window.removeEventListener("hashchange",h);},[]);
-  return <Gate>{deck ? <Pres key={deck} id={deck} onBack={goBack} onNav={navDeck}/> : <Home onOpen={navDeck}/>}</Gate>;
+  const [deck, setDeck] = useState(() => parseHash().d);
+  const navDeck = useCallback((d) => {
+    setDeck(d);
+    window.location.hash = d ? `${d}/0` : "";
+  }, []);
+  const goBack = useCallback(() => {
+    setDeck(null);
+    window.location.hash = "";
+  }, []);
+  useEffect(() => {
+    const syncFromHash = () => {
+      const h = window.location.hash.replace(/^#/, "");
+      const [raw, sPart] = h.split("/");
+      const d = normalizeDeckId(raw);
+      if (raw && !d) {
+        const u = new URL(window.location.href);
+        u.hash = "";
+        window.history.replaceState(null, "", u.pathname + u.search);
+        setDeck(null);
+        return;
+      }
+      if (d && d !== raw) {
+        const slide = parseInt(sPart, 10);
+        const s = Number.isFinite(slide) && slide >= 0 ? slide : 0;
+        const u = new URL(window.location.href);
+        u.hash = `#${d}/${s}`;
+        window.history.replaceState(null, "", u.toString());
+      }
+      setDeck(parseHash().d);
+    };
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
+  return <Gate>{deck ? <Pres key={deck} id={deck} onBack={goBack} onNav={navDeck} /> : <Home onOpen={navDeck} />}</Gate>;
 }
