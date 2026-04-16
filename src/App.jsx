@@ -710,10 +710,8 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
-    // Cadre de rendu volontairement plus étroit que le viewport (~1120px) pour que
-    // les polices & éléments soient proportionnellement ~30 % plus gros dans le PDF.
-    // Le ratio 16:9 strict garantit zéro bande en plein écran.
-    const renderW = 1120;
+    // Cadre plus étroit que le viewport pour grossir polices & éléments dans le PDF.
+    const renderW = 1232;
     const renderH = Math.round(renderW * 9 / 16);
 
     const pdf = new jsPDF({
@@ -771,6 +769,20 @@ function Pres({id,onBack,onNav}) {
                 .replace(/(\d+(?:\.\d+)?)vw/g, (_, num) => (parseFloat(num) * renderW / 100) + "px");
               el.style.setProperty(prop, fixed);
             }
+          }
+        });
+
+        // html2canvas ne gère pas object-fit:cover → remplace les <img> concernés
+        // par un <div> avec background-size:cover pour préserver le ratio.
+        inner.querySelectorAll("img").forEach(img => {
+          const cs = getComputedStyle(img);
+          if (cs.objectFit === "cover" && img.src) {
+            const w = img.offsetWidth;
+            const h = img.offsetHeight;
+            const r = cs.borderRadius;
+            const div = document.createElement("div");
+            div.style.cssText = `width:${w}px;height:${h}px;background:url('${img.src}') center/cover no-repeat;border-radius:${r};flex-shrink:0;`;
+            img.parentNode.replaceChild(div, img);
           }
         });
         await new Promise((resolve) => requestAnimationFrame(resolve));
