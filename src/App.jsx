@@ -64,6 +64,41 @@ const TR = {
   ex:"#fff", exT:"#C62828", no:"rgba(255,255,255,.06)", noT:"#fff", noBrd:"rgba(255,255,255,.08)",
   section:"#fff", sectionT:"#C62828", cR:10, lv:"white",
 };
+/** FastGoodCuisine — show culinaire : anthracite + rouge vif + accent orange site. */
+const TFGC = {
+  bg:"#151515",
+  c:W,
+  c2:A,
+  m:"rgba(248,246,241,.58)",
+  d:"rgba(248,246,241,.22)",
+  a:"#FF453A",
+  a2:W,
+  card:"rgba(255,255,255,.07)",
+  cardT:W,
+  cardAlt:"rgba(255,69,58,.1)",
+  pill:"rgba(255,69,58,.14)",
+  pillA:"rgba(255,170,0,.14)",
+  brd:"rgba(255,255,255,.1)",
+  bar:"rgba(255,255,255,.08)",
+  barF:"#FF453A",
+  nav:"#FF453A",
+  navT:"#0d0d0d",
+  note:"#0d0d0d",
+  noteT:W,
+  th:"#FF453A",
+  thT:"#0d0d0d",
+  th2:"rgba(255,255,255,.08)",
+  th2T:W,
+  ex:"#FF453A",
+  exT:"#0d0d0d",
+  no:"rgba(255,255,255,.05)",
+  noT:W,
+  noBrd:"rgba(255,255,255,.08)",
+  section:"#FF453A",
+  sectionT:"#0d0d0d",
+  cR:14,
+  lv:"yellow",
+};
 
 const TC = {
   bg:B, c:W, c2:A, m:"rgba(248,246,241,.55)", d:"rgba(248,246,241,.2)",
@@ -80,7 +115,7 @@ const TC = {
   section:A, sectionT:B, cR:16, cBf:"blur(12px)", lv:"yellow",
 };
 const TProfil = T1;
-const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, cyrilmp4:TC, profil:TProfil };
+const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, cyrilmp4:TC, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -190,6 +225,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="case2") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
+  if(deck==="fastgoodcuisine") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity:.06}}><defs><pattern id="dmfgc" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M0 48 L48 0 M-12 12 L12 -12 M36 60 L60 36" stroke="#FF453A" strokeWidth="1"/></pattern></defs><rect fill="url(#dmfgc)" width="100%" height="100%"/></svg>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
@@ -204,6 +240,7 @@ const SV={
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
+  fastgoodcuisine:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   profil:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
 };
@@ -450,7 +487,7 @@ r:t=>{const rb="#DB0A40",rbBg="#1E1E2C",rbY="#F5C518";return <div><div style={{d
 {title:"Étape 4",r:t=>PlanSlide(t,4)},
 
 {title:"Activations",
-r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:800,margin:"0 auto 24px",textAlign:"center"}}>2 exemples concrets d'activation à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
+r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"},{id:"fastgoodcuisine",bg:"#151515",c:"#fff",tag:"FORMAT",title:"FastGoodCuisine — Le Show",sub:"50 chefs · élimination · spectacle culinaire",img:"/fastgoodcuisine.png",imgW:76,imgType:"photo",logoVar:"white"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:900,margin:"0 auto 24px",textAlign:"center"}}>Exemples concrets d'activation & de format à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"repeat(3, minmax(0, 1fr))",gap:16,maxWidth:1120,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
 
 {title:"Merci",
 r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
@@ -542,6 +579,29 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// FASTGOODCUISINE  -  FORMAT SHOW CULINAIRE  -  6 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SFGC = [
+{title:"Le concept",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:32,background:t.brd}}/><img src="/fastgoodcuisine.png" alt="FastGoodCuisine" style={{width:72,height:72,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.brd}`}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:20}}>FORMAT · FASTGOODCUISINE</div><Hl t={t} s={{fontSize:44,textAlign:"center",maxWidth:920,margin:"0 auto 24px"}}>50 chefs. Des épreuves à élimination. Un seul vainqueur.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.55,maxWidth:720,margin:"0 auto"}}>Un format de compétition culinaire pensé comme un grand show : rythme serré, enjeux lisibles, tension scénique. La cuisine devient un prime time qui tient la salle — et l'écran — jusqu'au dernier plat.</div></div>},
+
+{title:"La mécanique",
+r:t=><div><Tg t={t}>MÉCANIQUE</Tg><Hl t={t} s={{fontSize:36}}>Pression, élimination, progression.</Hl><Sh t={t}>Des chefs s'affrontent sur une série d'épreuves chronométrées. À chaque étape, le groupe se réduit : jusqu'à ce qu'il n'en reste qu'un.</Sh><div style={{display:"flex",gap:16,marginTop:32}}>{[{n:"01",t:"Épreuves",d:"Technique, créativité, duo, mystery box : des formats courts qui accélèrent le rythme et multiplient les angles de coupe."},{n:"02",t:"Élimination",d:"Votes jury, défi surprise, duel direct : chaque round tranche et garde l'audience en haleine."},{n:"03",t:"Finale",d:"Un dernier service, une couronne, un moment signature pour le vainqueur — et pour le partenaire qui porte la saison."}].map((x,i)=><div key={i} style={{flex:1,padding:24,borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,marginBottom:12}}>{x.n}</div><div style={{...se,fontSize:18,fontWeight:800,marginBottom:10,color:t.c}}>{x.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></div>)}</div><div style={{marginTop:24,padding:"18px 28px",borderRadius:12,background:t.a+"12",border:`1px solid ${t.a}35`}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.65}}><span style={{fontWeight:700,color:t.c}}>Le dispositif</span> fabrique des rebondissements, des temps forts sponsorables et des extraits courts pensés pour les réseaux — pas un concours figé, une saison événementielle.</div></div></div>},
+
+{title:"Le ton",
+r:t=><div><Tg t={t}>TON</Tg><Hl t={t} s={{fontSize:36}}>Spectaculaire, rythmé, massif.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.75,marginBottom:24}}>Une écriture pensée comme du divertissement premium : images fortes, son, lumière et montage au service du récit — l'émotion doit monter d'épreuve en épreuve.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:22}}>{["Show & prime","Tension & rebondissements","Cuisine en performance"].map((p,i)=><span key={i} style={{...mo,fontSize:13,fontWeight:600,padding:"14px 16px",borderRadius:10,background:t.a+"18",color:t.a,textAlign:"center"}}>{p}</span>)}</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a}}>Un univers où la cuisine n'est pas décorative : c'est le terrain où se jouent ego, technique et spectacle.</div></Wc></div>},
+
+{title:"La promesse",
+r:t=><div><Tg t={t}>PROMESSE</Tg><Hl t={t} s={{fontSize:36}}>Au bout du parcours, une récompense à forte valeur.</Hl><Sh t={t}>Le format ne se contente pas de désigner un gagnant : il peut faire émerger une figure — le visage d'une saison, d'un produit ou d'un territoire créatif.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Cash-prize & visibilité",d:"Une ligne rouge claire pour l'audience : ce qu'on gagne doit peser autant que le prestige du titre."},{t:"Parcours de héros",d:"Outsider, favori, rivalités : des marques s'installent sur des archétypes, pas seulement sur des logos en fond de plan."},{t:"Exploitation multi-canaux",d:"Behind-the-scenes, duels découpés en stories, best-of : chaque épreuve produit des assets réutilisables pour la marque."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:260,padding:"26px 22px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"26px 22px"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
+
+{title:"L'opportunité",
+r:t=><div><Tg t={t}>OPPORTUNITÉ</Tg><Hl t={t} s={{fontSize:36}}>Simple à comprendre, fort à produire, évident à raconter.</Hl><Sh t={t}>Un territoire puissant pour des partenaires qui veulent s'associer à la food, au spectacle et à l'événementiel — sans diluer l'adrénaline du jeu.</Sh><div style={{marginTop:28,padding:"24px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.55,flexShrink:0}}>ANGLE MARQUE</div><div style={{...sa,fontSize:16,lineHeight:1.6,color:t.thT}}>Ingrédients, ustensiles, électroménager pro, retail, livraison, broadcast, boisson, financement de prime : chaque catégorie trouve une <span style={{fontWeight:700}}>scène naturelle</span> dans l'épreuve.</div></div><div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:22}}>{["Food & boisson","Ustensiles & cuisine pro","Electro & captation","Retail & last mile","Banque & assurance","Lifestyle & beauté"].map((w,i)=><span key={i} style={{...mo,fontSize:12,fontWeight:600,padding:"8px 14px",borderRadius:8,background:t.card,border:`1px solid ${t.brd}`,color:t.cardT}}>{w}</span>)}</div></div>},
+
+{title:"Signature",
+r:(t,back)=><div style={{textAlign:"center",padding:"48px 0 32px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"58vh"}}><div style={{...mo,fontSize:13,fontWeight:700,letterSpacing:4,color:t.a,marginBottom:24}}>SIGNATURE</div><div style={{...se,fontSize:48,fontWeight:800,lineHeight:1.12,maxWidth:900,margin:"0 auto 28px"}}>50 entrent.<br/>Un seul reste.</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.65,maxWidth:560,margin:"0 auto 40px"}}>Une accroche mémorable pour clôturer le deck — et ouvrir la conversation production, casting et partenaires.</div><div style={{marginBottom:36}}><FarLogo size={88} variant={t.lv}/></div>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CYRILMP4  -  ACTIVATION AUTO  -  6 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyril = [
@@ -617,9 +677,9 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, cyrilmp4:SCyril, profil:SProfil };
+const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, cyrilmp4:SCyril, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -630,6 +690,7 @@ const META = {
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
+  fastgoodcuisine:{l:"FastGoodCuisine — Le Show",s:"50 chefs · élimination · format spectacle culinaire",tag:"FORMAT",card:"fgc"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
@@ -696,7 +757,7 @@ function ActCard({a,nav}){
         <div style={{...sa,fontSize:24,fontWeight:700,marginBottom:8}}>{a.title}</div>
         <div style={{...sa,fontSize:14,opacity:.7,lineHeight:1.5}}>{a.sub}</div>
       </div>
-      <div style={{flexShrink:0}}><img src={a.img} alt="" style={{width:a.imgW,height:"auto",filter:a.imgFilter,opacity:.85}}/></div>
+      <div style={{flexShrink:0}}>{a.imgType==="photo" ? <img src={a.img} alt="" style={{width:a.imgW,height:a.imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",opacity:.9}} /> : <img src={a.img} alt="" style={{width:a.imgW,height:"auto",filter:a.imgFilter||"none",opacity:.85}} />}</div>
     </div>
     <div style={{position:"absolute",inset:0,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,opacity:hovered?1:0,transition:"opacity .25s ease"}}>
       <LaPorteLogo size={70} color={a.c}/>
@@ -892,7 +953,7 @@ function Pres({id,onBack,onNav}) {
 // ─── DECK CARD ───────────────────────────────────────────────────────────────
 function DeckCard({id,st,d,onOpen,delay,children}) {
   const [hovered,setHovered] = useState(false);
-  const logoVar = st.bg===B||st.bg==="#C62828"||st.bg==="#81B840"||st.bg==="#1A1A1A"?"white":"black";
+  const logoVar = st.bg===B||st.bg==="#C62828"||st.bg==="#81B840"||st.bg==="#1A1A1A"||st.bg==="#151515"?"white":"black";
 
   return(
     <motion.div
@@ -927,6 +988,7 @@ function Home({onOpen}) {
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
+    fgc:{bg:"#151515",c:"#F8F6F1",tBg:"rgba(255,170,0,.12)",tC:A},
   };
   return (
     <div className="far-home" style={{minHeight:"100vh",background:A,padding:"44px 52px",...sa,color:B}}>
@@ -950,8 +1012,8 @@ function Home({onOpen}) {
         );})}
       </div>
       <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>ACTIVATIONS MARQUES</div>
-      <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,maxWidth:1155}}>
-        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
+      <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:20,maxWidth:1155}}>
+        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fastgoodcuisine.png",imgW:80,filter:"none",imgType:"photo"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
             {imgType==="photo"?<img src={img} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={img} alt="" style={{width:imgW,height:"auto",filter,opacity:.85,flexShrink:0}}/>}
           </DeckCard>
