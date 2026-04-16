@@ -634,12 +634,11 @@ const META = {
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
-/** Export PDF: page 16:9 (mm, type PowerPoint widescreen) + scène 1920×1080 px pour un rendu pleine page sans déformation. */
-const PDF_PAGE_W_MM = 338.67;
-const PDF_PAGE_H_MM = 190.5;
-const PDF_STAGE_PX_W = 1920;
-const PDF_STAGE_PX_H = 1080;
+/** Export PDF: la scène reproduit exactement le viewer (même largeur max, mêmes vh).
+ *  La page PDF est calée sur l'aspect du viewport pour remplir sans bandes blanches. */
+const PDF_STAGE_MAX_WIDTH = 1580;
 const PDF_HTML2CANVAS_SCALE = 2;
+const PDF_PAGE_LONG_SIDE_MM = 380;
 
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
@@ -707,10 +706,20 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
+    // Aspect de la scène = aspect du viewport du viewer => les `vh` des renderers
+    // se résolvent exactement comme à l'écran et la disposition est préservée.
+    const stageW = Math.max(1280, window.innerWidth);
+    const stageH = Math.max(720, window.innerHeight);
+    const aspect = stageW / stageH;
+
+    const pageLong = PDF_PAGE_LONG_SIDE_MM;
+    const pageW_mm = pageLong;
+    const pageH_mm = +(pageLong / aspect).toFixed(2);
+
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
-      format: [PDF_PAGE_W_MM, PDF_PAGE_H_MM],
+      format: [pageW_mm, pageH_mm],
       compress: true,
     });
     const pageW = pdf.internal.pageSize.getWidth();
@@ -718,56 +727,34 @@ function Pres({id,onBack,onNav}) {
     const footerLabel = id === "cyrilmp4" ? "confidentiel" : "confidentiel – thibault loué";
 
     const container = document.createElement("div");
-    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${PDF_STAGE_PX_W}px;height:${PDF_STAGE_PX_H}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};`;
+    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${stageW}px;height:${stageH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};`;
     document.body.appendChild(container);
-
-    // Force les slides à occuper toute la hauteur de la scène (1040px ~ 1080 - padding - footer)
-    // et neutralise les `min-height:NNvh` des renderers dans le contexte PDF.
-    const stageStyle = document.createElement("style");
-    stageStyle.textContent = `
-      #pdf-stage-content { height: 100%; }
-      #pdf-stage-content > * {
-        min-height: 1040px !important;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      #pdf-stage-content [style*="min-height: 55vh"],
-      #pdf-stage-content [style*="min-height: 60vh"],
-      #pdf-stage-content [style*="min-height: 65vh"],
-      #pdf-stage-content [style*="min-height: 70vh"],
-      #pdf-stage-content [style*="min-height: 75vh"] {
-        min-height: 1000px !important;
-      }
-    `;
-    document.head.appendChild(stageStyle);
 
     const rdom = await import("react-dom/client");
 
     try {
       for (let i = 0; i < n; i++) {
-        const wrapper = document.createElement("div");
-        wrapper.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;padding:14px 56px 6px;`;
+        // Réplique exacte de `.far-slide-wrap` du viewer : même padding, même centrage,
+        // même `.far-slide-inner` (maxWidth 1580), même footer « confidentiel ».
+        const wrap = document.createElement("div");
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:40px 36px 24px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
+        const slideArea = document.createElement("div");
+        slideArea.style.cssText =
+          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;position:relative;";
         const inner = document.createElement("div");
-        inner.style.cssText =
-          "flex:1;min-height:0;width:100%;display:flex;align-items:stretch;justify-content:center;overflow:hidden;";
-        const content = document.createElement("div");
-        content.id = "pdf-stage-content";
-        content.style.cssText =
-          "width:100%;max-width:1760px;height:100%;overflow:hidden;display:flex;flex-direction:column;";
+        inner.style.cssText = `width:100%;max-width:${PDF_STAGE_MAX_WIDTH}px;`;
         const footer = document.createElement("div");
-        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.28;letter-spacing:0.4px;color:${t.m};padding-top:4px;font-family:${sa.fontFamily};`;
+        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:12px;line-height:1;opacity:.25;letter-spacing:1px;color:${t.m};padding-top:16px;font-family:${sa.fontFamily};`;
         footer.textContent = footerLabel;
 
-        inner.appendChild(content);
-        wrapper.appendChild(inner);
-        wrapper.appendChild(footer);
+        slideArea.appendChild(inner);
+        wrap.appendChild(slideArea);
+        wrap.appendChild(footer);
 
         container.innerHTML = "";
-        container.appendChild(wrapper);
+        container.appendChild(wrap);
 
-        const tempRoot = rdom.createRoot(content);
+        const tempRoot = rdom.createRoot(inner);
         await new Promise((resolve) => {
           tempRoot.render(slides[i].r(t, null));
           setTimeout(resolve, 480);
@@ -775,15 +762,15 @@ function Pres({id,onBack,onNav}) {
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         await new Promise((resolve) => setTimeout(resolve, 220));
 
-        const canvas = await html2canvas(wrapper, {
+        const canvas = await html2canvas(container, {
           scale: PDF_HTML2CANVAS_SCALE,
           useCORS: true,
           allowTaint: false,
           backgroundColor: t.bg,
-          width: PDF_STAGE_PX_W,
-          height: PDF_STAGE_PX_H,
-          windowWidth: PDF_STAGE_PX_W,
-          windowHeight: PDF_STAGE_PX_H,
+          width: stageW,
+          height: stageH,
+          windowWidth: stageW,
+          windowHeight: stageH,
           logging: false,
           imageTimeout: 20000,
         });
@@ -795,7 +782,6 @@ function Pres({id,onBack,onNav}) {
       }
     } finally {
       document.body.removeChild(container);
-      stageStyle.remove();
     }
 
     pdf.save(`${META[id].l.replace(/\s/g, "_")}.pdf`);
