@@ -634,15 +634,52 @@ const META = {
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
-/** Export PDF en 16:9 strict (standard widescreen) pour plein écran sans bandes.
- *  - Scène de rendu 1920×1080 (16:9) : les `vh` des renderers s'y calibrent proprement.
- *  - Page PDF 338.67 × 190.5 mm (PowerPoint widescreen 16:9).
- *  - Fond de page = fond du thème, donc aucune bordure visible quand le slide est centré. */
-const PDF_STAGE_PX_W = 1920;
-const PDF_STAGE_PX_H = 1080;
-const PDF_HTML2CANVAS_SCALE = 2;
+/** Export PDF : même pipeline pour tous les decks ouverts dans `Pres`. */
+const PDF_RENDER_W = 1232;
+const PDF_CAPTURE_SCALE = 3;
 const PDF_PAGE_W_MM = 338.67;
 const PDF_PAGE_H_MM = 190.5;
+
+function pdfFooterLabel(deckId) {
+  return deckId === "profil" ? "confidentiel – thibault loué" : "confidentiel";
+}
+
+function pdfConvertVhVwToPx(root, renderW, renderH) {
+  root.querySelectorAll("*").forEach((el) => {
+    for (let j = 0; j < el.style.length; j++) {
+      const prop = el.style[j];
+      const val = el.style.getPropertyValue(prop);
+      if (val && (val.includes("vh") || val.includes("vw"))) {
+        const fixed = val
+          .replace(/(\d+(?:\.\d+)?)vh/g, (_, num) => (parseFloat(num) * renderH) / 100 + "px")
+          .replace(/(\d+(?:\.\d+)?)vw/g, (_, num) => (parseFloat(num) * renderW) / 100 + "px");
+        el.style.setProperty(prop, fixed);
+      }
+    }
+  });
+}
+
+/** html2canvas déforme object-fit → fond CSS (cover/contain) pour tous les decks. */
+function pdfReplaceObjectFitImages(root) {
+  root.querySelectorAll("img").forEach((img) => {
+    const cs = getComputedStyle(img);
+    const fit = cs.objectFit;
+    if ((fit !== "cover" && fit !== "contain") || !img.src) return;
+    const w = img.offsetWidth;
+    const h = img.offsetHeight;
+    if (w < 1 || h < 1) return;
+    const div = document.createElement("div");
+    div.style.width = `${w}px`;
+    div.style.height = `${h}px`;
+    div.style.backgroundImage = `url(${JSON.stringify(img.src)})`;
+    div.style.backgroundSize = fit === "contain" ? "contain" : "cover";
+    div.style.backgroundPosition = "center";
+    div.style.backgroundRepeat = "no-repeat";
+    div.style.borderRadius = cs.borderRadius;
+    div.style.flexShrink = "0";
+    img.parentNode.replaceChild(div, img);
+  });
+}
 
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
@@ -710,9 +747,8 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
-    // Cadre plus étroit que le viewport pour grossir polices & éléments dans le PDF.
-    const renderW = 1232;
-    const renderH = Math.round(renderW * 9 / 16);
+    const renderW = PDF_RENDER_W;
+    const renderH = Math.round((renderW * 9) / 16);
 
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -722,7 +758,7 @@ function Pres({id,onBack,onNav}) {
     });
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
-    const footerLabel = id === "cyrilmp4" ? "confidentiel" : "confidentiel – thibault loué";
+    const footerLabel = pdfFooterLabel(id);
 
     const container = document.createElement("div");
     container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};`;
@@ -758,37 +794,12 @@ function Pres({id,onBack,onNav}) {
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         await new Promise((resolve) => setTimeout(resolve, 220));
 
-        // Convertit vh/vw → px calibrées sur le cadre de rendu pour éviter tout overflow
-        inner.querySelectorAll("*").forEach(el => {
-          for (let j = 0; j < el.style.length; j++) {
-            const prop = el.style[j];
-            const val = el.style.getPropertyValue(prop);
-            if (val && (val.includes("vh") || val.includes("vw"))) {
-              const fixed = val
-                .replace(/(\d+(?:\.\d+)?)vh/g, (_, num) => (parseFloat(num) * renderH / 100) + "px")
-                .replace(/(\d+(?:\.\d+)?)vw/g, (_, num) => (parseFloat(num) * renderW / 100) + "px");
-              el.style.setProperty(prop, fixed);
-            }
-          }
-        });
-
-        // html2canvas ne gère pas object-fit:cover → remplace les <img> concernés
-        // par un <div> avec background-size:cover pour préserver le ratio.
-        inner.querySelectorAll("img").forEach(img => {
-          const cs = getComputedStyle(img);
-          if (cs.objectFit === "cover" && img.src) {
-            const w = img.offsetWidth;
-            const h = img.offsetHeight;
-            const r = cs.borderRadius;
-            const div = document.createElement("div");
-            div.style.cssText = `width:${w}px;height:${h}px;background:url('${img.src}') center/cover no-repeat;border-radius:${r};flex-shrink:0;`;
-            img.parentNode.replaceChild(div, img);
-          }
-        });
+        pdfConvertVhVwToPx(inner, renderW, renderH);
+        pdfReplaceObjectFitImages(inner);
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
-          scale: 3,
+          scale: PDF_CAPTURE_SCALE,
           useCORS: true,
           allowTaint: false,
           backgroundColor: t.bg,
@@ -862,7 +873,7 @@ function Pres({id,onBack,onNav}) {
         <AnimatePresence mode="wait">
           <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>{id==="cyrilmp4"?"confidentiel":"confidentiel – thibault loué"}</div></div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div></div>
           </motion.div>
         </AnimatePresence>
       </div>
