@@ -31,7 +31,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Base à la racine pour le domaine perso far.thibaultloue.com (voir public/CNAME).
       - name: Build
+        env:
+          VITE_BASE_PATH: /
         run: npm run build
 
       - name: Setup Pages
