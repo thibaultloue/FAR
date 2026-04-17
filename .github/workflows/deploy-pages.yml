@@ -1,9 +1,7 @@
+# Déploiement prod : Vercel (far.thibaultloue.com). Déclenchable à la main uniquement si besoin de GitHub Pages.
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -31,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Base à la racine pour le domaine perso far.thibaultloue.com (voir public/CNAME).
       - name: Build
         env:
           VITE_BASE_PATH: /
