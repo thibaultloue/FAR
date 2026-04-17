@@ -107,41 +107,41 @@ const TFGC = {
   lv:"black",
 };
 
-/** Thème dédié deck [MARQUE] × FastGoodCuisine (sombre, orange & violet). */
+/** Thème deck [MARQUE] × FastGoodCuisine : clair (même AD que FGC), accents orange & violet. */
 const TFGCMarque = {
-  bg: "#121018",
-  c: "#F4F0EA",
+  bg: "#FFF4F7",
+  c: "#1C1410",
   c2: "#FF8A3D",
-  m: "rgba(244,240,234,.7)",
-  d: "rgba(244,240,234,.32)",
+  m: "rgba(28,20,16,.62)",
+  d: "rgba(28,20,16,.3)",
   a: "#FF6B35",
-  a2: "#8B7CF6",
-  card: "#1C1924",
-  cardT: "#F4F0EA",
-  cardAlt: "rgba(255,107,53,.09)",
-  pill: "rgba(139,124,246,.18)",
-  pillA: "rgba(255,107,53,.22)",
-  brd: "rgba(244,240,234,.1)",
-  bar: "rgba(244,240,234,.08)",
+  a2: "#6B5DC9",
+  card: "#FFFFFF",
+  cardT: "#1C1410",
+  cardAlt: "rgba(255,107,53,.1)",
+  pill: "rgba(107,93,201,.14)",
+  pillA: "rgba(255,107,53,.2)",
+  brd: "rgba(28,20,16,.09)",
+  bar: "rgba(28,20,16,.08)",
   barF: "#FF6B35",
-  nav: "#FF6B35",
-  navT: "#121018",
-  note: "#1C1924",
-  noteT: "#F4F0EA",
+  nav: "#6B5DC9",
+  navT: "#FFFCF7",
+  note: "#F8F5FF",
+  noteT: "#1C1410",
   th: "#FF6B35",
-  thT: "#121018",
-  th2: "#252230",
-  th2T: "#D8D4CC",
+  thT: "#FFFCF7",
+  th2: "#EDE9FE",
+  th2T: "#433887",
   ex: "#FF6B35",
-  exT: "#121018",
-  no: "rgba(0,0,0,.25)",
-  noT: "#F4F0EA",
-  noBrd: "rgba(244,240,234,.1)",
-  section: "#8B7CF6",
-  sectionT: "#F4F0EA",
+  exT: "#FFFCF7",
+  no: "rgba(28,20,16,.05)",
+  noT: "#1C1410",
+  noBrd: "rgba(28,20,16,.1)",
+  section: "#6B5DC9",
+  sectionT: "#FFFCF7",
   cR: 14,
-  cS: "0 4px 28px rgba(0,0,0,.4)",
-  lv: "yellow",
+  cS: "0 2px 24px rgba(28,20,16,.08)",
+  lv: "black",
 };
 
 /** Toinelag : jaune vif, bleu ciel, noir (AD proche de l'avatar chaîne). */
@@ -307,7 +307,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
   if(deck==="fastgoodcuisine") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}} aria-hidden><defs><pattern id="dmfgc" width="48" height="48" patternUnits="userSpaceOnUse"><circle cx="9" cy="11" r="1.35" fill="rgba(235,165,180,.22)"/><circle cx="32" cy="19" r="1" fill="rgba(224,31,42,.1)"/><circle cx="24" cy="38" r="1.15" fill="rgba(15,107,88,.1)"/><circle cx="41" cy="8" r="0.85" fill="rgba(255,145,40,.14)"/><circle cx="18" cy="28" r="0.7" fill="rgba(232,140,155,.16)"/></pattern></defs><rect fill="#FFF2F5" width="100%" height="100%"/><rect fill="url(#dmfgc)" width="100%" height="100%"/></svg>;
-  if(deck==="fgcmarque") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmfgcx" width="42" height="42" patternUnits="userSpaceOnUse"><circle cx="12" cy="14" r="1" fill="rgba(255,107,53,.12)"/><circle cx="30" cy="28" r="0.85" fill="rgba(139,124,246,.14)"/><circle cx="24" cy="8" r="0.7" fill="rgba(244,240,234,.06)"/></pattern></defs><rect fill="url(#dmfgcx)" width="100%" height="100%"/></svg>;
+  if(deck==="fgcmarque") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}} aria-hidden><defs><pattern id="dmfgcx" width="44" height="44" patternUnits="userSpaceOnUse"><circle cx="10" cy="12" r="1.2" fill="rgba(255,107,53,.16)"/><circle cx="30" cy="22" r="0.95" fill="rgba(107,93,201,.14)"/><circle cx="22" cy="36" r="1.05" fill="rgba(255,145,40,.12)"/></pattern></defs><rect fill="#FFF4F7" width="100%" height="100%"/><rect fill="url(#dmfgcx)" width="100%" height="100%"/></svg>;
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
@@ -572,7 +572,7 @@ r:t=>{const rb="#DB0A40",rbBg="#1E1E2C",rbY="#F5C518";return <div><div style={{d
 {title:"Étape 4",r:t=>PlanSlide(t,4)},
 
 {title:"Activations",
-r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"},{id:"fastgoodcuisine",bg:"#FFF2F5",c:"#1C1410",tag:"OPÉRATION",title:"Le combat des chefs",sub:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"black"},{id:"fgcmarque",bg:"#121018",c:"#F4F0EA",tag:"ACTIVATION",title:"[MARQUE] × FastGoodCuisine",sub:"Média, divertissement, Pepe Chicken & Pop's",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"yellow"},{id:"toinelag",bg:"#FFE14A",c:"#141414",tag:"ACTIVATION",title:"[MARQUE] × Toinelag",sub:"Retail & jouet  -  le magasin terrain de jeu",img:"/toinelag-avatar.png",imgW:76,imgFilter:"none",logoVar:"black"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:900,margin:"0 auto 24px",textAlign:"center"}}>Exemples concrets d'activation & de format à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"repeat(2, minmax(0, 1fr))",gap:16,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
+r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"},{id:"fastgoodcuisine",bg:"#FFF2F5",c:"#1C1410",tag:"OPÉRATION",title:"Le combat des chefs",sub:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"black"},{id:"fgcmarque",bg:"#FFF4F7",c:"#1C1410",tag:"ACTIVATION",title:"[MARQUE] × FastGoodCuisine",sub:"Média, divertissement, Pepe Chicken & Pop's",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"black"},{id:"toinelag",bg:"#FFE14A",c:"#141414",tag:"ACTIVATION",title:"[MARQUE] × Toinelag",sub:"Retail & jouet  -  le magasin terrain de jeu",img:"/toinelag-avatar.png",imgW:76,imgFilter:"none",logoVar:"black"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:900,margin:"0 auto 24px",textAlign:"center"}}>Exemples concrets d'activation & de format à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"repeat(2, minmax(0, 1fr))",gap:16,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
 
 {title:"Merci",
 r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
@@ -1119,7 +1119,7 @@ function Home({onOpen}) {
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
-    fgcmarque:{bg:"#121018",c:"#F4F0EA",tBg:"rgba(255,107,53,.2)",tC:"#FF8A3D"},
+    fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
   };
   return (
@@ -1147,7 +1147,7 @@ function Home({onOpen}) {
       <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:20,maxWidth:1155}}>
         {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
-            {imgType==="photo"?<img src={pu(img)} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={pu(img)} alt="" style={{width:imgW,height:"auto",filter,opacity:.92,flexShrink:0,borderRadius:10,border: id==="toinelag" ? "3px solid rgba(20,20,20,.15)" : id==="fgcmarque" ? "2px solid rgba(244,240,234,.2)" : "none"}}/>}
+            {imgType==="photo"?<img src={pu(img)} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={pu(img)} alt="" style={{width:imgW,height:"auto",filter,opacity:.92,flexShrink:0,borderRadius:10,border: id==="toinelag" ? "3px solid rgba(20,20,20,.15)" : id==="fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none"}}/>}
           </DeckCard>
         );})}
       </div>
