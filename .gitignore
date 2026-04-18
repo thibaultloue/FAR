@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# PDF générés en local (scripts/export-pdfs.mjs)
+exports/*.pdf
