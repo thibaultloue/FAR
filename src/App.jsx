@@ -674,7 +674,7 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// FASTGOODCUISINE  -  OP LE COMBAT DES CHEFS  -  LONG FORMAT YOUTUBE  -  6 SLIDES
+// FASTGOODCUISINE  -  OP LE COMBAT DES CHEFS  -  LONG FORMAT YOUTUBE  -  5 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SFGC = [
 {title:"Le concept",
@@ -690,14 +690,11 @@ r:t=><div><Tg t={t}>L'IDÉE EN UNE SLIDE</Tg><Hl t={t} s={{fontSize:34}}>Le form
 r:t=><div><Tg t={t}>MÉCANIQUE</Tg><Hl t={t} s={{fontSize:36}}>Pression, élimination, progression.</Hl><Sh t={t}>Les chefs enchaînent des épreuves devant le jury. Le groupe se resserre au fil du jeu jusqu'à la finale et au vainqueur.</Sh><div style={{display:"flex",gap:16,marginTop:26,flexWrap:"wrap"}}>{[{n:"01",t:"Corps du film",d:"Enchaînement d'épreuves pour suivre la progression des chefs, garder la tension et faire vivre le récit jusqu'au bout."},{n:"02",t:"Élimination",d:"Le jury tranche au fil du jeu ; le plateau se resserre jusqu'aux phases décisives."},{n:"03",t:"Climax",d:"Finale, couronnement du vainqueur : le moment le plus intense pour l'émotion collective et pour l'empreinte du partenaire."}].map((x,i)=><div key={i} style={{flex:"1 1 220px",padding:22,borderRadius:14,background:t.card,border:`1px solid ${t.brd}`,boxShadow:t.cS||"none"}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a,marginBottom:10}}>{x.n}</div><div style={{...se,fontSize:17,fontWeight:800,marginBottom:8,color:t.c}}>{x.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></div>)}</div></div>},
 
 {title:"L'opportunité",
-r:t=><div><Tg t={t}>OPPORTUNITÉ</Tg><Hl t={t} s={{fontSize:36}}>Un partenaire, une catégorie.</Hl><Sh t={t}>Le scénario colle à une cuisine compétition réelle : ingrédients, outillage, logistique, boisson, financement de prime, retail autour du chef. Un seul annonceur occupe le territoire choisi et s'aligne sur les séquences utiles aux 50 chefs et sur les temps forts visibles dans la timeline de la vidéo.</Sh><div style={{marginTop:26,padding:"22px 28px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:14}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.55,flexShrink:0}}>LECTURE MARQUE</div><div style={{...sa,fontSize:16,lineHeight:1.62,color:t.thT}}>Le partenaire unique incarne contraintes et récompenses du jeu sur tout le parcours. Intro, séquences jury et climax concentrent l'attention : idéal pour les temps forts du dispositif et pour les relances après la mise en ligne.</div></div><div style={{...sa,fontSize:12,color:t.m,marginTop:14,marginBottom:6,opacity:.9}}>Exemples de familles où un exclusif peut s'installer :</div><div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:4}}>{["Food et boisson","Ustensiles et cuisine pro","Electro et captation","Retail et last mile","Banque et assurance","Lifestyle et beauté"].map((w,i)=><span key={i} style={{...mo,fontSize:12,fontWeight:600,padding:"8px 14px",borderRadius:8,background:t.card,border:`1px solid ${t.brd}`,color:t.cardT}}>{w}</span>)}</div></div>},
-
-{title:"Nuage de marques",
-r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Marques au bon profil pour l'OP</Hl><Sh t={t} s={{marginBottom:18,fontSize:17}}>Exemples non exhaustifs : ingrédients, boissons, équipement cuisine, financement, retail et livraison autour d'un partenaire exclusif sur le format.</Sh><Bc t={t} labels={["Danone","Barilla","Panzani","Tefal","Moulinex","KitchenAid","Le Creuset","Philips","Whirlpool","Electrolux","Evian","Volvic","Coca-Cola","Oasis","Sprite","Lurpak","Président","Elle & Vire","Kiri","Uber Eats","Deliveroo","Carrefour","Auchan","Intermarché","Leclerc","Monoprix","Franprix","Mastercard","MACIF","MACSF","Groupama"]}/><div style={{...sa,fontSize:11,color:t.d,marginTop:14,lineHeight:1.45,maxWidth:760,marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>Illustrations indicatives ; aucune présupposition de partenariat ou de contact en cours avec les marques citées.</div><div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
+r:(t,back)=><div><Tg t={t}>OPPORTUNITÉ</Tg><Hl t={t} s={{fontSize:36}}>Un partenaire, une catégorie.</Hl><Sh t={t}>Le scénario colle à une cuisine compétition réelle : ingrédients, outillage, logistique, boisson, financement de prime, retail autour du chef. Un seul annonceur occupe le territoire choisi et s'aligne sur les séquences utiles aux 50 chefs et sur les temps forts visibles dans la timeline de la vidéo.</Sh><div style={{marginTop:26,padding:"22px 28px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:14}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.55,flexShrink:0}}>LECTURE MARQUE</div><div style={{...sa,fontSize:16,lineHeight:1.62,color:t.thT}}>Le partenaire unique incarne contraintes et récompenses du jeu sur tout le parcours. Intro, séquences jury et climax concentrent l'attention : idéal pour les temps forts du dispositif et pour les relances après la mise en ligne.</div></div><div style={{...sa,fontSize:12,color:t.m,marginTop:14,marginBottom:6,opacity:.9}}>Exemples de familles où un exclusif peut s'installer :</div><div style={{display:"flex",flexWrap:"wrap",gap:8,marginTop:4}}>{["Food et boisson","Ustensiles et cuisine pro","Electro et captation","Retail et last mile","Banque et assurance","Lifestyle et beauté"].map((w,i)=><span key={i} style={{...mo,fontSize:12,fontWeight:600,padding:"8px 14px",borderRadius:8,background:t.card,border:`1px solid ${t.brd}`,color:t.cardT}}>{w}</span>)}</div><div style={{textAlign:"center",marginTop:36}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// FASTGOODCUISINE  -  [MARQUE] × ACTIVATION  -  6 SLIDES
+// FASTGOODCUISINE  -  [MARQUE] × ACTIVATION  -  5 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SFGCMarque = [
 {title:"[MARQUE] × FASTGOODCUISINE",
@@ -712,11 +709,8 @@ r:t=><div><Tg t={t}>STRUCTURE</Tg><Hl t={t} s={{fontSize:30,marginBottom:8,lineH
 {title:"Deux actifs extrêmement puissants",
 r:t=><div><Tg t={t}>FAST GOOD CUISINE</Tg><Hl t={t} s={{fontSize:32,lineHeight:1.15}}>2 actifs extrêmement puissants</Hl><Sh t={t}>Une opportunité énorme et un terrain de jeu très fertile pour la co-construction avec les marques.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginTop:20}}><Wc t={t} s={{padding:22}}><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:10}}>PEPE CHICKEN</div><div style={{...se,fontSize:17,fontWeight:800,color:t.c,marginBottom:10}}>Dark kitchen distribuée</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>Sur Uber Eats et Deliveroo. Opportunité de collaborer avec une marque de dessert ou de bonbon. Possibilité d'imaginer des partenariats avec de grandes chaînes pour des LTO.</div></Wc><Wc t={t} s={{padding:22}}><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.a2,marginBottom:10}}>POP'S</div><div style={{...se,fontSize:17,fontWeight:800,color:t.c,marginBottom:10}}>Thé glacé</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>Aujourd'hui distribué chez Pepe Chicken et en grande distribution. Volonté d'être en CHR.</div></Wc></div></div>},
 
-{title:"Le modèle recommandé",
-r:t=><div><Tg t={t}>SETUP EN TROIS ÉTAGES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Le bon setup pour FastGoodCuisine</Hl><div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:18}}>{[{n:"01",t:"Placements récurrents",d:"TikTok / Instagram / shorts pour faire du volume et monétiser les formats verticaux."},{n:"02",t:"Privilégier des vidéos dédiées sur YouTube",d:"Installer des prises de parole fortes qui renforcent le créateur et la marque."},{n:"03",t:"Ambition business",d:"Collabs contenu + produit + distribution autour de Pepe Chicken ou surtout de Pop's. Pepe Chicken : dessert / snack / menu collab ; Pop's : priorité retail, VHR, sell-through."}].map((x,i)=><div key={i} style={{display:"flex",gap:14,padding:16,borderRadius:12,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,minWidth:28}}>{x.n}</div><div><div style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{x.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{x.d}</div></div></div>)}</div></div>},
-
 {title:"Nuage de marques",
-r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Marques au bon profil pour l'activation</Hl><Sh t={t} s={{marginBottom:18,fontSize:17}}>Food service, dessert & snacking, boissons, GMS et CHR : pistes pour contenus, LTO, co-branding Pepe Chicken ou Pop's.</Sh><Bc t={t} labels={["McDonald's","KFC","Burger King","Subway","Starbucks","Five Guys","Quick","Kinder","Haribo","Oreo","LU","Milka","Ben & Jerry's","Häagen-Dazs","Yoplait","Activia","Monoprix","Auchan","Carrefour","Leclerc","Intermarché","Franprix","Uber Eats","Deliveroo","Coca-Cola","Oasis","Schweppes","Red Bull","Monster","Pepsi","Heineken"]}/><div style={{...sa,fontSize:11,color:t.d,marginTop:14,lineHeight:1.45,maxWidth:760,marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>Illustrations indicatives ; aucune présupposition de partenariat ou de contact en cours avec les marques citées.</div><div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
+r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Marques au bon profil pour l'activation</Hl><Sh t={t} s={{marginBottom:18,fontSize:17}}>Inclut les terrains type long format food / OP, food service, snacking, GMS, CHR, livraison, financement, électroménager et seconde main.</Sh><Bc t={t} labels={["McDonald's","KFC","Burger King","Subway","Starbucks","Five Guys","Quick","Kinder","Haribo","Oreo","LU","Milka","Ben & Jerry's","Häagen-Dazs","Yoplait","Activia","Danone","Barilla","Panzani","Evian","Volvic","Coca-Cola","Oasis","Sprite","Schweppes","Red Bull","Monster","Pepsi","Lurpak","Président","Elle & Vire","Kiri","Uber Eats","Deliveroo","Carrefour","Auchan","Intermarché","Leclerc","Monoprix","Franprix","Mastercard","MACIF","MACSF","Groupama","Tefal","Moulinex","KitchenAid","Le Creuset","Seb","Rowenta","De'Longhi","Bosch","Siemens","Smeg","LG","Samsung","Miele","Whirlpool","Electrolux","Philips","Candy","Beko","Dyson","Vinted"]}/><div style={{...sa,fontSize:11,color:t.d,marginTop:14,lineHeight:1.45,maxWidth:760,marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>Illustrations indicatives ; aucune présupposition de partenariat ou de contact en cours avec les marques citées.</div><div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -740,7 +734,7 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// CYRILMP4  -  ACTIVATION AUTO  -  6 SLIDES
+// CYRILMP4  -  ACTIVATION AUTO  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyril = [
 {title:"Sur la route avec CYRILmp4",
@@ -758,8 +752,8 @@ r:t=><div><Tg t={t}>TERRITOIRE CRÉATIF</Tg><Hl t={t} s={{fontSize:36}}>4 axes d
 {title:"Le partenariat recommandé",
 r:t=><div><Tg t={t}>PARTENARIAT</Tg><Hl t={t} s={{fontSize:34}}>Un partenariat annuel exclusif sur MP4, pensé comme une saison.</Hl><Sh t={t}>Un fil rouge sur l'année entière, avec une continuité narrative sur les mois.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"3 à 4 vidéos fortes",d:"[MARQUE] tient une place centrale dans l'aventure, avec une présence visible tout au long du récit."},{n:"02",t:"Présence organique",d:"Le véhicule apparaît naturellement dans d'autres épisodes de l'année."},{n:"03",t:"Déclinaisons sociales",d:"Capsules courtes, stories, cutdowns pour prolonger la mémorisation."},{n:"04",t:"Droits de reprise",d:"Assets exploitables par la marque sur ses propres canaux : social, paid, site, CRM."},{n:"05",t:"Temps fort possible",d:"Lancement modèle, road trip signature, défi spécial ou événement."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:50,padding:"22px 16px",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a}}>{item.n}</div></div><div style={{width:220,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,fontWeight:700}}>{item.t}</div></div><div style={{flex:1,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div><div style={{marginTop:24,padding:"20px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.5,flexShrink:0}}>VISION</div><div style={{...sa,fontSize:16,lineHeight:1.5,color:t.thT}}>L'opportunité : devenir <span style={{fontWeight:700,fontStyle:"italic"}}>la marque qui accompagne durablement toutes les prochaines aventures de Cyril</span>.</div></div></div>},
 
-{title:"Ce que gagne [MARQUE]",
-r:(t,back)=>{
+{title:"Ce que gagne la marque",
+r:t=>{
   const gains=[
     {t:"Territoire éditorial propriétaire",d:"L\u2019exploration et l\u2019aventure deviennent le territoire de la marque dans la creator economy."},
     {t:"Visibilité répétée et crédible",d:"Un partenariat annuel accumule les contacts avec l'audience et renforce la mémorisation de la marque."},
@@ -767,26 +761,23 @@ r:(t,back)=>{
     {t:"Association long terme",d:"Cyril cherche explicitement à construire des partenariats annuels emblématiques sur MP4."},
   ];
   return(
-    <div>
+    <div style={{textAlign:"center"}}>
       <Tg t={t}>{"BÉNÉFICES"}</Tg>
-      <Hl t={t} s={{fontSize:36}}>{"Ce que gagne [MARQUE]."}</Hl>
-      <div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px 0",border:`1px solid ${t.brd}`}}>
+      <Hl t={t} s={{fontSize:36}}>{"Ce que gagne la marque."}</Hl>
+      <div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px auto 0",border:`1px solid ${t.brd}`,maxWidth:1180,justifyContent:"center"}}>
         {gains.map((item,i)=>(
-          <div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none"}}>
+          <div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none",textAlign:"left"}}>
             <div style={{...se,fontSize:18,fontWeight:700,marginBottom:10,color:t.thT}}>{item.t}</div>
             <div style={{...sa,fontSize:14,color:t.thT,opacity:.85,lineHeight:1.55}}>{item.d}</div>
           </div>
         ))}
       </div>
-      <div style={{textAlign:"center",padding:"40px 0"}}>
-        <div style={{...se,fontSize:28,fontWeight:800,lineHeight:1.2,marginBottom:20}}>{"[MARQUE] \u00d7 CYRILmp4"}</div>
-        <div style={{...sa,fontSize:18,color:t.m,maxWidth:600,margin:"0 auto",lineHeight:1.6}}>{"La route fait partie de l\u2019histoire."}</div>
-        <div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}></div>
-        {back && <button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>{"\u2190 Retour"}</button>}
-      </div>
     </div>
   );
 }},
+
+{title:"Nuage de marques auto",
+r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Constructeurs & marques auto</Hl><Sh t={t} s={{marginBottom:18,fontSize:17}}>Exemples de marques dont le territoire colle à l'usage réel, au road trip et à l'aventure sur MP4.</Sh><Bc t={t} labels={["Renault","Peugeot","Citroën","DS","Dacia","Alpine","BMW","Mercedes-Benz","Audi","Volkswagen","Porsche","Toyota","Lexus","Honda","Hyundai","Kia","Ford","Tesla","Nissan","Mazda","Suzuki","Skoda","Seat","Cupra","Volvo","Polestar","Mini","Jaguar","Land Rover","Fiat","Jeep","Abarth","Smart","MG","BYD"]}/><div style={{...sa,fontSize:11,color:t.d,marginTop:14,lineHeight:1.45,maxWidth:760,marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>Illustrations indicatives ; aucune présupposition de partenariat ou de contact en cours avec les marques citées.</div><div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
