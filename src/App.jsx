@@ -195,8 +195,22 @@ const TC = {
   ex:A, exT:B, no:"rgba(255,255,255,.05)", noT:W, noBrd:"rgba(255,255,255,.08)",
   section:A, sectionT:B, cR:16, cBf:"blur(12px)", lv:"yellow",
 };
+const TGarmin = {
+  bg:"#050A0F", c:"#F7FBFF", c2:"#00A9E0", m:"rgba(247,251,255,.64)", d:"rgba(247,251,255,.24)",
+  a:"#00A9E0", a2:"#FFFFFF",
+  card:"rgba(255,255,255,.07)", cardT:"#F7FBFF",
+  cardAlt:"rgba(0,169,224,.11)",
+  pill:"rgba(0,169,224,.12)", pillA:"rgba(0,169,224,.24)",
+  brd:"rgba(255,255,255,.1)",
+  bar:"rgba(255,255,255,.1)", barF:"#00A9E0",
+  nav:"#00A9E0", navT:"#050A0F", note:"#F7FBFF", noteT:"#050A0F",
+  th:"#00A9E0", thT:"#050A0F",
+  th2:"rgba(255,255,255,.09)", th2T:"#F7FBFF",
+  ex:"#00A9E0", exT:"#050A0F", no:"rgba(255,255,255,.05)", noT:"#F7FBFF", noBrd:"rgba(255,255,255,.1)",
+  section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
+};
 const TProfil = T1;
-const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, profil:TProfil };
+const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -310,6 +324,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="fgcmarque") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}} aria-hidden><defs><pattern id="dmfgcx" width="44" height="44" patternUnits="userSpaceOnUse"><circle cx="10" cy="12" r="1.2" fill="rgba(255,107,53,.16)"/><circle cx="30" cy="22" r="0.95" fill="rgba(107,93,201,.14)"/><circle cx="22" cy="36" r="1.05" fill="rgba(255,145,40,.12)"/></pattern></defs><rect fill="#FFF4F7" width="100%" height="100%"/><rect fill="url(#dmfgcx)" width="100%" height="100%"/></svg>;
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
+  if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
@@ -327,6 +342,7 @@ const SV={
   fgcmarque:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   profil:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
 };
 function AC({v,s="",p="",d=1.2}){const[c,setC]=useState(0);const ref=useRef(false);useEffect(()=>{if(ref.current)return;ref.current=true;const st=performance.now(),ms=d*1000;(function step(now){const pr=Math.min((now-st)/ms,1);setC(Math.round(v*(1-Math.pow(1-pr,3))));if(pr<1)requestAnimationFrame(step);})(performance.now());},[v,d]);return<>{p}{c}{s}</>;}
@@ -781,6 +797,37 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// GARMIN × CYRILMP4  -  ACTIVATION AVENTURE / SPORT CONNECTÉ  -  6 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SGarmin = [
+{title:"Garmin accompagne l'aventure",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:38}}><FarLogo size={76} variant={t.lv}/><div style={{width:1,height:32,background:t.brd}}/><div style={{...se,fontSize:32,fontWeight:900,letterSpacing:2,color:t.a}}>GARMIN</div><div style={{width:1,height:32,background:t.brd}}/><img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:62,height:62,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:20}}>ACTIVATION GARMIN × CYRILMP4</div><Hl t={t} s={{fontSize:48,textAlign:"center",maxWidth:860,margin:"0 auto 24px"}}>Chaque aventure se mesure, se suit et se raconte.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:760,margin:"0 auto"}}>Garmin devient l'équipement officiel des explorations MP4 : montre, GPS, tracking, sécurité, autonomie et données réelles au service du récit.</div></div>},
+
+{title:"Pourquoi Cyril pour Garmin",
+r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}><Tg t={t}>POURQUOI CYRILMP4</Tg><Hl t={t} s={{fontSize:36}}>Un créateur crédible pour rendre la technologie utile.</Hl><Sh t={t}>Cyril construit des formats d'exploration où l'itinéraire, l'effort, les imprévus et la préparation font partie du spectacle. C'est un terrain naturel pour Garmin : le produit n'est pas posé, il aide à vivre l'aventure.</Sh><div style={{display:"flex",gap:12,marginBottom:24}}>{[{v:"5,21M",l:"abonnés YouTube"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"}].map((s,i)=><div key={i} style={{flex:1,padding:"14px 12px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>{[{t:"Fit éditorial",d:"Exploration, voyage, endurance, lieux extrêmes : des contextes où Garmin a une vraie raison d'être."},{t:"Usage visible",d:"Navigation, trace GPS, autonomie batterie, suivi cardio, altitude, météo, sécurité : des preuves concrètes dans le film."},{t:"Brand safety",d:"Un récit positif, maîtrisé et aspirationnel autour de la curiosité, de la préparation et du dépassement."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"10px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}</div><div style={{flex:2,borderRadius:16,overflow:"hidden",flexShrink:0,border:`1px solid ${t.brd}`}}><img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16}}/></div></div>},
+
+{title:"Pourquoi Garmin est un fit évident",
+r:t=><div><Tg t={t}>FIT GARMIN</Tg><Hl t={t} s={{fontSize:36}}>Le produit devient un outil de récit.</Hl><Wc t={t} s={{padding:"40px 36px",marginTop:24}}><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,marginBottom:28}}>Dans un épisode MP4, Garmin peut accompagner les décisions importantes : préparer l'itinéraire, suivre l'effort, gérer l'autonomie, documenter les conditions et rassurer en terrain inconnu.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:28}}>{["Trace GPS","Altitude & météo","Cardio & effort","Autonomie","Sécurité terrain","Données de l'aventure"].map((p,i)=><span key={i} style={{...mo,fontSize:13,fontWeight:600,padding:"14px 20px",borderRadius:10,background:t.a+"18",color:t.a,textAlign:"center"}}>{p}</span>)}</div><div style={{...se,fontSize:22,lineHeight:1.4,color:t.a}}>La marque est montrée pour ce qu'elle permet : partir mieux préparé, rester orienté et transformer l'aventure en preuves visibles.</div></Wc></div>},
+
+{title:"Le territoire créatif",
+r:t=><div><Tg t={t}>TERRITOIRE CRÉATIF</Tg><Hl t={t} s={{fontSize:36}}>4 axes naturels pour Garmin × CYRILmp4.</Hl><Sh t={t}>Des concepts où la donnée, la cartographie et l'autonomie renforcent l'histoire au lieu de l'interrompre.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Mission exploration",d:"Objectif géographique clair, trace à suivre, progression visible à l'écran et tension autour de l'itinéraire."},{t:"Défi endurance",d:"Effort mesuré, gestion du rythme, sommeil, altitude, météo et récupération : la montre raconte le corps en action."},{t:"Survie & sécurité",d:"Terrain isolé, imprévus, orientation, préparation, autonomie batterie : Garmin devient l'outil qui sécurise l'aventure."},{t:"Activation communauté",d:"Parcours choisi par l'audience, segment à battre, itinéraire surprise ou challenge data à reproduire."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
+
+{title:"Le partenariat recommandé",
+r:t=><div><Tg t={t}>PARTENARIAT</Tg><Hl t={t} s={{fontSize:34}}>Un partenariat annuel Garmin, pensé comme une saison d'explorations.</Hl><Sh t={t}>Garmin devient le fil rouge équipement, données et sécurité des prochaines aventures MP4.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{n:"01",t:"3 à 4 vidéos fortes",d:"Chaque épisode met Garmin en usage réel : préparation, terrain, imprévus et bilan data."},{n:"02",t:"Présence organique",d:"La montre / le GPS apparaît naturellement dans les autres formats d'exploration de l'année."},{n:"03",t:"Déclinaisons sociales",d:"Capsules data, cartes, traces, moments d'effort et cutdowns pédagogiques pour prolonger la mémorisation."},{n:"04",t:"Droits de reprise",d:"Assets exploitables par Garmin : social, paid, retail, CRM, pages produit et temps forts sportifs."},{n:"05",t:"Temps fort possible",d:"Lancement produit, challenge communautaire, itinéraire signature ou grande expédition co-construite."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><div style={{width:50,padding:"22px 16px",display:"flex",alignItems:"center",justifyContent:"center"}}><div style={{...mo,fontSize:12,fontWeight:700,color:t.a}}>{item.n}</div></div><div style={{width:220,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,fontWeight:700}}>{item.t}</div></div><div style={{flex:1,padding:"22px 16px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{item.d}</div></div></div>)}</div><div style={{marginTop:24,padding:"20px 32px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.55,flexShrink:0}}>VISION</div><div style={{...sa,fontSize:16,lineHeight:1.5,color:t.thT}}>L'opportunité : devenir <span style={{fontWeight:700,fontStyle:"italic"}}>la marque qui équipe, mesure et sécurise durablement les prochaines aventures de Cyril</span>.</div></div></div>},
+
+{title:"Ce que gagne Garmin",
+r:(t,back)=>{
+  const gains=[
+    {t:"Usage produit démontré",d:"Les fonctionnalités Garmin apparaissent en situation réelle, dans un récit long et crédible."},
+    {t:"Territoire aventure propriétaire",d:"La marque s'associe durablement à l'exploration, au dépassement et à la préparation."},
+    {t:"Preuves data mémorisables",d:"Trace, altitude, effort, autonomie et sécurité deviennent des éléments narratifs faciles à reprendre."},
+    {t:"Assets activables",d:"Des images et séquences réutilisables pour social, retail, paid, CRM et pages produit."},
+  ];
+  return <div style={{textAlign:"center"}}><Tg t={t}>BÉNÉFICES GARMIN</Tg><Hl t={t} s={{fontSize:36}}>Ce que gagne Garmin.</Hl><div style={{display:"flex",gap:0,borderRadius:16,overflow:"hidden",margin:"28px auto 0",border:`1px solid ${t.brd}`,maxWidth:1180,justifyContent:"center"}}>{gains.map((item,i)=><div key={i} style={{flex:1,padding:"28px 22px",background:t.th,color:t.thT,borderRight:i<3?`1px solid ${t.brd}`:"none",textAlign:"left"}}><div style={{...se,fontSize:18,fontWeight:700,marginBottom:10,color:t.thT}}>{item.t}</div><div style={{...sa,fontSize:14,color:t.thT,opacity:.85,lineHeight:1.55}}>{item.d}</div></div>)}</div><div style={{textAlign:"center",marginTop:34}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>;
+}},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // PROFIL / CV  -  contenu issu du CV Thibault Loué
 // ═══════════════════════════════════════════════════════════════════════════════
 const SProfil = [
@@ -806,9 +853,9 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, toinelag:SToinelag, cyrilmp4:SCyril, profil:SProfil };
+const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", toine: "toinelag", tl: "toinelag" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", toine: "toinelag", tl: "toinelag" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -823,6 +870,7 @@ const META = {
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
+  garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
@@ -1122,6 +1170,7 @@ function Home({onOpen}) {
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
     fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
+    garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
   };
   return (
     <div className="far-home" style={{minHeight:"100vh",background:A,padding:"44px 52px",...sa,color:B}}>
@@ -1146,7 +1195,7 @@ function Home({onOpen}) {
       </div>
       <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>ACTIVATIONS MARQUES</div>
       <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:20,maxWidth:1155}}>
-        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
+        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"},{id:"garmin",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
             {imgType==="photo"?<img src={pu(img)} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={pu(img)} alt="" style={{width:imgW,height:"auto",filter,opacity:.92,flexShrink:0,borderRadius:10,border: id==="toinelag" ? "3px solid rgba(20,20,20,.15)" : id==="fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none"}}/>}
           </DeckCard>
