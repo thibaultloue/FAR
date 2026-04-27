@@ -209,8 +209,22 @@ const TGarmin = {
   ex:"#00A9E0", exT:"#050A0F", no:"rgba(255,255,255,.05)", noT:"#F7FBFF", noBrd:"rgba(255,255,255,.1)",
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
+const TOtacosPepe = {
+  bg:"#FFC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
+  a:"#E30613", a2:"#FF7A00",
+  card:"#FFF4C7", cardT:"#171006",
+  cardAlt:"rgba(227,6,19,.1)",
+  pill:"rgba(23,16,6,.08)", pillA:"rgba(227,6,19,.16)",
+  brd:"rgba(23,16,6,.13)",
+  bar:"rgba(23,16,6,.12)", barF:"#E30613",
+  nav:"#111111", navT:"#FFC400", note:"#111111", noteT:"#FFC400",
+  th:"#111111", thT:"#FFC400",
+  th2:"#FFE37A", th2T:"#171006",
+  ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
+  section:"#E30613", sectionT:"#FFF4C7", cR:18, cS:"0 5px 0 rgba(17,17,17,.9)", lv:"black",
+};
 const TProfil = T1;
-const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, profil:TProfil };
+const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -325,6 +339,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
+  if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,6,19,.14)":i%3===1?"rgba(255,122,0,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
@@ -343,6 +358,7 @@ const SV={
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  otacospepe:{i:{opacity:0,y:34},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:25}},
   profil:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
 };
 function AC({v,s="",p="",d=1.2}){const[c,setC]=useState(0);const ref=useRef(false);useEffect(()=>{if(ref.current)return;ref.current=true;const st=performance.now(),ms=d*1000;(function step(now){const pr=Math.min((now-st)/ms,1);setC(Math.round(v*(1-Math.pow(1-pr,3))));if(pr<1)requestAnimationFrame(step);})(performance.now());},[v,d]);return<>{p}{c}{s}</>;}
@@ -730,6 +746,35 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  8 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SOtacosPepe = [
+{title:"O'Tacos × Pepe Chicken",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center"}}><div style={{display:"flex",alignItems:"center",gap:26,marginBottom:34,flexWrap:"wrap",justifyContent:"center"}}><img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:210,maxHeight:120,objectFit:"contain",borderRadius:18,boxShadow:t.cS}}/><div style={{...se,fontSize:42,fontWeight:900,color:t.a}}>×</div><img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:180,maxHeight:150,objectFit:"contain",borderRadius:18,boxShadow:t.cS}}/></div><div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2.6,padding:"8px 16px",background:t.pill,borderRadius:999,display:"inline-block",marginBottom:20}}>LTO · COLLABORATION 2026</div><Hl t={t} s={{fontSize:48,textAlign:"center",maxWidth:900,margin:"0 auto 20px"}}>Deux communautés. Deux produits. Un lancement commun.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:760,margin:"0 auto"}}>Une collaboration éphémère pensée pour créer de la désirabilité, générer du trafic croisé et transformer le lancement produit en moment social.</div></div>},
+
+{title:"Le principe",
+r:t=><div><Tg t={t}>LE CONCEPT</Tg><Hl t={t} s={{fontSize:38}}>Une double LTO qui se répond entre les deux enseignes.</Hl><Sh t={t}>La collaboration repose sur deux produits limités : l'un disponible chez O'Tacos, l'autre chez Pepe Chicken. Chaque achat devient un levier pour découvrir l'autre marque, avec une mécanique d'offre croisée et un contenu fort pour déclencher le drive to store.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:18,marginTop:20}}>{[{brand:"O'TACOS",img:"/otacos-logo.png",h:"Une LTO O'Tacos co-signée Pepe Chicken",d:"Un produit événementiel en point de vente, soutenu par contenus sociaux et offre de lancement."},{brand:"PEPE CHICKEN",img:"/pepe-chicken-logo.png",h:"Une LTO Pepe Chicken co-signée O'Tacos",d:"Un miroir produit côté Pepe Chicken, pensé pour créer de la curiosité et du trafic croisé."}].map((x,i)=><Wc key={i} t={t} s={{padding:24,border:`2px solid ${i===0?t.a2:t.a}`,boxShadow:t.cS}}><img src={pu(x.img)} alt="" style={{height:70,maxWidth:170,objectFit:"contain",display:"block",marginBottom:18}}/><div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:i===0?t.a2:t.a,marginBottom:8}}>{x.brand}</div><div style={{...se,fontSize:20,fontWeight:800,color:t.c,marginBottom:8,lineHeight:1.2}}>{x.h}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></Wc>)}</div></div>},
+
+{title:"Les enjeux",
+r:t=><div><Tg t={t}>ENJEUX</Tg><Hl t={t} s={{fontSize:36}}>Ce que la collaboration doit créer.</Hl><div style={{display:"grid",gridTemplateColumns:"repeat(3, 1fr)",gap:14,marginTop:24}}>{[{h:"Désirabilité",d:"Utiliser la rareté et le caractère éphémère pour créer l'envie."},{h:"Nouvelles clientèles",d:"Faire se rencontrer les communautés O'Tacos, Pepe Chicken et FastGoodCuisine."},{h:"Événementialisation",d:"Transformer la LTO en expérience : contenu, point de vente, commande et exclusivité."},{h:"Drive to store",d:"Générer du trafic croisé et augmenter le panier moyen via l'effet nouveauté."},{h:"Puissance marketing",d:"Multiplier les axes de communication et stimuler le partage spontané."},{h:"Mémoire de marque",d:"Créer un moment identifiable, simple à comprendre et facile à raconter."}].map((x,i)=><Wc key={i} t={t} s={{padding:22,borderTop:`5px solid ${i%2?t.a2:t.a}`,boxShadow:t.cS}}><div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:i%2?t.a2:t.a,marginBottom:10}}>{String(i+1).padStart(2,"0")}</div><div style={{...se,fontSize:18,fontWeight:900,color:t.c,marginBottom:8}}>{x.h}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></Wc>)}</div></div>},
+
+{title:"La mécanique commerciale",
+r:t=><div><Tg t={t}>MÉCANIQUE</Tg><Hl t={t} s={{fontSize:34}}>Un achat chez l'un déclenche l'envie d'aller chez l'autre.</Hl><Sh t={t}>Une offre simple à comprendre, annoncée au lancement et activable sur le week-end pour concentrer l'urgence.</Sh><div style={{display:"flex",gap:14,alignItems:"stretch",marginTop:24}}>{[{n:"01",t:"Achat LTO",d:"Un tacos ou produit LTO acheté chez O'Tacos ou chez Pepe Chicken."},{n:"02",t:"Avantage croisé",d:"Un pourcentage offert chez l'autre enseigne + second produit LTO offert."},{n:"03",t:"Fenêtre courte",d:"Exclusivité du vendredi 18h au dimanche 00h pour créer l'urgence."},{n:"04",t:"Preuve sociale",d:"Contenus, reposts, QR codes et communauté pour amplifier la conversion."}].map((x,i)=><div key={i} style={{flex:1,background:i===1?t.th:t.card,color:i===1?t.thT:t.cardT,borderRadius:16,padding:22,border:`1px solid ${t.brd}`,boxShadow:t.cS}}><div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2,opacity:i===1?.55:.7,marginBottom:12}}>{x.n}</div><div style={{...se,fontSize:18,fontWeight:900,marginBottom:10,lineHeight:1.2}}>{x.t}</div><div style={{...sa,fontSize:14,lineHeight:1.55,opacity:i===1?.85:1}}>{x.d}</div></div>)}</div><div style={{marginTop:26,padding:"20px 26px",borderRadius:16,background:t.th,color:t.thT,display:"flex",gap:14,alignItems:"center"}}><div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2,opacity:.55,flexShrink:0}}>À CLARIFIER</div><div style={{...sa,fontSize:15,lineHeight:1.55}}>Le pourcentage de remise et les conditions exactes peuvent être ajustés selon marge, faisabilité caisse et périmètre magasins / livraison.</div></div></div>},
+
+{title:"Roadmap de lancement",
+r:t=><div><Tg t={t}>ROADMAP</Tg><Hl t={t} s={{fontSize:34}}>Un lancement concentré, puis des rappels pour prolonger la LTO.</Hl><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:24,borderRadius:18,overflow:"hidden",border:`2px solid ${t.brd}`,boxShadow:t.cS}}>{[{d:"J-3",t:"Teasing",f:"Indices produits, post photo, teasing communautaire."},{d:"J-1",t:"Annonce",f:"Vidéo courte dans l'ADN de la collab avec Xavier Pincemin + visuels produits."},{d:"J-J",t:"Launch 18h",f:"Publication FastGoodCuisine, manche dédiée, offre weekend, crossposts."},{d:"J+6/7",t:"Drive to store",f:"QR codes cachés chez O'Tacos, lots produits / réductions, possibilité de gain 1 000€."},{d:"J+14",t:"Rappel",f:"« C'est toujours dispo » pour maintenir la disponibilité en tête."},{d:"J+20 / J+25",t:"Amplification",f:"Giveaway, reels, stories, tweet, reposts et dernier push."}].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"100px 220px 1fr",gap:0,background:i%2?t.th2:t.card,borderBottom:i<5?`1px solid ${t.brd}`:"none"}}><div style={{...mo,fontSize:13,fontWeight:900,color:i%2?t.th2T:t.a,padding:"18px 20px",display:"flex",alignItems:"center"}}>{x.d}</div><div style={{...se,fontSize:17,fontWeight:900,color:t.c,padding:"18px 20px",display:"flex",alignItems:"center"}}>{x.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5,padding:"18px 20px"}}>{x.f}</div></div>)}</div></div>},
+
+{title:"Activation social & créative",
+r:t=><div><Tg t={t}>CONTENUS</Tg><Hl t={t} s={{fontSize:34}}>Des formats pensés pour créer le pic, puis entretenir l'envie.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16,marginTop:24}}>{[{h:"Hero content",d:"Manche dédiée dans un concept phare type « Le dernier qui quitte la table... » avec présence naturelle des LTO."},{h:"Short form",d:"Reels, TikTok, Shorts, crossposts et cutdowns pour annoncer, rappeler et convertir."},{h:"Stories & reposts",d:"IGS additionnelles : surprise dans la nouvelle vidéo, LTO disponible, reposts des deux communautés."},{h:"Jeu en point de vente",d:"QR codes cachés chez O'Tacos pour gagner produits, réductions et dotation exceptionnelle."},{h:"UGC & avis",d:"Avis communauté, réactions, contenus organiques chez O'Tacos pour rendre la collab plus spontanée."},{h:"Stunt final",d:"Dernier rappel, codes, giveaway ou « toujours dispo » pour prolonger la mémoire."}].map((x,i)=><Wc key={i} t={t} s={{padding:22,boxShadow:t.cS,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,color:i%2?t.a2:t.a,marginBottom:10}}>FORMAT {i+1}</div><div style={{...se,fontSize:18,fontWeight:900,color:t.c,marginBottom:8,lineHeight:1.2}}>{x.h}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></Wc>)}</div></div>},
+
+{title:"Les 3 offres",
+r:t=><div><Tg t={t}>PACKS</Tg><Hl t={t} s={{fontSize:34}}>Trois niveaux d'intensité, du lancement au dispositif complet.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:16,marginTop:24}}>{[{o:"OFFRE 1",b:"100 000€",n:"Launch",d:"10 contenus",l:["1 vidéo YouTube / manche dédiée","1 Reels, 1 TikTok, 1 Shorts","Activation courte et concentrée"]},{o:"OFFRE 2",b:"145 000€",n:"Launch + engagement",d:"17 contenus",l:["Plus de relances social","Giveaway / QR codes","Drive to store renforcé"]},{o:"OFFRE 3",b:"206 000€",n:"Full funnel",d:"22 contenus",l:["Teasing + launch + relances","Surfer sur l'actu + dernier push","Couverture social la plus complète"]}].map((x,i)=><Wc key={i} t={t} s={{padding:24,background:i===2?t.th:t.card,color:i===2?t.thT:t.cardT,border:`2px solid ${i===2?t.th:t.brd}`,boxShadow:t.cS}}><div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2,opacity:.65,marginBottom:8}}>{x.o}</div><div style={{...se,fontSize:34,fontWeight:900,lineHeight:1,color:i===2?t.thT:t.a,marginBottom:10}}>{x.b}</div><div style={{...se,fontSize:18,fontWeight:900,marginBottom:6}}>{x.n}</div><div style={{...mo,fontSize:12,fontWeight:800,padding:"7px 11px",borderRadius:999,background:i===2?"rgba(17,17,17,.16)":t.pill,color:i===2?t.thT:t.a,display:"inline-block",marginBottom:16}}>{x.d}</div><div>{x.l.map((li,j)=><div key={j} style={{...sa,fontSize:14,lineHeight:1.5,padding:"6px 0",borderTop:j?`1px solid ${i===2?"rgba(17,17,17,.12)":t.brd}`:"none"}}>→ {li}</div>)}</div></Wc>)}</div><div style={{...sa,fontSize:12,color:t.d,marginTop:14}}>Budgets repris et clarifiés depuis la présentation source ; à recalibrer selon droits, production, périmètre magasins et media éventuel.</div></div>},
+
+{title:"Synthèse",
+r:(t,back)=><div><Tg t={t}>SYNTHÈSE</Tg><Hl t={t} s={{fontSize:38}}>Une collab food simple à comprendre, forte à partager, rapide à activer.</Hl><Sh t={t}>Le dispositif gagne à rester très lisible : deux produits limités, une offre croisée, un pic vidéo, une fenêtre d'urgence et des mécaniques de jeu pour transformer l'attention en trafic.</Sh><div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:12,marginTop:24}}>{["Produit limité","Offre croisée","Manche dédiée","QR codes & giveaway"].map((x,i)=><div key={i} style={{padding:"22px 16px",borderRadius:16,background:i===0?t.th:t.card,color:i===0?t.thT:t.cardT,border:`1px solid ${t.brd}`,boxShadow:t.cS,textAlign:"center"}}><div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,opacity:.55,marginBottom:10}}>{String(i+1).padStart(2,"0")}</div><div style={{...se,fontSize:18,fontWeight:900,lineHeight:1.2}}>{x}</div></div>)}</div><div style={{marginTop:30,padding:"22px 28px",borderRadius:18,background:t.th,color:t.thT,display:"flex",gap:14,alignItems:"center"}}><div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2,opacity:.55,flexShrink:0}}>NEXT STEP</div><div style={{...sa,fontSize:16,lineHeight:1.55}}>Valider les deux recettes LTO, la mécanique promotionnelle, le périmètre opérationnel et le niveau d'offre à produire.</div></div><div style={{textAlign:"center",marginTop:30}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:700,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // TOINELAG  -  ACTIVATION RETAIL / JOUET  -  5 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SToinelag = [
@@ -856,9 +901,9 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, profil:SProfil };
+const ALL = { case1:S1, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, otacospepe:SOtacosPepe, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", toine: "toinelag", tl: "toinelag" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -871,6 +916,7 @@ const META = {
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
+  otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
@@ -1172,6 +1218,7 @@ function Home({onOpen}) {
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
     fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
+    otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
     garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
   };
@@ -1198,7 +1245,7 @@ function Home({onOpen}) {
       </div>
       <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>ACTIVATIONS MARQUES</div>
       <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:20,maxWidth:1155}}>
-        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"},{id:"garmin",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
+        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"otacospepe",img:"/otacos-logo.png",imgW:118,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"},{id:"garmin",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
             {imgType==="photo"?<img src={pu(img)} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={pu(img)} alt="" style={{width:imgW,height:"auto",filter,opacity:.92,flexShrink:0,borderRadius:10,border: id==="toinelag" ? "3px solid rgba(20,20,20,.15)" : id==="fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none"}}/>}
           </DeckCard>
