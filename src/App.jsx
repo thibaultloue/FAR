@@ -859,7 +859,7 @@ r:t=><div>
       <div style={{...se,fontSize:60,fontWeight:900,color:t.c}}>×</div>
       <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:200,height:200,objectFit:"cover",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
     </div>
-    <div style={{...se,fontSize:22,fontWeight:900,color:t.c,lineHeight:1.4,maxWidth:820}}>2 communautés, 2 produits éphémères, une LTO pensée comme un événement.</div>
+    <div style={{...se,fontSize:22,fontWeight:900,color:t.c,lineHeight:1.4,maxWidth:820}}>2 communautés, 2 produits éphémères, une LTO pensée en dispositif activable.</div>
   </div>
 </div>},
 
