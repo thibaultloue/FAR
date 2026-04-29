@@ -210,18 +210,18 @@ const TGarmin = {
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
 const TOtacosPepe = {
-  bg:"#FFC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
-  a:"#E30613", a2:"#FF7A00",
+  bg:"#FEC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
+  a:"#E30713", a2:"#FF7A01",
   card:"#FFF4C7", cardT:"#171006",
-  cardAlt:"rgba(227,6,19,.1)",
-  pill:"rgba(23,16,6,.08)", pillA:"rgba(227,6,19,.16)",
+  cardAlt:"rgba(227,7,19,.1)",
+  pill:"rgba(23,16,6,.08)", pillA:"rgba(227,7,19,.16)",
   brd:"rgba(23,16,6,.13)",
-  bar:"rgba(23,16,6,.12)", barF:"#E30613",
-  nav:"#111111", navT:"#FFC400", note:"#111111", noteT:"#FFC400",
-  th:"#111111", thT:"#FFC400",
+  bar:"rgba(23,16,6,.12)", barF:"#E30713",
+  nav:"#111111", navT:"#FEC400", note:"#111111", noteT:"#FEC400",
+  th:"#111111", thT:"#FEC400",
   th2:"#FFE37A", th2T:"#171006",
   ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
-  section:"#E30613", sectionT:"#FFF4C7", cR:18, cS:"0 5px 0 rgba(17,17,17,.9)", lv:"black",
+  section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"yellow",
 };
 const TProfil = T1;
 const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, otacospepe:TOtacosPepe, profil:TProfil };
@@ -339,7 +339,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
-  if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,6,19,.14)":i%3===1?"rgba(255,122,0,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
+  if(deck==="otacospepe") return null;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
@@ -756,7 +756,7 @@ const TitleBars = ({w=130,h,style}) => {
 };
 const FarHeader = ({t}) => (
   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
-    <FarLogo size={42} variant="black"/>
+    <FarLogo size={42} variant={t.logoVariant||"black"}/>
     <TitleBars w={110} h={28}/>
   </div>
 );
@@ -855,9 +855,9 @@ r:t=><div>
   <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"58vh",textAlign:"center"}}>
     <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:3,padding:"8px 16px",background:t.c2,color:t.bg,borderRadius:999,display:"inline-block",marginBottom:36}}>LTO · COLLABORATION 2026</div>
     <div style={{display:"flex",alignItems:"center",gap:54,flexWrap:"wrap",justifyContent:"center",marginBottom:34}}>
-      <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:300,maxHeight:160,objectFit:"contain",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
+      <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:300,maxHeight:160,objectFit:"contain",borderRadius:14,display:"block"}}/>
       <div style={{...se,fontSize:60,fontWeight:900,color:t.c}}>×</div>
-      <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:200,height:200,objectFit:"cover",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
+      <img src={pu("/pepe-chicken-logo-transparent.png")} alt="Pepe Chicken" style={{width:200,height:200,objectFit:"contain",borderRadius:0,display:"block"}}/>
     </div>
     <div style={{...se,fontSize:22,fontWeight:900,color:t.c,lineHeight:1.4,maxWidth:820}}>2 communautés, 2 produits éphémères, une LTO pensée en dispositif activable.</div>
   </div>
@@ -1299,6 +1299,17 @@ function pdfReplaceObjectFitImages(root) {
   });
 }
 
+function pdfWaitForImages(root) {
+  const imgs = Array.from(root.querySelectorAll("img"));
+  return Promise.all(imgs.map((img) => {
+    if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+    return new Promise((resolve) => {
+      img.addEventListener("load", resolve, { once: true });
+      img.addEventListener("error", resolve, { once: true });
+    });
+  }));
+}
+
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
   const [hovered,setHovered]=useState(false);
@@ -1379,7 +1390,7 @@ function Pres({id,onBack,onNav}) {
     const footerLabel = pdfFooterLabel(id);
 
     const container = document.createElement("div");
-    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};`;
+    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
     document.body.appendChild(container);
 
     const rdom = await import("react-dom/client");
@@ -1387,7 +1398,7 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:14px 28px 4px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;`;
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:14px 28px 4px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
           "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
@@ -1413,6 +1424,7 @@ function Pres({id,onBack,onNav}) {
         await new Promise((resolve) => setTimeout(resolve, 220));
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
+        await pdfWaitForImages(inner);
         pdfReplaceObjectFitImages(inner);
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
@@ -1429,9 +1441,9 @@ function Pres({id,onBack,onNav}) {
           imageTimeout: 20000,
         });
 
-        const imgData = canvas.toDataURL("image/jpeg", 0.92);
+        const imgData = canvas.toDataURL("image/jpeg", 1);
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, 0, pageW, pageH, undefined, "MEDIUM");
+        pdf.addImage(imgData, "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
         tempRoot.unmount();
       }
     } finally {
