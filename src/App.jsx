@@ -746,41 +746,74 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  10 SLIDES
+// O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  11 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
-const FarHeader = ({t,sub}) => (
-  <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:18,paddingBottom:14,borderBottom:`1px solid ${t.brd}`}}>
-    <FarLogo size={46} variant="black"/>
-    <div style={{width:1,height:22,background:t.brd}}/>
-    <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:2.5,color:t.c2,opacity:.7}}>{sub||"UNE PRÉSENTATION FAR · O'TACOS × PEPE CHICKEN · 2026"}</div>
+const TitleBars = ({color="#000",w=130,h=34,style}) => (
+  <svg width={w} height={h} viewBox="0 0 130 34" style={{flexShrink:0,display:"block",...style}} aria-hidden>
+    <path d="M30,4 L122,3 a3,3 0 0,1 0,6 L30,8 Z" fill={color}/>
+    <path d="M3,15 L122,14 a3,3 0 0,1 0,6 L3,19 Z" fill={color}/>
+    <path d="M48,26 L122,25 a3,3 0 0,1 0,6 L48,30 Z" fill={color}/>
+  </svg>
+);
+const FarHeader = ({t}) => (
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:18}}>
+    <FarLogo size={42} variant="black"/>
+    <TitleBars w={110} h={28}/>
+    <div style={{flex:1}}/>
   </div>
 );
-const SocialIcon = ({k,size=16,light=false}) => {
+const SocialIcon = ({k,size=16}) => {
   const map={youtube:"/youtube-logo.png",tiktok:"/tiktok-logo.png",instagram:"/instagram-logo.png"};
-  return <img src={pu(map[k])} alt={k} style={{width:size,height:size,objectFit:"contain",display:"inline-block",verticalAlign:"middle",borderRadius:k==="instagram"?4:k==="tiktok"?999:3,filter:light&&k==="tiktok"?"invert(1)":"none"}}/>;
+  const isCircle=k==="tiktok"||k==="youtube";
+  return <span style={{display:"inline-flex",width:size,height:size,borderRadius:k==="instagram"?Math.round(size*0.22):isCircle?999:4,overflow:"hidden",alignItems:"center",justifyContent:"center",background:"#FFF",flexShrink:0,verticalAlign:"middle"}}><img src={pu(map[k])} alt={k} style={{width:"100%",height:"100%",objectFit:"contain",display:"block"}}/></span>;
+};
+const Crosspost = ({platforms,times=2,light=false}) => {
+  const fg=light?"#FFFFFF":"#171006";
+  const bg=light?"rgba(255,255,255,.18)":"rgba(255,196,0,.22)";
+  const brd=light?"rgba(255,255,255,.55)":"rgba(23,16,6,.35)";
+  return <div style={{display:"inline-flex",flexDirection:"column",alignItems:"stretch",gap:4,padding:"6px 8px",background:bg,borderRadius:8,border:`1.5px dashed ${brd}`}}>
+    <div style={{...mo,fontSize:8.5,letterSpacing:1.4,fontWeight:900,color:fg,textAlign:"center"}}>CROSSPOST{times?` × ${times}`:""}</div>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:3}}>
+      {platforms.map((p,i)=><span key={i} style={{display:"flex",alignItems:"center",gap:3}}>
+        {i>0&&<span style={{width:8,height:1.5,background:fg,borderRadius:1,opacity:.7}}/>}
+        <SocialIcon k={p} size={14}/>
+      </span>)}
+    </div>
+  </div>;
+};
+const DispositifsRow = ({focus="all",compact=false}) => {
+  const items=[
+    {n:"DISPOSITIF 1",h:"Le lancement essentiel",c:"10 contenus",col:"#171006",txt:"#FFC400",accent:"#FFC400"},
+    {n:"DISPOSITIF 2",h:"Lancement amplifié",c:"17 contenus",col:"#FF7A00",txt:"#FFFFFF",accent:"#FFFFFF"},
+    {n:"DISPOSITIF 3",h:"Le dispositif complet",c:"22 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400"},
+  ];
+  const isBlurred=(i)=>{if(focus==="all")return false;return i+1>focus;};
+  return <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:compact?10:14}}>{items.map((x,i)=>{const blur=isBlurred(i);return <div key={i} style={{padding:compact?"14px 14px":"22px 20px",borderRadius:14,background:x.col,color:x.txt,border:`2px solid ${x.col}`,boxShadow:"0 5px 0 rgba(17,17,17,.9)",position:"relative",overflow:"hidden",filter:blur?"blur(5px) saturate(.6)":"none",opacity:blur?.55:1,transition:"all .3s"}}>
+    <div style={{position:"absolute",top:-26,right:-26,width:110,height:110,borderRadius:"50%",background:"rgba(255,255,255,.06)"}}/>
+    <div style={{...mo,fontSize:compact?9:10,fontWeight:900,letterSpacing:2.5,color:x.accent,marginBottom:6,position:"relative"}}>{x.n}</div>
+    <div style={{...se,fontSize:compact?16:20,fontWeight:900,lineHeight:1.1,marginBottom:compact?8:12,position:"relative"}}>{x.h}</div>
+    <div style={{display:"flex",gap:6,alignItems:"center",position:"relative",flexWrap:"wrap"}}>
+      <div style={{...mo,fontSize:compact?9.5:11,fontWeight:900,padding:compact?"4px 9px":"6px 11px",background:"rgba(255,255,255,.18)",color:x.txt,borderRadius:999}}>{x.c}</div>
+    </div>
+  </div>;})}</div>;
 };
 const SOtacosPepe = [
 
-// 01 — COVER (3 barres noir/jaune type PDF p.2)
+// 01 — COVER (V1 restored + 3 bars motif)
 {title:"O'Tacos × Pepe Chicken",
-r:t=><div style={{minHeight:"72vh",display:"flex",flexDirection:"column",justifyContent:"center"}}>
-  <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:32}}>
-    <FarLogo size={56} variant="black"/>
-    <div style={{width:1,height:26,background:t.brd}}/>
-    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:3,color:t.c2}}>UNE PRÉSENTATION FAR</div>
-    <div style={{flex:1,height:1,background:t.brd}}/>
-    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:3,color:t.c2}}>2026</div>
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"68vh",textAlign:"center",position:"relative"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:30}}>
+    <FarLogo size={48} variant="black"/>
+    <TitleBars w={120} h={32}/>
   </div>
-  <div style={{display:"flex",flexDirection:"column",gap:8,maxWidth:1120}}>
-    {["LA","COLLABORATION","O'TACOS × PEPE CHICKEN."].map((txt,i)=><div key={i} style={{background:t.c2,color:t.bg,padding:"22px 36px",...se,fontSize:i===2?54:62,fontWeight:900,letterSpacing:-1,lineHeight:1,boxShadow:t.cS,borderRadius:6,alignSelf:"flex-start"}}>{txt}</div>)}
+  <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:3,padding:"8px 16px",background:t.c2,color:t.bg,borderRadius:999,display:"inline-block",marginBottom:24}}>LTO · COLLABORATION 2026</div>
+  <div style={{display:"flex",alignItems:"center",gap:30,marginBottom:32,flexWrap:"wrap",justifyContent:"center"}}>
+    <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:220,maxHeight:124,objectFit:"contain",borderRadius:18,boxShadow:t.cS,background:"#FFF",padding:8}}/>
+    <div style={{...se,fontSize:54,fontWeight:900,color:t.a}}>×</div>
+    <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:190,maxHeight:150,objectFit:"contain",borderRadius:18,boxShadow:t.cS,background:"#FFF",padding:8}}/>
   </div>
-  <div style={{display:"flex",alignItems:"center",gap:22,marginTop:36}}>
-    <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:140,maxHeight:80,objectFit:"contain",borderRadius:12,boxShadow:t.cS,background:"#FFF",padding:8}}/>
-    <div style={{...se,fontSize:32,fontWeight:900,color:t.c2}}>×</div>
-    <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:120,maxHeight:96,objectFit:"contain",borderRadius:12,boxShadow:t.cS,background:"#FFF",padding:8}}/>
-    <div style={{flex:1}}/>
-    <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"8px 14px",background:t.a,color:"#FFF",borderRadius:999}}>LTO · LANCEMENT COLLABORATIF</div>
-  </div>
+  <Hl t={t} s={{fontSize:54,textAlign:"center",maxWidth:980,margin:"0 auto 22px",lineHeight:1.05}}>La collaboration<br/>O'Tacos × Pepe Chicken.</Hl>
+  <div style={{...sa,fontSize:19,color:t.m,lineHeight:1.5,maxWidth:760,margin:"0 auto"}}>Deux communautés, deux produits éphémères, une LTO pensée comme un événement.</div>
 </div>},
 
 // 02 — ENJEUX (fidèle au PDF, principe + 5 enjeux)
@@ -805,259 +838,269 @@ r:t=><div>
   </Wc>)}</div>
 </div>},
 
-// 03 — VALORISATION O'TACOS + AMORCE FGC (positif)
-{title:"O'Tacos a déjà tout pour réussir cette LTO",
+// 03 — VALORISATION O'TACOS (mesurée, transition naturelle)
+{title:"O'Tacos a les fondations pour réussir cette LTO",
 r:t=><div>
   <FarHeader t={t}/>
-  <Tg t={t}>POURQUOI ÇA VA MARCHER</Tg>
-  <Hl t={t} s={{fontSize:38,lineHeight:1.1,marginBottom:14}}>O'Tacos a déjà tout pour réussir cette LTO.</Hl>
-  <Sh t={t} s={{fontSize:17,maxWidth:920,marginBottom:24}}>Une marque iconique, un produit signature, une distribution massive et une communication déjà puissante. La LTO arrive sur des fondations très solides — il s'agit maintenant de l'événementialiser au bon niveau.</Sh>
-  <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:12,marginTop:6}}>{[
-    {h:"Marque iconique",d:"Un nom installé dans la culture food, immédiatement reconnaissable et chargé d'attachement."},
+  <Tg t={t}>UN TERRAIN DÉJÀ FERTILE</Tg>
+  <Hl t={t} s={{fontSize:36,lineHeight:1.1,marginBottom:12}}>O'Tacos a les fondations pour faire de cette LTO un succès.</Hl>
+  <Sh t={t} s={{fontSize:16,maxWidth:920,marginBottom:22}}>Une marque iconique, un produit signature, une distribution massive et une communication active. La LTO arrive sur des bases solides — la question devient : comment l'événementialiser au bon niveau ?</Sh>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:12,marginTop:4}}>{[
+    {h:"Marque iconique",d:"Un nom installé dans la culture food, immédiatement reconnaissable et chargé d'attachement communautaire."},
     {h:"Produit signature",d:"Le tacos O'Tacos est une catégorie en soi. Une LTO trouve naturellement son territoire dans cette grammaire produit."},
-    {h:"Distribution massive",d:"Un maillage point de vente puissant qui rend le drive to store immédiat et activable partout."},
+    {h:"Distribution massive",d:"Un maillage point de vente puissant qui rend le drive to store immédiat et activable partout, dès J-J."},
     {h:"Communication active",d:"Présence sociale, campagnes, prises de parole : O'Tacos sait déjà parler à sa communauté avec impact."},
   ].map((x,i)=><Wc key={i} t={t} s={{padding:20,borderTop:`5px solid ${t.c2}`,boxShadow:t.cS}}>
     <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,color:t.c2,marginBottom:8}}>FORCE {String(i+1).padStart(2,"0")}</div>
     <div style={{...se,fontSize:17,fontWeight:900,color:t.c,marginBottom:8,lineHeight:1.18}}>{x.h}</div>
     <div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55}}>{x.d}</div>
   </Wc>)}</div>
-  <div style={{marginTop:24,padding:"22px 26px",borderRadius:14,background:t.c2,color:t.bg,boxShadow:t.cS,display:"flex",gap:18,alignItems:"center",flexWrap:"wrap"}}>
-    <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:3,padding:"7px 13px",background:t.a,color:"#FFF",borderRadius:999,flexShrink:0}}>POUR ALLER PLUS LOIN</div>
-    <div style={{...se,fontSize:20,fontWeight:900,flex:1,minWidth:280,lineHeight:1.25}}>Pour transformer cette LTO en véritable événement culturel food, il manque un complément redoutable : <span style={{color:t.bg,background:t.a,padding:"2px 10px",borderRadius:6}}>FastGoodCuisine</span>.</div>
-  </div>
 </div>},
 
-// 04 — FGC EN CHIFFRES (modèle "présentation créateur" + photo + logos sociaux)
+// 04 — L'ARME À MOBILISER (transition vers FGC)
+{title:"Une arme à absolument mobiliser",
+r:t=><div>
+  <FarHeader t={t}/>
+  <Tg t={t}>POUR SUBLIMER L'OPÉRATION</Tg>
+  <Hl t={t} s={{fontSize:46,lineHeight:1.05,marginBottom:14}}>Mais on a une arme<br/>qu'il faut <span style={{background:t.a,color:"#FFF",padding:"2px 14px",borderRadius:8}}>absolument mobiliser</span>.</Hl>
+  <Sh t={t} s={{fontSize:17,maxWidth:920,marginBottom:22}}>Sans levier puissant, la LTO existe — mais elle ne devient pas un événement. Pour basculer dans la culture food et faire entrer cette collaboration dans les mémoires, il y a une arme redoutable à exploiter.</Sh>
+  <div style={{display:"grid",gridTemplateColumns:"1.05fr 1fr 1fr 1fr",gap:12,marginTop:6}}>
+    <div style={{padding:"24px 22px",borderRadius:16,background:t.c2,color:t.bg,boxShadow:t.cS,display:"flex",flexDirection:"column",justifyContent:"center",position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:-20,right:-20,width:120,height:120,borderRadius:"50%",background:"rgba(255,196,0,.18)"}}/>
+      <div style={{position:"relative"}}>
+        <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:3,color:t.a,marginBottom:8}}>L'ARME REDOUTABLE</div>
+        <div style={{...se,fontSize:32,fontWeight:900,color:t.bg,lineHeight:1.05,marginBottom:8}}>FastGood<br/>Cuisine.</div>
+        <div style={{...sa,fontSize:13,color:t.bg,opacity:.78,lineHeight:1.5}}>Le créateur food n°1 français + entrepreneur derrière Pepe Chicken & Pop's Drink.</div>
+      </div>
+    </div>
+    {[
+      {h:"Coup marketing",d:"Faire de la LTO un événement de communication unique avec une signature mémorable."},
+      {h:"Drive to store",d:"Transformer la curiosité en flux magasins grâce à une voix qui pèse en food."},
+      {h:"Viralité organique",d:"Stimuler le partage spontané des deux communautés et démultiplier les impressions."},
+    ].map((x,i)=><Wc key={i} t={t} s={{padding:18,borderLeft:`5px solid ${t.a}`,boxShadow:t.cS}}>
+      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,color:t.a,marginBottom:6}}>CE QU'ELLE APPORTE</div>
+      <div style={{...se,fontSize:17,fontWeight:900,color:t.c,marginBottom:8,lineHeight:1.18}}>{x.h}</div>
+      <div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55}}>{x.d}</div>
+    </Wc>)}
+  </div>
+  <div style={{marginTop:22,padding:"18px 24px",borderRadius:12,background:t.a,color:"#FFF",boxShadow:t.cS,...se,fontSize:18,fontWeight:900,textAlign:"center",lineHeight:1.3}}>On aurait tort de s'en priver.</div>
+</div>},
+
+// 05 — FGC EN CHIFFRES (photo réduite, cards plateformes corrigées)
 {title:"FastGoodCuisine en quelques chiffres",
 r:t=><div>
   <FarHeader t={t}/>
-  <div style={{display:"flex",gap:28,alignItems:"stretch"}}>
-    <div style={{flex:3.2,display:"flex",flexDirection:"column"}}>
-      <Tg t={t}>FASTGOODCUISINE EN QUELQUES CHIFFRES</Tg>
-      <Hl t={t} s={{fontSize:34,marginBottom:8}}>FastGoodCuisine, l'arme food complémentaire.</Hl>
-      <Sh t={t} s={{fontSize:15.5,marginBottom:14}}>Le plus gros créateur food français, entrepreneur derrière Pepe Chicken et Pop's Drink. La voix idéale pour porter une LTO O'Tacos × Pepe Chicken comme un événement.</Sh>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:14}}>{[
-        {ic:"youtube",p:"YouTube",n:"7,78M",l:"abonnés",e:["Vues 1 an : 2,4M","Shorts : 2,7M"],bg:"#FF0000",fg:"#FFF"},
-        {ic:"tiktok",p:"TikTok",n:"2,4M",l:"abonnés",e:["Vues moyennes : 3M"],bg:"#000",fg:"#FFF"},
-        {ic:"instagram",p:"Instagram",n:"2,3M",l:"abonnés",e:["Vues Reels : 650k"],bg:"linear-gradient(135deg,#F58529,#DD2A7B,#8134AF,#515BD4)",fg:"#FFF"},
-      ].map((x,i)=><div key={i} style={{borderRadius:14,overflow:"hidden",boxShadow:t.cS,border:`2px solid ${t.c2}`}}>
-        <div style={{background:x.bg,color:x.fg,padding:"10px 12px",display:"flex",alignItems:"center",gap:8}}>
+  <Tg t={t}>FASTGOODCUISINE EN QUELQUES CHIFFRES</Tg>
+  <Hl t={t} s={{fontSize:34,marginBottom:8}}>FastGoodCuisine, l'arme food complémentaire.</Hl>
+  <Sh t={t} s={{fontSize:15,marginBottom:18,maxWidth:1000}}>Le plus gros créateur food français, entrepreneur derrière Pepe Chicken et Pop's Drink. La voix idéale pour porter une LTO O'Tacos × Pepe Chicken comme un événement.</Sh>
+  <div style={{display:"grid",gridTemplateColumns:"170px 1fr",gap:20,alignItems:"start"}}>
+    <div style={{display:"flex",flexDirection:"column",gap:10}}>
+      <div style={{position:"relative",borderRadius:14,overflow:"hidden",boxShadow:t.cS,border:`3px solid ${t.c2}`,aspectRatio:"3/4"}}>
+        <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+        <div style={{position:"absolute",left:0,right:0,bottom:0,padding:"10px 12px",background:"linear-gradient(180deg,transparent 0%,rgba(0,0,0,.85) 100%)"}}>
+          <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:1.8,color:"#FFC400"}}>CRÉATEUR FOOD #1</div>
+          <div style={{...se,fontSize:14,fontWeight:900,color:"#FFF",lineHeight:1.1,marginTop:3}}>FastGoodCuisine</div>
+        </div>
+      </div>
+    </div>
+    <div style={{display:"flex",flexDirection:"column",gap:10}}>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>{[
+        {ic:"youtube",p:"YouTube",n:"7,78M",l:"abonnés",e:["Vues 1 an : 2,4M","Shorts : 2,7M"],headBg:"#FF0000",headFg:"#FFF"},
+        {ic:"tiktok",p:"TikTok",n:"2,4M",l:"abonnés",e:["Vues moyennes : 3M"],headBg:"#000000",headFg:"#FFF"},
+        {ic:"instagram",p:"Instagram",n:"2,3M",l:"abonnés",e:["Vues Reels : 650k"],headBg:"linear-gradient(135deg,#F58529 0%,#DD2A7B 50%,#8134AF 100%)",headFg:"#FFF"},
+      ].map((x,i)=><div key={i} style={{borderRadius:14,overflow:"hidden",boxShadow:t.cS,border:`2px solid ${t.c2}`,background:t.card,display:"flex",flexDirection:"column"}}>
+        <div style={{background:x.headBg,color:x.headFg,padding:"10px 12px",display:"flex",alignItems:"center",gap:8}}>
           <SocialIcon k={x.ic} size={20}/>
           <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:1.5}}>{x.p.toUpperCase()}</div>
         </div>
-        <div style={{padding:"12px 14px",background:t.card,color:t.cardT}}>
+        <div style={{padding:"12px 14px",background:t.card,color:t.cardT,flex:1}}>
           <div style={{...se,fontSize:26,fontWeight:900,lineHeight:1,color:t.a}}>{x.n}</div>
           <div style={{...mo,fontSize:9.5,fontWeight:700,opacity:.7,marginTop:3,marginBottom:8,letterSpacing:1.2}}>{x.l.toUpperCase()}</div>
-          {x.e.map((e,j)=><div key={j} style={{...sa,fontSize:11,lineHeight:1.4,color:t.m,paddingTop:4,borderTop:j?`1px solid ${t.brd}`:"none"}}>→ {e}</div>)}
+          {x.e.map((e,j)=><div key={j} style={{...sa,fontSize:11,lineHeight:1.4,color:t.m,paddingTop:4,marginTop:j?4:0,borderTop:j?`1px solid ${t.brd}`:"none"}}>→ {e}</div>)}
         </div>
       </div>)}</div>
       <div style={{padding:"14px 18px",borderRadius:12,background:t.c2,color:t.bg}}>
-        <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,marginBottom:10,opacity:.7}}>FASTGOODCUISINE C'EST…</div>
-        {[
+        <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,marginBottom:8,opacity:.7}}>FASTGOODCUISINE C'EST…</div>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"4px 22px"}}>{[
           "Le plus gros créateur food en France avec une audience massive.",
           "Une puissance de diffusion indéniable sur chaque plateforme.",
           "Une communauté ultra engagée.",
           "Un entrepreneur reconnu et installé depuis plusieurs années notamment grâce au succès de Pepe Chicken et Pop's Drink.",
           "Un élément indispensable pour créer un véritable coup marketing, générer de la viralité, du drive-to-store et marquer durablement les esprits.",
-        ].map((x,i)=><div key={i} style={{...sa,fontSize:12.5,lineHeight:1.5,padding:"5px 0",display:"flex",gap:8}}>
+        ].map((x,i)=><div key={i} style={{...sa,fontSize:12,lineHeight:1.45,padding:"4px 0",display:"flex",gap:8}}>
           <span style={{color:t.a,fontWeight:900,flexShrink:0}}>●</span><span style={{opacity:.92}}>{x}</span>
-        </div>)}
-      </div>
-    </div>
-    <div style={{flex:2,display:"flex",flexDirection:"column",gap:12}}>
-      <div style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:t.cS,border:`3px solid ${t.c2}`,aspectRatio:"3/4"}}>
-        <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
-        <div style={{position:"absolute",left:0,right:0,bottom:0,padding:"14px 16px",background:"linear-gradient(180deg,transparent 0%,rgba(0,0,0,.85) 100%)"}}>
-          <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,color:"#FFC400"}}>LE CRÉATEUR FOOD #1</div>
-          <div style={{...se,fontSize:20,fontWeight:900,color:"#FFF",lineHeight:1.1,marginTop:4}}>FastGoodCuisine</div>
-          <div style={{...sa,fontSize:11,color:"rgba(255,255,255,.78)",marginTop:4}}>YouTube · TikTok · Instagram</div>
-        </div>
-      </div>
-      <div style={{padding:"14px 16px",borderRadius:14,background:t.card,color:t.cardT,border:`2px solid ${t.brd}`,boxShadow:t.cS}}>
-        <div style={{...mo,fontSize:9.5,fontWeight:900,letterSpacing:2,color:t.a,marginBottom:6}}>L'ENTREPRENEUR</div>
-        <div style={{...se,fontSize:14,fontWeight:800,color:t.c,marginBottom:6,lineHeight:1.25}}>Pepe Chicken & Pop's Drink, deux marques installées.</div>
-        <div style={{...sa,fontSize:12,color:t.m,lineHeight:1.5}}>Au-delà du créateur, FGC est un opérateur food qui sait fabriquer du désir produit. Le partenaire idéal pour O'Tacos sur cette LTO.</div>
+        </div>)}</div>
       </div>
     </div>
   </div>
 </div>},
 
-// 05 — NOTRE DISPOSITIF (intro 3 dispositifs SANS prix, fond blanc pour D1)
+// 06 — NOTRE DISPOSITIF (intro 3 dispositifs)
 {title:"Notre dispositif",
 r:t=><div>
   <FarHeader t={t}/>
   <Tg t={t}>NOTRE DISPOSITIF — O'TACOS × PEPE CHICKEN</Tg>
   <Hl t={t} s={{fontSize:36}}>Trois dispositifs pour activer la LTO, à intensité progressive.</Hl>
-  <Sh t={t} s={{fontSize:16.5,marginBottom:22}}>Chaque dispositif s'appuie sur le précédent et ajoute un cran d'amplification : plus de plateformes, plus de relais, plus de jours d'activation. Une montée en intensité, du jaune au rouge.</Sh>
-  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14,marginTop:6}}>{[
-    {n:"DISPOSITIF 1",h:"Le lancement essentiel",c:"10 contenus",col:"#FFFFFF",txt:"#171006",accent:"#FFC400",d:"Concentrer toute l'énergie sur la fenêtre de lancement : J-1 / J-J."},
-    {n:"DISPOSITIF 2",h:"Lancement amplifié",c:"17 contenus",col:"#FF7A00",txt:"#FFFFFF",accent:"#FFFFFF",d:"On ajoute le teasing, le drive to store, le rappel et l'amplification (J-3 → J+25)."},
-    {n:"DISPOSITIF 3",h:"Le dispositif complet",c:"22 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400",d:"Tiny to giant, rappels communauté, jeu QR codes, dernier push (J-3 → J+27)."},
-  ].map((x,i)=><div key={i} style={{padding:"24px 22px",borderRadius:18,background:x.col,color:x.txt,boxShadow:t.cS,position:"relative",overflow:"hidden",border:`3px solid ${i===0?t.c2:x.col}`}}>
-    <div style={{position:"absolute",top:-30,right:-30,width:140,height:140,borderRadius:"50%",background:i===0?"rgba(255,196,0,.18)":"rgba(255,255,255,.08)"}}/>
-    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2.5,color:x.accent,marginBottom:8,position:"relative"}}>{x.n}</div>
-    <div style={{...se,fontSize:22,fontWeight:900,lineHeight:1.1,marginBottom:14,position:"relative"}}>{x.h}</div>
-    <div style={{display:"flex",gap:8,marginBottom:14,position:"relative",flexWrap:"wrap",alignItems:"center"}}>
-      <div style={{...mo,fontSize:11,fontWeight:900,padding:"6px 11px",background:i===0?t.c2:"rgba(255,255,255,.22)",color:i===0?t.bg:x.txt,borderRadius:999}}>{x.c}</div>
-      <div style={{display:"flex",gap:6,alignItems:"center"}}>
-        <SocialIcon k="youtube" size={18}/>
-        <SocialIcon k="tiktok" size={18}/>
-        <SocialIcon k="instagram" size={18}/>
-      </div>
-    </div>
-    <div style={{...sa,fontSize:13.5,lineHeight:1.5,opacity:i===0?.85:.95,position:"relative"}}>{x.d}</div>
-  </div>)}</div>
+  <Sh t={t} s={{fontSize:16.5,marginBottom:22}}>Chaque dispositif s'appuie sur le précédent et ajoute un cran d'amplification : plus de plateformes, plus de relais, plus de jours d'activation. Une montée en intensité, du noir au rouge.</Sh>
+  <DispositifsRow focus="all"/>
+  <div style={{marginTop:18,display:"flex",gap:10,alignItems:"center",flexWrap:"wrap",padding:"12px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,boxShadow:t.cS}}>
+    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,color:t.c2}}>PROCHAINES SLIDES</div>
+    <div style={{...sa,fontSize:13,color:t.m}}>Détail dispositif par dispositif, avec timeline, plateformes et thématiques.</div>
+  </div>
 </div>},
 
-// 06 — DISPOSITIF 1 — FOND BLANC, ACCENT JAUNE (Roadmap fidèle PDF p.6, sans prix)
+// 07 — DISPOSITIF 1 — Template + roadmap noir/jaune (PDF p.6)
 {title:"Dispositif 1 — Le lancement essentiel",
-r:t=>{const ACCENT="#FFC400",WHITE="#FFFFFF",DARK="#171006";const cols=[
-    {d:"J-1",t:"Annonce",ic:["youtube","tiktok","instagram"],ch:"crosspost x3",pf:"Reels / TikTok / Shorts",fmt:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » + nouvelle LTO disponible (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin incluant des visuels produits, en co-création."},
-    {d:"J-J",t:"Launch",ic:["youtube","instagram"],ch:"Publication FG",pf:"18H le vendredi — manche entière dédiée à la LTO",fmt:"Manche dédiée (« Le dernier qui quitte la table… ») / IGS additionnelles : Surprise dans ma nouvelle vidéo / nouvelle LTO dispo (repost de FG)",th:"Objectif drive to store via une offre de lancement annoncée dans la vidéo, en exclusivité du vendredi au dimanche (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés."},
-  ];return <div>
-    <FarHeader t={t}/>
-    <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:12,flexWrap:"wrap"}}>
-      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"8px 14px",background:DARK,color:ACCENT,borderRadius:999}}>DISPOSITIF 1</div>
-      <div style={{...mo,fontSize:11,fontWeight:900,padding:"8px 14px",background:ACCENT,color:DARK,borderRadius:999}}>10 contenus</div>
+r:t=>{const DARK="#171006",ACCENT="#FFC400";return <div>
+  <FarHeader t={t}/>
+  <DispositifsRow focus={1} compact/>
+  <div style={{marginTop:18,padding:"22px 24px",borderRadius:16,background:DARK,color:ACCENT,boxShadow:t.cS}}>
+    <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:10,flexWrap:"wrap"}}>
+      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"7px 13px",background:ACCENT,color:DARK,borderRadius:999}}>DISPOSITIF 1</div>
+      <div style={{...mo,fontSize:11,fontWeight:900,padding:"7px 13px",background:"rgba(255,196,0,.18)",color:ACCENT,borderRadius:999,border:`1px solid ${ACCENT}`}}>10 contenus</div>
     </div>
-    <Hl t={t} s={{fontSize:32,marginBottom:8}}>Le lancement concentré.</Hl>
-    <Sh t={t} s={{fontSize:15,marginBottom:18}}>Tout se joue sur le rituel du vendredi : annonce la veille, manche dédiée le jour J, offre weekend exclusive.</Sh>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>{cols.map((c,i)=><div key={i} style={{padding:24,borderRadius:18,background:WHITE,color:DARK,border:`3px solid ${DARK}`,boxShadow:t.cS,position:"relative"}}>
-      <div style={{position:"absolute",top:0,left:0,right:0,height:6,background:ACCENT,borderRadius:"15px 15px 0 0"}}/>
-      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:8,paddingBottom:10,borderBottom:`2px solid ${DARK}`,marginTop:6}}>
-        <div style={{...mo,fontSize:30,fontWeight:900,lineHeight:1,color:DARK}}>{c.d}</div>
-        <div style={{...se,fontSize:22,fontWeight:900,color:DARK}}>{c.t}</div>
+    <div style={{...se,fontSize:28,fontWeight:900,marginBottom:6,color:ACCENT,lineHeight:1.1}}>Le lancement concentré.</div>
+    <div style={{...sa,fontSize:14,color:ACCENT,opacity:.78,marginBottom:16,maxWidth:920}}>Tout se joue sur le rituel du vendredi : annonce la veille, manche dédiée le jour J, offre weekend exclusive.</div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>{[
+      {d:"J-1",t:"Annonce",cross:["youtube","tiktok","instagram"],times:3,fmt:"Reels / TikTok / Shorts",extra:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » + nouvelle LTO disponible (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin incluant des visuels produits, en co-création."},
+      {d:"J-J",t:"Launch",cross:null,fmt:"Publication FG · 18H le vendredi — manche entière dédiée à la LTO",extra:"Manche dédiée (« Le dernier qui quitte la table… ») · IGS additionnelles : Surprise dans ma nouvelle vidéo / nouvelle LTO dispo (repost de FG)",th:"Objectif drive to store via une offre de lancement annoncée dans la vidéo, en exclusivité du vendredi au dimanche (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés."},
+    ].map((c,i)=><div key={i} style={{padding:20,borderRadius:14,background:"rgba(255,196,0,.08)",border:`2px solid ${ACCENT}`,position:"relative"}}>
+      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:10,paddingBottom:10,borderBottom:`2px solid ${ACCENT}`}}>
+        <div style={{...mo,fontSize:28,fontWeight:900,lineHeight:1,color:ACCENT}}>{c.d}</div>
+        <div style={{...se,fontSize:20,fontWeight:900,color:ACCENT}}>{c.t}</div>
         <div style={{flex:1}}/>
-        <div style={{display:"flex",gap:5}}>{c.ic.map((k,kk)=><SocialIcon key={kk} k={k} size={18}/>)}</div>
+        {c.cross&&<Crosspost platforms={c.cross} times={c.times} light/>}
       </div>
-      {[{l:"CHAÎNES",v:c.ch},{l:"PLATEFORMES / FORMATS",v:c.pf},{l:"FORMATS",v:c.fmt},{l:"THÉMATIQUE",v:c.th}].map((r,j)=><div key={j} style={{padding:"10px 0",borderTop:j?`1px solid rgba(23,16,6,.13)`:"none"}}>
-        <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:2,color:ACCENT==="#FFC400"?"#A57F00":ACCENT,marginBottom:5}}>{r.l}</div>
-        <div style={{...sa,fontSize:13,lineHeight:1.5,color:DARK,opacity:.78}}>{r.v}</div>
+      {[{l:"PLATEFORMES / FORMATS",v:c.fmt},{l:"DÉTAIL FORMATS",v:c.extra},{l:"THÉMATIQUE",v:c.th}].map((r,j)=><div key={j} style={{padding:"9px 0",borderTop:j?`1px solid rgba(255,196,0,.18)`:"none"}}>
+        <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:2,color:ACCENT,opacity:.65,marginBottom:5}}>{r.l}</div>
+        <div style={{...sa,fontSize:12.5,lineHeight:1.5,color:ACCENT,opacity:.92}}>{r.v}</div>
       </div>)}
     </div>)}</div>
-  </div>;}},
+  </div>
+</div>;}},
 
-// 07 — DISPOSITIF 2 — ORANGE (sans prix, avec logos sociaux)
+// 08 — DISPOSITIF 2 — Template focus 2 + roadmap orange (PDF p.7)
 {title:"Dispositif 2 — Lancement amplifié",
 r:t=>{const COL="#FF7A00",TXT="#FFFFFF",NEW="#E30613";const cols=[
-    {d:"J-3",t:"Teasing",ic:["instagram","tiktok"],ch:"crosspost",pf:"Post photo Reels TikTok",fmt:"",th:"Teasing mardi : indices produits",isNew:true},
-    {d:"J-1",t:"Annonce",ic:["youtube","tiktok","instagram"],ch:"crosspost x2",pf:"Reels / TikTok",fmt:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » / nouvelle LTO dispo (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits"},
-    {d:"J-J",t:"Launch",ic:["youtube","instagram"],ch:"crosspost",pf:"Manche dédiée (« Le dernier qui quitte la table… »)",fmt:"",th:"LAUNCH à la publication de FG - 18H le vendredi. Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés."},
-    {d:"J+6/7",t:"Drive to store",ic:["instagram","tiktok"],ch:"",pf:"Reels",fmt:"",th:"Vidéo organique FG chez O'tacos : contenu plus naturel = inspiration de la vidéo avec Xavier Pincemin. Drive to store. Thématique de jeu : des QR code cachés chez O'tacos qui permettent de gagner des produits / réductions chez les deux entités, + possibilité de gagner 1 000€.",isNew:true},
-    {d:"J+14",t:"Rappel",ic:["instagram"],ch:"",pf:"Repost",fmt:"",th:"« C'est toujours dispo »",isNew:true},
-    {d:"J+20",t:"Amplification",ic:["instagram","tiktok"],ch:"",pf:"Giveaway Reels (crosspost)",fmt:"",th:"",isNew:true},
-    {d:"J+25",t:"Stunt de fin",ic:["instagram"],ch:"",pf:"IGS / Tweet",fmt:"",th:"Stunt de fin : offres de codes",isNew:true},
+    {d:"J-3",t:"Teasing",cross:["instagram","tiktok"],times:1,fmt:"Post photo · Reels · TikTok",th:"Teasing mardi : indices produits",isNew:true},
+    {d:"J-1",t:"Annonce",cross:["youtube","tiktok","instagram"],times:2,fmt:"Reels · TikTok",extra:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » / nouvelle LTO dispo (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits"},
+    {d:"J-J",t:"Launch",cross:["youtube","instagram"],times:1,fmt:"Manche dédiée (« Le dernier qui quitte la table… »)",th:"LAUNCH à la publication de FG - 18H le vendredi. Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre = % offert chez l'autre + second produit LTO offert. Événementialisation. Partage des deux communautés."},
+    {d:"J+6/7",t:"Drive to store",ic:["instagram","tiktok"],fmt:"Reels",th:"Vidéo organique FG chez O'tacos : contenu plus naturel = inspiration de la vidéo avec Xavier Pincemin. Drive to store. Thématique de jeu : QR codes cachés chez O'tacos pour gagner produits / réductions, + possibilité de gagner 1 000€.",isNew:true},
+    {d:"J+14",t:"Rappel",ic:["instagram"],fmt:"Repost",th:"« C'est toujours dispo »",isNew:true},
+    {d:"J+20",t:"Amplification",cross:["instagram","tiktok"],times:1,fmt:"Giveaway Reels",th:"",isNew:true},
+    {d:"J+25",t:"Stunt de fin",ic:["instagram"],fmt:"IGS · Tweet",th:"Stunt de fin : offres de codes",isNew:true},
   ];return <div>
     <FarHeader t={t}/>
-    <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:10,flexWrap:"wrap"}}>
-      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"8px 14px",background:COL,color:TXT,borderRadius:999}}>DISPOSITIF 2</div>
-      <div style={{...mo,fontSize:11,fontWeight:900,padding:"8px 14px",background:t.c2,color:t.bg,borderRadius:999}}>17 contenus</div>
-      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,padding:"7px 12px",background:NEW,color:"#FFF",borderRadius:999}}>+ TEASING · DRIVE TO STORE · RAPPEL · AMPLIFICATION</div>
+    <DispositifsRow focus={2} compact/>
+    <div style={{marginTop:14,display:"flex",alignItems:"center",gap:10,marginBottom:8,flexWrap:"wrap"}}>
+      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"7px 13px",background:COL,color:TXT,borderRadius:999}}>DISPOSITIF 2</div>
+      <div style={{...mo,fontSize:11,fontWeight:900,padding:"7px 13px",background:t.c2,color:t.bg,borderRadius:999}}>17 contenus</div>
+      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,padding:"6px 11px",background:NEW,color:"#FFF",borderRadius:999}}>+ TEASING · DRIVE TO STORE · RAPPEL · AMPLIFICATION</div>
     </div>
-    <Hl t={t} s={{fontSize:30,marginBottom:6}}>Le lancement, prolongé pendant 4 semaines.</Hl>
-    <Sh t={t} s={{fontSize:14.5,marginBottom:14}}>On garde tout le dispositif 1, et on ajoute du teasing en amont, du drive to store en aval, des rappels et un stunt final.</Sh>
-    <div style={{display:"grid",gridTemplateColumns:"repeat(7, 1fr)",gap:8}}>{cols.map((c,i)=><div key={i} style={{padding:"14px 12px",borderRadius:14,background:c.isNew?COL:"#FFFFFF",color:c.isNew?TXT:t.cardT,border:`2px solid ${c.isNew?TXT:"#171006"}`,boxShadow:t.cS,position:"relative",minHeight:230}}>
+    <Hl t={t} s={{fontSize:26,marginBottom:4}}>Le lancement, prolongé pendant 4 semaines.</Hl>
+    <Sh t={t} s={{fontSize:14,marginBottom:12}}>On garde tout le dispositif 1, et on ajoute du teasing en amont, du drive to store en aval, des rappels et un stunt final.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7, 1fr)",gap:8}}>{cols.map((c,i)=><div key={i} style={{padding:"14px 12px",borderRadius:14,background:c.isNew?COL:"#FFFFFF",color:c.isNew?TXT:"#171006",border:`2px solid ${c.isNew?TXT:"#171006"}`,boxShadow:t.cS,position:"relative",minHeight:240}}>
       {c.isNew&&<div style={{position:"absolute",top:-9,right:8,...mo,fontSize:9,fontWeight:900,letterSpacing:1.5,padding:"3px 7px",background:NEW,color:"#FFF",borderRadius:999}}>+ NEW</div>}
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:4}}>
-        <div style={{...mo,fontSize:13,fontWeight:900,color:c.isNew?TXT:t.a}}>{c.d}</div>
-        <div style={{display:"flex",gap:3}}>{c.ic.map((k,kk)=><SocialIcon key={kk} k={k} size={14} light={c.isNew}/>)}</div>
-      </div>
+      <div style={{...mo,fontSize:13,fontWeight:900,marginBottom:3,color:c.isNew?TXT:t.a}}>{c.d}</div>
       <div style={{...se,fontSize:14,fontWeight:900,marginBottom:8,lineHeight:1.18}}>{c.t}</div>
-      {c.ch&&<div style={{...sa,fontSize:11,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>CHAÎNES</b>{c.ch}</div>}
-      {c.pf&&<div style={{...sa,fontSize:11,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>PLATEFORMES / FORMATS</b>{c.pf}</div>}
-      {c.fmt&&<div style={{...sa,fontSize:10.5,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>FORMATS</b>{c.fmt}</div>}
+      <div style={{padding:"6px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}>
+        {c.cross?<Crosspost platforms={c.cross} times={c.times} light={c.isNew}/>:c.ic?<div style={{display:"flex",gap:4}}>{c.ic.map((k,kk)=><SocialIcon key={kk} k={k} size={16}/>)}</div>:null}
+      </div>
+      {c.fmt&&<div style={{...sa,fontSize:11,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>FORMATS</b>{c.fmt}</div>}
+      {c.extra&&<div style={{...sa,fontSize:10.5,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>DÉTAIL</b>{c.extra}</div>}
       {c.th&&<div style={{...sa,fontSize:10.5,lineHeight:1.35,padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8.5,letterSpacing:1.5,opacity:.65,display:"block"}}>THÉMATIQUE</b>{c.th}</div>}
     </div>)}</div>
   </div>;}},
 
-// 08 — DISPOSITIF 3 — ROUGE (sans prix, avec logos sociaux)
+// 09 — DISPOSITIF 3 — Template focus 3 + roadmap rouge (PDF p.9)
 {title:"Dispositif 3 — Le dispositif complet",
 r:t=>{const COL="#E30613",TXT="#FFFFFF",NEW="#FFC400",NEWT="#171006";const cols=[
-    {d:"J-3",t:"Teasing",ic:["instagram","tiktok"],ch:"crosspost",pf:"Post photo Reels TikTok",fmt:"",th:"Teasing le mardi : indices produits"},
-    {d:"J-1",t:"Annonce",ic:["youtube","tiktok","instagram"],ch:"crosspost x3",pf:"Post photo / Reels / TikTok / Shorts",fmt:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » / nouvelle LTO dispo (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits"},
-    {d:"J-J",t:"Launch",ic:["youtube","instagram"],ch:"",pf:"Manche dédiée (« Le dernier qui quitte la table… »)",fmt:"",th:"LAUNCH à la publication de FG - 18H le vendredi. Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés."},
-    {d:"J+6/7",t:"Tiny to giant",ic:["instagram"],ch:"",pf:"Post photo",fmt:"",th:"Tiny to giant O'Tacos LTO. Vidéo organique FG chez O'tacos : contenu plus naturel = inspiration de la vidéo avec Xavier Pincemin.",isNew:true},
-    {d:"J+9",t:"Implantation",ic:["youtube"],ch:"",pf:"Shorts",fmt:"",th:"Rappel LTO « c'est toujours dispo ». Avis de la communauté pour l'engagement. Implanter la collaboration.",isNew:true},
-    {d:"J+11/12",t:"Rappel",ic:["instagram","tiktok"],ch:"",pf:"Reels",fmt:"",th:"Avis de la communauté",isNew:true},
-    {d:"J+20",t:"Drive to store",ic:["instagram"],ch:"",pf:"IGS",fmt:"",th:"« C'est toujours dispo ». Repost de. Drive to store. Thématique de jeu : des QR code cachés chez O'tacos qui permettent de gagner des produits / réductions chez les deux entités, + possibilité de gagner 1 000€."},
-    {d:"J+25",t:"Surfer sur l'actu",ic:["instagram","tiktok"],ch:"",pf:"Post Giveaway Reels crosspost",fmt:"",th:"Surfer sur l'actu"},
-    {d:"J+27",t:"Last push",ic:["instagram"],ch:"",pf:"IGS",fmt:"",th:"IGS avec OT",isNew:true},
+    {d:"J-3",t:"Teasing",cross:["instagram","tiktok"],times:1,fmt:"Post photo · Reels · TikTok",th:"Teasing le mardi : indices produits"},
+    {d:"J-1",t:"Annonce",cross:["youtube","tiktok","instagram"],times:3,fmt:"Post photo · Reels · TikTok · Shorts",extra:"IGS additionnelles : « Surprise dans ma nouvelle vidéo » / nouvelle LTO dispo (repost de FG)",th:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits"},
+    {d:"J-J",t:"Launch",ic:["youtube","instagram"],fmt:"Manche dédiée (« Le dernier qui quitte la table… »)",th:"LAUNCH à la publication de FG - 18H le vendredi. Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre = % offert chez l'autre + second produit LTO offert."},
+    {d:"J+6/7",t:"Tiny to giant",ic:["instagram"],fmt:"Post photo",th:"Tiny to giant O'Tacos LTO. Vidéo organique FG chez O'tacos : contenu plus naturel = inspiration de la vidéo avec Xavier Pincemin.",isNew:true},
+    {d:"J+9",t:"Implantation",ic:["youtube"],fmt:"Shorts",th:"Rappel LTO « c'est toujours dispo ». Avis de la communauté pour l'engagement. Implanter la collaboration.",isNew:true},
+    {d:"J+11/12",t:"Rappel",ic:["instagram","tiktok"],fmt:"Reels",th:"Avis de la communauté",isNew:true},
+    {d:"J+20",t:"Drive to store",ic:["instagram"],fmt:"IGS",th:"« C'est toujours dispo ». Repost. Drive to store. Thématique de jeu : QR codes cachés chez O'tacos pour gagner produits / réductions, + possibilité de gagner 1 000€."},
+    {d:"J+25",t:"Surfer sur l'actu",cross:["instagram","tiktok"],times:1,fmt:"Post Giveaway · Reels",th:"Surfer sur l'actu"},
+    {d:"J+27",t:"Last push",ic:["instagram"],fmt:"IGS",th:"IGS avec O'Tacos",isNew:true},
   ];return <div>
     <FarHeader t={t}/>
-    <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:10,flexWrap:"wrap"}}>
-      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"8px 14px",background:COL,color:TXT,borderRadius:999}}>DISPOSITIF 3</div>
-      <div style={{...mo,fontSize:11,fontWeight:900,padding:"8px 14px",background:t.c2,color:t.bg,borderRadius:999}}>22 contenus</div>
-      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,padding:"7px 12px",background:NEW,color:NEWT,borderRadius:999}}>+ TINY TO GIANT · RAPPELS COMMUNAUTÉ · LAST PUSH</div>
+    <DispositifsRow focus={3} compact/>
+    <div style={{marginTop:14,display:"flex",alignItems:"center",gap:10,marginBottom:8,flexWrap:"wrap"}}>
+      <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,padding:"7px 13px",background:COL,color:TXT,borderRadius:999}}>DISPOSITIF 3</div>
+      <div style={{...mo,fontSize:11,fontWeight:900,padding:"7px 13px",background:t.c2,color:t.bg,borderRadius:999}}>22 contenus</div>
+      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:2,padding:"6px 11px",background:NEW,color:NEWT,borderRadius:999}}>+ TINY TO GIANT · RAPPELS COMMUNAUTÉ · LAST PUSH</div>
     </div>
-    <Hl t={t} s={{fontSize:30,marginBottom:6}}>Le dispositif complet, du teasing au last push.</Hl>
-    <Sh t={t} s={{fontSize:14.5,marginBottom:12}}>On garde tout le dispositif 2, et on densifie : tiny to giant, implantation, rappels communautaires, dernier push J+27.</Sh>
-    <div style={{display:"grid",gridTemplateColumns:"repeat(9, 1fr)",gap:6}}>{cols.map((c,i)=><div key={i} style={{padding:"12px 10px",borderRadius:12,background:c.isNew?COL:"#FFFFFF",color:c.isNew?TXT:t.cardT,border:`2px solid ${c.isNew?NEW:"#171006"}`,boxShadow:t.cS,position:"relative",minHeight:220}}>
+    <Hl t={t} s={{fontSize:26,marginBottom:4}}>Le dispositif complet, du teasing au last push.</Hl>
+    <Sh t={t} s={{fontSize:14,marginBottom:12}}>On garde tout le dispositif 2, et on densifie : tiny to giant, implantation, rappels communautaires, dernier push J+27.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(9, 1fr)",gap:6}}>{cols.map((c,i)=><div key={i} style={{padding:"12px 10px",borderRadius:12,background:c.isNew?COL:"#FFFFFF",color:c.isNew?TXT:"#171006",border:`2px solid ${c.isNew?NEW:"#171006"}`,boxShadow:t.cS,position:"relative",minHeight:230}}>
       {c.isNew&&<div style={{position:"absolute",top:-8,right:6,...mo,fontSize:8.5,fontWeight:900,letterSpacing:1,padding:"2px 6px",background:NEW,color:NEWT,borderRadius:999}}>+ NEW</div>}
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:3}}>
-        <div style={{...mo,fontSize:11.5,fontWeight:900,color:c.isNew?TXT:t.a}}>{c.d}</div>
-        <div style={{display:"flex",gap:3}}>{c.ic.map((k,kk)=><SocialIcon key={kk} k={k} size={12} light={c.isNew}/>)}</div>
+      <div style={{...mo,fontSize:11.5,fontWeight:900,marginBottom:3,color:c.isNew?TXT:t.a}}>{c.d}</div>
+      <div style={{...se,fontSize:12.5,fontWeight:900,marginBottom:6,lineHeight:1.18}}>{c.t}</div>
+      <div style={{padding:"5px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}>
+        {c.cross?<Crosspost platforms={c.cross} times={c.times} light={c.isNew}/>:c.ic?<div style={{display:"flex",gap:3}}>{c.ic.map((k,kk)=><SocialIcon key={kk} k={k} size={14}/>)}</div>:null}
       </div>
-      <div style={{...se,fontSize:12.5,fontWeight:900,marginBottom:7,lineHeight:1.18}}>{c.t}</div>
-      {c.ch&&<div style={{...sa,fontSize:9.5,lineHeight:1.32,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>CHAÎNES</b>{c.ch}</div>}
-      {c.pf&&<div style={{...sa,fontSize:9.5,lineHeight:1.32,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>PLATEF / FORMATS</b>{c.pf}</div>}
-      {c.fmt&&<div style={{...sa,fontSize:9.5,lineHeight:1.32,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>FORMATS</b>{c.fmt}</div>}
-      {c.th&&<div style={{...sa,fontSize:9.5,lineHeight:1.32,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>THÉMATIQUES</b>{c.th}</div>}
+      {c.fmt&&<div style={{...sa,fontSize:9.5,lineHeight:1.35,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>FORMATS</b>{c.fmt}</div>}
+      {c.extra&&<div style={{...sa,fontSize:9.5,lineHeight:1.35,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>DÉTAIL</b>{c.extra}</div>}
+      {c.th&&<div style={{...sa,fontSize:9.5,lineHeight:1.35,padding:"4px 0",borderTop:`1px solid ${c.isNew?"rgba(255,255,255,.25)":"rgba(23,16,6,.13)"}`}}><b style={{...mo,fontSize:8,letterSpacing:1.2,opacity:.65,display:"block"}}>THÉMATIQUES</b>{c.th}</div>}
     </div>)}</div>
   </div>;}},
 
-// 09 — RÉCAPITULATIF (avec prix, sans note source)
+// 10 — RÉCAPITULATIF (fidèle PDF p.12, avec logos O'Tacos × Pepe Chicken)
 {title:"Récapitulatif",
 r:t=>{const offers=[
-    {n:"DISPOSITIF 1",b:"100 000€",total:"10 contenus",col:"#FFFFFF",txt:"#171006",accent:"#FFC400",border:"#171006",items:["1 Reels","1 TikTok","1 Shorts","1 vidéo Youtube manche dédiée"]},
-    {n:"DISPOSITIF 2",b:"145 000€",total:"17 contenus",col:"#FF7A00",txt:"#FFFFFF",accent:"#FFFFFF",border:"#FF7A00",items:["2 Reels + 1 TikTok + 1 Story","2 Reels + 1 TikTok + 1 Post + 1 Tweet","3 Reels + 1 TikTok + 1 Post + 1 Tweet + 1 Story","1 vidéo Youtube (manche dédiée)"]},
-    {n:"DISPOSITIF 3",b:"206 000€",total:"22 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400",border:"#E30613",items:["2 Reels + 1 TikTok + 2 Shorts + 1 Story","2 Reels + 1 TikTok + 1 Shorts + 2 Post + 1 Story","3 Reels + 1 TikTok + 2 Shorts + 1 Post + 1 Story","1 vidéo Youtube manche dédiée"]},
+    {n:"DISPOSITIF 1",b:"100 000€",total:"10 contenus",col:"#171006",txt:"#FFC400",accent:"#FFC400",ref:null,items:["1 Reels","1 TikTok","1 Shorts","1 vidéo Youtube manche dédiée"]},
+    {n:"DISPOSITIF 2",b:"145 000€",total:"17 contenus",col:"#FF7A00",txt:"#FFFFFF",accent:"#FFFFFF",ref:"3% / 140 650€",items:["2 Reels + 1 TikTok + 1 Story","2 Reels + 1 TikTok + 1 Post + 1 Tweet","3 Reels + 1 TikTok + 1 Post + 1 Tweet + 1 Story","1 vidéo Youtube (manche dédiée)"]},
+    {n:"DISPOSITIF 3",b:"206 000€",total:"22 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400",ref:"5% / 195 700€",items:["2 Reels + 1 TikTok + 2 Shorts + 1 Story","2 Reels + 1 TikTok + 1 Shorts + 2 Post + 1 Story","3 Reels + 1 TikTok + 2 Shorts + 1 Post + 1 Story","1 vidéo Youtube manche dédiée"]},
   ];return <div>
     <FarHeader t={t}/>
-    <Tg t={t}>RÉCAPITULATIF — O'TACOS × PEPE CHICKEN</Tg>
-    <Hl t={t} s={{fontSize:34,marginBottom:18}}>Livrables et budgets, fidèles à la source.</Hl>
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14}}>{offers.map((x,i)=><div key={i} style={{padding:24,borderRadius:18,background:x.col,color:x.txt,boxShadow:t.cS,position:"relative",overflow:"hidden",border:`3px solid ${i===0?t.c2:x.border}`}}>
-      <div style={{position:"absolute",top:-40,right:-40,width:160,height:160,borderRadius:"50%",background:i===0?"rgba(255,196,0,.18)":"rgba(255,255,255,.1)"}}/>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:18,flexWrap:"wrap",gap:14}}>
+      <div>
+        <Tg t={t}>RÉCAPITULATIF</Tg>
+        <Hl t={t} s={{fontSize:42,marginBottom:0,lineHeight:1.05}}>O'Tacos × Pepe Chicken.</Hl>
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:14}}>
+        <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:90,maxHeight:54,objectFit:"contain",borderRadius:10,boxShadow:t.cS,background:"#FFF",padding:6}}/>
+        <div style={{...se,fontSize:24,fontWeight:900,color:t.c2}}>×</div>
+        <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:78,maxHeight:64,objectFit:"contain",borderRadius:10,boxShadow:t.cS,background:"#FFF",padding:6}}/>
+      </div>
+    </div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14}}>{offers.map((x,i)=><div key={i} style={{padding:22,borderRadius:18,background:x.col,color:x.txt,boxShadow:t.cS,position:"relative",overflow:"hidden",border:`3px solid ${x.col}`}}>
+      <div style={{position:"absolute",top:-40,right:-40,width:160,height:160,borderRadius:"50%",background:"rgba(255,255,255,.07)"}}/>
       <div style={{position:"relative"}}>
-        <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,color:x.accent,marginBottom:6}}>{x.n}</div>
-        <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1,marginBottom:10,color:i===0?t.c:x.txt}}>{x.b}</div>
-        <div style={{display:"flex",gap:6,marginBottom:14,alignItems:"center"}}>
-          <div style={{...mo,fontSize:11,fontWeight:900,padding:"6px 11px",borderRadius:999,background:i===0?t.c2:"rgba(0,0,0,.18)",color:i===0?t.bg:x.txt}}>{x.total}</div>
-          <SocialIcon k="youtube" size={18}/>
-          <SocialIcon k="tiktok" size={18}/>
-          <SocialIcon k="instagram" size={18}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8}}>
+          <img src={pu("/otacos-logo.png")} alt="" style={{width:36,maxHeight:24,objectFit:"contain",background:"#FFF",padding:3,borderRadius:5}}/>
+          <div style={{...se,fontSize:11,fontWeight:900,opacity:.7}}>×</div>
+          <img src={pu("/pepe-chicken-logo.png")} alt="" style={{width:30,maxHeight:30,objectFit:"contain",background:"#FFF",padding:3,borderRadius:5}}/>
         </div>
-        <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:2,color:i===0?t.d:x.txt,opacity:i===0?.55:.65,marginBottom:8}}>LIVRABLES</div>
-        {x.items.map((li,j)=><div key={j} style={{...sa,fontSize:13,lineHeight:1.45,padding:"8px 0",borderTop:j?`1px solid ${i===0?"rgba(23,16,6,.14)":"rgba(255,255,255,.22)"}`:"none",color:i===0?t.m:x.txt,opacity:i===0?1:.94}}>→ {li}</div>)}
+        <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:2.5,color:x.accent,marginBottom:6}}>{x.n}</div>
+        <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1,marginBottom:6,color:x.txt}}>{x.b}</div>
+        {x.ref&&<div style={{...mo,fontSize:10,fontWeight:700,opacity:.7,marginBottom:10,color:x.txt}}>Réf source : {x.ref}</div>}
+        <div style={{display:"flex",gap:6,marginBottom:14,alignItems:"center",flexWrap:"wrap"}}>
+          <div style={{...mo,fontSize:11,fontWeight:900,padding:"6px 11px",borderRadius:999,background:"rgba(255,255,255,.16)",color:x.txt}}>{x.total}</div>
+          <div style={{display:"flex",gap:4,alignItems:"center"}}>
+            <SocialIcon k="youtube" size={16}/>
+            <SocialIcon k="tiktok" size={16}/>
+            <SocialIcon k="instagram" size={16}/>
+          </div>
+        </div>
+        <div style={{...mo,fontSize:9,fontWeight:900,letterSpacing:2,color:x.txt,opacity:.6,marginBottom:8}}>LIVRABLES</div>
+        {x.items.map((li,j)=><div key={j} style={{...sa,fontSize:13,lineHeight:1.45,padding:"7px 0",borderTop:j?`1px solid rgba(255,255,255,.18)`:"none",color:x.txt,opacity:.94}}>→ {li}</div>)}
       </div>
     </div>)}</div>
   </div>;}},
 
-// 10 — MERCI (collaboration, simple)
+// 11 — MERCI (juste MERCI + body)
 {title:"Merci",
-r:(t,back)=><div style={{minHeight:"68vh",display:"flex",flexDirection:"column",justifyContent:"center"}}>
-  <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:30}}>
-    <FarLogo size={56} variant="black"/>
-    <div style={{width:1,height:26,background:t.brd}}/>
-    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:3,color:t.c2}}>UNE PRÉSENTATION FAR</div>
-    <div style={{flex:1,height:1,background:t.brd}}/>
-    <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:3,color:t.c2}}>2026</div>
+r:(t,back)=><div style={{minHeight:"68vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:30}}>
+    <FarLogo size={48} variant="black"/>
+    <TitleBars w={120} h={32}/>
   </div>
-  <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:30,marginBottom:36}}>
-    <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:170,maxHeight:96,objectFit:"contain",borderRadius:14,boxShadow:t.cS,background:"#FFF",padding:10}}/>
-    <div style={{...se,fontSize:42,fontWeight:900,color:t.c2}}>×</div>
-    <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:140,maxHeight:120,objectFit:"contain",borderRadius:14,boxShadow:t.cS,background:"#FFF",padding:10}}/>
-    <div style={{...se,fontSize:42,fontWeight:900,color:t.c2}}>×</div>
-    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"14px 18px",background:"#FFF",borderRadius:14,boxShadow:t.cS,minWidth:140}}>
-      <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:80,height:80,objectFit:"cover",borderRadius:"50%",marginBottom:8,border:`2px solid ${t.c2}`}}/>
-      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:1.5,color:t.c2}}>FASTGOODCUISINE</div>
-    </div>
-  </div>
-  <div style={{display:"flex",flexDirection:"column",gap:8,maxWidth:1120,alignSelf:"center",alignItems:"center"}}>
-    <div style={{background:t.c2,color:t.bg,padding:"22px 64px",...se,fontSize:80,fontWeight:900,letterSpacing:-2,lineHeight:1,boxShadow:t.cS,borderRadius:8}}>MERCI.</div>
-  </div>
-  <div style={{textAlign:"center",marginTop:22,...sa,fontSize:14,color:t.m,letterSpacing:1.5}}>UNE COLLABORATION O'TACOS × PEPE CHICKEN × FASTGOODCUISINE</div>
-  {back&&<div style={{textAlign:"center",marginTop:24}}><button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:700,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button></div>}
+  <div style={{background:t.c2,color:t.bg,padding:"24px 72px",...se,fontSize:96,fontWeight:900,letterSpacing:-2,lineHeight:1,boxShadow:t.cS,borderRadius:8,marginBottom:26}}>MERCI.</div>
+  <div style={{...sa,fontSize:18,color:t.m,lineHeight:1.55,maxWidth:680}}>Une collaboration O'Tacos × Pepe Chicken pensée comme un événement, portée par FastGoodCuisine pour faire de cette LTO un moment qui restera.</div>
+  {back&&<div style={{marginTop:30}}><button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:700,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button></div>}
 </div>},
 ];
 
