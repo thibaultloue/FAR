@@ -785,13 +785,10 @@ const Crosspost = ({platforms,times=2,light=false}) => {
 };
 const BrandIcon = ({k,size=32}) => {
   const r=Math.max(4,size*0.18);
-  if(k==="otacos") return <div title="O'Tacos" style={{width:size,height:size,background:"#F37021",borderRadius:r,display:"inline-flex",alignItems:"center",justifyContent:"center",overflow:"hidden",flexShrink:0}}>
-    <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:size*0.78,height:size*0.78,objectFit:"contain",filter:"brightness(0) invert(1)"}}/>
-  </div>;
-  if(k==="pepe") return <div title="Pepe Chicken" style={{width:size,height:size,background:"#FFE600",borderRadius:r,display:"inline-flex",alignItems:"center",justifyContent:"center",overflow:"hidden",flexShrink:0}}>
-    <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{height:size*0.92,objectFit:"contain"}}/>
-  </div>;
-  if(k==="fgc") return <img title="FastGoodCuisine" src={pu("/fgc.webp")} alt="FGC" style={{width:size,height:size,objectFit:"cover",borderRadius:r,flexShrink:0,border:"1px solid rgba(0,0,0,.06)"}}/>;
+  const base={width:size,height:size,objectFit:"cover",borderRadius:r,flexShrink:0,display:"block",border:"1px solid rgba(23,16,6,.12)"};
+  if(k==="otacos") return <img title="O'Tacos" src={pu("/otacos-logo.png")} alt="O'Tacos" style={base}/>;
+  if(k==="pepe") return <img title="Pepe Chicken" src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={base}/>;
+  if(k==="fgc") return <img title="FastGoodCuisine" src={pu("/fgc.webp")} alt="FGC" style={base}/>;
   return null;
 };
 const BrandRow = ({brands=[],size=28,gap=4}) => <div style={{display:"flex",alignItems:"center",gap,flexWrap:"nowrap",justifyContent:"center"}}>{brands.map((b,i)=><BrandIcon key={i} k={b} size={size}/>)}</div>;
@@ -846,16 +843,15 @@ const SOtacosPepe = [
 
 // 01 — COVER (logos uniquement, plus de texte titre)
 {title:"O'Tacos × Pepe Chicken",
-r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"68vh",textAlign:"center",position:"relative"}}>
-  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:48}}>
-    <FarLogo size={48} variant="black"/>
-    <TitleBars w={120} h={32}/>
-  </div>
-  <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:3,padding:"8px 16px",background:t.c2,color:t.bg,borderRadius:999,display:"inline-block",marginBottom:48}}>LTO · COLLABORATION 2026</div>
-  <div style={{display:"flex",alignItems:"center",gap:42,flexWrap:"wrap",justifyContent:"center"}}>
-    <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:280,maxHeight:160,objectFit:"contain",borderRadius:18,boxShadow:t.cS,background:"#FFF",padding:14}}/>
-    <div style={{...se,fontSize:64,fontWeight:900,color:t.a}}>×</div>
-    <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:230,maxHeight:200,objectFit:"contain",borderRadius:18,boxShadow:t.cS,background:"#FFF",padding:14}}/>
+r:t=><div>
+  <FarHeader t={t}/>
+  <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"58vh",textAlign:"center"}}>
+    <div style={{...mo,fontSize:11,fontWeight:900,letterSpacing:3,padding:"8px 16px",background:t.c2,color:t.bg,borderRadius:999,display:"inline-block",marginBottom:54}}>LTO · COLLABORATION 2026</div>
+    <div style={{display:"flex",alignItems:"center",gap:54,flexWrap:"wrap",justifyContent:"center"}}>
+      <img src={pu("/otacos-logo.png")} alt="O'Tacos" style={{width:340,maxHeight:170,objectFit:"contain",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
+      <div style={{...se,fontSize:64,fontWeight:900,color:t.c}}>×</div>
+      <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:240,height:240,objectFit:"cover",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
+    </div>
   </div>
 </div>},
 
@@ -902,10 +898,12 @@ r:t=><div>
 
 // 04 — TEASING centré (titre + 1 phrase)
 {title:"Mais on a une arme à mobiliser",
-r:t=><div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",minHeight:"68vh",textAlign:"center"}}>
+r:t=><div>
   <FarHeader t={t}/>
-  <Hl t={t} s={{fontSize:64,lineHeight:1.05,marginBottom:32,maxWidth:1100,textAlign:"center"}}>Mais on a <span style={{background:t.a,color:"#FFF",padding:"2px 16px",borderRadius:10}}>une arme</span> qu'il faut absolument mobiliser.</Hl>
-  <Sh t={t} s={{fontSize:24,maxWidth:880,lineHeight:1.45,textAlign:"center",margin:"0 auto"}}>Une arme redoutable est à notre portée pour transformer cette LTO en véritable événement food.</Sh>
+  <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",minHeight:"58vh",textAlign:"center"}}>
+    <Hl t={t} s={{fontSize:64,lineHeight:1.05,marginBottom:32,maxWidth:1100,textAlign:"center"}}>Mais on a <span style={{background:t.a,color:"#FFF",padding:"2px 16px",borderRadius:10}}>une arme</span> qu'il faut absolument mobiliser.</Hl>
+    <Sh t={t} s={{fontSize:24,maxWidth:880,lineHeight:1.45,textAlign:"center",margin:"0 auto"}}>Une arme redoutable est à notre portée pour transformer cette LTO en véritable événement food.</Sh>
+  </div>
 </div>},
 
 // 05 — FGC REVEAL (modèle présentation créateur : photo à droite, infos à gauche)
