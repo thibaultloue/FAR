@@ -868,13 +868,13 @@ r:t=><div>
 r:t=><div>
   <FarHeader t={t}/>
   <Tg t={t}>LTO O'TACOS × PEPE CHICKEN · ENJEUX</Tg>
-  <Hl t={t} s={{fontSize:32,marginBottom:14}}>Capitaliser sur deux communautés et créer la désirabilité autour de deux produits.</Hl>
+  <Hl t={t} s={{fontSize:32,marginBottom:14}}>Capitaliser sur 2 communautés et créer la désirabilité autour de 2 produits.</Hl>
   <div style={{padding:"16px 22px",borderRadius:14,background:t.c2,color:t.bg,marginBottom:18,boxShadow:t.cS}}>
-    <div style={{...sa,fontSize:15,lineHeight:1.55}}>Développer une collaboration entre les deux entités afin de capitaliser sur les communautés respectives et créer de la désirabilité autour de deux produits : l'un disponible chez O'Tacos, l'autre chez Pepe Chicken, dans le but de générer du trafic.</div>
+    <div style={{...sa,fontSize:15,lineHeight:1.55}}>Développer une collaboration entre les 2 entités afin de capitaliser sur les communautés respectives et créer de la désirabilité autour de 2 produits : l'un disponible chez O'Tacos, l'autre chez Pepe Chicken, dans le but de générer du trafic.</div>
   </div>
   <div style={{display:"grid",gridTemplateColumns:"repeat(5, 1fr)",gap:10,marginTop:6}}>{[
     {n:"01",h:"Créer de la désirabilité",d:"Par la notion de produits éphémères : proposer une offre de produits limités pour stimuler l'intérêt."},
-    {n:"02",h:"Toucher une nouvelle clientèle",d:"Profiter des deux communautés."},
+    {n:"02",h:"Toucher une nouvelle clientèle",d:"Profiter des 2 communautés."},
     {n:"03",h:"Événementialiser",d:"Renforcer l'attachement aux marques : expérience unique en point de vente / commande, offres limitées en exclusivité, désirabilité."},
     {n:"04",h:"Booster les ventes",d:"Augmenter le trafic croisé en point de vente (drive to store) / commande, augmenter le panier moyen via l'effet nouveauté."},
     {n:"05",h:"Puissance marketing",d:"Coup de communication unique, production de contenus, multiplication des axes, partage spontané, moment fort ancré dans les mémoires."},
@@ -962,7 +962,7 @@ r:t=><div>
 r:t=><div>
   <FarHeader t={t}/>
   <Tg t={t}>NOTRE DISPOSITIF · O'TACOS × PEPE CHICKEN</Tg>
-  <Hl t={t} s={{fontSize:38,marginBottom:8}}>Trois dispositifs. Une montée en intensité.</Hl>
+  <Hl t={t} s={{fontSize:38,marginBottom:8}}>3 dispositifs. Une montée en intensité.</Hl>
   <Sh t={t} s={{fontSize:16,marginBottom:26}}>On commence par le dispositif 1 : le lancement essentiel, concentré sur la fenêtre de lancement.</Sh>
   <DispositifsRow focus={1}/>
 </div>},
@@ -973,7 +973,7 @@ r:t=><div>
   <FarHeader t={t}/>
   <RoadmapTable n={1} t={t} labelW={150} iconSize={26} fmtFs={12} thFs={11.5} thMin={150} cols={[
     {date:"J-1",brands:["otacos","pepe","fgc"],platforms:["tiktok","instagram","youtube"],format:"Reels\nTiktok\nShorts",theme:"Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin incluant des visuels produits, en co-création."},
-    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:"Manche dédiée (à travers un concept phare tel que « Le dernier qui quitte la table… »)\nIGS additionnelles : « Surprise dans ma nouvelle vidéo » : Annonce nouvelle LTO disponible (repost de FG)",theme:<div><div style={{fontWeight:900,marginBottom:5}}>LAUNCH à la publication de FG · 18H le vendredi</div>Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo, en exclusivité du vendredi au dimanche (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés.</div>},
+    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:"Manche dédiée (à travers un concept phare tel que « Le dernier qui quitte la table… »)\nIGS additionnelles : « Surprise dans ma nouvelle vidéo » : Annonce nouvelle LTO disponible (repost de FG)",theme:<div><div style={{fontWeight:900,marginBottom:5}}>LAUNCH à la publication de FG · 18H le vendredi</div>Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo, en exclusivité du vendredi au dimanche (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + 2e produit de la LTO offert. Événementialisation. Partage des 2 communautés.</div>},
   ].map(c=>({...c,format:typeof c.format==="string"?<div style={{whiteSpace:"pre-line"}}>{c.format}</div>:c.format}))}/>
 </div>},
 
@@ -994,7 +994,7 @@ r:t=><div>
   <RoadmapTable n={2} t={t} newAccent="#FF7A00" labelW={130} iconSize={22} fmtFs={10.5} thFs={9.5} thMin={170} cols={[
     {date:"J-3",isNew:true,brands:["pepe","fgc"],platforms:["instagram"],format:<div>Post Photo</div>,theme:<div>Teasing mardi :<br/>Indices produits</div>},
     {date:"J-1",brands:["otacos","pepe","fgc"],platforms:["tiktok","instagram"],format:<div style={{whiteSpace:"pre-line"}}>{"Reels\nTiktok"}</div>,theme:<div>Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits</div>},
-    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:<div>Manche dédiée (à travers un concept phare « Le dernier qui quitte la table… »)<br/>IGS additionnelles : « Surprise dans ma nouvelle vidéo » · Nouvelle LTO dispo (repost de FG)</div>,theme:<div><b>LAUNCH à la publication de FG · 18H le vendredi.</b> Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés.</div>},
+    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:<div>Manche dédiée (à travers un concept phare « Le dernier qui quitte la table… »)<br/>IGS additionnelles : « Surprise dans ma nouvelle vidéo » · Nouvelle LTO dispo (repost de FG)</div>,theme:<div><b>LAUNCH à la publication de FG · 18H le vendredi.</b> Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + 2e produit de la LTO offert. Événementialisation. Partage des 2 communautés.</div>},
     {date:"J+6/7",isNew:true,brands:["fgc","otacos"],platforms:["instagram"],format:<div>Reels</div>,theme:<div>Vidéo organique FG chez O'tacos : contenu plus naturel = Inspiration de la vidéo avec Xavier Pincemin</div>},
     {date:"J+14",isNew:true,brands:["pepe","fgc"],platforms:["instagram"],format:<div>Reels</div>,theme:<div style={{color:"#1A73E8",textDecoration:"underline"}}>Tiny to giant O'Tacos LTO</div>},
     {date:"J+20",isNew:true,brands:["fgc","otacos"],platforms:["instagram"],format:<div>IGS</div>,theme:<div>« C'est toujours dispo »<br/>Repost de <BrandIcon k="otacos" size={16}/></div>},
@@ -1019,12 +1019,12 @@ r:t=><div>
   <RoadmapTable n={3} t={t} newAccent="#E30613" labelW={108} iconSize={20} fmtFs={9.5} thFs={8.5} thMin={180} cols={[
     {date:"J-3",brands:["pepe","fgc"],platforms:["instagram"],format:<div>Post Photo</div>,theme:<div>Teasing le mardi :<br/>Indices produits</div>},
     {date:"J-1",brands:["otacos","pepe","fgc"],platforms:["tiktok","instagram","youtube"],format:<div style={{whiteSpace:"pre-line"}}>{"Reels\nTiktok\nShorts"}</div>,theme:<div>Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits</div>},
-    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:<div>Manche dédiée (à travers un concept phare « Le dernier qui quitte la table… »)<br/>IGS additionnelles : « Surprise dans ma nouvelle vidéo » · Nouvelle LTO dispo (repost de FG)</div>,theme:<div><b>LAUNCH à la publication de FG · 18H le vendredi.</b> Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + second produit de la LTO offert. Événementialisation. Partage des deux communautés.</div>},
+    {date:"J-J",brands:["fgc"],platforms:["youtube"],format:<div>Manche dédiée (à travers un concept phare « Le dernier qui quitte la table… »)<br/>IGS additionnelles : « Surprise dans ma nouvelle vidéo » · Nouvelle LTO dispo (repost de FG)</div>,theme:<div><b>LAUNCH à la publication de FG · 18H le vendredi.</b> Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + 2e produit de la LTO offert. Événementialisation. Partage des 2 communautés.</div>},
     {date:"J+6/7",brands:["pepe","otacos"],platforms:["instagram"],format:<div>Post photo</div>,theme:<div>Rappel LTO « c'est toujours dispo ». Avis de la communauté pour l'engagement. Implanter la collaboration.</div>},
     {date:"J+9",isNew:true,brands:["fgc","otacos"],platforms:["youtube"],format:<div>Shorts</div>,theme:<div style={{color:"#1A73E8",textDecoration:"underline"}}>Tiny to giant O'Tacos LTO</div>},
     {date:"J+11/12",isNew:true,brands:["pepe","otacos"],platforms:["instagram"],format:<div>Reels</div>,theme:<div>Vidéo organique FG chez O'tacos : contenu plus naturel = Inspiration de la vidéo avec <span style={{color:"#1A73E8",textDecoration:"underline"}}>Xavier Pincemin</span></div>},
     {date:"J+20",brands:["fgc","otacos"],platforms:["instagram"],format:<div>IGS</div>,theme:<div>« C'est toujours dispo »<br/>Repost de</div>},
-    {date:"J+25",brands:["pepe","fgc"],platforms:["instagram"],format:<div>Post Giveaway Reels crosspost</div>,theme:<div>Drive to store. Thématique de jeu : des QR codes cachés chez O'tacos qui permettent de gagner des produits / réductions chez les deux entités, + possibilité de gagner 1 000€.</div>},
+    {date:"J+25",brands:["pepe","fgc"],platforms:["instagram"],format:<div>Post Giveaway Reels crosspost</div>,theme:<div>Drive to store. Thématique de jeu : des QR codes cachés chez O'tacos qui permettent de gagner des produits / réductions chez les 2 entités, + possibilité de gagner 1 000€.</div>},
     {date:"J+27",isNew:true,brands:["fgc","otacos"],platforms:["instagram"],format:<div>IGS</div>,theme:<div>Surfer sur l'actu · IGS avec OT</div>},
     {date:"J+29-31",isNew:true,brands:["pepe","fgc"],platforms:["twitter"],format:<div>Tweet</div>,theme:<div>Stunt de fin : offres de codes</div>},
   ]}/>
