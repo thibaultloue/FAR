@@ -48,7 +48,7 @@ try {
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
   await page.evaluate(() => sessionStorage.setItem("far_auth", "1"));
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
-  const slides = [0, 3, 6, 8, 10, 11, 12];
+  const slides = [0, 2, 3, 4, 6, 8, 10, 11, 12];
   for (const i of slides) {
     await page.goto(`${base}/#otacospepe/${i}`, { waitUntil: "networkidle" });
     await page.reload({ waitUntil: "networkidle" });
