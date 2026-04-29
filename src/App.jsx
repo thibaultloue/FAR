@@ -221,7 +221,7 @@ const TOtacosPepe = {
   th:"#111111", thT:"#FEC400",
   th2:"#FFE37A", th2T:"#171006",
   ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
-  section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"yellow",
+  section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
 const TM = { case1:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, otacospepe:TOtacosPepe, profil:TProfil };
@@ -339,7 +339,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
-  if(deck==="otacospepe") return null;
+  if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,7,19,.14)":i%3===1?"rgba(255,122,1,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
   if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
@@ -794,19 +794,21 @@ const BrandRow = ({brands=[],size=28,gap=4}) => <div style={{display:"flex",alig
 
 const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=86,newAccent="#FF7A00"}) => {
   const grid=`${labelW}px repeat(${cols.length}, 1fr)`;
+  const dense = cols.length >= 10;
+  const gap = dense ? 5 : 6;
   return <div>
-    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14,gap:14}}>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:dense?8:14,gap:14}}>
       <div style={{display:"flex",alignItems:"center",gap:14}}>
-        <TitleBars w={92} h={24}/>
-        <div style={{...se,fontSize:30,fontWeight:900,color:t.c,letterSpacing:0.5}}>ROADMAP · DISPOSITIF {n}</div>
+        <TitleBars w={dense?84:92} h={dense?22:24}/>
+        <div style={{...se,fontSize:dense?27:30,fontWeight:900,color:t.c,letterSpacing:0.5}}>ROADMAP · DISPOSITIF {n}</div>
       </div>
       <div style={{display:"flex",alignItems:"center",gap:10}}>
         {n>1&&<div style={{...mo,fontSize:9.5,fontWeight:900,letterSpacing:1.5,padding:"5px 10px",background:newAccent,color:"#FFF",borderRadius:999,display:"inline-flex",alignItems:"center",gap:6}}><span style={{width:7,height:7,borderRadius:999,background:"#FFF"}}/>NOUVEAUX VS DISPOSITIF {n-1}</div>}
         <div style={{...mo,fontSize:14,fontWeight:900,color:t.m,letterSpacing:1}}>2026</div>
       </div>
     </div>
-    <div style={{display:"grid",gridTemplateColumns:grid,gap:6,alignItems:"end",marginBottom:6,marginTop:18,position:"relative"}}>
-      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:1.8,padding:"8px 10px",background:"#171006",color:"#FFF",borderRadius:8,textAlign:"center"}}>TIMING</div>
+    <div style={{display:"grid",gridTemplateColumns:grid,gap,alignItems:"end",marginBottom:gap,marginTop:dense?12:18,position:"relative"}}>
+      <div style={{...mo,fontSize:dense?9.2:10,fontWeight:900,letterSpacing:1.8,padding:dense?"7px 8px":"8px 10px",background:"#171006",color:"#FFF",borderRadius:8,textAlign:"center"}}>TIMING</div>
       {cols.map((c,i)=>{const pillBg=c.isNew?newAccent:"#171006";return <div key={i} style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minHeight:34}}>
         {i>0&&<div style={{position:"absolute",left:-6,right:"50%",bottom:16,height:2,background:"#171006",opacity:.35}}/>}
         {i<cols.length-1&&<div style={{position:"absolute",left:"50%",right:-6,bottom:16,height:2,background:"#171006",opacity:.35}}/>}
@@ -817,13 +819,13 @@ const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=
       </div>;})}
     </div>
     {[
-      {l:"CHAÎNES",render:c=><BrandRow brands={c.brands||[]} size={iconSize} gap={3}/>,minH:46,justify:"center"},
-      {l:"PLATEFORMES",render:c=><div style={{display:"flex",gap:5,justifyContent:"center",alignItems:"center",flexWrap:"wrap"}}>{(c.platforms||[]).map((p,i)=><SocialIcon key={i} k={p} size={iconSize}/>)}</div>,minH:46,justify:"center"},
-      {l:"FORMATS",render:c=><div style={{...sa,fontSize:fmtFs,lineHeight:1.35,color:t.c,textAlign:"center",width:"100%"}}>{c.format}</div>,minH:62,justify:"center"},
-      {l:"THÉMATIQUE",render:c=><div style={{...sa,fontSize:thFs,lineHeight:1.42,color:t.c,textAlign:"left",width:"100%"}}>{c.theme}</div>,minH:thMin,justify:"flex-start"},
-    ].map((row,ri)=><div key={ri} style={{display:"grid",gridTemplateColumns:grid,gap:6,marginBottom:6}}>
-      <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:1.8,padding:"10px 10px",background:"#171006",color:"#FFF",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>{row.l}</div>
-      {cols.map((c,i)=>{const isNew=c.isNew;const cellBorder=isNew?newAccent:"#FFC400";const borderW=isNew?3:1.5;return <div key={i} style={{padding:isNew?"14px 7px 9px":"9px 7px",borderRadius:10,background:"#FFFFFF",border:`${borderW}px solid ${cellBorder}`,display:"flex",alignItems:"center",minHeight:row.minH,justifyContent:row.justify,position:"relative",overflow:"hidden"}}>
+      {l:"CHAÎNES",render:c=><BrandRow brands={c.brands||[]} size={iconSize} gap={3}/>,minH:dense?40:46,justify:"center"},
+      {l:"PLATEFORMES",render:c=><div style={{display:"flex",gap:5,justifyContent:"center",alignItems:"center",flexWrap:"wrap"}}>{(c.platforms||[]).map((p,i)=><SocialIcon key={i} k={p} size={iconSize}/>)}</div>,minH:dense?40:46,justify:"center"},
+      {l:"FORMATS",render:c=><div style={{...sa,fontSize:fmtFs,lineHeight:dense?1.2:1.35,color:t.c,textAlign:"center",width:"100%"}}>{c.format}</div>,minH:dense?54:62,justify:"center"},
+      {l:"THÉMATIQUE",render:c=><div style={{...sa,fontSize:thFs,lineHeight:dense?1.2:1.42,color:t.c,textAlign:"left",width:"100%"}}>{c.theme}</div>,minH:thMin,justify:"flex-start"},
+    ].map((row,ri)=><div key={ri} style={{display:"grid",gridTemplateColumns:grid,gap,marginBottom:gap}}>
+      <div style={{...mo,fontSize:dense?9.2:10,fontWeight:900,letterSpacing:1.8,padding:dense?"8px 8px":"10px 10px",background:"#171006",color:"#FFF",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>{row.l}</div>
+      {cols.map((c,i)=>{const isNew=c.isNew;const cellBorder=isNew?newAccent:"#FFC400";const borderW=isNew?3:1.5;return <div key={i} style={{padding:isNew?(dense?"12px 5px 7px":"14px 7px 9px"):(dense?"7px 5px":"9px 7px"),borderRadius:10,background:"#FFFFFF",border:`${borderW}px solid ${cellBorder}`,display:"flex",alignItems:"center",minHeight:row.minH,justifyContent:row.justify,position:"relative",overflow:"hidden"}}>
         {isNew&&<div style={{position:"absolute",top:0,left:0,right:0,height:6,background:newAccent}}/>}
         {row.render(c)}
       </div>;})}
@@ -1016,7 +1018,7 @@ r:t=><div>
 {title:"Dispositif 3 · Roadmap",
 r:t=><div>
   <FarHeader t={t}/>
-  <RoadmapTable n={3} t={t} newAccent="#E30613" labelW={108} iconSize={20} fmtFs={9.5} thFs={8.5} thMin={180} cols={[
+  <RoadmapTable n={3} t={t} newAccent="#E30613" labelW={108} iconSize={18} fmtFs={8.5} thFs={7.2} thMin={168} cols={[
     {date:"J-3",brands:["pepe","fgc"],platforms:["instagram"],format:<div>Post Photo</div>,theme:<div>Teasing le mardi :<br/>Indices produits</div>},
     {date:"J-1",brands:["otacos","pepe","fgc"],platforms:["tiktok","instagram","youtube"],format:<div style={{whiteSpace:"pre-line"}}>{"Reels\nTiktok\nShorts"}</div>,theme:<div>Annonce de la collaboration le jeudi : vidéo courte dans l'ADN de la collaboration avec Xavier Pincemin et visuels produits</div>},
     {date:"J-J",brands:["fgc"],platforms:["youtube"],format:<div>Manche dédiée (à travers un concept phare « Le dernier qui quitte la table… »)<br/>IGS additionnelles : « Surprise dans ma nouvelle vidéo » · Nouvelle LTO dispo (repost de FG)</div>,theme:<div><b>LAUNCH à la publication de FG · 18H le vendredi.</b> Une manche entière dédiée à la LTO. Objectif drive to store via une offre de lancement annoncée dans la vidéo en exclusivité (J-J à J+3). L'offre : 1 tacos de la LTO acheté chez l'un ou chez l'autre, du vendredi 18h au dimanche 00h = % offert chez l'autre + 2e produit de la LTO offert. Événementialisation. Partage des 2 communautés.</div>},
@@ -1310,6 +1312,19 @@ function pdfWaitForImages(root) {
   }));
 }
 
+function pdfAppendDeckMotif(root, deck) {
+  if (deck !== "otacospepe") return;
+  const motif = document.createElement("div");
+  motif.style.cssText = "position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;";
+  for (let i = 0; i < 28; i++) {
+    const dot = document.createElement("div");
+    const size = 8 + (i % 5) * 5;
+    dot.style.cssText = `position:absolute;left:${(i * 31 + 7) % 100}%;top:${(i * 43 + 13) % 100}%;width:${size}px;height:${size}px;border-radius:${i % 2 ? 999 : 4}px;transform:rotate(${(i * 17) % 50 - 25}deg);background:${i % 3 === 0 ? "rgba(227,7,19,.14)" : i % 3 === 1 ? "rgba(255,122,1,.18)" : "rgba(17,17,17,.06)"};`;
+    motif.appendChild(dot);
+  }
+  root.insertBefore(motif, root.firstChild);
+}
+
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
   const [hovered,setHovered]=useState(false);
@@ -1378,6 +1393,8 @@ function Pres({id,onBack,onNav}) {
 
     const renderW = PDF_RENDER_W;
     const renderH = Math.round((renderW * 9) / 16);
+    const captureScale = id === "otacospepe" ? 2 : PDF_CAPTURE_SCALE;
+    const losslessPdf = id === "otacospepe";
 
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -1398,14 +1415,15 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:14px 28px 4px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:14px 28px 4px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
+        pdfAppendDeckMotif(wrap, id);
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
-          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
+          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1;";
         const inner = document.createElement("div");
         inner.style.cssText = "width:100%;max-width:1580px;";
         const footer = document.createElement("div");
-        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.2;letter-spacing:0.6px;color:${t.m};padding-top:3px;font-family:${sa.fontFamily};`;
+        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.2;letter-spacing:0.6px;color:${t.m};padding-top:3px;font-family:${sa.fontFamily};position:relative;z-index:1;`;
         footer.textContent = footerLabel;
 
         slideArea.appendChild(inner);
@@ -1429,7 +1447,7 @@ function Pres({id,onBack,onNav}) {
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
-          scale: PDF_CAPTURE_SCALE,
+          scale: captureScale,
           useCORS: true,
           allowTaint: false,
           backgroundColor: t.bg,
@@ -1441,9 +1459,9 @@ function Pres({id,onBack,onNav}) {
           imageTimeout: 20000,
         });
 
-        const imgData = canvas.toDataURL("image/jpeg", 1);
+        const imgData = losslessPdf ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 1);
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
+        pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
         tempRoot.unmount();
       }
     } finally {
