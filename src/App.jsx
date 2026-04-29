@@ -748,13 +748,12 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 // ═══════════════════════════════════════════════════════════════════════════════
 // O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  11 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
-const TitleBars = ({color="#000",w=130,h=34,style}) => (
-  <svg width={w} height={h} viewBox="0 0 130 34" style={{flexShrink:0,display:"block",...style}} aria-hidden>
-    <path d="M30,4 L122,3 a3,3 0 0,1 0,6 L30,8 Z" fill={color}/>
-    <path d="M3,15 L122,14 a3,3 0 0,1 0,6 L3,19 Z" fill={color}/>
-    <path d="M48,26 L122,25 a3,3 0 0,1 0,6 L48,30 Z" fill={color}/>
-  </svg>
-);
+const TitleBars = ({w=130,h,style}) => {
+  const ratio = 382/100;
+  const _w = w;
+  const _h = h ?? Math.round(_w/ratio);
+  return <img src={pu("/title-bars.png")} alt="" aria-hidden width={_w} height={_h} style={{flexShrink:0,display:"block",objectFit:"contain",background:"transparent",...style}}/>;
+};
 const FarHeader = ({t}) => (
   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
     <FarLogo size={42} variant="black"/>
@@ -806,12 +805,15 @@ const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=
         <div style={{...mo,fontSize:14,fontWeight:900,color:t.m,letterSpacing:1}}>2026</div>
       </div>
     </div>
-    <div style={{display:"grid",gridTemplateColumns:grid,gap:6,alignItems:"center",marginBottom:6,position:"relative"}}>
+    <div style={{display:"grid",gridTemplateColumns:grid,gap:6,alignItems:"end",marginBottom:6,marginTop:18,position:"relative"}}>
       <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:1.8,padding:"8px 10px",background:"#171006",color:"#FFF",borderRadius:8,textAlign:"center"}}>TIMING</div>
-      {cols.map((c,i)=>{const pillBg=c.isNew?newAccent:"#171006";return <div key={i} style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}}>
-        {i>0&&<div style={{position:"absolute",left:-6,right:"50%",top:"50%",height:2,background:"#171006",transform:"translateY(-50%)",opacity:.35}}/>}
-        {i<cols.length-1&&<div style={{position:"absolute",left:"50%",right:-6,top:"50%",height:2,background:"#171006",transform:"translateY(-50%)",opacity:.35}}/>}
-        <div style={{...mo,fontSize:10.5,fontWeight:900,letterSpacing:1.2,padding:"7px 10px",background:pillBg,color:"#FFF",borderRadius:8,position:"relative",zIndex:1,boxShadow:c.isNew?`0 0 0 2px #FFF, 0 0 0 3px ${pillBg}`:"none"}}>{c.date}</div>
+      {cols.map((c,i)=>{const pillBg=c.isNew?newAccent:"#171006";return <div key={i} style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minHeight:34}}>
+        {i>0&&<div style={{position:"absolute",left:-6,right:"50%",bottom:16,height:2,background:"#171006",opacity:.35}}/>}
+        {i<cols.length-1&&<div style={{position:"absolute",left:"50%",right:-6,bottom:16,height:2,background:"#171006",opacity:.35}}/>}
+        <div style={{position:"relative",zIndex:2,display:"inline-flex",flexDirection:"column",alignItems:"center"}}>
+          {c.isNew&&<div style={{...mo,fontSize:8.5,fontWeight:900,letterSpacing:1.6,padding:"3px 8px",background:"#FFF",color:newAccent,border:`1.5px solid ${newAccent}`,borderRadius:999,boxShadow:`0 2px 4px rgba(0,0,0,.18)`,marginBottom:5,whiteSpace:"nowrap"}}>NEW</div>}
+          <div style={{...mo,fontSize:10.5,fontWeight:900,letterSpacing:1.2,padding:"7px 10px",background:pillBg,color:"#FFF",borderRadius:8,boxShadow:c.isNew?`0 0 0 2px #FFF, 0 0 0 3px ${pillBg}`:"none"}}>{c.date}</div>
+        </div>
       </div>;})}
     </div>
     {[
@@ -821,9 +823,8 @@ const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=
       {l:"THÉMATIQUE",render:c=><div style={{...sa,fontSize:thFs,lineHeight:1.42,color:t.c,textAlign:"left",width:"100%"}}>{c.theme}</div>,minH:thMin,justify:"flex-start"},
     ].map((row,ri)=><div key={ri} style={{display:"grid",gridTemplateColumns:grid,gap:6,marginBottom:6}}>
       <div style={{...mo,fontSize:10,fontWeight:900,letterSpacing:1.8,padding:"10px 10px",background:"#171006",color:"#FFF",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",textAlign:"center"}}>{row.l}</div>
-      {cols.map((c,i)=>{const isNew=c.isNew;const cellBorder=isNew?newAccent:"#FFC400";const borderW=isNew?3:1.5;return <div key={i} style={{padding:isNew?"13px 7px 9px":"9px 7px",borderRadius:10,background:"#FFFFFF",border:`${borderW}px solid ${cellBorder}`,display:"flex",alignItems:"center",minHeight:row.minH,justifyContent:row.justify,position:"relative",overflow:"hidden"}}>
-        {isNew&&<div style={{position:"absolute",top:0,left:0,right:0,height:5,background:newAccent}}/>}
-        {ri===0&&isNew&&<div style={{position:"absolute",top:-11,right:6,...mo,fontSize:8.5,fontWeight:900,letterSpacing:1.2,padding:"3px 7px",background:newAccent,color:"#FFF",borderRadius:999,boxShadow:"0 1px 3px rgba(0,0,0,.2)",zIndex:2}}>NEW</div>}
+      {cols.map((c,i)=>{const isNew=c.isNew;const cellBorder=isNew?newAccent:"#FFC400";const borderW=isNew?3:1.5;return <div key={i} style={{padding:isNew?"14px 7px 9px":"9px 7px",borderRadius:10,background:"#FFFFFF",border:`${borderW}px solid ${cellBorder}`,display:"flex",alignItems:"center",minHeight:row.minH,justifyContent:row.justify,position:"relative",overflow:"hidden"}}>
+        {isNew&&<div style={{position:"absolute",top:0,left:0,right:0,height:6,background:newAccent}}/>}
         {row.render(c)}
       </div>;})}
     </div>)}
@@ -858,7 +859,7 @@ r:t=><div>
       <div style={{...se,fontSize:60,fontWeight:900,color:t.c}}>×</div>
       <img src={pu("/pepe-chicken-logo.png")} alt="Pepe Chicken" style={{width:200,height:200,objectFit:"cover",borderRadius:14,boxShadow:t.cS,display:"block"}}/>
     </div>
-    <div style={{...se,fontSize:22,fontWeight:900,color:t.c,lineHeight:1.4,maxWidth:820}}>Deux communautés, deux produits éphémères, une LTO pensée comme un événement.</div>
+    <div style={{...se,fontSize:22,fontWeight:900,color:t.c,lineHeight:1.4,maxWidth:820}}>2 communautés, 2 produits éphémères, une LTO pensée comme un événement.</div>
   </div>
 </div>},
 
@@ -1081,9 +1082,8 @@ r:t=>{const offers=[
           <div style={{...mo,fontSize:9.5,fontWeight:900,letterSpacing:2,color:W,opacity:.7,marginBottom:8}}>BUDGET</div>
           {x.discountPct?<div style={{display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}>
             <div style={{...se,fontSize:15,fontWeight:700,color:W,textDecoration:"line-through",opacity:.55}}>{x.full}</div>
-            <div style={{position:"relative",display:"inline-flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"5px 12px",background:W,borderRadius:10,transform:"rotate(-6deg)",boxShadow:"0 3px 0 rgba(0,0,0,.18)"}}>
-              <div style={{...se,fontSize:18,fontWeight:900,color:x.col,lineHeight:1,letterSpacing:0.5}}>{x.discountPct}</div>
-              <div style={{...mo,fontSize:7.5,fontWeight:900,letterSpacing:1.6,color:x.col,marginTop:2,opacity:.9}}>RISTOURNE</div>
+            <div style={{position:"relative",display:"inline-flex",alignItems:"center",justifyContent:"center",padding:"7px 14px",background:W,borderRadius:10,transform:"rotate(-6deg)",boxShadow:"0 3px 0 rgba(0,0,0,.18)"}}>
+              <div style={{...se,fontSize:20,fontWeight:900,color:x.col,lineHeight:1,letterSpacing:0.5}}>{x.discountPct}</div>
             </div>
             <div style={{...se,fontSize:34,fontWeight:900,color:W,letterSpacing:0.5,lineHeight:1}}>{x.final}</div>
           </div>:<div style={{...se,fontSize:40,fontWeight:900,color:W,letterSpacing:0.5,lineHeight:1}}>{x.final}</div>}
