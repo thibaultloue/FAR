@@ -960,9 +960,9 @@ r:t=><div>
         <div style={{flex:1}}>{s.d}</div>
       </div>)}</div>
     </div>
-    <div style={{flex:1.7,position:"relative",display:"flex",alignItems:"stretch"}}>
+    <div style={{flex:1.45,position:"relative",display:"flex",alignItems:"stretch"}}>
       <div style={{position:"relative",width:"100%",borderRadius:18,overflow:"hidden",boxShadow:t.cS,border:`3px solid ${t.c2}`}}>
-        <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",minHeight:408}}/>
+        <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",minHeight:347}}/>
         <div style={{position:"absolute",left:0,right:0,bottom:0,padding:"18px 22px",background:"linear-gradient(180deg,transparent 0%,rgba(0,0,0,.92) 100%)"}}>
           <div style={{...se,fontSize:24,fontWeight:900,color:"#FFF",lineHeight:1.1}}>FastGoodCuisine.</div>
           <div style={{...sa,fontSize:13,color:"rgba(255,255,255,.78)",marginTop:6,lineHeight:1.5}}>Créateur food n°1 français + entrepreneur Pepe Chicken & Pop's.</div>
@@ -1515,7 +1515,7 @@ function Pres({id,onBack,onNav}) {
     const renderW = PDF_RENDER_W;
     const renderH = Math.round((renderW * 9) / 16);
     const useVectorBg = id === "otacospepe";
-    const captureScale = useVectorBg ? 1.2 : PDF_CAPTURE_SCALE;
+    const captureScale = useVectorBg ? 2.2 : PDF_CAPTURE_SCALE;
     const losslessPdf = useVectorBg;
     const bgRgb = pdfHexToRgb(t.bg);
 
