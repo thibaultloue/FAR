@@ -1539,7 +1539,7 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        const pdfPad = id === "otacospepe" ? "0 22px" : "14px 28px 4px";
+        const pdfPad = id === "otacospepe" ? "14px 26px 8px" : "14px 28px 4px";
         const wrapBg = useVectorBg ? "transparent" : t.bg;
         wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${wrapBg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
         pdfAppendDeckMotif(wrap, id);
@@ -1573,7 +1573,6 @@ function Pres({id,onBack,onNav}) {
         await pdfWaitForImages(inner);
         pdfReplaceObjectFitImages(inner);
         pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
-        if (id === "otacospepe") pdfDistributeRootSlack(inner, slideArea);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));
