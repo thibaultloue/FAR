@@ -1400,6 +1400,105 @@ function pdfRestoreSolidBgs(collected) {
   for (const c of collected) c.el.style.backgroundColor = c.prevBg;
 }
 
+async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const sw = img.naturalWidth;
+      const sh = img.naturalHeight;
+      let cropX = 0, cropY = 0, cropW = sw, cropH = sh;
+      let drawX = 0, drawY = 0, drawW = w, drawH = h;
+      const targetRatio = w / h;
+      const sourceRatio = sw / sh;
+      if (objectFit === "cover") {
+        if (sourceRatio > targetRatio) { cropW = sh * targetRatio; cropX = (sw - cropW) / 2; }
+        else if (sourceRatio < targetRatio) { cropH = sw / targetRatio; cropY = (sh - cropH) / 2; }
+      } else if (objectFit === "contain") {
+        if (sourceRatio > targetRatio) { drawH = w / sourceRatio; drawY = (h - drawH) / 2; }
+        else if (sourceRatio < targetRatio) { drawW = h * sourceRatio; drawX = (w - drawW) / 2; }
+      }
+      const cv = document.createElement("canvas");
+      cv.width = Math.max(1, Math.round(w * supersample));
+      cv.height = Math.max(1, Math.round(h * supersample));
+      const ctx = cv.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      if (br > 0) {
+        const rr = Math.min(br * supersample, cv.width / 2, cv.height / 2);
+        ctx.beginPath();
+        ctx.moveTo(rr, 0);
+        ctx.lineTo(cv.width - rr, 0);
+        ctx.quadraticCurveTo(cv.width, 0, cv.width, rr);
+        ctx.lineTo(cv.width, cv.height - rr);
+        ctx.quadraticCurveTo(cv.width, cv.height, cv.width - rr, cv.height);
+        ctx.lineTo(rr, cv.height);
+        ctx.quadraticCurveTo(0, cv.height, 0, cv.height - rr);
+        ctx.lineTo(0, rr);
+        ctx.quadraticCurveTo(0, 0, rr, 0);
+        ctx.closePath();
+        ctx.clip();
+      }
+      ctx.drawImage(
+        img,
+        cropX, cropY, cropW, cropH,
+        drawX * supersample, drawY * supersample, drawW * supersample, drawH * supersample,
+      );
+      resolve(cv.toDataURL("image/png"));
+    };
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+const PDF_DIRECT_IMAGE_PATTERNS = ["otacos-logo", "pepe-chicken-logo", "fgc.webp", "fgc-refs"];
+
+function pdfCollectAndHideLargeImages(inner, container) {
+  const containerRect = container.getBoundingClientRect();
+  const imgs = inner.querySelectorAll("img");
+  const collected = [];
+  for (const img of imgs) {
+    if (!img.src) continue;
+    const src = img.src;
+    if (!PDF_DIRECT_IMAGE_PATTERNS.some((p) => src.includes(p))) continue;
+    const r = img.getBoundingClientRect();
+    if (r.width < 60 || r.height < 60) continue;
+    const cs = window.getComputedStyle(img);
+    const parent = img.parentElement;
+    const parentCs = parent ? window.getComputedStyle(parent) : null;
+    const parentClips = parentCs && parentCs.overflow !== "visible";
+    const ownBr = parseFloat(cs.borderTopLeftRadius || cs.borderRadius) || 0;
+    const parentBr = parentCs ? (parseFloat(parentCs.borderTopLeftRadius || parentCs.borderRadius) || 0) : 0;
+    const br = Math.max(ownBr, parentClips ? parentBr : 0);
+    let rect = r;
+    if (parentClips && parent) {
+      const pr = parent.getBoundingClientRect();
+      const left = Math.max(r.left, pr.left);
+      const top = Math.max(r.top, pr.top);
+      const right = Math.min(r.right, pr.right);
+      const bottom = Math.min(r.bottom, pr.bottom);
+      rect = { left, top, right, bottom, width: right - left, height: bottom - top };
+    }
+    collected.push({
+      src,
+      x: rect.left - containerRect.left,
+      y: rect.top - containerRect.top,
+      w: rect.width,
+      h: rect.height,
+      br,
+      objectFit: cs.objectFit || "fill",
+      el: img,
+      prevVisibility: img.style.visibility,
+    });
+    img.style.visibility = "hidden";
+  }
+  return collected;
+}
+
+function pdfRestoreLargeImages(collected) {
+  for (const c of collected) c.el.style.visibility = c.prevVisibility;
+}
+
 function pdfReplaceBlurForCapture(inner) {
   const els = inner.querySelectorAll("*");
   const restore = [];
@@ -1575,6 +1674,7 @@ function Pres({id,onBack,onNav}) {
         pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
+        const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
@@ -1593,6 +1693,7 @@ function Pres({id,onBack,onNav}) {
         if (useVectorBg) {
           pdfRestoreSolidBgs(solidBgs);
           pdfRestoreBlur(blurRestore);
+          pdfRestoreLargeImages(directImages);
         }
 
         if (useVectorBg) {
@@ -1629,6 +1730,15 @@ function Pres({id,onBack,onNav}) {
         }
         const compression = losslessPdf ? "SLOW" : "NONE";
         pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, compression);
+        if (useVectorBg && directImages.length) {
+          const sx = pageW / renderW;
+          const sy = pageH / renderH;
+          for (const im of directImages) {
+            const dataUrl = await pdfPrepImageForRect(im.src, im.w, im.h, im.br, im.objectFit, 3);
+            if (!dataUrl) continue;
+            pdf.addImage(dataUrl, "PNG", im.x * sx, im.y * sy, im.w * sx, im.h * sy, undefined, "FAST");
+          }
+        }
         tempRoot.unmount();
       }
     } finally {
