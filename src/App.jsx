@@ -1515,7 +1515,7 @@ function Pres({id,onBack,onNav}) {
     const renderW = PDF_RENDER_W;
     const renderH = Math.round((renderW * 9) / 16);
     const useVectorBg = id === "otacospepe";
-    const captureScale = useVectorBg ? 2.2 : PDF_CAPTURE_SCALE;
+    const captureScale = useVectorBg ? 3.5 : PDF_CAPTURE_SCALE;
     const losslessPdf = useVectorBg;
     const bgRgb = pdfHexToRgb(t.bg);
 
