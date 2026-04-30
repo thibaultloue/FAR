@@ -210,15 +210,15 @@ const TGarmin = {
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
 const TOtacosPepe = {
-  bg:"#FEC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
+  bg:"#FFC100", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
   a:"#E30713", a2:"#FF7A01",
   card:"#FFF4C7", cardT:"#171006",
   cardAlt:"rgba(227,7,19,.1)",
   pill:"rgba(23,16,6,.08)", pillA:"rgba(227,7,19,.16)",
   brd:"rgba(23,16,6,.13)",
   bar:"rgba(23,16,6,.12)", barF:"#E30713",
-  nav:"#111111", navT:"#FEC400", note:"#111111", noteT:"#FEC400",
-  th:"#111111", thT:"#FEC400",
+  nav:"#111111", navT:"#FFC100", note:"#111111", noteT:"#FFC100",
+  th:"#111111", thT:"#FFC100",
   th2:"#FFE37A", th2T:"#171006",
   ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
@@ -305,10 +305,11 @@ const mo = { fontFamily:"'JetBrains Mono',monospace" };
 
 // ─── FAR LOGO ─────────────────────────────────────────────────────────────────
 let _lp=null;
+const _farLogoByVariant = {};
 const FarLogo = ({size=80,variant="yellow"}) => {
-  const[s,setS]=useState(_lp);
+  const[s,setS]=useState(_farLogoByVariant[variant]||_lp);
   useEffect(()=>{
-    if(_lp){setS(_lp);return;}
+    if(_farLogoByVariant[variant]){setS(_farLogoByVariant[variant]);return;}
     const img=new Image();
     img.onload=()=>{
       const cv=document.createElement("canvas");
@@ -316,16 +317,22 @@ const FarLogo = ({size=80,variant="yellow"}) => {
       const cx=cv.getContext("2d");
       cx.drawImage(img,0,0);
       const id=cx.getImageData(0,0,cv.width,cv.height),d=id.data;
-      for(let i=0;i<d.length;i+=4){const l=d[i]*.299+d[i+1]*.587+d[i+2]*.114;if(l<80)d[i+3]=0;}
+      for(let i=0;i<d.length;i+=4){
+        const l=d[i]*.299+d[i+1]*.587+d[i+2]*.114;
+        if(l<80){d[i+3]=0;continue;}
+        if(variant==="black"){d[i]=0;d[i+1]=0;d[i+2]=0;}
+        if(variant==="white"){d[i]=255;d[i+1]=255;d[i+2]=255;}
+      }
       cx.putImageData(id,0,0);
-      _lp=cv.toDataURL();
-      setS(_lp);
+      const url=cv.toDataURL();
+      _farLogoByVariant[variant]=url;
+      if(variant==="yellow") _lp=url;
+      setS(url);
     };
     img.src=pu("/far-logo.png");
-  },[]);
+  },[variant]);
   if(!s)return<div style={{width:size,height:size*.35}}/>;
-  const f=variant==="black"?"brightness(0)":variant==="white"?"brightness(0) invert(1)":"none";
-  return<img src={s} alt="FAR" style={{width:size,height:"auto",filter:f,display:"block"}}/>;
+  return<img src={s} alt="FAR" style={{width:size,height:"auto",display:"block"}}/>;
 };
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
@@ -1325,6 +1332,15 @@ function pdfAppendDeckMotif(root, deck) {
   root.insertBefore(motif, root.firstChild);
 }
 
+function pdfFitInnerToSlide(inner, slideArea) {
+  const availableH = slideArea.clientHeight - 2;
+  const neededH = inner.scrollHeight;
+  if (!availableH || !neededH || neededH <= availableH) return;
+  const scale = Math.max(0.82, Math.min(1, availableH / neededH));
+  inner.style.transform = `scale(${scale})`;
+  inner.style.transformOrigin = "center center";
+}
+
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
   const [hovered,setHovered]=useState(false);
@@ -1415,7 +1431,8 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:14px 28px 4px;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
+        const pdfPad = id === "otacospepe" ? "8px 22px 2px" : "14px 28px 4px";
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
         pdfAppendDeckMotif(wrap, id);
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
@@ -1444,6 +1461,7 @@ function Pres({id,onBack,onNav}) {
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
         pdfReplaceObjectFitImages(inner);
+        pdfFitInnerToSlide(inner, slideArea);
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
