@@ -210,15 +210,15 @@ const TGarmin = {
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
 const TOtacosPepe = {
-  bg:"#FFC502", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
+  bg:"#FFC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
   a:"#E30713", a2:"#FF7A01",
   card:"#FFF4C7", cardT:"#171006",
   cardAlt:"rgba(227,7,19,.1)",
   pill:"rgba(23,16,6,.08)", pillA:"rgba(227,7,19,.16)",
   brd:"rgba(23,16,6,.13)",
   bar:"rgba(23,16,6,.12)", barF:"#E30713",
-  nav:"#111111", navT:"#FFC502", note:"#111111", noteT:"#FFC502",
-  th:"#111111", thT:"#FFC502",
+  nav:"#111111", navT:"#FFC400", note:"#111111", noteT:"#FFC400",
+  th:"#111111", thT:"#FFC400",
   th2:"#FFE37A", th2T:"#171006",
   ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
@@ -1341,6 +1341,11 @@ function pdfFitInnerToSlide(inner, slideArea) {
   inner.style.transformOrigin = "center center";
 }
 
+function pdfHexToRgb(hex) {
+  const h = hex.replace("#", "").trim();
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
 function ActCard({a,nav}){
   const [hovered,setHovered]=useState(false);
@@ -1409,8 +1414,10 @@ function Pres({id,onBack,onNav}) {
 
     const renderW = PDF_RENDER_W;
     const renderH = Math.round((renderW * 9) / 16);
-    const captureScale = id === "otacospepe" ? 2 : PDF_CAPTURE_SCALE;
-    const losslessPdf = id === "otacospepe";
+    const useVectorBg = id === "otacospepe";
+    const captureScale = useVectorBg ? 1.6 : PDF_CAPTURE_SCALE;
+    const losslessPdf = useVectorBg;
+    const bgRgb = pdfHexToRgb(t.bg);
 
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -1423,7 +1430,8 @@ function Pres({id,onBack,onNav}) {
     const footerLabel = pdfFooterLabel(id);
 
     const container = document.createElement("div");
-    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${t.bg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
+    const containerBg = useVectorBg ? "transparent" : t.bg;
+    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${containerBg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
     document.body.appendChild(container);
 
     const rdom = await import("react-dom/client");
@@ -1432,7 +1440,8 @@ function Pres({id,onBack,onNav}) {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
         const pdfPad = id === "otacospepe" ? "8px 22px 2px" : "14px 28px 4px";
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${t.bg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
+        const wrapBg = useVectorBg ? "transparent" : t.bg;
+        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${wrapBg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
         pdfAppendDeckMotif(wrap, id);
         const slideArea = document.createElement("div");
         slideArea.style.cssText =
@@ -1468,7 +1477,7 @@ function Pres({id,onBack,onNav}) {
           scale: captureScale,
           useCORS: true,
           allowTaint: false,
-          backgroundColor: t.bg,
+          backgroundColor: useVectorBg ? null : t.bg,
           width: renderW,
           height: renderH,
           windowWidth: renderW,
@@ -1479,6 +1488,10 @@ function Pres({id,onBack,onNav}) {
 
         const imgData = losslessPdf ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 1);
         if (i > 0) pdf.addPage();
+        if (useVectorBg) {
+          pdf.setFillColor(bgRgb[0], bgRgb[1], bgRgb[2]);
+          pdf.rect(0, 0, pageW, pageH, "F");
+        }
         pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
         tempRoot.unmount();
       }
