@@ -820,11 +820,10 @@ const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=
         <div style={{...mo,fontSize:14,fontWeight:900,color:t.m,letterSpacing:1}}>2026</div>
       </div>
     </div>
-    <div style={{display:"grid",gridTemplateColumns:grid,gap,alignItems:"end",marginBottom:gap,marginTop:dense?12:18,position:"relative"}}>
-      <div style={{...mo,fontSize:dense?9.2:10,fontWeight:900,letterSpacing:1.8,padding:dense?"7px 8px":"8px 10px",background:"#171006",color:"#FFF",borderRadius:8,textAlign:"center"}}>TIMING</div>
-      {cols.map((c,i)=>{const pillBg=c.isNew?newAccent:"#171006";return <div key={i} style={{position:"relative",display:"flex",alignItems:"center",justifyContent:"center",minHeight:34}}>
-        {i>0&&<div style={{position:"absolute",left:-6,right:"50%",bottom:16,height:2,background:"#171006",opacity:.35}}/>}
-        {i<cols.length-1&&<div style={{position:"absolute",left:"50%",right:-6,bottom:16,height:2,background:"#171006",opacity:.35}}/>}
+    <div style={{display:"grid",gridTemplateColumns:grid,gap,alignItems:"end",marginBottom:gap,marginTop:dense?12:18,position:"relative",paddingBottom:10}}>
+      <div style={{position:"absolute",left:`calc(${labelW}px + ${gap}px + (100% - ${labelW}px - ${gap}px) / ${cols.length} / 2)`,right:`calc((100% - ${labelW}px - ${gap}px) / ${cols.length} / 2)`,bottom:4,height:2,background:"#171006",opacity:.35,zIndex:0,pointerEvents:"none"}}/>
+      <div style={{...mo,fontSize:dense?9.2:10,fontWeight:900,letterSpacing:1.8,padding:dense?"7px 8px":"8px 10px",background:"#171006",color:"#FFF",borderRadius:8,textAlign:"center",position:"relative",zIndex:1}}>TIMING</div>
+      {cols.map((c,i)=>{const pillBg=c.isNew?newAccent:"#171006";return <div key={i} style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"center",minHeight:34}}>
         <div style={{position:"relative",zIndex:2,display:"inline-flex",flexDirection:"column",alignItems:"center"}}>
           {c.isNew&&<div style={{...mo,fontSize:8.5,fontWeight:900,letterSpacing:1.6,padding:"3px 8px",background:"#FFF",color:newAccent,border:`1.5px solid ${newAccent}`,borderRadius:999,boxShadow:`0 2px 4px rgba(0,0,0,.18)`,marginBottom:5,whiteSpace:"nowrap"}}>NEW</div>}
           <div style={{...mo,fontSize:10.5,fontWeight:900,letterSpacing:1.2,padding:"7px 10px",background:pillBg,color:"#FFF",borderRadius:8,boxShadow:c.isNew?`0 0 0 2px #FFF, 0 0 0 3px ${pillBg}`:"none"}}>{c.date}</div>
