@@ -1293,12 +1293,12 @@ function pdfConvertVhVwToPx(root, renderW, renderH) {
 }
 
 /** html2canvas déforme object-fit → fond CSS (cover/contain) pour tous les decks. */
-function pdfReplaceObjectFitImages(root, skipSrcPatterns = []) {
+function pdfReplaceObjectFitImages(root) {
   root.querySelectorAll("img").forEach((img) => {
     const cs = getComputedStyle(img);
+    if (cs.visibility === "hidden") return;
     const fit = cs.objectFit;
     if ((fit !== "cover" && fit !== "contain") || !img.src) return;
-    if (skipSrcPatterns.some((p) => img.src.includes(p))) return;
     const w = img.offsetWidth;
     const h = img.offsetHeight;
     if (w < 1 || h < 1) return;
@@ -1465,7 +1465,7 @@ function pdfCollectAndHideLargeImages(inner, container) {
     const src = img.src;
     if (!PDF_DIRECT_IMAGE_PATTERNS.some((p) => src.includes(p))) continue;
     const r = img.getBoundingClientRect();
-    if (r.width < 60 || r.height < 60) continue;
+    if (r.width < 8 || r.height < 8) continue;
     const cs = window.getComputedStyle(img);
     const parent = img.parentElement;
     const parentCs = parent ? window.getComputedStyle(parent) : null;
@@ -1673,11 +1673,11 @@ function Pres({id,onBack,onNav}) {
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
-        pdfReplaceObjectFitImages(inner, useVectorBg ? PDF_DIRECT_IMAGE_PATTERNS : []);
         pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
+        const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
+        pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
-        const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
