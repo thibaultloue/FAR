@@ -849,7 +849,7 @@ const DispositifsRow = ({focus="all",compact=false}) => {
   const items=[
     {n:"DISPOSITIF 1",h:"Le lancement essentiel",c:"10 contenus",col:"#171006",txt:"#FFC400",accent:"#FFC400"},
     {n:"DISPOSITIF 2",h:"Lancement amplifié",c:"17 contenus",col:"#FF7A00",txt:"#FFFFFF",accent:"#FFFFFF"},
-    {n:"DISPOSITIF 3",h:"Le dispositif complet",c:"22 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400"},
+    {n:"DISPOSITIF 3",h:"Le dispositif complet",c:"23 contenus",col:"#E30613",txt:"#FFFFFF",accent:"#FFC400"},
   ];
   const isBlurred=(i)=>{if(focus==="all")return false;return i+1>focus;};
   return <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:compact?10:14}}>{items.map((x,i)=>{const blur=isBlurred(i);return <div key={i} style={{padding:compact?"14px 14px":"22px 20px",borderRadius:14,background:x.col,color:x.txt,border:`2px solid ${x.col}`,boxShadow:"0 5px 0 rgba(17,17,17,.9)",position:"relative",overflow:"hidden",filter:blur?"blur(5px) saturate(.6)":"none",opacity:blur?.55:1,transition:"all .3s"}}>
