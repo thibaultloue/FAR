@@ -1293,11 +1293,12 @@ function pdfConvertVhVwToPx(root, renderW, renderH) {
 }
 
 /** html2canvas déforme object-fit → fond CSS (cover/contain) pour tous les decks. */
-function pdfReplaceObjectFitImages(root) {
+function pdfReplaceObjectFitImages(root, skipSrcPatterns = []) {
   root.querySelectorAll("img").forEach((img) => {
     const cs = getComputedStyle(img);
     const fit = cs.objectFit;
     if ((fit !== "cover" && fit !== "contain") || !img.src) return;
+    if (skipSrcPatterns.some((p) => img.src.includes(p))) return;
     const w = img.offsetWidth;
     const h = img.offsetHeight;
     if (w < 1 || h < 1) return;
@@ -1418,14 +1419,16 @@ async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
         if (sourceRatio > targetRatio) { drawH = w / sourceRatio; drawY = (h - drawH) / 2; }
         else if (sourceRatio < targetRatio) { drawW = h * sourceRatio; drawX = (w - drawW) / 2; }
       }
+      const baseScale = Math.max(supersample, sw / Math.max(1, drawW), sh / Math.max(1, drawH));
+      const scale = Math.min(baseScale, 12);
       const cv = document.createElement("canvas");
-      cv.width = Math.max(1, Math.round(w * supersample));
-      cv.height = Math.max(1, Math.round(h * supersample));
+      cv.width = Math.max(1, Math.round(w * scale));
+      cv.height = Math.max(1, Math.round(h * scale));
       const ctx = cv.getContext("2d");
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
       if (br > 0) {
-        const rr = Math.min(br * supersample, cv.width / 2, cv.height / 2);
+        const rr = Math.min(br * scale, cv.width / 2, cv.height / 2);
         ctx.beginPath();
         ctx.moveTo(rr, 0);
         ctx.lineTo(cv.width - rr, 0);
@@ -1442,7 +1445,7 @@ async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
       ctx.drawImage(
         img,
         cropX, cropY, cropW, cropH,
-        drawX * supersample, drawY * supersample, drawW * supersample, drawH * supersample,
+        drawX * scale, drawY * scale, drawW * scale, drawH * scale,
       );
       resolve(cv.toDataURL("image/png"));
     };
@@ -1670,7 +1673,7 @@ function Pres({id,onBack,onNav}) {
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
-        pdfReplaceObjectFitImages(inner);
+        pdfReplaceObjectFitImages(inner, useVectorBg ? PDF_DIRECT_IMAGE_PATTERNS : []);
         pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
