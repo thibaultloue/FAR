@@ -759,11 +759,17 @@ const TitleBars = ({w=130,h,style}) => {
   const ratio = 382/100;
   const _w = w;
   const _h = h ?? Math.round(_w/ratio);
-  return <img src={pu("/title-bars.png")} alt="" aria-hidden width={_w} height={_h} style={{flexShrink:0,display:"block",objectFit:"contain",background:"transparent",...style}}/>;
+  return (
+    <svg width={_w} height={_h} viewBox="0 0 382 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style={{flexShrink:0,display:"block",overflow:"visible",...style}} aria-hidden>
+      <polygon points="0,12 372,4 382,10 372,18 0,14" fill="#000"/>
+      <polygon points="0,49 372,40 382,46 372,54 0,51" fill="#000"/>
+      <polygon points="0,87 372,77 382,83 372,92 0,89" fill="#000"/>
+    </svg>
+  );
 };
 const FarHeader = ({t}) => (
   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
-    <FarLogo size={42} variant={t.logoVariant||"black"}/>
+    <FarLogo size={50} variant={t.logoVariant||"black"}/>
     <TitleBars w={110} h={28}/>
   </div>
 );
@@ -1356,6 +1362,69 @@ function pdfHexToRgb(hex) {
   return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
 }
 
+const PDF_VECTOR_BG_COLORS = {
+  "rgb(227, 7, 19)": [227, 7, 19],
+  "rgb(227, 6, 19)": [227, 6, 19],
+  "rgb(255, 122, 0)": [255, 122, 0],
+  "rgb(255, 122, 1)": [255, 122, 1],
+};
+
+function pdfCollectAndStripSolidBgs(inner, container) {
+  const containerRect = container.getBoundingClientRect();
+  const els = inner.querySelectorAll("*");
+  const collected = [];
+  for (const el of els) {
+    const cs = window.getComputedStyle(el);
+    const bg = cs.backgroundColor;
+    const rgb = PDF_VECTOR_BG_COLORS[bg];
+    if (!rgb) continue;
+    const r = el.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) continue;
+    const br = parseFloat(cs.borderTopLeftRadius || cs.borderRadius) || 0;
+    collected.push({
+      x: r.left - containerRect.left,
+      y: r.top - containerRect.top,
+      w: r.width,
+      h: r.height,
+      rgb,
+      br,
+      el,
+      prevBg: el.style.backgroundColor,
+    });
+    el.style.backgroundColor = "transparent";
+  }
+  return collected;
+}
+
+function pdfRestoreSolidBgs(collected) {
+  for (const c of collected) c.el.style.backgroundColor = c.prevBg;
+}
+
+function pdfReplaceBlurForCapture(inner) {
+  const els = inner.querySelectorAll("*");
+  const restore = [];
+  for (const el of els) {
+    const cs = window.getComputedStyle(el);
+    if (cs.filter && cs.filter !== "none" && cs.filter.includes("blur")) {
+      restore.push({
+        el,
+        prevFilter: el.style.filter,
+        prevOpacity: el.style.opacity,
+      });
+      el.style.filter = "none";
+      el.style.opacity = "0.18";
+    }
+  }
+  return restore;
+}
+
+function pdfRestoreBlur(restoreList) {
+  for (const r of restoreList) {
+    r.el.style.filter = r.prevFilter;
+    r.el.style.opacity = r.prevOpacity;
+  }
+}
+
 function pdfDistributeRootSlack(inner, slideArea) {
   const root = inner.firstElementChild;
   if (!root) return;
@@ -1505,6 +1574,8 @@ function Pres({id,onBack,onNav}) {
         pdfReplaceObjectFitImages(inner);
         pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
         if (id === "otacospepe") pdfDistributeRootSlack(inner, slideArea);
+        const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
+        const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
@@ -1520,11 +1591,28 @@ function Pres({id,onBack,onNav}) {
           imageTimeout: 20000,
         });
 
+        if (useVectorBg) {
+          pdfRestoreSolidBgs(solidBgs);
+          pdfRestoreBlur(blurRestore);
+        }
+
         const imgData = losslessPdf ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 1);
         if (i > 0) pdf.addPage();
         if (useVectorBg) {
           pdf.setFillColor(bgRgb[0], bgRgb[1], bgRgb[2]);
           pdf.rect(0, 0, pageW, pageH, "F");
+          const sx = pageW / renderW;
+          const sy = pageH / renderH;
+          for (const s of solidBgs) {
+            pdf.setFillColor(s.rgb[0], s.rgb[1], s.rgb[2]);
+            const rxMm = Math.min(s.br * sx, (s.w * sx) / 2);
+            const ryMm = Math.min(s.br * sy, (s.h * sy) / 2);
+            if (rxMm > 0.1) {
+              pdf.roundedRect(s.x * sx, s.y * sy, s.w * sx, s.h * sy, rxMm, ryMm, "F");
+            } else {
+              pdf.rect(s.x * sx, s.y * sy, s.w * sx, s.h * sy, "F");
+            }
+          }
         }
         pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
         tempRoot.unmount();
