@@ -210,15 +210,15 @@ const TGarmin = {
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
 const TOtacosPepe = {
-  bg:"#FFC100", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
+  bg:"#FFC502", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
   a:"#E30713", a2:"#FF7A01",
   card:"#FFF4C7", cardT:"#171006",
   cardAlt:"rgba(227,7,19,.1)",
   pill:"rgba(23,16,6,.08)", pillA:"rgba(227,7,19,.16)",
   brd:"rgba(23,16,6,.13)",
   bar:"rgba(23,16,6,.12)", barF:"#E30713",
-  nav:"#111111", navT:"#FFC100", note:"#111111", noteT:"#FFC100",
-  th:"#111111", thT:"#FFC100",
+  nav:"#111111", navT:"#FFC502", note:"#111111", noteT:"#FFC502",
+  th:"#111111", thT:"#FFC502",
   th2:"#FFE37A", th2T:"#171006",
   ex:"#E30613", exT:"#FFF4C7", no:"rgba(255,255,255,.4)", noT:"#171006", noBrd:"rgba(23,16,6,.12)",
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
