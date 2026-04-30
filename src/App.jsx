@@ -938,7 +938,7 @@ r:t=><div>
       <Sh t={t} s={{fontSize:15.5,marginBottom:18}}>Une audience massive, une communauté ultra engagée, et un entrepreneur installé.</Sh>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10,marginBottom:18}}>{[
         {ic:"youtube",p:"YouTube",n:"7,78M",l:"abonnés",e:["Vues 1 an : 2,4M","Shorts : 2,7M"],headBg:"#FF0000"},
-        {ic:"tiktok",p:"TikTok",n:"2,4M",l:"abonnés",e:["Vues moyennes : 3M"],headBg:"#000000"},
+        {ic:"tiktok",p:"TikTok",n:"2,4M",l:"abonnés",e:["Vues moyennes : 1,2M"],headBg:"#000000"},
         {ic:"instagram",p:"Instagram",n:"2,3M",l:"abonnés",e:["Vues Reels : 650k"],headBg:"linear-gradient(135deg,#F58529 0%,#DD2A7B 50%,#8134AF 100%)"},
       ].map((x,i)=><div key={i} style={{borderRadius:12,overflow:"hidden",boxShadow:t.cS,border:`2px solid ${t.c2}`,background:t.card,display:"flex",flexDirection:"column"}}>
         <div style={{background:x.headBg,color:"#FFF",padding:"9px 11px",display:"flex",alignItems:"center",gap:7}}>
