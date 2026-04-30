@@ -1515,7 +1515,7 @@ function Pres({id,onBack,onNav}) {
     const renderW = PDF_RENDER_W;
     const renderH = Math.round((renderW * 9) / 16);
     const useVectorBg = id === "otacospepe";
-    const captureScale = useVectorBg ? 1.6 : PDF_CAPTURE_SCALE;
+    const captureScale = useVectorBg ? 1.2 : PDF_CAPTURE_SCALE;
     const losslessPdf = useVectorBg;
     const bgRgb = pdfHexToRgb(t.bg);
 
@@ -1595,6 +1595,20 @@ function Pres({id,onBack,onNav}) {
           pdfRestoreBlur(blurRestore);
         }
 
+        if (useVectorBg) {
+          const ctx = canvas.getContext("2d");
+          const id2 = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const d = id2.data;
+          for (let p = 0; p < d.length; p += 4) {
+            if (d[p + 3] === 0) {
+              d[p] = 0;
+              d[p + 1] = 0;
+              d[p + 2] = 0;
+            }
+          }
+          ctx.putImageData(id2, 0, 0);
+        }
+
         const imgData = losslessPdf ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 1);
         if (i > 0) pdf.addPage();
         if (useVectorBg) {
@@ -1613,7 +1627,8 @@ function Pres({id,onBack,onNav}) {
             }
           }
         }
-        pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, "NONE");
+        const compression = losslessPdf ? "SLOW" : "NONE";
+        pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, compression);
         tempRoot.unmount();
       }
     } finally {
