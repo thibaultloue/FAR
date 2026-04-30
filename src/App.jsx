@@ -1332,11 +1332,21 @@ function pdfAppendDeckMotif(root, deck) {
   root.insertBefore(motif, root.firstChild);
 }
 
-function pdfFitInnerToSlide(inner, slideArea) {
+function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
   const availableH = slideArea.clientHeight - 2;
   const neededH = inner.scrollHeight;
-  if (!availableH || !neededH || neededH <= availableH) return;
-  const scale = Math.max(0.82, Math.min(1, availableH / neededH));
+  if (!availableH || !neededH) return;
+  const minScale = opts.minScale ?? 0.82;
+  const maxScale = opts.maxScale ?? 1;
+  let scale;
+  if (neededH > availableH) {
+    scale = Math.max(minScale, Math.min(1, availableH / neededH));
+  } else if (maxScale > 1) {
+    scale = Math.min(maxScale, availableH / neededH);
+  } else {
+    return;
+  }
+  if (Math.abs(scale - 1) < 0.005) return;
   inner.style.transform = `scale(${scale})`;
   inner.style.transformOrigin = "center center";
 }
@@ -1344,6 +1354,27 @@ function pdfFitInnerToSlide(inner, slideArea) {
 function pdfHexToRgb(hex) {
   const h = hex.replace("#", "").trim();
   return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+
+function pdfDistributeRootSlack(inner, slideArea) {
+  const root = inner.firstElementChild;
+  if (!root) return;
+  const availableH = slideArea.clientHeight - 2;
+  const naturalH = inner.scrollHeight;
+  const slack = availableH - naturalH;
+  if (slack < 30) return;
+  const children = Array.from(root.children).filter((c) => {
+    const cs = window.getComputedStyle(c);
+    return cs.position !== "absolute" && cs.position !== "fixed" && cs.display !== "none";
+  });
+  if (children.length < 2) return;
+  const perGap = Math.floor(slack / (children.length - 1));
+  if (perGap < 4) return;
+  for (let i = 0; i < children.length - 1; i++) {
+    const child = children[i];
+    const cur = parseFloat(window.getComputedStyle(child).marginBottom) || 0;
+    child.style.marginBottom = `${cur + perGap}px`;
+  }
 }
 
 // ─── ACTIVATION CARD (hover animation like homepage) ─────────────────────────
@@ -1439,7 +1470,7 @@ function Pres({id,onBack,onNav}) {
     try {
       for (let i = 0; i < n; i++) {
         const wrap = document.createElement("div");
-        const pdfPad = id === "otacospepe" ? "8px 22px 2px" : "14px 28px 4px";
+        const pdfPad = id === "otacospepe" ? "0 22px" : "14px 28px 4px";
         const wrapBg = useVectorBg ? "transparent" : t.bg;
         wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${wrapBg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
         pdfAppendDeckMotif(wrap, id);
@@ -1448,13 +1479,15 @@ function Pres({id,onBack,onNav}) {
           "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1;";
         const inner = document.createElement("div");
         inner.style.cssText = "width:100%;max-width:1580px;";
-        const footer = document.createElement("div");
-        footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.2;letter-spacing:0.6px;color:${t.m};padding-top:3px;font-family:${sa.fontFamily};position:relative;z-index:1;`;
-        footer.textContent = footerLabel;
 
         slideArea.appendChild(inner);
         wrap.appendChild(slideArea);
-        wrap.appendChild(footer);
+        if (id !== "otacospepe") {
+          const footer = document.createElement("div");
+          footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.2;letter-spacing:0.6px;color:${t.m};padding-top:3px;font-family:${sa.fontFamily};position:relative;z-index:1;`;
+          footer.textContent = footerLabel;
+          wrap.appendChild(footer);
+        }
 
         container.innerHTML = "";
         container.appendChild(wrap);
@@ -1470,7 +1503,8 @@ function Pres({id,onBack,onNav}) {
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
         pdfReplaceObjectFitImages(inner);
-        pdfFitInnerToSlide(inner, slideArea);
+        pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
+        if (id === "otacospepe") pdfDistributeRootSlack(inner, slideArea);
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
         const canvas = await html2canvas(container, {
