@@ -210,18 +210,18 @@ const TGarmin = {
   section:"#00A9E0", sectionT:"#050A0F", cR:16, cBf:"blur(12px)", lv:"white",
 };
 const TEdf = {
-  bg:"#050C1A", c:"#F4F7FB", c2:"#FE5000", m:"rgba(244,247,251,.62)", d:"rgba(244,247,251,.24)",
-  a:"#FE5000", a2:"#4A8FE0",
-  card:"rgba(255,255,255,.06)", cardT:"#F4F7FB",
-  cardAlt:"rgba(254,80,0,.10)",
-  pill:"rgba(254,80,0,.12)", pillA:"rgba(254,80,0,.22)",
-  brd:"rgba(255,255,255,.10)",
-  bar:"rgba(255,255,255,.10)", barF:"#FE5000",
-  nav:"#FE5000", navT:"#050C1A", note:"#F4F7FB", noteT:"#050C1A",
-  th:"#FE5000", thT:"#050C1A",
-  th2:"rgba(255,255,255,.08)", th2T:"#F4F7FB",
-  ex:"#FE5000", exT:"#050C1A", no:"rgba(255,255,255,.05)", noT:"#F4F7FB", noBrd:"rgba(255,255,255,.10)",
-  section:"#FE5000", sectionT:"#050C1A", cR:16, cBf:"blur(12px)", lv:"yellow",
+  bg:"#07152B", c:"#F7FAFF", c2:"#7EB6FF", m:"rgba(247,250,255,.8)", d:"rgba(247,250,255,.38)",
+  a:"#FE5000", a2:"#7EB6FF",
+  card:"rgba(255,255,255,.10)", cardT:"#F7FAFF",
+  cardAlt:"rgba(126,182,255,.12)",
+  pill:"rgba(254,80,0,.15)", pillA:"rgba(254,80,0,.28)",
+  brd:"rgba(255,255,255,.16)",
+  bar:"rgba(126,182,255,.24)", barF:"#FE5000",
+  nav:"#FE5000", navT:"#07152B", note:"#F7FAFF", noteT:"#07152B",
+  th:"#FE5000", thT:"#07152B",
+  th2:"rgba(126,182,255,.15)", th2T:"#F7FAFF",
+  ex:"#FE5000", exT:"#07152B", no:"rgba(255,255,255,.08)", noT:"#F7FAFF", noBrd:"rgba(255,255,255,.16)",
+  section:"#FE5000", sectionT:"#07152B", cR:16, cBf:"blur(12px)", lv:"yellow",
 };
 const TOtacosPepe = {
   bg:"#FFC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
@@ -1919,7 +1919,7 @@ function Home({onOpen}) {
     otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
     garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
-    edf:{bg:"#050C1A",c:"#F4F7FB",tBg:"rgba(254,80,0,.18)",tC:"#FE5000"},
+    edf:{bg:"#07152B",c:"#F7FAFF",tBg:"rgba(254,80,0,.22)",tC:"#FE5000"},
   };
   return (
     <div className="far-home" style={{minHeight:"100vh",background:A,padding:"44px 52px",...sa,color:B}}>
