@@ -238,7 +238,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -351,7 +351,7 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
 const DeckMotif = ({deck}) => {
-  if(deck==="case1"||deck==="farposition") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
+  if(deck==="case1"||deck==="farposition"||deck==="stratcom") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
   if(deck==="case2") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
@@ -372,6 +372,7 @@ const fl={h:{opacity:0,x:20},v:{opacity:1,x:0,transition:{duration:.35}}};
 const SV={
   case1:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
@@ -629,6 +630,165 @@ r:t=><div><Tg t={t}>PROCESS</Tg><Hl t={t} s={{fontSize:32}}>Six mouvements, pas 
 
 {title:"Fermeture",
 r:(t,back)=><div style={{textAlign:"center",padding:"40px 0 24px",display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{marginBottom:32}}><FarLogo size={96} variant={t.lv}/></div><Tg t={t}>ENGAGEMENT</Tg><div style={{padding:"28px 36px",borderRadius:16,background:"#1A1A1A",color:"#FFFFFF",maxWidth:960,marginBottom:24}}><div style={{...sa,fontSize:15,color:"#DDDDDD",lineHeight:1.65,marginBottom:16}}>Plus qu'une agence, FAR est un partenaire engagé aux côtés des créateurs et des marques.</div><div style={{...se,fontSize:22,fontWeight:800,lineHeight:1.45}}>FAR aide les créateurs et les marques à construire des collaborations qui vont plus loin : plus fidèles aux univers, plus fluides pour les audiences, plus utiles pour les marques, plus durables pour les créateurs.</div></div><div style={{...se,fontSize:26,fontWeight:900,letterSpacing:2,color:t.a}}>Qui veut aller loin, vient ici.</div><div style={{...sa,fontSize:16,color:t.m,marginTop:28}}>Thibault Loué</div>{back&&<button onClick={back} style={{marginTop:32,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// FAR · STRATÉGIE COMMERCIALE  -  12 SLIDES  -  même DA que Cas pratique 1 (T1)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const NetSchema = ({t}) => (
+  <div style={{margin:"22px 0"}}>
+    <svg viewBox="0 0 900 290" style={{width:"100%",height:"auto",display:"block"}}>
+      <defs>
+        <marker id="arrEndStrat" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
+          <path d="M0 0 L9 5 L0 10 Z" fill={t.a}/>
+        </marker>
+      </defs>
+      <rect x="40" y="34" width="820" height="46" rx="23" fill="#1A1A1A"/>
+      <text x="60" y="62" fill="#fff" fontSize="13" fontWeight="700" letterSpacing="3" style={{...mo}}>PIPELINE COMMERCIAL FAR</text>
+      <polygon points="838,38 858,57 838,76" fill={t.a}/>
+      {[140,260,380,500,620,740].map((cx,i)=>{
+        const labels=["brief","reporté","perdu","budget","timing","stop"];
+        return (
+          <g key={i}>
+            <line x1={cx} y1="80" x2={cx} y2="148" stroke={t.brd} strokeDasharray="3 3" strokeWidth="1.5"/>
+            <circle cx={cx} cy="155" r="8" fill={t.a}/>
+            <text x={cx} y={i%2?184:202} fill={t.d} fontSize="9" fontWeight="600" textAnchor="middle" style={{...mo}}>{labels[i]}</text>
+          </g>
+        );
+      })}
+      <path d="M40 165 Q 450 250 860 165" stroke={t.a} strokeWidth="2.6" fill="none"/>
+      {Array.from({length:22}).map((_,i)=>{
+        const x = 60 + i*36;
+        const dip = Math.max(0, 78 - Math.abs(450 - x)*78/410);
+        return <line key={`v${i}`} x1={x} y1="165" x2={x} y2={165+dip} stroke={t.a} strokeWidth="1" opacity="0.55"/>;
+      })}
+      {Array.from({length:4}).map((_,i)=>{
+        const y = 178 + i*14;
+        const sag = Math.max(0, 60 - i*14);
+        return <path key={`h${i}`} d={`M60 ${y} Q 450 ${y+sag} 840 ${y}`} stroke={t.a} strokeWidth="0.8" opacity="0.4" fill="none"/>;
+      })}
+      <path d="M650 244 C 760 244, 820 180, 820 92" stroke={t.a} strokeWidth="2.4" fill="none" strokeDasharray="6 4" markerEnd="url(#arrEndStrat)"/>
+      <text x="60" y="270" fill={t.m} fontSize="12" fontWeight="700" style={{...sa}}>Rien ne tombe dans le vide.</text>
+      <text x="328" y="270" fill={t.m} fontSize="12" fontWeight="700" style={{...sa}}>Tout est capté · suivi · relancé · enrichi.</text>
+    </svg>
+  </div>
+);
+
+const TargetSchema = ({t}) => (
+  <div style={{display:"flex",justifyContent:"center"}}>
+    <svg viewBox="0 0 640 460" style={{width:"100%",maxWidth:560,height:"auto"}}>
+      <circle cx="320" cy="230" r="210" fill={t.a+"10"} stroke={t.a+"40"} strokeWidth="2"/>
+      <circle cx="320" cy="230" r="140" fill={t.a+"25"} stroke={t.a+"60"} strokeWidth="2"/>
+      <circle cx="320" cy="230" r="78" fill={t.a} stroke="#000" strokeWidth="2"/>
+      <text x="320" y="48" textAnchor="middle" fill={t.c} fontSize="13" fontWeight="800" letterSpacing="2" style={{...mo}}>LAYER 3</text>
+      <text x="320" y="66" textAnchor="middle" fill={t.m} fontSize="12" fontWeight="600" style={{...sa}}>Marques directes</text>
+      <text x="320" y="118" textAnchor="middle" fill={t.c} fontSize="13" fontWeight="800" letterSpacing="2" style={{...mo}}>LAYER 2</text>
+      <text x="320" y="136" textAnchor="middle" fill={t.m} fontSize="12" fontWeight="600" style={{...sa}}>Agences</text>
+      <text x="320" y="222" textAnchor="middle" fill={t.bg} fontSize="13" fontWeight="800" letterSpacing="2" style={{...mo}}>LAYER 1</text>
+      <text x="320" y="242" textAnchor="middle" fill={t.bg} fontSize="12" fontWeight="700" style={{...sa}}>Entrant incrémental</text>
+      <line x1="320" y1="22" x2="320" y2="42" stroke={t.brd} strokeDasharray="3 3"/>
+      <line x1="320" y1="92" x2="320" y2="112" stroke={t.brd} strokeDasharray="3 3"/>
+    </svg>
+  </div>
+);
+
+const BrancheSchema = ({t}) => {
+  const branches=[
+    {k:"A",t:"Fit image fort",items:["ambassadorat","relation long terme","présence récurrente","campagne annuelle"]},
+    {k:"B",t:"Fit produit fort",items:["co-branding","capsule","édition limitée","opération retail"]},
+    {k:"C",t:"Temps fort marque",items:["activation ponctuelle","contenu social","event / reveal","présence ciblée"]},
+    {k:"D",t:"Besoin de contenu",items:["série de contenus","format creator-led","mini-programme","talent narrateur"]},
+    {k:"E",t:"Pas de brief immédiat",items:["rester proche","récupérer le calendrier","comprendre les lancements","revenir au bon moment"]},
+  ];
+  return (
+    <div style={{margin:"22px 0"}}>
+      <div style={{textAlign:"center",marginBottom:14}}>
+        <div style={{display:"inline-block",padding:"14px 28px",borderRadius:14,background:t.th,color:t.thT,...se,fontSize:17,fontWeight:800}}>Entrée : conversation avec la marque</div>
+      </div>
+      <div style={{display:"flex",justifyContent:"center",marginBottom:6}}>
+        <svg viewBox="0 0 800 36" style={{width:"100%",maxWidth:920,height:36,display:"block"}}>
+          <path d={`M400 0 L400 14 L80 14 L80 30`} stroke={t.a+"80"} strokeWidth="1.6" fill="none"/>
+          <path d={`M400 0 L400 14 L240 14 L240 30`} stroke={t.a+"80"} strokeWidth="1.6" fill="none"/>
+          <path d={`M400 0 L400 14 L400 30`} stroke={t.a+"80"} strokeWidth="1.6" fill="none"/>
+          <path d={`M400 0 L400 14 L560 14 L560 30`} stroke={t.a+"80"} strokeWidth="1.6" fill="none"/>
+          <path d={`M400 0 L400 14 L720 14 L720 30`} stroke={t.a+"80"} strokeWidth="1.6" fill="none"/>
+        </svg>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:10}}>
+        {branches.map((b,i)=>(
+          <div key={i} style={{padding:"14px 12px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,minHeight:200,display:"flex",flexDirection:"column",boxShadow:"0 1px 6px rgba(0,0,0,.04)"}}>
+            <div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:6}}>BRANCHE {b.k}</div>
+            <div style={{...sa,fontSize:13.5,fontWeight:800,color:t.cardT,marginBottom:10,lineHeight:1.25}}>{b.t}</div>
+            <div style={{display:"flex",flexDirection:"column",gap:5}}>
+              {b.items.map((it,j)=>(
+                <div key={j} style={{...sa,fontSize:11.5,color:t.m,lineHeight:1.4,paddingLeft:12,position:"relative"}}>
+                  <span style={{position:"absolute",left:0,color:t.d}}>→</span>{it}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PipelineSchema = ({t,steps}) => (
+  <div style={{display:"grid",gridTemplateColumns:`repeat(${steps.length},1fr)`,gap:5,margin:"22px 0"}}>
+    {steps.map((s,i)=>{
+      const isStart=i<3, isMid=i>=3&&i<7, isClose=i===6, isAfter=i>6;
+      const bg = isClose ? t.th : isAfter ? "#1A1A1A" : isStart ? t.a+"22" : t.card;
+      const color = isClose ? t.thT : isAfter ? "#fff" : t.cardT;
+      const border = isStart ? `1px solid ${t.a}55` : isAfter ? "1px solid #333" : isClose ? "none" : `1px solid ${t.brd}`;
+      return (
+        <div key={i} style={{padding:"12px 10px",borderRadius:8,background:bg,color,border,display:"flex",flexDirection:"column",alignItems:"flex-start",minHeight:74}}>
+          <div style={{...mo,fontSize:10,fontWeight:800,color:isAfter?t.a:t.a,letterSpacing:1,marginBottom:4,opacity:.95}}>{String(i+1).padStart(2,"0")}</div>
+          <div style={{...sa,fontSize:11.5,fontWeight:700,lineHeight:1.25}}>{s}</div>
+        </div>
+      );
+    })}
+  </div>
+);
+
+const SStratCom = [
+
+{title:"Ouverture",
+r:t=><div style={{textAlign:"center",padding:"36px 0 18px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:32}}><FarLogo size={110} variant={t.lv}/></div><Tg t={t}>STRATÉGIE COMMERCIALE</Tg><Hl t={t} s={{fontSize:54,maxWidth:980,margin:"0 auto 18px",textAlign:"center"}}>Stratégie commerciale FAR</Hl><Sh t={t} s={{maxWidth:820,margin:"0 auto 28px"}}>Transformer chaque contact en opportunité durable : briefs, agences, marques, talents.</Sh><div style={{display:"flex",alignItems:"center",gap:10,marginTop:6,flexWrap:"wrap",justifyContent:"center"}}>{["Briefs","Agences","Marques","Talents"].map((x,i)=><span key={i} style={{display:"flex",alignItems:"center",gap:10}}><span style={{...mo,fontSize:11,fontWeight:700,padding:"9px 16px",borderRadius:999,background:i===0?t.th:t.card,color:i===0?t.thT:t.cardT,border:i===0?"none":`1px solid ${t.brd}`,letterSpacing:1.8}}>{x.toUpperCase()}</span>{i<3&&<span style={{color:t.d,fontSize:16}}>→</span>}</span>)}</div><div style={{...sa,fontSize:14,color:t.d,marginTop:36}}>recommandation par Thibault Loué</div></div>},
+
+{title:"Construire un filet commercial",
+r:t=><div><Tg t={t}>OBJECTIF</Tg><Hl t={t} s={{fontSize:40}}>La stratégie commerciale doit fonctionner comme un grand filet.</Hl><Sh t={t} white>Un deal peut tomber pour mille raisons : mauvais timing, budget trop faible, talent indisponible, brief flou, marque pas prête, agence qui disparaît, campagne reportée. L'objectif est que rien ne tombe vraiment dans le vide. Chaque interaction doit être captée, suivie, relancée, enrichie.</Sh><NetSchema t={t}/><G2 s={{marginTop:8}}><Wc t={t} s={{padding:24}}><Lb t={t}>QUAND UN BRIEF N'ABOUTIT PAS, LE FILET RETIENT</Lb><Ar t={t} sm items={["Le contact","Le besoin","Le budget potentiel","Le calendrier","Les objections","Les prochains temps forts"]}/></Wc><Wc t={t} s={{padding:24,background:"#1A1A1A",border:"1px solid #333"}}><Lb t={t} w>QUAND UN DEAL SIGNE, LE FILET OUVRE</Lb><div style={{color:"#DDDDDD"}}><Ar t={{...t,m:"#CCCCCC",d:"#888888"}} sm items={["Une suite avec la marque","Un format plus ambitieux","Une relation plus directe","Un ambassadorat","Un co-branding"]}/></div></Wc></G2><Th t={t} alt>Un brief reçu, même perdu, doit enrichir FAR. Un deal signé, même ponctuel, doit ouvrir une suite.</Th></div>},
+
+{title:"Les 3 layers commerciaux",
+r:t=><div><Tg t={t}>STRUCTURE</Tg><Hl t={t} s={{fontSize:40}}>3 layers commerciaux, complémentaires.</Hl><Sh t={t} white>FAR structure son développement autour de 3 niveaux qui se nourrissent les uns les autres.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1.05fr",gap:24,alignItems:"center",marginTop:8}}><TargetSchema t={t}/><div style={{display:"flex",flexDirection:"column",gap:10}}>{[{k:"LAYER 1",t:"Entrant incrémental",d:"Les marques ou agences qui sollicitent déjà FAR pour l'un des 4 talents. Le brief devient une porte d'entrée pour comprendre la marque, enrichir la collaboration et ouvrir une suite."},{k:"LAYER 2",t:"Agences influence, pub, média",d:"Les agences qui recommandent, sourcent, arbitrent et gèrent les budgets. Exister auprès des bonnes personnes avant que les briefs ne sortent."},{k:"LAYER 3",t:"Marques directes",d:"Les marques avec lesquelles on ouvre une discussion sans arriver avec une idée figée. Comprendre leur moment, puis ouvrir la bonne branche : ambassadorat, co-branding, activation ou contenu."}].map((x,i)=><div key={i} style={{padding:"16px 18px",borderRadius:12,background:i===0?t.a+"22":t.card,border:`1px solid ${i===0?t.a+"55":t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:4}}>{x.k}</div><div style={{...sa,fontSize:15,fontWeight:800,color:t.cardT,marginBottom:6}}>{x.t}</div><div style={{...sa,fontSize:12.5,color:t.m,lineHeight:1.5}}>{x.d}</div></div>)}</div></div></div>},
+
+{title:"Layer 1 · porte d'entrée",
+r:t=><div><Tg t={t}>LAYER 1 — ENTRANT INCRÉMENTAL</Tg><Hl t={t} s={{fontSize:36}}>Chaque brief est une porte d'entrée.</Hl><Sh t={t} white>Le brief entrant est le flux le plus chaud. À traiter vite, mais jamais comme une simple demande de disponibilité. Avec 4 talents, on ne cherche pas à « placer quelqu'un d'autre » : on exploite mieux l'opportunité autour du talent demandé et on construit la relation avec l'interlocuteur.</Sh><G2 s={{marginTop:16}}><Wc t={t} s={{padding:24}}><Lb t={t}>1. QUALIFIER IMMÉDIATEMENT</Lb><Ar t={t} sm items={["Pourquoi ce talent précisément ?","Quel est le vrai objectif de la campagne ?","Quel est le budget réel ou la fourchette ?","Est-ce un one-shot ou un temps fort plus large ?","Qui décide ?","Quels sont les prochains temps forts de la marque ?","Une prise de parole ou une relation plus incarnée ?"]}/></Wc><Wc t={t} s={{padding:24,background:t.a+"15",border:`1px solid ${t.a}40`}}><Lb t={t}>2. RÉPONDRE AVEC UNE LECTURE</Lb><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55,marginBottom:10}}>La réponse ne se résume pas à « oui / non / voici le tarif ». Elle intègre :</div><Ar t={t} sm items={["Une lecture du brief","Le bon angle pour le talent","Les formats qui peuvent fonctionner","Les limites à ne pas dépasser","Les conditions pour que la collaboration soit crédible","Une ouverture sur la suite"]}/></Wc></G2></div>},
+
+{title:"Layer 1 · élargir et retenir",
+r:t=><div><Tg t={t}>LAYER 1 — ENTRANT INCRÉMENTAL</Tg><Hl t={t} s={{fontSize:36}}>Même petit, même perdu, un brief produit de la valeur.</Hl><G3 s={{marginTop:16}}><Wc t={t} s={{padding:20}}><Lb t={t}>ÉLARGIR AUTOUR DU TALENT</Lb><Ar t={t} sm items={["Une vidéo ponctuelle → une série courte","Un post social → un contenu + un relais event","Une campagne produit → une relation récurrente","Une activation simple → une présence éditorialisée","Un lancement → un avant / pendant / après","Un one-shot → une discussion d'ambassadorat"]}/></Wc><Wc t={t} s={{padding:20}}><Lb t={t}>GARDER LA RELATION SI PAS DE DEAL</Lb><Ar t={t} sm items={["Récupérer le bon contact","Comprendre le prochain moment de marque","Noter le type de budget","Identifier les catégories à venir","Savoir quand revenir"]}/></Wc><Wc t={t} s={{padding:20}}><Lb t={t}>POST-CAMPAGNE OBLIGATOIRE</Lb><Ar t={t} sm items={["Retour simple sur ce qui a marché","Prochains temps forts","Autres équipes ou interlocuteurs","Suite plus ambitieuse à ouvrir"]}/></Wc></G3><div style={{marginTop:18,display:"flex",alignItems:"center",gap:6}}>{["Brief reçu","Qualification","Collaboration ou abandon","Contact retenu","Prochaine opportunité"].map((x,i)=><span key={i} style={{display:"flex",alignItems:"center",gap:6,flex:1}}><span style={{...mo,fontSize:11,fontWeight:700,padding:"10px 12px",borderRadius:10,background:i===4?t.th:t.card,color:i===4?t.thT:t.cardT,border:i===4?"none":`1px solid ${t.brd}`,flex:1,textAlign:"center",letterSpacing:1}}>{x.toUpperCase()}</span>{i<4&&<span style={{color:t.d,fontSize:14}}>→</span>}</span>)}</div><Th t={t}>Un brief perdu doit devenir une future opportunité qualifiée.</Th></div>},
+
+{title:"Layer 2 · devenir un réflexe agences",
+r:t=><div><Tg t={t}>LAYER 2 — AGENCES</Tg><Hl t={t} s={{fontSize:36}}>Devenir un réflexe pour les agences.</Hl><Sh t={t} white>Les agences voient passer plusieurs marques, plusieurs briefs et plusieurs budgets. FAR doit être dans leur radar avant que les briefs ne sortent. Avec 4 talents, on ne cherche pas à être partout — il faut que les agences comprennent précisément qui sont les talents, dans quels contextes ils sont forts, pourquoi ils sont crédibles, quels types de marques peuvent les activer et quels formats sont naturels pour eux.</Sh><G2 s={{marginTop:14}}><Wc t={t} s={{padding:24}}><Lb t={t}>MAPPER LES BONNES AGENCES</Lb><div style={{display:"flex",flexWrap:"wrap",gap:6,marginBottom:16}}>{["Influence","Social / Content","Pub","Média","Événementiel","Intégrées (grands groupes)"].map((x,i)=><Pl t={t} key={i} s={{fontSize:12,fontWeight:700,padding:"8px 14px",borderRadius:999,margin:0}}>{x}</Pl>)}</div><Lb t={t}>DANS CHAQUE AGENCE, IDENTIFIER</Lb><Ar t={t} sm items={["Les personnes qui sourcent les talents","Celles qui recommandent aux marques","Celles qui tiennent la relation client","Celles qui gèrent les budgets influence / social / contenu"]}/></Wc><Wc t={t} s={{padding:24}}><Lb t={t}>CRÉER LA RELATION HORS BRIEF</Lb><Ar t={t} sm items={["Cafés","Visios courtes","Déjeuners","Updates ciblés","Rencontres autour d'un talent ou d'un territoire"]}/><div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.a+"15",border:`1px solid ${t.a}30`}}><div style={{...sa,fontSize:12.5,color:t.cardT,lineHeight:1.55}}>Les agences doivent comprendre <span style={{fontWeight:700}}>qui sont les 4 talents FAR, dans quels contextes ils sont forts, pourquoi ils sont crédibles et quels formats leur sont naturels</span>.</div></div></Wc></G2></div>},
+
+{title:"Layer 2 · donner de la matière utile",
+r:t=><div><Tg t={t}>LAYER 2 — AGENCES</Tg><Hl t={t} s={{fontSize:36}}>Être utile à la réflexion, pas seulement disponible au brief.</Hl><G2 s={{marginTop:14}}><Wc t={t} s={{padding:24}}><Lb t={t}>PAS UN DECK GÉNÉRIQUE — UNE MATIÈRE COURTE ET CONCRÈTE</Lb><Ar t={t} sm items={["Les 4 talents","Leur territoire","Leurs formats forts","Les catégories de marques pertinentes","Les collaborations à éviter","Les moments où ils ont de l'actualité","Les formats imaginables avec eux"]}/></Wc><Wc t={t} s={{padding:24}}><Lb t={t}>AIDER L'AGENCE À MIEUX PENSER L'USAGE D'UN TALENT</Lb><Ar t={t} sm items={["Le brief est-il crédible ?","Le format est-il naturel ?","La marque est-elle compatible ?","Le talent peut-il incarner le sujet ?","Y a-t-il un risque d'intégration forcée ?"]}/></Wc></G2><Th t={t} alt>L'agence doit voir FAR comme un interlocuteur qui protège la qualité des collaborations, pas comme un simple fournisseur de talents.</Th></div>},
+
+{title:"Layer 3 · entrer par la discussion",
+r:t=><div><Tg t={t}>LAYER 3 — MARQUES DIRECTES</Tg><Hl t={t} s={{fontSize:34}}>On n'arrive pas avec une idée toute faite.</Hl><Sh t={t} white>D'abord, ouvrir une vraie discussion : où en est la marque, quels sont ses prochains lancements, quelle cible veut-elle toucher, quel problème d'image veut-elle résoudre, quel rôle les talents peuvent-ils jouer ? A-t-elle besoin de visibilité, de désirabilité, de contenu, de crédibilité, de proximité ? Court terme ou long terme ? Ensuite seulement, on choisit la bonne branche.</Sh><BrancheSchema t={t}/><Th t={t} alt>On ne force pas une idée. On écoute, on comprend, puis on ouvre la bonne branche.</Th></div>},
+
+{title:"Marques à aller chercher",
+r:t=><div><Tg t={t}>PRIORITÉS MARQUES</Tg><Hl t={t} s={{fontSize:36}}>Avec 4 talents, on choisit avec précision.</Hl><Sh t={t} white>Il ne s'agit pas d'aller chercher des logos pour avoir des logos. Il faut aller vers les marques qui peuvent réellement construire quelque chose avec les talents existants.</Sh><G2 s={{marginTop:14}}><Wc t={t} s={{padding:24}}><Lb t={t}>CRITÈRES DE PRIORITÉ</Lb><Ar t={t} sm items={["Capacité à travailler sur plusieurs temps","Capacité de budget suffisante","Besoin d'incarnation","Recherche de désirabilité","Possibilité d'aller au-delà du post sponsorisé","Potentiel d'ambassadorat","Potentiel de co-branding","Temps forts réguliers","Compatibilité avec l'univers d'au moins un talent FAR"]}/></Wc><div style={{display:"flex",flexDirection:"column"}}><Lb t={t}>TYPOLOGIES À VISER</Lb><div style={{display:"flex",flexDirection:"column",gap:8}}>{["Marques déjà habituées aux talents","Marques premium qui veulent rajeunir leur image","Challenger brands","Marques avec lancements fréquents","Marques qui ont besoin d'incarnation"].map((x,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:12,padding:"11px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}><span style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:1.5}}>{String(i+1).padStart(2,"0")}</span><span style={{...sa,fontSize:13.5,color:t.cardT,fontWeight:600}}>{x}</span></div>)}</div></div></G2><div style={{marginTop:18,padding:"18px 22px",borderRadius:14,background:"#1A1A1A",color:"#fff"}}><div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:12}}>FICHE MARQUE SIMPLE</div><div style={{display:"grid",gridTemplateColumns:"repeat(6,1fr)",gap:8}}>{["Pourquoi cette marque","Quel talent FAR crédible","Type d'ouverture","Contact prioritaire","Timing","Prochaine action"].map((x,i)=><div key={i} style={{padding:"10px 12px",borderRadius:8,background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.12)",...sa,fontSize:11.5,color:"#fff",fontWeight:600,lineHeight:1.35}}>{x}</div>)}</div></div></div>},
+
+{title:"Système commercial · pipeline",
+r:t=><div><Tg t={t}>SYSTÈME</Tg><Hl t={t} s={{fontSize:36}}>Chaque contact est suivi comme une opportunité.</Hl><Sh t={t} white>Pas un échange isolé. Un suivi en 10 étapes, avec un CRM qui répond à une seule question : qu'est-ce qu'on fait ensuite avec ce contact ?</Sh><PipelineSchema t={t} steps={["Contact identifié","Premier échange lancé","Besoin qualifié","Route choisie","Proposition envoyée","Négociation","Signé","Post-campagne","Prochaine opportunité","Relation maintenue"]}/><G2 s={{marginTop:6}}><Wc t={t} s={{padding:24}}><Lb t={t}>CE QU'ON GARDE DANS LE CRM</Lb><Ar t={t} sm items={["Contacts clés","Historique des échanges","Talent concerné","Briefs reçus","Budgets connus ou supposés","Catégories d'intérêt","Objections","Prochains temps forts","Prochaine action","Niveau de chaleur"]}/></Wc><Wc t={t} s={{padding:24,background:t.a+"18",border:`1px solid ${t.a}40`,display:"flex",flexDirection:"column",justifyContent:"center"}}><Lb t={t}>UNE SEULE QUESTION</Lb><div style={{...se,fontSize:24,fontWeight:800,color:t.cardT,lineHeight:1.25,marginBottom:12}}>Qu'est-ce qu'on fait ensuite avec ce contact ?</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55}}>Le CRM n'est pas un outil administratif. Il sert le suivi, pas le reporting.</div></Wc></G2></div>},
+
+{title:"Talents à recruter · repérage",
+r:t=><div><Tg t={t}>TALENTS — REPÉRAGE</Tg><Hl t={t} s={{fontSize:36}}>Pas une course au volume, une logique de complémentarité.</Hl><Sh t={t} white>FAR a 4 talents aujourd'hui. Les prochains recrutements doivent combler des espaces précis, pas simplement ajouter des noms.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 2fr",gap:16,marginTop:12}}><Wc t={t} s={{padding:24,background:t.a+"15",border:`1px solid ${t.a}40`,display:"flex",flexDirection:"column",justifyContent:"center"}}><Lb t={t}>SIGNAL PRIORITAIRE — YOUTUBE</Lb><div style={{...se,fontSize:46,fontWeight:900,color:t.a,lineHeight:1}}>300k–500k</div><div style={{...sa,fontSize:14,color:t.cardT,marginTop:8,lineHeight:1.5}}>vues moyennes à 30 jours.<br/>Plus fiable que le nombre d'abonnés.</div></Wc><Wc t={t} s={{padding:24}}><Lb t={t}>CE QU'ON REGARDE VRAIMENT</Lb><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>{[{n:"01",t:"Vues moyennes 30j",d:"Plus fiable que les abonnés."},{n:"02",t:"Régularité",d:"Mieux qu'un hit isolé."},{n:"03",t:"Territoire clair",d:"L'univers se dit en une phrase."},{n:"04",t:"Compatibilité marque",d:"Intégrer sans abîmer le contenu."},{n:"05",t:"Qualité de communauté",d:"Commentaires, références, habitudes."},{n:"06",t:"Sous-monétisation",d:"Traction forte, potentiel marque non structuré."},{n:"07",t:"Complémentarité",d:"Ce qu'il ouvre que FAR n'a pas encore."}].map((x,i)=><div key={i} style={{padding:"10px 12px",borderRadius:10,background:t.cardAlt}}><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1,marginBottom:2}}>{x.n}</div><div style={{...sa,fontSize:12.5,fontWeight:700,color:t.cardT,marginBottom:2}}>{x.t}</div><div style={{...sa,fontSize:11.5,color:t.m,lineHeight:1.4}}>{x.d}</div></div>)}</div></Wc></div></div>},
+
+{title:"Pipeline de prise de contact talents",
+r:(t,back)=><div><Tg t={t}>TALENTS — PRISE DE CONTACT</Tg><Hl t={t} s={{fontSize:34}}>3 étapes structurées en amont, pas d'approche vague.</Hl><G3 s={{marginTop:16}}><Wc t={t} s={{padding:20}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:6}}>ÉTAPE 1</div><div style={{...sa,fontSize:16,fontWeight:800,color:t.cardT,marginBottom:12}}>Repérage</div><Lb t={t}>SOURCES</Lb><div style={{display:"flex",flexWrap:"wrap",gap:5,marginBottom:14}}>{["YouTube","TikTok","Twitch","Instagram","Recos talents proches","Monteurs","Producteurs","DA","Photographes","Marques partenaires","Événements","Cercles créatifs"].map((x,i)=><Pl t={t} key={i} s={{fontSize:10,padding:"5px 9px",borderRadius:999,margin:0,fontWeight:600}}>{x}</Pl>)}</div><Lb t={t}>SIGNAUX</Lb><Ar t={t} sm items={["Progression rapide des vues","Vidéos solides à 30 jours","Communauté active","Talent qui commence à attirer les marques","Talent qui semble mal accompagné","Collabs commerciales faibles vs audience forte","Potentiel d'ambassadorat ou de co-branding"]}/></Wc><Wc t={t} s={{padding:20}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:6}}>ÉTAPE 2</div><div style={{...sa,fontSize:16,fontWeight:800,color:t.cardT,marginBottom:12}}>Qualification avant contact</div><Lb t={t}>FICHE COURTE</Lb><Ar t={t} sm items={["Vues moyennes YouTube 30j","Trois contenus représentatifs","Territoire éditorial","Audience supposée","Marques déjà faites","Marques qui pourraient matcher","Présence ou non d'un agent / manager","Complémentarité avec le roster FAR","Raison précise pour laquelle FAR peut l'aider"]}/></Wc><Wc t={t} s={{padding:20}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:6}}>ÉTAPE 3</div><div style={{...sa,fontSize:16,fontWeight:800,color:t.cardT,marginBottom:12}}>Meilleure porte d'entrée</div><Lb t={t}>ORDRE DE PRÉFÉRENCE</Lb><div style={{display:"flex",flexDirection:"column",gap:6}}>{["Intro par quelqu'un de confiance","Intro par un talent FAR ou proche","Intro par un créatif, producteur, monteur ou DA","Contact via une marque ayant déjà travaillé avec lui","DM personnel et précis","Email professionnel si disponible"].map((x,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:10,padding:"7px 10px",borderRadius:8,background:i===0?t.a+"20":t.cardAlt}}><span style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1,minWidth:14}}>{i+1}</span><span style={{...sa,fontSize:12,color:t.cardT,lineHeight:1.4}}>{x}</span></div>)}</div></Wc></G3><Th t={t} alt>Une approche courte, mais préparée. Le talent doit sentir qu'il y a une vraie lecture derrière, pas un recrutement au hasard.</Th>{back&&<div style={{textAlign:"center",marginTop:20}}><button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button></div>}</div>},
+
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1354,9 +1514,9 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, otacospepe:SOtacosPepe, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, otacospepe:SOtacosPepe, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -1365,6 +1525,7 @@ function normalizeDeckId(raw) {
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Perspectives, méthode & preuves  -  plateforme commerciale 15 slides",tag:"POSITIONNEMENT",card:"dark"},
+  stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
@@ -1987,7 +2148,7 @@ function Home({onOpen}) {
       <motion.h1 initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.6,delay:.1}} style={{...se,fontSize:54,lineHeight:1.05,marginBottom:60}}>Cas pratiques & activations marques</motion.h1>
       <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>CAS PRATIQUES</div>
       <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:52,maxWidth:1155}}>
-        {[{id:"case1",logo:"far"},{id:"farposition",logo:"far"},{id:"case2",img:"/lebouseuh.png",imgType:"photo"}].map(({id,img,imgType,logo},idx)=>{const d=META[id];const st=cs[d.card];return(
+        {[{id:"case1",logo:"far"},{id:"farposition",logo:"far"},{id:"stratcom",logo:"far"},{id:"case2",img:"/lebouseuh.png",imgType:"photo"}].map(({id,img,imgType,logo},idx)=>{const d=META[id];const st=cs[d.card];return(
           <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.3+idx*.1}>
             {logo==="far"&&<FarLogo size={90} variant="white"/>}
             {img&&imgType==="photo"&&<img src={pu(img)} alt="" style={{width:100,height:100,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>}
