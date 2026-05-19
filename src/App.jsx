@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef, Children } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import { SFarPositionnement } from "./positioning/buildSlides.jsx";
+import { createSFarPositionnement } from "./sfarPositionnement.jsx";
 
 /** Chemins publics (GitHub Pages projet → BASE_URL `/FAR/`). */
 const pu = (path) => {
@@ -239,22 +239,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-/** Positionnement FAR — fond noir, accent jaune (# brief éditorial). */
-const TPosition = {
-  bg:"#080808", c:"#F5F1E8", c2:"#FFD400", m:"rgba(245,241,232,.64)", d:"rgba(245,241,232,.38)",
-  a:"#FFD400", a2:"#F5F1E8",
-  card:"#111111", cardT:"#F5F1E8",
-  cardAlt:"rgba(255,212,0,.08)",
-  pill:"rgba(245,241,232,.08)", pillA:"rgba(255,212,0,.18)",
-  brd:"rgba(245,241,232,.18)",
-  bar:"rgba(245,241,232,.12)", barF:"#FFD400",
-  nav:"#FFD400", navT:"#080808", note:"#111111", noteT:"#F5F1E8",
-  th:"#FFD400", thT:"#080808",
-  th2:"#1A1A1A", th2T:"#F5F1E8",
-  ex:"#FFD400", exT:"#080808", no:"rgba(255,255,255,.05)", noT:"#F5F1E8", noBrd:"rgba(245,241,232,.1)",
-  section:"#FFD400", sectionT:"#080808", cR:14, lv:"yellow",
-};
-const TM = { case1:T1, farposition:TPosition, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, toinelag:TToinelag, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -367,8 +352,7 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
 const DeckMotif = ({deck}) => {
-  if(deck==="case1"||deck==="stratcom") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
-  if(deck==="farposition") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmPos" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.6" fill="rgba(255,212,0,.06)"/></pattern></defs><rect fill="url(#dmPos)" width="100%" height="100%"/></svg>;
+  if(deck==="case1"||deck==="stratcom"||deck==="farposition") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
   if(deck==="case2") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
@@ -388,7 +372,7 @@ const fi={h:{opacity:0,y:14},v:{opacity:1,y:0,transition:{duration:.35}}};
 const fl={h:{opacity:0,x:20},v:{opacity:1,x:0,transition:{duration:.35}}};
 const SV={
   case1:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
-  farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.3,ease:"easeInOut"}},
+  farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
@@ -1488,6 +1472,10 @@ r:t=><div><Tg t={t}>ÉTUDES</Tg><Hl t={t} s={{fontSize:32}}>Formations & diplôm
 r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultra trail, marathon & culture</Hl><div style={{display:"flex",gap:28,flexWrap:"wrap"}}><div style={{flex:"1 1 320px"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>ULTRA & TRAIL</div>{["Winter Spine Race : 430 km, 11 000 D+ (UK)","UTMB : 175 km, 10 800 D+ (France)","Diagonale des Fous : 175 km, 10 000 D+ (2018 & 2019)","MT Fuji 100 : 168 km, 6 600 D+ (Japon)","Madeira MIUT : 120 km, 7 600 D+ (Portugal)","Marathon de Paris ×5 (dont une édition les yeux bandés) : pacer en 2024","Des dizaines de trails 30-80 km sur 4 continents"].map((l,i)=><div key={i} style={{...sa,fontSize:14,color:t.m,lineHeight:1.5,padding:"5px 0"}}>• {l}</div>)}</div><div style={{flex:"1 1 280px"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>AUTRES SPORTS & INTÉRÊTS</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.65,marginBottom:20}}>Football (20 ans) · Tennis (15 ans) · Golf (index 21)<br/>Musique : batterie (15 ans), piano (10 ans)<br/>Échecs : stratégie & compétition</div><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>LANGUES</div><div style={{...sa,fontSize:15,color:t.c,lineHeight:1.6}}>Français, langue maternelle<br/>Anglais, courant (expérience de vie en Angleterre)</div></div></div><div style={{textAlign:"center",marginTop:40}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
 ];
 
+const SFarPositionnement = createSFarPositionnement({
+  Tg, Hl, Sh, Wc, Ar, G2, Cmp, Fn, Th, FarLogo, se, sa, mo, fi, sv, fl,
+});
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -1501,7 +1489,7 @@ function normalizeDeckId(raw) {
 }
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
-  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  10 slides",tag:"POSITIONNEMENT",card:"position"},
+  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  10 slides",tag:"POSITIONNEMENT",card:"dark"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -2050,7 +2038,7 @@ function Pres({id,onBack,onNav}) {
         <AnimatePresence mode="wait">
           <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{id!=="farposition"&&<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -2101,7 +2089,6 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 function Home({onOpen}) {
   const cs = {
     dark:{bg:B,c:W,tBg:"rgba(255,176,0,.15)",tC:A},
-    position:{bg:"#080808",c:"#F5F1E8",tBg:"rgba(255,212,0,.2)",tC:"#FFD400",brd:"1px solid rgba(255,212,0,.35)"},
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
