@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-/** Deck positionnement — DA native T1 + animations mount-based (PDF-safe). */
+/** Deck positionnement - DA native T1 + animations mount-based (PDF-safe). */
 export function createSFarPositionnement(P) {
   const { Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu } = P;
 
@@ -29,156 +29,80 @@ export function createSFarPositionnement(P) {
     </div>
   );
 
-  const manifestoLines = [
-    "Un univers a ses codes.",
-    "Son rythme.",
-    "Ses formats.",
-    "Sa communauté.",
-    "Ses limites.",
-    "Ses ambitions.",
-    "",
-    "Pour aller loin, il ne lui suffit pas d'être visible.",
-    "Il doit être compris, structuré, protégé et développé.",
-    "",
-    "C'est le rôle de FAR :",
-    "donner aux univers créateurs le cadre, les opportunités et la sérénité nécessaires pour grandir sans se dénaturer.",
+  const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
+
+  const manifestoBlocks = [
+    { k: "verse", t: "C'est une manière de voir." },
+    { k: "verse", t: "De créer." },
+    { k: "verse", t: "De raconter." },
+    { k: "verse", t: "De rassembler." },
+    { k: "univers", t: "C'est un univers." },
+    { k: "trait", t: "Un univers a ses codes." },
+    { k: "trait", t: "Son rythme. Ses formats. Sa communauté." },
+    { k: "trait", t: "Ses exigences. Ses limites. Ses ambitions." },
+    { k: "body", t: "Pour aller loin, il ne suffit pas d'être visible." },
+    { k: "pillar", t: "Il faut être compris avant d'être exposé." },
+    { k: "pillar", t: "Structuré sans être bridé." },
+    { k: "pillar", t: "Protégé sans être enfermé." },
+    { k: "pillar", t: "Développé sans être dénaturé." },
+    { k: "mission", t: "C'est la mission de FAR." },
+    {
+      k: "body",
+      t: "Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste.",
+    },
+    { k: "body", t: "Pour que chaque talent puisse construire plus grand, sans perdre ce qui le rend singulier." },
+    { k: "body", t: "Et que chaque marque puisse trouver sa place dans un univers qui existe déjà." },
+    { k: "tagline", t: "Qui veut aller loin, vient ici." },
   ];
 
-  const PosMapping = ({ t }) => {
-    const zones = [
-      { l: "Content / management", d: "Stratégie, production, management." },
-      { l: "Entertainment", d: "Grands talents, YouTube, Twitch, événements, licences." },
-      { l: "Plateformes", d: "Accès, volume, campagnes en quelques clics." },
-      { l: "Réseaux internationaux", d: "Storytelling, média, production, data." },
-    ];
-    return (
-      <motion.div initial="h" animate="v" variants={stg(0.06)} style={{ marginTop: 8 }}>
-        <motion.div
-          variants={fu(8)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 16,
-            marginBottom: 14,
-            padding: "10px 0",
-            borderBottom: `2px solid ${t.a}`,
-          }}
-        >
-          <span style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: t.m }}>ACCÈS À L&apos;AUDIENCE</span>
-          <span style={{ ...se, fontSize: 28, fontWeight: 800, color: t.a, lineHeight: 1 }}>→</span>
-          <span style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: t.c }}>DÉVELOPPEMENT D&apos;UNIVERS</span>
-        </motion.div>
-
-        <motion.div variants={fs} style={{ display: "grid", gridTemplateColumns: "52px 1fr", gap: 12, alignItems: "stretch" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "8px 4px",
-              borderRadius: 10,
-              background: "rgba(0,0,0,.06)",
-            }}
-          >
-            <span
-              style={{
-                ...mo,
-                fontSize: 9,
-                fontWeight: 700,
-                letterSpacing: 1.5,
-                color: t.m,
-                writingMode: "vertical-rl",
-                transform: "rotate(180deg)",
-                textAlign: "center",
-                lineHeight: 1.4,
-              }}
-            >
-              ACTIVATION PONCTUELLE
-              <br />
-              <span style={{ color: t.a }}>↓</span>
-              <br />
-              CONSTRUCTION LONG TERME
-            </span>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            {zones.map((z, i) => (
-              <motion.div
-                key={z.l}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.08 + i * 0.07 }}
-                style={{
-                  padding: "16px 18px",
-                  borderRadius: 12,
-                  background: "rgba(0,0,0,.07)",
-                  border: `1px solid ${t.brd}`,
-                }}
-              >
-                <div style={{ ...mo, fontSize: 10, fontWeight: 700, color: t.a, marginBottom: 8, letterSpacing: 1 }}>{z.l}</div>
-                <div style={{ ...sa, fontSize: 13, color: t.c, lineHeight: 1.5 }}>{z.d}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.45 }}
-          style={{
-            marginTop: 14,
-            padding: "22px 28px",
-            borderRadius: 14,
-            background: t.th,
-            color: t.thT,
-            textAlign: "center",
-            border: `2px solid ${t.a}`,
-          }}
-        >
-          <div style={{ ...se, fontSize: 28, fontWeight: 900, letterSpacing: "-0.02em" }}>FAR</div>
-          <div style={{ ...sa, fontSize: 15, lineHeight: 1.55, marginTop: 10, maxWidth: 640, margin: "10px auto 0", opacity: 0.95 }}>
-            Développement d&apos;univers créateurs par la création, la structure et la croissance.
-          </div>
-        </motion.div>
-
-        <motion.p
-          variants={fu(10)}
-          style={{ ...sa, fontSize: 17, fontWeight: 600, color: t.c, lineHeight: 1.55, marginTop: 16 }}
-        >
-          FAR n&apos;est pas une agence d&apos;influence de plus.{" "}
-          <span style={{ color: t.a, fontWeight: 800 }}>FAR développe ce qui fait aller les créateurs plus loin.</span>
-        </motion.p>
-      </motion.div>
-    );
+  const manifestoStyle = (t, k) => {
+    switch (k) {
+      case "hook":
+        return { ...se, fontSize: 19, fontWeight: 700, color: t.c, lineHeight: 1.18, margin: "0 0 10px" };
+      case "verse":
+        return { ...se, fontSize: 14, fontWeight: 600, color: t.c, lineHeight: 1.2, margin: "0 0 1px" };
+      case "univers":
+        return { ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1.2, margin: "6px 0 4px" };
+      case "trait":
+        return { ...se, fontSize: 13, fontWeight: 700, color: t.c, lineHeight: 1.22, margin: "0 0 2px" };
+      case "pillar":
+        return { ...sa, fontSize: 12.5, fontWeight: 600, color: t.c, lineHeight: 1.3, margin: "0 0 2px" };
+      case "mission":
+        return { ...se, fontSize: 14, fontWeight: 800, color: t.a, lineHeight: 1.22, margin: "6px 0 4px" };
+      case "tagline":
+        return { ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1.2, margin: "8px 0 0" };
+      default:
+        return { ...sa, fontSize: 12, color: t.m, lineHeight: 1.32, margin: "0 0 3px" };
+    }
   };
 
   const PosTripod = ({ t }) => {
+    const footR = 12;
     const legs = [
       {
         id: "creation",
-        title: "Création",
-        desc: "L'ADN du créateur : ton, formats, communauté, imaginaire, exigence éditoriale.",
+        title: "Protéger la création",
+        desc: "Préserver l'ADN du créateur : ton, formats, communauté, imaginaire, cohérence éditoriale et exigence.",
         footX: 95,
         footY: 200,
       },
       {
         id: "structure",
-        title: "Structure",
-        desc: "Le cadre qui permet d'aller plus loin : administratif, juridique, fiscal, comptable, recrutement, process, data, outils, priorisation.",
+        title: "Solidifier la structure",
+        desc: "Apporter solidité et sérénité : cadre administratif, juridique, fiscal, process, outils, data et priorisation.",
         footX: 280,
         footY: 200,
       },
       {
         id: "growth",
-        title: "Croissance",
-        desc: "Ce qui ouvre de nouveaux champs : collaborations, ambassades, produits propriétaires, marques propres, actifs, acquisitions, participations, opportunités business.",
+        title: "Garantir la croissance",
+        desc: "Ouvrir de nouveaux champs : collaborations, ambassades, produits et marques propres, actifs, acquisitions, participations.",
         footX: 465,
         footY: 200,
       },
     ];
     const apex = { x: 280, y: 52 };
+    const hubR = 40;
 
     return (
       <motion.div initial="h" animate="v" variants={stg(0.08)} style={{ marginTop: 8 }}>
@@ -202,7 +126,7 @@ export function createSFarPositionnement(P) {
             <motion.circle
               cx={apex.x}
               cy={apex.y}
-              r="40"
+              r={hubR}
               fill={t.th}
               stroke={t.a}
               strokeWidth="3"
@@ -210,12 +134,28 @@ export function createSFarPositionnement(P) {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 180, delay: 0.05 }}
             />
-            <text x={apex.x} y={apex.y - 5} textAnchor="middle" fill={t.thT} fontSize="12" fontWeight="800" fontFamily="Figtree,sans-serif">
-              Univers créateur
-            </text>
+            <motion.text
+              x={apex.x}
+              y={apex.y - 2}
+              textAnchor="middle"
+              fill={t.thT}
+              fontSize="10"
+              fontWeight="800"
+              fontFamily="Figtree,sans-serif"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.35 }}
+            >
+              <tspan x={apex.x} dy="-5">
+                Univers
+              </tspan>
+              <tspan x={apex.x} dy="13">
+                créateur
+              </tspan>
+            </motion.text>
             {legs.map((leg, i) => (
               <motion.g key={`n-${leg.id}`} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45 + i * 0.1, duration: 0.35 }}>
-                <circle cx={leg.footX} cy={leg.footY} r="20" fill={t.card} stroke={t.a} strokeWidth="2" />
+                <circle cx={leg.footX} cy={leg.footY} r={footR} fill={t.card} stroke={t.a} strokeWidth="2" />
               </motion.g>
             ))}
           </svg>
@@ -237,13 +177,9 @@ export function createSFarPositionnement(P) {
 
         <motion.p
           variants={fu(8)}
-          style={{ ...sa, fontSize: 17, fontWeight: 600, color: t.c, lineHeight: 1.55, marginTop: 12, textAlign: "center", maxWidth: 720, margin: "12px auto 0" }}
+          style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, marginTop: 12, textAlign: "center" }}
         >
-          <span style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, display: "block", marginBottom: 14 }}>
-            FAR — SYSTÈME QUI STABILISE L&apos;ENSEMBLE
-          </span>
-          La structure n&apos;éteint pas la création.{" "}
-          <span style={{ color: t.a, fontWeight: 800 }}>Elle lui donne de l&apos;espace.</span>
+          FAR - SYSTÈME QUI STABILISE L&apos;ENSEMBLE
         </motion.p>
       </motion.div>
     );
@@ -319,12 +255,31 @@ export function createSFarPositionnement(P) {
     {
       title: "FAR by La Porte",
       r: (t) => (
-        <div style={{ textAlign: "center", padding: "32px 0" }}>
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} style={{ marginBottom: 28 }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: "32px 0",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            style={{ marginBottom: 16, display: "flex", justifyContent: "center", width: "100%" }}
+          >
             <FarLogo size={100} variant={t.lv} />
           </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.08, duration: 0.45 }}>
-            <Tg t={t}>FAR BY LA PORTE</Tg>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.08, duration: 0.45 }}
+            style={{ ...mo, fontSize: 13, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: t.d, marginBottom: 28 }}
+          >
+            by La Porte
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.55 }}>
             <Hl t={t} s={{ fontSize: 48, maxWidth: 900, margin: "0 auto 16px", textAlign: "center" }}>
@@ -333,7 +288,7 @@ export function createSFarPositionnement(P) {
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.28, duration: 0.5 }}>
             <Sh t={t} s={{ maxWidth: 720, margin: "0 auto 24px", textAlign: "center" }}>
-              Une agence pensée pour accompagner les créateurs dans leur développement, et aider les marques à construire des projets justes avec eux.
+              Accompagner les créateurs dans leur développement, et aider les marques à construire des projets justes avec eux.
             </Sh>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.42, duration: 0.5 }} style={{ ...se, fontSize: 22, fontWeight: 800, color: t.a, marginTop: 20 }}>
@@ -349,45 +304,37 @@ export function createSFarPositionnement(P) {
     {
       title: "Manifesto",
       r: (t) => (
-        <motion.div initial="h" animate="v" variants={stg(0.05)} style={{ display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 0, flex: 1 }}>
-          <SlideHead
-            t={t}
-            tag="MANIFESTO"
-            title="Un créateur n'est pas un canal. C'est un univers."
-            titleS={{ fontSize: 34, maxWidth: 960 }}
-          />
-          <motion.div variants={stg(0.06)} style={{ marginTop: 8 }}>
-            {manifestoLines.map((text, i) =>
-              text === "" ? (
-                <div key={i} style={{ height: 16 }} />
-              ) : (
-                <motion.p
-                  key={i}
-                  variants={fu(8)}
-                  style={{
-                    ...(i >= manifestoLines.length - 3
-                      ? { ...se, fontSize: 20, fontWeight: 700, color: t.c, lineHeight: 1.45, marginTop: 4 }
-                      : i < 6
-                        ? { ...se, fontSize: 24, fontWeight: 700, color: t.c, lineHeight: 1.35 }
-                        : { ...sa, fontSize: 17, color: t.m, lineHeight: 1.55 }),
-                    margin: 0,
-                  }}
-                >
-                  {text}
-                </motion.p>
-              ),
-            )}
+        <motion.div
+          initial="h"
+          animate="v"
+          variants={stg(0.04)}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            minHeight: 0,
+            flex: 1,
+            overflow: "hidden",
+            width: "100%",
+          }}
+        >
+          <motion.div variants={fu(8)} style={{ marginBottom: 10, width: "100%" }}>
+            <div style={{ ...mo, fontSize: 13, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: t.d, marginBottom: 0 }}>
+              MANIFESTO
+            </div>
           </motion.div>
-        </motion.div>
-      ),
-    },
-
-    {
-      title: "Mapping marché",
-      r: (t) => (
-        <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="BENCHMARK" title="FAR ne joue pas l'accès. FAR joue le développement." titleS={{ fontSize: 34 }} />
-          <PosMapping t={t} />
+          <motion.p variants={fu(10)} style={{ ...manifestoStyle(t, "hook"), maxWidth: 900 }}>
+            {manifestoHook}
+          </motion.p>
+          <div style={{ maxWidth: 920, width: "100%", textAlign: "center" }}>
+            {manifestoBlocks.map((block, i) => (
+              <motion.p key={i} variants={fu(4)} style={manifestoStyle(t, block.k)}>
+                {block.t}
+              </motion.p>
+            ))}
+          </div>
         </motion.div>
       ),
     },
@@ -396,7 +343,7 @@ export function createSFarPositionnement(P) {
       title: "Modèle FAR",
       r: (t) => (
         <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="MODÈLE" title="Un univers créateur grandit sur trois appuis." titleS={{ fontSize: 34 }} />
+          <SlideHead t={t} tag="TRIPOD FAR" title="Le trépied FAR : un univers créateur repose sur trois appuis." titleS={{ fontSize: 32 }} />
           <PosTripod t={t} />
         </motion.div>
       ),
@@ -406,7 +353,7 @@ export function createSFarPositionnement(P) {
       title: "Piliers FAR",
       r: (t) => (
         <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="MÉTHODE" title="Les cinq mots FAR deviennent une méthode de décision." titleS={{ fontSize: 34 }} />
+          <SlideHead t={t} tag="MÉTHODE" title="Notre grille de lecture." titleS={{ fontSize: 34 }} />
           <motion.div
             initial="h"
             animate="v"
@@ -419,7 +366,7 @@ export function createSFarPositionnement(P) {
               { p: "Structure", q: "Est-ce que ça simplifie, automatise ou clarifie quelque chose ?" },
               { p: "Ambition", q: "Est-ce que l'idée mérite plus qu'une simple prise de parole ?" },
               { p: "Opportunité", q: "Est-ce que ça fait émerger un projet durable ?" },
-            ].map((x, i) => (
+            ].map((x) => (
               <motion.div
                 key={x.p}
                 variants={fu(18)}
@@ -435,12 +382,6 @@ export function createSFarPositionnement(P) {
               </motion.div>
             ))}
           </motion.div>
-          <motion.div variants={fu(8)} style={{ marginTop: 20, paddingTop: 20, borderTop: `1px solid ${t.brd}` }}>
-            <div style={{ ...sa, fontSize: 18, fontWeight: 600, color: t.c, lineHeight: 1.5 }}>
-              Chez FAR, les valeurs ne décorent pas le discours.{" "}
-              <span style={{ color: t.a, fontWeight: 800 }}>Elles cadrent les décisions.</span>
-            </div>
-          </motion.div>
         </motion.div>
       ),
     },
@@ -449,66 +390,117 @@ export function createSFarPositionnement(P) {
       title: "Ce que FAR apporte",
       r: (t) => (
         <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="ACCOMPAGNEMENT" title="FAR accompagne ce qui fait vraiment grandir." titleS={{ fontSize: 32 }} />
+          <SlideHead
+            t={t}
+            tag="ACCOMPAGNEMENT"
+            title="Ce que nous faisons pour le talent fait avancer tout l'écosystème."
+            titleS={{ fontSize: 30, maxWidth: 960 }}
+          />
 
-          <motion.div variants={fs} style={{ position: "relative", marginTop: 20, paddingTop: 8 }}>
-            <div style={{ position: "absolute", top: 28, left: "8%", right: "8%", height: 3, background: t.brd, borderRadius: 2 }} />
-            <motion.div
-              initial="h"
-              animate="v"
-              variants={stg(0.1)}
-              style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, position: "relative", zIndex: 1 }}
-            >
-              {[
-                { n: "01", t: "Clarifier", d: "Positionnement, valeurs, ambitions, ligne éditoriale, priorités." },
-                { n: "02", t: "Structurer", d: "Administratif, juridique, fiscal, comptable, recrutement, process, outils, data." },
-                { n: "03", t: "Développer", d: "Collaborations, ambassades, formats, produits propriétaires, marques propres, actifs, acquisitions, participations." },
-                { n: "04", t: "Protéger", d: "Cohérence éditoriale, image, droits, arbitrages, choix des bonnes opportunités." },
-              ].map((s, i) => (
-                <motion.div key={s.n} variants={fu(14)} style={{ textAlign: "center" }}>
-                  <div
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: "50%",
-                      background: t.th,
-                      color: t.thT,
-                      border: `3px solid ${t.a}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 14px",
-                      ...mo,
-                      fontSize: 13,
-                      fontWeight: 800,
-                    }}
-                  >
-                    {s.n}
-                  </div>
-                  <div style={{ ...sa, fontSize: 16, fontWeight: 800, color: t.c, marginBottom: 8 }}>{s.t}</div>
-                  <div style={{ ...sa, fontSize: 12, color: t.m, lineHeight: 1.45 }}>{s.d}</div>
-                </motion.div>
-              ))}
-            </motion.div>
+          <motion.div variants={fu(8)} style={{ marginTop: 8, marginBottom: 18 }}>
+            <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, margin: 0, maxWidth: 900 }}>
+              Le schéma ci-dessous ne décrit que l&apos;accompagnement du talent. C&apos;est notre point de départ - et ce qui permet ensuite à la marque et à l&apos;audience de trouver leur place.
+            </Sh>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.5 }}
-            style={{ marginTop: 36 }}
+            variants={fs}
+            style={{
+              padding: "22px 24px 20px",
+              borderRadius: 16,
+              border: `2px solid ${t.a}`,
+              background: `${t.a}10`,
+              marginBottom: 20,
+            }}
           >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14, borderTop: `1px solid ${t.brd}`, paddingTop: 20 }}>
+            <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.a, marginBottom: 16 }}>
+              POUR LE TALENT
+            </div>
+            <div style={{ position: "relative", paddingTop: 6 }}>
+              <div style={{ position: "absolute", top: 30, left: "6%", right: "6%", height: 3, background: t.brd, borderRadius: 2 }} />
+              <motion.div
+                initial="h"
+                animate="v"
+                variants={stg(0.1)}
+                style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, position: "relative", zIndex: 1 }}
+              >
+                {[
+                  { n: "01", t: "Clarifier", d: "Positionnement, valeurs, ambitions, ligne éditoriale, priorités." },
+                  { n: "02", t: "Structurer", d: "Administratif, juridique, fiscal, comptable, recrutement, process, outils, data." },
+                  { n: "03", t: "Développer", d: "Collaborations, ambassades, formats, produits propriétaires, marques propres, actifs." },
+                  { n: "04", t: "Protéger", d: "Cohérence éditoriale, image, droits, arbitrages, choix des bonnes opportunités." },
+                ].map((s) => (
+                  <motion.div key={s.n} variants={fu(14)} style={{ textAlign: "center" }}>
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: "50%",
+                        background: t.th,
+                        color: t.thT,
+                        border: `3px solid ${t.a}`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 12px",
+                        ...mo,
+                        fontSize: 12,
+                        fontWeight: 800,
+                      }}
+                    >
+                      {s.n}
+                    </div>
+                    <div style={{ ...sa, fontSize: 15, fontWeight: 800, color: t.c, marginBottom: 6 }}>{s.t}</div>
+                    <div style={{ ...sa, fontSize: 11, color: t.m, lineHeight: 1.45 }}>{s.d}</div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.45 }}
+            style={{ display: "flex", alignItems: "stretch", gap: 16 }}
+          >
+            <div style={{ flex: "0 0 48px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingTop: 24 }}>
+              <div style={{ width: 2, flex: 1, minHeight: 40, background: `linear-gradient(180deg, ${t.a}, ${t.brd})`, borderRadius: 2 }} />
+              <span style={{ ...mo, fontSize: 18, fontWeight: 800, color: t.a, margin: "8px 0" }}>→</span>
+              <div style={{ width: 2, flex: 1, minHeight: 40, background: t.brd, borderRadius: 2 }} />
+            </div>
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
               {[
-                { w: "Talent", t: "grandir sans se disperser." },
-                { w: "Marque", t: "trouver un rôle juste dans un univers clair." },
-                { w: "Audience", t: "comprendre naturellement pourquoi le projet existe." },
-              ].map((o) => (
-                <div key={o.w} style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5 }}>
-                  <span style={{ ...se, fontSize: 16, fontWeight: 700, color: t.c }}>{o.w}</span>
-                  {" — "}
-                  {o.t}
-                </div>
+                {
+                  w: "Marque",
+                  t: "Un rôle juste dans l'univers du créateur.",
+                  d: "Nous identifions où la marque peut s'inscrire sans interrompre l'univers - pour un projet légitime, pas un placement.",
+                },
+                {
+                  w: "Audience",
+                  t: "Un projet qui paraît évident.",
+                  d: "Quand le talent est structuré et la marque bien placée, l'audience comprend naturellement pourquoi le projet existe et a du sens.",
+                },
+              ].map((o, i) => (
+                <motion.div
+                  key={o.w}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 + i * 0.12, duration: 0.4 }}
+                  style={{
+                    padding: "22px 20px",
+                    borderRadius: 14,
+                    background: t.card,
+                    border: `1px solid ${t.brd}`,
+                  }}
+                >
+                  <div style={{ ...mo, fontSize: 9, fontWeight: 700, letterSpacing: 2, color: t.d, marginBottom: 10 }}>
+                    CONSÉQUENCE
+                  </div>
+                  <div style={{ ...se, fontSize: 22, fontWeight: 800, color: t.c, marginBottom: 8 }}>{o.w}</div>
+                  <div style={{ ...sa, fontSize: 15, fontWeight: 700, color: t.a, marginBottom: 10, lineHeight: 1.35 }}>{o.t}</div>
+                  <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.5 }}>{o.d}</div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -616,85 +608,6 @@ export function createSFarPositionnement(P) {
               </motion.div>
             ))}
           </motion.div>
-          <motion.p variants={fu(8)} style={{ ...sa, fontSize: 17, fontWeight: 600, color: t.c, lineHeight: 1.55, marginTop: 20 }}>
-            FAR ne présente pas des profils.{" "}
-            <span style={{ color: t.a, fontWeight: 800 }}>FAR développe des univers.</span>
-          </motion.p>
-        </motion.div>
-      ),
-    },
-
-    {
-      title: "Grille d'opportunité",
-      r: (t) => (
-        <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="QUALIFICATION" title="Une bonne opportunité fait avancer l'univers." titleS={{ fontSize: 32 }} />
-
-          <motion.div variants={fs} style={{ marginTop: 20, position: "relative", padding: "8px 0 24px" }}>
-            <div style={{ display: "flex", alignItems: "stretch", justifyContent: "space-between", gap: 0, position: "relative" }}>
-              <div style={{ position: "absolute", top: 36, left: "6%", right: "6%", height: 4, background: `linear-gradient(90deg, ${t.brd}, ${t.a}, ${t.brd})`, borderRadius: 4 }} />
-              {[
-                { k: "F", l: "Fidèle", d: "Elle respecte l'univers du créateur." },
-                { k: "F", l: "Fluide", d: "Elle s'intègre naturellement à son contenu." },
-                { k: "S", l: "Structurante", d: "Elle simplifie, clarifie ou renforce son développement." },
-                { k: "A", l: "Ambitieuse", d: "Elle peut ouvrir plus qu'une prise de parole." },
-                { k: "U", l: "Utile", d: "Elle crée une valeur claire pour le talent, la marque et l'audience." },
-              ].map((c, i) => (
-                <motion.div
-                  key={c.l}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 + i * 0.07, duration: 0.35 }}
-                  style={{ flex: 1, textAlign: "center", padding: "0 6px" }}
-                >
-                  <div
-                    style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: "50%",
-                      background: t.th,
-                      color: t.thT,
-                      border: `3px solid ${t.a}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      margin: "0 auto 12px",
-                      ...se,
-                      fontSize: 22,
-                      fontWeight: 900,
-                      position: "relative",
-                      zIndex: 1,
-                    }}
-                  >
-                    {c.k}
-                  </div>
-                  <div style={{ ...sa, fontSize: 14, fontWeight: 800, color: t.c, marginBottom: 6 }}>{c.l}</div>
-                  <div style={{ ...sa, fontSize: 11, color: t.m, lineHeight: 1.4 }}>{c.d}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.45 }}
-            style={{
-              marginTop: 8,
-              padding: "20px 22px",
-              borderRadius: 14,
-              border: `2px solid ${t.a}66`,
-              background: `${t.a}14`,
-            }}
-          >
-            <div style={{ ...se, fontSize: 14, fontWeight: 800, color: t.a, marginBottom: 12 }}>L&apos;entorse intelligente</div>
-            <p style={{ ...sa, fontSize: 14, color: t.c, lineHeight: 1.6, margin: "0 0 12px" }}>
-              FAR peut accepter une opportunité moins évidente au départ si elle ouvre un vrai levier de développement : revenu structurant, produit propriétaire, acquisition, participation, marque stratégique, nouveau vertical, recrutement clé ou accélération business.
-            </p>
-            <p style={{ ...sa, fontSize: 14, fontWeight: 600, color: t.m, lineHeight: 1.55, margin: 0 }}>
-              Dans ce cas, le rôle de FAR est de transformer l&apos;opportunité en projet légitime.
-            </p>
-          </motion.div>
         </motion.div>
       ),
     },
@@ -727,10 +640,26 @@ export function createSFarPositionnement(P) {
               "Parler seulement de monétisation.",
             ]}
           />
-          <motion.p variants={fu(8)} style={{ ...sa, fontSize: 17, fontWeight: 600, color: t.c, lineHeight: 1.55, marginTop: 16 }}>
-            FAR ne vend pas l&apos;accès aux créateurs.{" "}
-            <span style={{ color: t.a, fontWeight: 800 }}>FAR construit ce qui les fait aller plus loin.</span>
-          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.45 }}
+            style={{
+              marginTop: 20,
+              padding: "20px 22px",
+              borderRadius: 14,
+              border: `2px solid ${t.a}66`,
+              background: `${t.a}14`,
+            }}
+          >
+            <div style={{ ...se, fontSize: 14, fontWeight: 800, color: t.a, marginBottom: 12 }}>L&apos;entorse intelligente</div>
+            <p style={{ ...sa, fontSize: 14, color: t.c, lineHeight: 1.6, margin: "0 0 12px" }}>
+              FAR peut accepter une opportunité moins évidente au départ si elle ouvre un vrai levier de développement : revenu structurant, produit propriétaire, acquisition, participation, marque stratégique, nouveau vertical, recrutement clé ou accélération business.
+            </p>
+            <p style={{ ...sa, fontSize: 14, fontWeight: 600, color: t.m, lineHeight: 1.55, margin: 0 }}>
+              Dans ce cas, le rôle de FAR est de transformer l&apos;opportunité en projet légitime.
+            </p>
+          </motion.div>
         </motion.div>
       ),
     },
@@ -751,13 +680,6 @@ export function createSFarPositionnement(P) {
             <Sh t={t} s={{ maxWidth: 700, margin: "20px auto", textAlign: "center" }}>
               FAR by La Porte accompagne les créateurs dans le développement de leur univers.
             </Sh>
-          </motion.div>
-          <motion.div initial="h" animate="v" variants={stg(0.08)} style={{ margin: "24px auto", maxWidth: 520 }}>
-            {["Plus de vision.", "Plus de structure.", "Plus de sérénité.", "Plus d'ambition.", "Plus d'opportunités."].map((p) => (
-              <motion.div key={p} variants={fu(10)} style={{ ...se, fontSize: 20, fontWeight: 700, color: t.c, padding: "6px 0" }}>
-                {p}
-              </motion.div>
-            ))}
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}

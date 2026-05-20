@@ -724,16 +724,16 @@ r:t=><div><Tg t={t}>OBJECTIF</Tg><Hl t={t} s={{fontSize:40,marginBottom:12}}>Un 
 r:t=><div><Tg t={t}>STRUCTURE</Tg><Hl t={t} s={{fontSize:40,marginBottom:8}}>3 layers, complémentaires.</Hl><div style={{...sa,fontSize:16,color:t.m,lineHeight:1.55,maxWidth:760,marginBottom:20}}>FAR structure son développement autour de 3 niveaux qui se nourrissent les uns les autres.</div><div style={{display:"grid",gridTemplateColumns:"0.85fr 1.15fr",gap:36,alignItems:"center"}}><TargetSchema t={t}/><div style={{display:"flex",flexDirection:"column",gap:8}}>{[{k:"01",l:"LAYER 1",t:"Entrant incrémental",d:"Les marques ou agences qui sollicitent déjà FAR pour l'un des 4 talents. Le brief devient une porte d'entrée pour comprendre la marque, enrichir la collaboration et ouvrir une suite.",accent:true},{k:"02",l:"LAYER 2",t:"Agences influence, pub, média",d:"Les agences qui recommandent, sourcent, arbitrent et gèrent les budgets. Exister auprès des bonnes personnes avant que les briefs ne sortent."},{k:"03",l:"LAYER 3",t:"Marques directes",d:"On ouvre une discussion sans arriver avec une idée figée. Comprendre leur moment, puis ouvrir la bonne branche : ambassadorat, co-branding, activation ou contenu."}].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"56px 1fr",gap:14,padding:"16px 20px",borderRadius:12,background:x.accent?t.a+"20":t.card,border:`1px solid ${x.accent?t.a+"45":t.brd}`}}><div style={{...se,fontSize:34,fontWeight:900,color:t.a,lineHeight:1}}>{x.k}</div><div><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:2.5,marginBottom:4}}>{x.l}</div><div style={{...sa,fontSize:17,fontWeight:800,color:t.cardT,marginBottom:6}}>{x.t}</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>{x.d}</div></div></div>)}</div></div></div>},
 
 {title:"Layer 1 · porte d'entrée",
-r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 1 · ENTRANT INCRÉMENTAL</div><Hl t={t} s={{fontSize:42,marginBottom:12}}>Chaque brief est une porte d'entrée.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:900,marginBottom:22}}>Le flux le plus chaud. À traiter vite, jamais comme une simple demande de disponibilité. Avec 4 talents, on n'essaie pas de « placer quelqu'un d'autre » : on exploite mieux l'opportunité autour du talent demandé et on construit la relation.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}><div style={{padding:"22px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"baseline",gap:14,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${t.brd}`}}><div style={{...se,fontSize:48,fontWeight:900,color:t.a,lineHeight:1}}>01</div><div style={{...sa,fontSize:18,fontWeight:800,color:t.cardT}}>Qualifier immédiatement</div></div>{["Pourquoi ce talent précisément ?","Quel est le vrai objectif de la campagne ?","Quel budget — réel ou fourchette ?","One-shot ou temps fort plus large ?","Qui décide ?","Prochains temps forts de la marque ?","Prise de parole ou relation plus incarnée ?"].map((q,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none",lineHeight:1.5}}>{q}</div>)}</div><div style={{padding:"22px 26px",borderRadius:14,background:t.a+"18",border:`1px solid ${t.a}40`}}><div style={{display:"flex",alignItems:"baseline",gap:14,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${t.a}40`}}><div style={{...se,fontSize:48,fontWeight:900,color:t.a,lineHeight:1}}>02</div><div style={{...sa,fontSize:18,fontWeight:800,color:t.cardT}}>Répondre avec une lecture</div></div><div style={{...sa,fontSize:13,color:t.m,fontStyle:"italic",marginBottom:8,lineHeight:1.55}}>Pas « oui / non / voici le tarif ». La réponse intègre :</div>{["Une lecture du brief","Le bon angle pour le talent","Les formats qui peuvent fonctionner","Les limites à ne pas dépasser","Les conditions pour que la collaboration soit crédible","Une ouverture sur la suite"].map((q,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<5?`1px solid ${t.a}30`:"none",lineHeight:1.5,paddingLeft:14,position:"relative"}}><span style={{position:"absolute",left:0,color:t.a,fontWeight:800}}>→</span>{q}</div>)}</div></div></div>},
+r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 1 · ENTRANT INCRÉMENTAL</div><Hl t={t} s={{fontSize:42,marginBottom:12}}>Chaque brief est une porte d'entrée.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:900,marginBottom:22}}>Le flux le plus chaud. À traiter vite, jamais comme une simple demande de disponibilité. Avec 4 talents, on n'essaie pas de « placer quelqu'un d'autre » : on exploite mieux l'opportunité autour du talent demandé et on construit la relation.</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}><div style={{padding:"22px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"baseline",gap:14,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${t.brd}`}}><div style={{...se,fontSize:48,fontWeight:900,color:t.a,lineHeight:1}}>01</div><div style={{...sa,fontSize:18,fontWeight:800,color:t.cardT}}>Qualifier immédiatement</div></div>{["Pourquoi ce talent précisément ?","Quel est le vrai objectif de la campagne ?","Quel budget - réel ou fourchette ?","One-shot ou temps fort plus large ?","Qui décide ?","Prochains temps forts de la marque ?","Prise de parole ou relation plus incarnée ?"].map((q,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none",lineHeight:1.5}}>{q}</div>)}</div><div style={{padding:"22px 26px",borderRadius:14,background:t.a+"18",border:`1px solid ${t.a}40`}}><div style={{display:"flex",alignItems:"baseline",gap:14,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${t.a}40`}}><div style={{...se,fontSize:48,fontWeight:900,color:t.a,lineHeight:1}}>02</div><div style={{...sa,fontSize:18,fontWeight:800,color:t.cardT}}>Répondre avec une lecture</div></div><div style={{...sa,fontSize:13,color:t.m,fontStyle:"italic",marginBottom:8,lineHeight:1.55}}>Pas « oui / non / voici le tarif ». La réponse intègre :</div>{["Une lecture du brief","Le bon angle pour le talent","Les formats qui peuvent fonctionner","Les limites à ne pas dépasser","Les conditions pour que la collaboration soit crédible","Une ouverture sur la suite"].map((q,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<5?`1px solid ${t.a}30`:"none",lineHeight:1.5,paddingLeft:14,position:"relative"}}><span style={{position:"absolute",left:0,color:t.a,fontWeight:800}}>→</span>{q}</div>)}</div></div></div>},
 
 {title:"Layer 1 · élargir et retenir",
 r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 1 · ENTRANT INCRÉMENTAL</div><Hl t={t} s={{fontSize:38,marginBottom:24}}>Même petit, même perdu, un brief produit de la valeur.</Hl><div style={{display:"grid",gridTemplateColumns:"1.25fr 1fr 1fr",gap:14}}>{[{n:"01",t:"Élargir autour du talent",accent:true,items:["une vidéo ponctuelle → une série courte","un post social → contenu + relais event","une campagne produit → relation récurrente","une activation simple → présence éditorialisée","un lancement → avant / pendant / après","un one-shot → discussion d'ambassadorat"]},{n:"02",t:"Garder la relation",items:["récupérer le bon contact","comprendre le prochain moment de marque","noter le type de budget","identifier les catégories à venir","savoir quand revenir"]},{n:"03",t:"Post-campagne obligatoire",items:["retour simple sur ce qui a marché","prochains temps forts","autres équipes ou interlocuteurs","suite plus ambitieuse à ouvrir"]}].map((col,i)=><div key={i} style={{padding:"20px 22px",borderRadius:14,background:col.accent?t.a+"18":t.card,border:`1px solid ${col.accent?t.a+"40":t.brd}`,display:"flex",flexDirection:"column"}}><div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:14}}><div style={{...se,fontSize:30,fontWeight:900,color:t.a,lineHeight:1}}>{col.n}</div><div style={{...sa,fontSize:15,fontWeight:800,color:t.c,lineHeight:1.25}}>{col.t}</div></div><div style={{display:"flex",flexDirection:"column",gap:7}}>{col.items.map((it,j)=><div key={j} style={{...sa,fontSize:12.5,color:col.accent?t.cardT:t.m,lineHeight:1.5}}>{it}</div>)}</div></div>)}</div><div style={{marginTop:24,padding:"14px 22px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,display:"flex",alignItems:"center",gap:10}}>{["Brief reçu","Qualification","Collaboration ou abandon","Contact retenu","Prochaine opportunité"].map((x,i)=><span key={i} style={{display:"flex",alignItems:"center",gap:10,flex:1}}><span style={{...mo,fontSize:11,fontWeight:700,letterSpacing:1.5,color:i===4?t.a:t.m,flex:1,textAlign:"center"}}>{x.toUpperCase()}</span>{i<4&&<span style={{color:t.d,fontSize:13}}>›</span>}</span>)}</div><div style={{marginTop:18,padding:"12px 22px",borderLeft:`3px solid ${t.a}`}}><div style={{...se,fontSize:20,fontWeight:800,color:t.c,fontStyle:"italic",lineHeight:1.4}}>Un brief perdu doit devenir une future opportunité qualifiée.</div></div></div>},
 
 {title:"Layer 2 · devenir un réflexe agences",
-r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 2 · AGENCES</div><Hl t={t} s={{fontSize:42,marginBottom:12}}>Devenir un réflexe avant que le brief ne sorte.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:900,marginBottom:24}}>Les agences voient passer plusieurs marques, plusieurs briefs et plusieurs budgets. Avec 4 talents, on n'essaie pas d'être partout — il faut qu'elles comprennent précisément <span style={{color:t.c,fontWeight:700}}>qui sont les talents, dans quels contextes ils sont forts et pourquoi ils sont crédibles</span>.</div><div style={{display:"flex",flexDirection:"column",gap:10}}>{[{n:"01",t:"Mapper les bonnes agences",render:()=><div style={{display:"flex",flexWrap:"wrap",gap:6}}>{["Influence","Social / Content","Pub","Média","Événementiel","Intégrées (grands groupes)"].map((x,i)=><span key={i} style={{...mo,fontSize:11,fontWeight:700,padding:"7px 14px",borderRadius:999,background:t.a+"18",color:t.c,border:`1px solid ${t.a}30`}}>{x}</span>)}</div>},{n:"02",t:"Dans chaque agence, identifier",render:()=><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.75}}>les personnes qui sourcent les talents · celles qui recommandent aux marques · celles qui tiennent la relation client · celles qui gèrent les budgets influence, social et contenu</div>},{n:"03",t:"Créer la relation hors brief",render:()=><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.75}}>cafés · visios courtes · déjeuners · updates ciblés · rencontres autour d'un talent ou d'un territoire</div>}].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"68px 260px 1fr",gap:24,alignItems:"start",padding:"18px 22px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...se,fontSize:30,fontWeight:900,color:t.a,lineHeight:1}}>{row.n}</div><div style={{...sa,fontSize:16,fontWeight:800,color:t.cardT,paddingTop:4}}>{row.t}</div><div style={{paddingTop:2}}>{row.render()}</div></div>)}</div></div>},
+r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 2 · AGENCES</div><Hl t={t} s={{fontSize:42,marginBottom:12}}>Devenir un réflexe avant que le brief ne sorte.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:900,marginBottom:24}}>Les agences voient passer plusieurs marques, plusieurs briefs et plusieurs budgets. Avec 4 talents, on n'essaie pas d'être partout - il faut qu'elles comprennent précisément <span style={{color:t.c,fontWeight:700}}>qui sont les talents, dans quels contextes ils sont forts et pourquoi ils sont crédibles</span>.</div><div style={{display:"flex",flexDirection:"column",gap:10}}>{[{n:"01",t:"Mapper les bonnes agences",render:()=><div style={{display:"flex",flexWrap:"wrap",gap:6}}>{["Influence","Social / Content","Pub","Média","Événementiel","Intégrées (grands groupes)"].map((x,i)=><span key={i} style={{...mo,fontSize:11,fontWeight:700,padding:"7px 14px",borderRadius:999,background:t.a+"18",color:t.c,border:`1px solid ${t.a}30`}}>{x}</span>)}</div>},{n:"02",t:"Dans chaque agence, identifier",render:()=><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.75}}>les personnes qui sourcent les talents · celles qui recommandent aux marques · celles qui tiennent la relation client · celles qui gèrent les budgets influence, social et contenu</div>},{n:"03",t:"Créer la relation hors brief",render:()=><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.75}}>cafés · visios courtes · déjeuners · updates ciblés · rencontres autour d'un talent ou d'un territoire</div>}].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"68px 260px 1fr",gap:24,alignItems:"start",padding:"18px 22px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...se,fontSize:30,fontWeight:900,color:t.a,lineHeight:1}}>{row.n}</div><div style={{...sa,fontSize:16,fontWeight:800,color:t.cardT,paddingTop:4}}>{row.t}</div><div style={{paddingTop:2}}>{row.render()}</div></div>)}</div></div>},
 
 {title:"Layer 2 · donner de la matière utile",
-r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 2 · AGENCES</div><Hl t={t} s={{fontSize:42,marginBottom:24}}>Utile à la réflexion, pas seulement au brief.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}><div style={{padding:"22px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:10}}>PAS UN DECK GÉNÉRIQUE</div><div style={{...se,fontSize:23,fontWeight:800,color:t.cardT,marginBottom:16,lineHeight:1.2}}>Une matière courte et concrète.</div>{["Les 4 talents","Leur territoire","Leurs formats forts","Les catégories de marques pertinentes","Les collaborations à éviter","Les moments d'actualité","Les formats imaginables avec eux"].map((x,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none",lineHeight:1.45}}>{x}</div>)}</div><div style={{padding:"22px 26px",borderRadius:14,background:t.a+"18",border:`1px solid ${t.a}40`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:10}}>AIDER L'AGENCE À MIEUX PENSER</div><div style={{...se,fontSize:23,fontWeight:800,color:t.cardT,marginBottom:16,lineHeight:1.2}}>L'usage d'un talent.</div>{["Le brief est-il crédible ?","Le format est-il naturel ?","La marque est-elle compatible ?","Le talent peut-il incarner le sujet ?","Y a-t-il un risque d'intégration forcée ?"].map((x,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<4?`1px solid ${t.a}30`:"none",lineHeight:1.45,paddingLeft:18,position:"relative"}}><span style={{position:"absolute",left:0,color:t.a,fontWeight:800}}>?</span>{x}</div>)}</div></div><div style={{marginTop:18,padding:"14px 22px",borderLeft:`3px solid ${t.a}`}}><div style={{...se,fontSize:20,fontWeight:800,color:t.c,fontStyle:"italic",lineHeight:1.4}}>L'agence voit FAR comme un interlocuteur qui protège la qualité — pas comme un fournisseur de talents.</div></div></div>},
+r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 2 · AGENCES</div><Hl t={t} s={{fontSize:42,marginBottom:24}}>Utile à la réflexion, pas seulement au brief.</Hl><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}><div style={{padding:"22px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:10}}>PAS UN DECK GÉNÉRIQUE</div><div style={{...se,fontSize:23,fontWeight:800,color:t.cardT,marginBottom:16,lineHeight:1.2}}>Une matière courte et concrète.</div>{["Les 4 talents","Leur territoire","Leurs formats forts","Les catégories de marques pertinentes","Les collaborations à éviter","Les moments d'actualité","Les formats imaginables avec eux"].map((x,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none",lineHeight:1.45}}>{x}</div>)}</div><div style={{padding:"22px 26px",borderRadius:14,background:t.a+"18",border:`1px solid ${t.a}40`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:10}}>AIDER L'AGENCE À MIEUX PENSER</div><div style={{...se,fontSize:23,fontWeight:800,color:t.cardT,marginBottom:16,lineHeight:1.2}}>L'usage d'un talent.</div>{["Le brief est-il crédible ?","Le format est-il naturel ?","La marque est-elle compatible ?","Le talent peut-il incarner le sujet ?","Y a-t-il un risque d'intégration forcée ?"].map((x,i)=><div key={i} style={{...sa,fontSize:13.5,color:t.cardT,padding:"7px 0",borderBottom:i<4?`1px solid ${t.a}30`:"none",lineHeight:1.45,paddingLeft:18,position:"relative"}}><span style={{position:"absolute",left:0,color:t.a,fontWeight:800}}>?</span>{x}</div>)}</div></div><div style={{marginTop:18,padding:"14px 22px",borderLeft:`3px solid ${t.a}`}}><div style={{...se,fontSize:20,fontWeight:800,color:t.c,fontStyle:"italic",lineHeight:1.4}}>L'agence voit FAR comme un interlocuteur qui protège la qualité - pas comme un fournisseur de talents.</div></div></div>},
 
 {title:"Layer 3 · entrer par la discussion",
 r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>LAYER 3 · MARQUES DIRECTES</div><Hl t={t} s={{fontSize:40,marginBottom:14}}>On n'arrive pas avec une idée toute faite.</Hl><div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.65,maxWidth:980,marginBottom:6}}>D'abord, ouvrir une vraie discussion : où en est la marque, quels sont ses prochains lancements, quelle cible, quel problème d'image, quel rôle les talents peuvent-ils jouer ? Visibilité, désirabilité, contenu, crédibilité, proximité ? Court terme ou long terme ?</div><BrancheSchema t={t}/><div style={{marginTop:14,...se,fontSize:22,fontWeight:800,color:t.c,fontStyle:"italic",lineHeight:1.4}}>On ne force pas une idée. On écoute, on comprend, puis on ouvre la bonne branche.</div></div>},
@@ -742,10 +742,10 @@ r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:
 r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>PRIORITÉS MARQUES</div><Hl t={t} s={{fontSize:42,marginBottom:12}}>Avec 4 talents, on choisit avec précision.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:900,marginBottom:22}}>Pas des logos pour des logos. On va chercher les marques qui peuvent <span style={{color:t.c,fontWeight:700}}>réellement construire quelque chose</span> avec les talents existants.</div><div style={{display:"grid",gridTemplateColumns:"1.15fr 1fr",gap:14}}><div style={{padding:"20px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:14}}>CRITÈRES DE PRIORITÉ</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2px 20px"}}>{["Capacité à travailler sur plusieurs temps","Capacité de budget suffisante","Besoin d'incarnation","Recherche de désirabilité","Au-delà du post sponsorisé","Potentiel d'ambassadorat","Potentiel de co-branding","Temps forts réguliers","Compatibilité avec un univers FAR"].map((x,i)=><div key={i} style={{...sa,fontSize:12.5,color:t.cardT,padding:"7px 0",borderBottom:`1px solid ${t.brd}`,lineHeight:1.4}}>{x}</div>)}</div></div><div style={{padding:"20px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:14}}>TYPOLOGIES À VISER</div>{["Marques déjà habituées aux talents","Marques premium qui veulent rajeunir leur image","Challenger brands","Marques avec lancements fréquents","Marques qui ont besoin d'incarnation"].map((x,i)=><div key={i} style={{display:"flex",alignItems:"baseline",gap:16,padding:"9px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none"}}><span style={{...se,fontSize:22,fontWeight:900,color:t.a,lineHeight:1,minWidth:34}}>{String(i+1).padStart(2,"0")}</span><span style={{...sa,fontSize:13.5,color:t.cardT,fontWeight:600,lineHeight:1.4}}>{x}</span></div>)}</div></div><div style={{marginTop:14,padding:"18px 24px",borderRadius:14,background:"#1A1A1A"}}><div style={{display:"flex",alignItems:"baseline",gap:14,marginBottom:14}}><div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a}}>FICHE MARQUE SIMPLE</div><div style={{flex:1,height:1,background:"rgba(255,255,255,.12)"}}/><div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:1.5,color:"#888"}}>6 CHAMPS</div></div><div style={{display:"grid",gridTemplateColumns:"repeat(6,1fr)",gap:0}}>{["Pourquoi cette marque","Quel talent FAR crédible","Type d'ouverture","Contact prioritaire","Timing","Prochaine action"].map((x,i)=><div key={i} style={{padding:"4px 14px",borderLeft:i>0?"1px solid rgba(255,255,255,.12)":"none"}}><div style={{...mo,fontSize:9,fontWeight:700,letterSpacing:1.5,color:t.a,marginBottom:6}}>{String(i+1).padStart(2,"0")}</div><div style={{...sa,fontSize:12,color:"#fff",fontWeight:600,lineHeight:1.35}}>{x}</div></div>)}</div></div></div>},
 
 {title:"Système commercial · pipeline",
-r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>SYSTÈME COMMERCIAL</div><Hl t={t} s={{fontSize:42,marginBottom:8}}>Chaque contact, une opportunité.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:880,marginBottom:4}}>Pas un échange isolé. Un suivi en 10 étapes — et un CRM qui répond à une seule question.</div><PipelineSchema t={t} steps={["Contact identifié","Premier échange lancé","Besoin qualifié","Route choisie","Proposition envoyée","Négociation","Signé","Post-campagne","Prochaine opportunité","Relation maintenue"]}/><div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:14}}><div style={{padding:"20px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>CE QU'ON GARDE DANS LE CRM</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2px 18px"}}>{["contacts clés","historique des échanges","talent concerné","briefs reçus","budgets connus ou supposés","catégories d'intérêt","objections","prochains temps forts","prochaine action","niveau de chaleur"].map((x,i)=><div key={i} style={{...sa,fontSize:13,color:t.cardT,padding:"6px 0",borderBottom:i<8?`1px solid ${t.brd}`:"none",lineHeight:1.4}}>{x}</div>)}</div></div><div style={{padding:"20px 24px",borderRadius:14,background:t.a+"20",border:`1px solid ${t.a}45`,display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>UNE SEULE QUESTION</div><div style={{...se,fontSize:26,fontWeight:800,color:t.c,lineHeight:1.25,marginBottom:10}}>Qu'est-ce qu'on fait ensuite avec ce contact ?</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55,fontStyle:"italic"}}>Le CRM sert le suivi, pas le reporting.</div></div></div></div>},
+r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>SYSTÈME COMMERCIAL</div><Hl t={t} s={{fontSize:42,marginBottom:8}}>Chaque contact, une opportunité.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:880,marginBottom:4}}>Pas un échange isolé. Un suivi en 10 étapes - et un CRM qui répond à une seule question.</div><PipelineSchema t={t} steps={["Contact identifié","Premier échange lancé","Besoin qualifié","Route choisie","Proposition envoyée","Négociation","Signé","Post-campagne","Prochaine opportunité","Relation maintenue"]}/><div style={{display:"grid",gridTemplateColumns:"1.2fr 1fr",gap:14}}><div style={{padding:"20px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>CE QU'ON GARDE DANS LE CRM</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2px 18px"}}>{["contacts clés","historique des échanges","talent concerné","briefs reçus","budgets connus ou supposés","catégories d'intérêt","objections","prochains temps forts","prochaine action","niveau de chaleur"].map((x,i)=><div key={i} style={{...sa,fontSize:13,color:t.cardT,padding:"6px 0",borderBottom:i<8?`1px solid ${t.brd}`:"none",lineHeight:1.4}}>{x}</div>)}</div></div><div style={{padding:"20px 24px",borderRadius:14,background:t.a+"20",border:`1px solid ${t.a}45`,display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>UNE SEULE QUESTION</div><div style={{...se,fontSize:26,fontWeight:800,color:t.c,lineHeight:1.25,marginBottom:10}}>Qu'est-ce qu'on fait ensuite avec ce contact ?</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.55,fontStyle:"italic"}}>Le CRM sert le suivi, pas le reporting.</div></div></div></div>},
 
 {title:"Talents à recruter · repérage",
-r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>TALENTS · REPÉRAGE</div><Hl t={t} s={{fontSize:38,marginBottom:14}}>Pas une course au volume, une logique de complémentarité.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:880,marginBottom:22}}>FAR a 4 talents aujourd'hui. Les prochains recrutements comblent des espaces précis, pas des noms en plus.</div><div style={{display:"grid",gridTemplateColumns:"0.85fr 1.15fr",gap:14,alignItems:"stretch"}}><div style={{padding:"24px 26px",borderRadius:14,background:t.a+"20",border:`1px solid ${t.a}45`,display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>SIGNAL PRIORITAIRE — YOUTUBE</div><div style={{display:"flex",alignItems:"baseline",gap:6,marginBottom:10}}><div style={{...se,fontSize:72,fontWeight:900,color:t.c,lineHeight:.9,letterSpacing:"-0.04em"}}>300<span style={{color:t.a}}>—</span>500</div><div style={{...se,fontSize:32,fontWeight:800,color:t.c,lineHeight:1}}>k</div></div><div style={{...sa,fontSize:14,color:t.cardT,fontWeight:600,marginBottom:6,lineHeight:1.45}}>vues moyennes à 30 jours.</div><div style={{...sa,fontSize:13,color:t.m,fontStyle:"italic",lineHeight:1.5}}>Plus fiable que le nombre d'abonnés.</div></div><div style={{padding:"20px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>CE QU'ON REGARDE VRAIMENT</div>{[{t:"Vues moyennes 30j",d:"Plus fiable que les abonnés."},{t:"Régularité",d:"Mieux qu'un hit isolé."},{t:"Territoire clair",d:"L'univers se dit en une phrase."},{t:"Compatibilité marque",d:"Intégrer sans abîmer le contenu."},{t:"Qualité de communauté",d:"Commentaires, références, habitudes."},{t:"Sous-monétisation",d:"Traction forte, potentiel non structuré."},{t:"Complémentarité",d:"Ce qu'il ouvre que FAR n'a pas encore."}].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"46px 190px 1fr",gap:14,alignItems:"baseline",padding:"8px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none"}}><span style={{...se,fontSize:20,fontWeight:900,color:t.a,lineHeight:1}}>{String(i+1).padStart(2,"0")}</span><span style={{...sa,fontSize:13.5,fontWeight:700,color:t.cardT}}>{x.t}</span><span style={{...sa,fontSize:12.5,color:t.m,lineHeight:1.45}}>{x.d}</span></div>)}</div></div></div>},
+r:t=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>TALENTS · REPÉRAGE</div><Hl t={t} s={{fontSize:38,marginBottom:14}}>Pas une course au volume, une logique de complémentarité.</Hl><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:880,marginBottom:22}}>FAR a 4 talents aujourd'hui. Les prochains recrutements comblent des espaces précis, pas des noms en plus.</div><div style={{display:"grid",gridTemplateColumns:"0.85fr 1.15fr",gap:14,alignItems:"stretch"}}><div style={{padding:"24px 26px",borderRadius:14,background:t.a+"20",border:`1px solid ${t.a}45`,display:"flex",flexDirection:"column",justifyContent:"center"}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>SIGNAL PRIORITAIRE - YOUTUBE</div><div style={{display:"flex",alignItems:"baseline",gap:6,marginBottom:10}}><div style={{...se,fontSize:72,fontWeight:900,color:t.c,lineHeight:.9,letterSpacing:"-0.04em"}}>300<span style={{color:t.a}}>-</span>500</div><div style={{...se,fontSize:32,fontWeight:800,color:t.c,lineHeight:1}}>k</div></div><div style={{...sa,fontSize:14,color:t.cardT,fontWeight:600,marginBottom:6,lineHeight:1.45}}>vues moyennes à 30 jours.</div><div style={{...sa,fontSize:13,color:t.m,fontStyle:"italic",lineHeight:1.5}}>Plus fiable que le nombre d'abonnés.</div></div><div style={{padding:"20px 26px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:2,marginBottom:12}}>CE QU'ON REGARDE VRAIMENT</div>{[{t:"Vues moyennes 30j",d:"Plus fiable que les abonnés."},{t:"Régularité",d:"Mieux qu'un hit isolé."},{t:"Territoire clair",d:"L'univers se dit en une phrase."},{t:"Compatibilité marque",d:"Intégrer sans abîmer le contenu."},{t:"Qualité de communauté",d:"Commentaires, références, habitudes."},{t:"Sous-monétisation",d:"Traction forte, potentiel non structuré."},{t:"Complémentarité",d:"Ce qu'il ouvre que FAR n'a pas encore."}].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"46px 190px 1fr",gap:14,alignItems:"baseline",padding:"8px 0",borderBottom:i<6?`1px solid ${t.brd}`:"none"}}><span style={{...se,fontSize:20,fontWeight:900,color:t.a,lineHeight:1}}>{String(i+1).padStart(2,"0")}</span><span style={{...sa,fontSize:13.5,fontWeight:700,color:t.cardT}}>{x.t}</span><span style={{...sa,fontSize:12.5,color:t.m,lineHeight:1.45}}>{x.d}</span></div>)}</div></div></div>},
 
 {title:"Pipeline de prise de contact talents",
 r:(t,back)=><div><div style={{...mo,fontSize:11,fontWeight:800,color:t.a,letterSpacing:3,marginBottom:14}}>TALENTS · PRISE DE CONTACT</div><Hl t={t} s={{fontSize:38,marginBottom:22}}>3 étapes en amont, jamais d'approche vague.</Hl><div style={{display:"grid",gridTemplateColumns:"1.1fr 1fr 1fr",gap:14}}>{[{n:"01",t:"Repérage",render:()=><><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1.8,marginBottom:8}}>SOURCES</div><div style={{...sa,fontSize:12.5,color:t.cardT,lineHeight:1.65,marginBottom:14}}>YouTube · TikTok · Twitch · Instagram · recos talents proches · monteurs · producteurs · DA · photographes · marques partenaires · événements · cercles créatifs</div><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1.8,marginBottom:8}}>SIGNAUX</div>{["Progression rapide des vues","Vidéos solides à 30 jours","Communauté active","Commence à attirer les marques","Semble mal accompagné","Collabs faibles vs audience forte","Potentiel d'ambassadorat / co-branding"].map((x,j)=><div key={j} style={{...sa,fontSize:12,color:t.m,padding:"4px 0",lineHeight:1.4}}>· {x}</div>)}</>},{n:"02",t:"Qualification avant contact",render:()=><><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1.8,marginBottom:8}}>FICHE COURTE</div>{["Vues moyennes YouTube 30j","Trois contenus représentatifs","Territoire éditorial","Audience supposée","Marques déjà faites","Marques qui pourraient matcher","Présence d'un agent / manager","Complémentarité avec le roster FAR","Raison précise pour laquelle FAR peut l'aider"].map((x,j)=><div key={j} style={{...sa,fontSize:12.5,color:t.cardT,padding:"6px 0",borderBottom:j<8?`1px solid ${t.brd}`:"none",lineHeight:1.4}}>{x}</div>)}</>},{n:"03",t:"Meilleure porte d'entrée",render:()=><><div style={{...mo,fontSize:10,fontWeight:800,color:t.a,letterSpacing:1.8,marginBottom:8}}>ORDRE DE PRÉFÉRENCE</div>{["Intro par quelqu'un de confiance","Intro par un talent FAR ou proche","Intro par un créatif, producteur, monteur ou DA","Contact via une marque partenaire","DM personnel et précis","Email professionnel si disponible"].map((x,j)=><div key={j} style={{display:"flex",alignItems:"baseline",gap:12,padding:"7px 0",borderBottom:j<5?`1px solid ${t.brd}`:"none"}}><span style={{...se,fontSize:18,fontWeight:900,color:j===0?t.a:t.d,lineHeight:1,minWidth:18}}>{j+1}</span><span style={{...sa,fontSize:12.5,color:t.cardT,lineHeight:1.4}}>{x}</span></div>)}</>}].map((col,i)=><div key={i} style={{padding:"20px 22px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${t.brd}`}}><div style={{...se,fontSize:32,fontWeight:900,color:t.a,lineHeight:1}}>{col.n}</div><div style={{...sa,fontSize:14.5,fontWeight:800,color:t.cardT,lineHeight:1.2}}>{col.t}</div></div>{col.render()}</div>)}</div><div style={{marginTop:18,padding:"14px 22px",borderLeft:`3px solid ${t.a}`}}><div style={{...se,fontSize:20,fontWeight:800,color:t.c,fontStyle:"italic",lineHeight:1.4}}>Une approche courte, mais préparée. Une vraie lecture derrière, pas un recrutement au hasard.</div></div>{back&&<div style={{textAlign:"center",marginTop:20}}><button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button></div>}</div>},
@@ -1049,7 +1049,7 @@ const DispositifsRow = ({focus="all",compact=false}) => {
 };
 const SOtacosPepe = [
 
-// 01 — COVER (logos + 1 phrase)
+// 01 - COVER (logos + 1 phrase)
 {title:"O'Tacos × Pepe Chicken",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1064,7 +1064,7 @@ r:t=><div>
   </div>
 </div>},
 
-// 02 — ENJEUX (fidèle au PDF, principe + 5 enjeux)
+// 02 - ENJEUX (fidèle au PDF, principe + 5 enjeux)
 {title:"Enjeux",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1086,7 +1086,7 @@ r:t=><div>
   </Wc>)}</div>
 </div>},
 
-// 03 — VALORISATION O'TACOS (mesurée, transition naturelle)
+// 03 - VALORISATION O'TACOS (mesurée, transition naturelle)
 {title:"O'Tacos a les fondations pour réussir cette LTO",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1103,7 +1103,7 @@ r:t=><div>
   </Wc>)}</div>
 </div>},
 
-// 04 — TEASING centré (titre + 1 phrase)
+// 04 - TEASING centré (titre + 1 phrase)
 {title:"Mais on a une arme à mobiliser",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1113,7 +1113,7 @@ r:t=><div>
   </div>
 </div>},
 
-// 05 — FGC REVEAL (modèle présentation créateur : photo à droite, infos à gauche)
+// 05 - FGC REVEAL (modèle présentation créateur : photo à droite, infos à gauche)
 {title:"FastGoodCuisine",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1158,7 +1158,7 @@ r:t=><div>
   </div>
 </div>},
 
-// 06 — INTERCALAIRE DISPOSITIF 1 (focus 1 ; D2 et D3 floutés)
+// 06 - INTERCALAIRE DISPOSITIF 1 (focus 1 ; D2 et D3 floutés)
 {title:"Notre dispositif · D1",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1168,7 +1168,7 @@ r:t=><div>
   <DispositifsRow focus={1}/>
 </div>},
 
-// 07 — DISPOSITIF 1 DÉTAILLÉ (fidèle PDF v2 p.1)
+// 07 - DISPOSITIF 1 DÉTAILLÉ (fidèle PDF v2 p.1)
 {title:"Dispositif 1 · Roadmap",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1178,7 +1178,7 @@ r:t=><div>
   ].map(c=>({...c,format:typeof c.format==="string"?<div style={{whiteSpace:"pre-line"}}>{c.format}</div>:c.format}))}/>
 </div>},
 
-// 08 — INTERCALAIRE DISPOSITIF 2 (focus 2 ; D3 toujours flouté)
+// 08 - INTERCALAIRE DISPOSITIF 2 (focus 2 ; D3 toujours flouté)
 {title:"Notre dispositif · D2",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1188,7 +1188,7 @@ r:t=><div>
   <DispositifsRow focus={2}/>
 </div>},
 
-// 09 — DISPOSITIF 2 DÉTAILLÉ (fidèle PDF v2 p.2)
+// 09 - DISPOSITIF 2 DÉTAILLÉ (fidèle PDF v2 p.2)
 {title:"Dispositif 2 · Roadmap",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1203,7 +1203,7 @@ r:t=><div>
   ]}/>
 </div>},
 
-// 10 — INTERCALAIRE DISPOSITIF 3 (focus 3 ; tout est révélé, D3 mis en avant)
+// 10 - INTERCALAIRE DISPOSITIF 3 (focus 3 ; tout est révélé, D3 mis en avant)
 {title:"Notre dispositif · D3",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1213,7 +1213,7 @@ r:t=><div>
   <DispositifsRow focus={3}/>
 </div>},
 
-// 11 — DISPOSITIF 3 DÉTAILLÉ (fidèle PDF v2 p.3)
+// 11 - DISPOSITIF 3 DÉTAILLÉ (fidèle PDF v2 p.3)
 {title:"Dispositif 3 · Roadmap",
 r:t=><div>
   <FarHeader t={t}/>
@@ -1231,7 +1231,7 @@ r:t=><div>
   ]}/>
 </div>},
 
-// 12 — RÉCAPITULATIF (alignement propre, textes blancs harmonisés, badge ristourne custom)
+// 12 - RÉCAPITULATIF (alignement propre, textes blancs harmonisés, badge ristourne custom)
 {title:"Récapitulatif",
 r:t=>{const offers=[
     {n:"DISPOSITIF 1",total:10,full:"100 000€",discountPct:null,final:"100 000€",col:"#171006",badge:"#FFC400",badgeT:"#171006",cols:[
@@ -1293,7 +1293,7 @@ r:t=>{const offers=[
     </div>)}</div>
   </div>;}},
 
-// 13 — MERCI (juste MERCI)
+// 13 - MERCI (juste MERCI)
 {title:"Merci",
 r:t=><div style={{minHeight:"72vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
   <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:40}}>
@@ -1410,7 +1410,7 @@ r:(t,back)=>{
 // ═══════════════════════════════════════════════════════════════════════════════
 const SEdf = [
 {title:"Ouverture",
-r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center",position:"relative"}}><div style={{position:"absolute",inset:0,backgroundImage:"radial-gradient(circle at 50% 65%, rgba(254,80,0,.18) 0%, rgba(254,80,0,.06) 28%, transparent 60%)",pointerEvents:"none"}}/><div style={{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{display:"flex",alignItems:"center",gap:24,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:36,background:"rgba(255,255,255,.2)"}}/><img src={pu("/edf-logo.png")} alt="EDF" style={{width:88,height:"auto",filter:"brightness(0) invert(1)"}}/><div style={{width:1,height:36,background:"rgba(255,255,255,.2)"}}/><img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:60,height:60,borderRadius:"50%",objectFit:"cover",border:"2px solid rgba(255,255,255,.2)"}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:24,color:t.a}}>EDF × CYRILMP4 — LE GRAND TOUR SAISON 2</div><Hl t={t} s={{fontSize:54,textAlign:"center",maxWidth:880,margin:"0 auto 24px"}}>On marche sur un réacteur nucléaire.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:760,margin:"0 auto"}}>Une immersion documentaire au cœur de la centrale du Bugey. Le terrain de jeu rêvé pour le format signature de Cyril.</div></div></div>},
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"65vh",textAlign:"center",position:"relative"}}><div style={{position:"absolute",inset:0,backgroundImage:"radial-gradient(circle at 50% 65%, rgba(254,80,0,.18) 0%, rgba(254,80,0,.06) 28%, transparent 60%)",pointerEvents:"none"}}/><div style={{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center"}}><div style={{display:"flex",alignItems:"center",gap:24,marginBottom:40}}><FarLogo size={80} variant={t.lv}/><div style={{width:1,height:36,background:"rgba(255,255,255,.2)"}}/><img src={pu("/edf-logo.png")} alt="EDF" style={{width:88,height:"auto",filter:"brightness(0) invert(1)"}}/><div style={{width:1,height:36,background:"rgba(255,255,255,.2)"}}/><img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:60,height:60,borderRadius:"50%",objectFit:"cover",border:"2px solid rgba(255,255,255,.2)"}}/></div><div style={{...mo,fontSize:12,fontWeight:600,padding:"8px 16px",background:t.pill,borderRadius:6,display:"inline-block",marginBottom:24,color:t.a}}>EDF × CYRILMP4 - LE GRAND TOUR SAISON 2</div><Hl t={t} s={{fontSize:54,textAlign:"center",maxWidth:880,margin:"0 auto 24px"}}>On marche sur un réacteur nucléaire.</Hl><div style={{...sa,fontSize:20,color:t.m,lineHeight:1.5,maxWidth:760,margin:"0 auto"}}>Une immersion documentaire au cœur de la centrale du Bugey. Le terrain de jeu rêvé pour le format signature de Cyril.</div></div></div>},
 
 {title:"Cyril, créateur partenaire",
 r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}><div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}><Tg t={t}>POURQUOI CYRILMP4</Tg><Hl t={t} s={{fontSize:36}}>Le créateur fait pour ce contenu exceptionnel.</Hl><Sh t={t}>Format signature « docu-vlog » qui combine narration documentaire et immersion personnelle. Une tension narrative et une proximité rares dans la creator economy française.</Sh><div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:24}}>{[{v:"5M",l:"abonnés YouTube"},{v:"1,3M",l:"abonnés Instagram"},{v:"545k",l:"abonnés Twitch"},{v:"1,5%",l:"taux d'engagement"}].map((s,i)=><div key={i} style={{padding:"14px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:24,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>{[{t:"Format signature",d:"Le docu-vlog : narration documentaire + vlog immersif. Une tension narrative et une proximité rares."},{t:"L'explorateur",d:"Sous-marin abandonné, base spatiale interdite, lieux inaccessibles : il sait raconter l'extraordinaire."},{t:"Performance",d:"≈ 530 K vues moyennes YouTube · ≈ 285 K vues moyennes Instagram sur les 5 dernières collabs."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"10px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:130}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}</div><div style={{flex:2,borderRadius:16,overflow:"hidden",flexShrink:0}}><img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16}}/></div></div>},
@@ -1422,7 +1422,7 @@ r:t=><div><Tg t={t}>INSIGHT</Tg><Hl t={t} s={{fontSize:36}}>EDF possède exactem
 r:t=><div><div style={{textAlign:"center",padding:"16px 0 8px"}}><div style={{...mo,fontSize:14,fontWeight:800,letterSpacing:3,color:t.a,marginBottom:20}}>BIG IDEA</div><div style={{...se,fontSize:60,fontWeight:800,lineHeight:1.05,marginBottom:24}}>« On marche sur un<br/>réacteur nucléaire. »</div><div style={{...sa,fontSize:18,color:t.m,lineHeight:1.7,maxWidth:780,margin:"0 auto 24px"}}>Une immersion totale au cœur de la centrale du Bugey. Cyril suit les opérateurs dans leurs phases de surveillance et de contrôle. Une plongée jamais filmée à ce niveau dans les coulisses d'EDF.</div></div><div style={{display:"flex",justifyContent:"center"}}><svg width="260" height="260" viewBox="0 0 280 280" style={{opacity:.92}}><defs><radialGradient id="edfcore" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#FE5000" stopOpacity="0.95"/><stop offset="55%" stopColor="#FE5000" stopOpacity="0.32"/><stop offset="100%" stopColor="#FE5000" stopOpacity="0"/></radialGradient></defs><circle cx="140" cy="140" r="130" fill="none" stroke="rgba(74,143,224,.20)" strokeWidth="1"/><circle cx="140" cy="140" r="100" fill="none" stroke="rgba(74,143,224,.32)" strokeWidth="1"/><circle cx="140" cy="140" r="72" fill="none" stroke="rgba(254,80,0,.45)" strokeWidth="1.5"/><circle cx="140" cy="140" r="48" fill="url(#edfcore)"/><circle cx="140" cy="140" r="14" fill="#FE5000"/><ellipse cx="140" cy="140" rx="120" ry="40" fill="none" stroke="rgba(254,80,0,.28)" strokeWidth="1" transform="rotate(30 140 140)"/><ellipse cx="140" cy="140" rx="120" ry="40" fill="none" stroke="rgba(254,80,0,.28)" strokeWidth="1" transform="rotate(-30 140 140)"/><ellipse cx="140" cy="140" rx="120" ry="40" fill="none" stroke="rgba(254,80,0,.28)" strokeWidth="1" transform="rotate(90 140 140)"/></svg></div></div>},
 
 {title:"Le terrain : la centrale du Bugey",
-r:t=><div><Tg t={t}>LE TERRAIN</Tg><Hl t={t} s={{fontSize:38}}>La plus ancienne centrale en activité de France.</Hl><Sh t={t}>Un site légitime, hors normes, qui célèbre cette année ses 40 ans, à la croisée de l'héritage industriel et de l'expertise humaine.</Sh><div style={{display:"flex",gap:14,marginTop:24}}>{[{v:"40",l:"ans en activité — la plus ancienne de France"},{v:"1/3",l:"de la consommation d'électricité d'Auvergne-Rhône-Alpes"},{v:"80",l:"ans d'EDF — un cadre commémoratif fort"}].map((s,i)=><div key={i} style={{flex:1,padding:"24px 22px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`,textAlign:"left"}}><div style={{...se,fontSize:48,fontWeight:800,color:t.a,lineHeight:1}}>{s.v}</div><div style={{...sa,fontSize:14,color:t.m,marginTop:10,lineHeight:1.5}}>{s.l}</div></div>)}</div><div style={{marginTop:24,padding:"22px 28px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.6,flexShrink:0}}>FENÊTRE EXCEPTIONNELLE</div><div style={{...sa,fontSize:16,lineHeight:1.55,color:t.thT}}>Un des réacteurs sera mis à l'arrêt début mai pour maintenance, ouvrant exceptionnellement l'accès à des zones habituellement inaccessibles, jusqu'au bâtiment réacteur. Un cadre rare et spectaculaire pour le contenu.</div></div></div>},
+r:t=><div><Tg t={t}>LE TERRAIN</Tg><Hl t={t} s={{fontSize:38}}>La plus ancienne centrale en activité de France.</Hl><Sh t={t}>Un site légitime, hors normes, qui célèbre cette année ses 40 ans, à la croisée de l'héritage industriel et de l'expertise humaine.</Sh><div style={{display:"flex",gap:14,marginTop:24}}>{[{v:"40",l:"ans en activité - la plus ancienne de France"},{v:"1/3",l:"de la consommation d'électricité d'Auvergne-Rhône-Alpes"},{v:"80",l:"ans d'EDF - un cadre commémoratif fort"}].map((s,i)=><div key={i} style={{flex:1,padding:"24px 22px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`,textAlign:"left"}}><div style={{...se,fontSize:48,fontWeight:800,color:t.a,lineHeight:1}}>{s.v}</div><div style={{...sa,fontSize:14,color:t.m,marginTop:10,lineHeight:1.5}}>{s.l}</div></div>)}</div><div style={{marginTop:24,padding:"22px 28px",borderRadius:14,background:t.th,display:"flex",alignItems:"center",gap:16}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,color:t.thT,opacity:.6,flexShrink:0}}>FENÊTRE EXCEPTIONNELLE</div><div style={{...sa,fontSize:16,lineHeight:1.55,color:t.thT}}>Un des réacteurs sera mis à l'arrêt début mai pour maintenance, ouvrant exceptionnellement l'accès à des zones habituellement inaccessibles, jusqu'au bâtiment réacteur. Un cadre rare et spectaculaire pour le contenu.</div></div></div>},
 
 {title:"L'angle d'immersion",
 r:t=><div><Tg t={t}>L'ANGLE</Tg><Hl t={t} s={{fontSize:36}}>Un suivi immersif, pour des contenus exclusifs.</Hl><Sh t={t}>Mettre en lumière le fonctionnement des équipes qui pilotent les réacteurs en suivant les opérateurs dans leur quotidien : des moments rarement filmés et peu connus du grand public.</Sh><div style={{display:"flex",flexDirection:"column",gap:0,marginTop:28,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Une immersion complète",d:"Les phases de surveillance et de contrôle. Une dimension humaine et incarnée que personne n'a montrée."},{t:"Un format inédit",d:"Le suivi au plus près des équipes apporte un caractère exceptionnel et immersif au dispositif."},{t:"L'écho des 80 ans",d:"Le projet s'inscrit dans la volonté de valoriser les expertises et savoir-faire d'EDF, au-delà de la production d'énergie."}].map((item,i)=><div key={i} style={{display:"flex",gap:0,borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{width:280,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...se,fontSize:17,fontWeight:700,color:t.c}}>{item.t}</div></div><div style={{flex:1,padding:"28px 24px",display:"flex",alignItems:"center"}}><div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>{item.d}</div></div></div>)}</div></div>},
@@ -1440,10 +1440,10 @@ r:t=>{const items=[{t:"Format long YouTube",d:"15 à 30 min, sur la chaîne",ang
 r:t=><div><Tg t={t}>AMPLIFICATION MÉDIA</Tg><Hl t={t} s={{fontSize:34}}>Au-delà de l'organique, deux leviers paid signature.</Hl><Sh t={t}>Les assets produits sur la chaîne de Cyril deviennent un terrain de notoriété activable par EDF.</Sh><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginTop:24}}>{[{n:"01",t:"YouTube Partnership Ads",d:"L'asset créatif est la vidéo publiée directement sur la chaîne de Cyril. Le contenu reste sa propriété, EDF bénéficie d'une diffusion sponsorisée et amplifiée via YouTube.",hl:"Maximise la légitimité native + portée"},{n:"02",t:"Médiatisation formats courts",d:"Médiatisation des assets extraits sur les réseaux sociaux les plus adaptés (Meta / TikTok · 15 sec) selon un seuil minimum de vues.",hl:"Objectif notoriété sur les jeunes audiences"}].map((b,i)=><div key={i} style={{padding:"30px 28px",borderRadius:16,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"center",gap:12,marginBottom:14}}><div style={{...mo,fontSize:11,fontWeight:700,color:t.a}}>{b.n}</div><div style={{flex:1,height:1,background:t.brd}}/></div><div style={{...se,fontSize:22,fontWeight:700,marginBottom:14,color:t.c}}>{b.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6,marginBottom:16}}>{b.d}</div><div style={{padding:"10px 14px",borderRadius:8,background:t.a+"15"}}><div style={{...mo,fontSize:11,fontWeight:600,color:t.a}}>{b.hl}</div></div></div>)}</div><div style={{marginTop:20,padding:"18px 28px",borderRadius:12,background:t.cardAlt,...sa,fontSize:14,color:t.c,lineHeight:1.55}}>+ <span style={{fontWeight:700}}>Whitelisting créateur</span>, <span style={{fontWeight:700}}>retargeting viewers</span>, <span style={{fontWeight:700}}>assets site & CRM</span>, <span style={{fontWeight:700}}>earned media RP</span> activables sur 12 mois.</div></div>},
 
 {title:"Estimatif",
-r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent & diffusion (YouTube long, capsules, stories duo)",p:"280 - 320 k€"},{i:"Stratégie / cadrage / coordination FAR",p:"30 k€"},{i:"Production & post-production",p:"60 - 80 k€"},{i:"Droits d'usage digitaux (social, paid, site, CRM)",p:"25 - 35 k€"}]} total={{l:"Ballpark",v:"395 - 465 k€ HT"}} options={["YouTube Partnership Ads : à définir selon objectif notoriété","Médiatisation paid formats courts (Meta / TikTok) : à définir selon seuils vues","Extension saison 3 : sur devis selon périmètre"]}/><div style={{marginTop:28}}><div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>ROI</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}}>{[{v:"6,8M+",l:"audience cumulée organique exposée (YouTube + IG + Twitch)"},{v:"15-20",l:"assets exploitables en paid, social, CRM et RP — durée de vie 12 mois+"},{v:"1",l:"cas de référence inédit « Cyril × EDF nucléaire » activable en RP & B2B"}].map((r,i)=><div key={i} style={{padding:"18px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a,marginBottom:6}}>{r.v}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.4}}>{r.l}</div></div>)}</div></div></div>},
+r:t=><div style={{padding:"20px 0"}}><Tg t={t}>ESTIMATIF</Tg><div style={{height:16}}/><PT t={t} rows={[{i:"Talent & diffusion (YouTube long, capsules, stories duo)",p:"280 - 320 k€"},{i:"Stratégie / cadrage / coordination FAR",p:"30 k€"},{i:"Production & post-production",p:"60 - 80 k€"},{i:"Droits d'usage digitaux (social, paid, site, CRM)",p:"25 - 35 k€"}]} total={{l:"Ballpark",v:"395 - 465 k€ HT"}} options={["YouTube Partnership Ads : à définir selon objectif notoriété","Médiatisation paid formats courts (Meta / TikTok) : à définir selon seuils vues","Extension saison 3 : sur devis selon périmètre"]}/><div style={{marginTop:28}}><div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:14}}>ROI</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}}>{[{v:"6,8M+",l:"audience cumulée organique exposée (YouTube + IG + Twitch)"},{v:"15-20",l:"assets exploitables en paid, social, CRM et RP - durée de vie 12 mois+"},{v:"1",l:"cas de référence inédit « Cyril × EDF nucléaire » activable en RP & B2B"}].map((r,i)=><div key={i} style={{padding:"18px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a,marginBottom:6}}>{r.v}</div><div style={{...sa,fontSize:12,color:t.m,lineHeight:1.4}}>{r.l}</div></div>)}</div></div></div>},
 
 {title:"Next steps",
-r:t=><div><Tg t={t}>NEXT STEPS</Tg><div style={{height:20}}/><Stp t={t} items={["Workshop FAR × EDF × CYRILmp4 — alignement créatif & messages clés","Validation du brief évolutif et des conditions d'accès au site du Bugey","Choix du duo invité affinitaire par Cyril","Calage logistique et sécurité du tournage (mai)","Production : tournage 2 à 3 jours puis post-production","Mise à l'antenne synchronisée avec le récit des 80 ans d'EDF"]}/></div>},
+r:t=><div><Tg t={t}>NEXT STEPS</Tg><div style={{height:20}}/><Stp t={t} items={["Workshop FAR × EDF × CYRILmp4 - alignement créatif & messages clés","Validation du brief évolutif et des conditions d'accès au site du Bugey","Choix du duo invité affinitaire par Cyril","Calage logistique et sécurité du tournage (mai)","Production : tournage 2 à 3 jours puis post-production","Mise à l'antenne synchronisée avec le récit des 80 ans d'EDF"]}/></div>},
 
 {title:"Merci",
 r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{display:"flex",alignItems:"center",gap:24,marginBottom:48}}><FarLogo size={90} variant={t.lv}/><div style={{width:1,height:32,background:"rgba(255,255,255,.2)"}}/><img src={pu("/edf-logo.png")} alt="EDF" style={{width:80,height:"auto",filter:"brightness(0) invert(1)"}}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
@@ -1489,7 +1489,7 @@ function normalizeDeckId(raw) {
 }
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
-  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  10 slides",tag:"POSITIONNEMENT",card:"dark"},
+  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  8 slides",tag:"POSITIONNEMENT",card:"dark"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -2086,7 +2086,25 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 }
 
 // ─── HOME ─────────────────────────────────────────────────────────────────────
+const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "stratcom", logo: "far" }];
+const HOME_ARCHIVE = [
+  { id: "case1", logo: "far" },
+  { id: "case2", img: "/lebouseuh.png", imgType: "photo" },
+];
+const HOME_COOKING = [
+  { id: "shopify", img: "/shopify-logo.png", imgW: 110, filter: "brightness(0) invert(1)" },
+  { id: "rode", img: "/rode-logo-white.png", imgW: 80, filter: "none" },
+  { id: "fastgoodcuisine", img: "/fgc.webp", imgW: 76, filter: "none" },
+  { id: "fgcmarque", img: "/fgc.webp", imgW: 76, filter: "none" },
+  { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
+  { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
+  { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
+];
+
 function Home({onOpen}) {
+  const [tab, setTab] = useState("main");
   const cs = {
     dark:{bg:B,c:W,tBg:"rgba(255,176,0,.15)",tC:A},
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
@@ -2108,26 +2126,131 @@ function Home({onOpen}) {
           <div style={{width:1,height:32,background:"rgba(0,0,0,.12)"}}/>
           <span style={{...se,fontSize:22,fontWeight:700}}>THIBAULT LOUÉ</span>
         </div>
-        <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.3,marginTop:12}}>Candidature · Head of Sales & Business Development</div>
       </motion.div>
-      <motion.h1 initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:.6,delay:.1}} style={{...se,fontSize:54,lineHeight:1.05,marginBottom:60}}>Cas pratiques & activations marques</motion.h1>
-      <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>CAS PRATIQUES</div>
-      <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20,marginBottom:52,maxWidth:1155}}>
-        {[{id:"case1",logo:"far"},{id:"farposition",logo:"far"},{id:"stratcom",logo:"far"},{id:"case2",img:"/lebouseuh.png",imgType:"photo"}].map(({id,img,imgType,logo},idx)=>{const d=META[id];const st=cs[d.card];return(
-          <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.3+idx*.1}>
-            {logo==="far"&&<FarLogo size={90} variant="white"/>}
-            {img&&imgType==="photo"&&<img src={pu(img)} alt="" style={{width:100,height:100,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>}
-          </DeckCard>
-        );})}
+
+      <div style={{display:"flex",gap:8,marginBottom:40,flexWrap:"wrap"}}>
+        {[
+          { id: "main", label: "_decks & cooking" },
+          { id: "archive", label: "Archive" },
+        ].map(({ id, label }) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setTab(id)}
+            style={{
+              ...mo,
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              padding: "10px 18px",
+              borderRadius: 999,
+              border: tab === id ? "none" : "1px solid rgba(26,26,26,.12)",
+              background: tab === id ? B : "transparent",
+              color: tab === id ? A : B,
+              opacity: tab === id ? 1 : 0.45,
+              cursor: "pointer",
+            }}
+          >
+            {label}
+          </button>
+        ))}
       </div>
-      <div style={{...mo,fontSize:10,fontWeight:600,letterSpacing:3,textTransform:"uppercase",opacity:.2,marginBottom:20}}>ACTIVATIONS MARQUES</div>
-      <div className="far-home-grid" style={{display:"grid",gridTemplateColumns:"repeat(2, 1fr)",gap:20,maxWidth:1155}}>
-        {[{id:"shopify",img:"/shopify-logo.png",imgW:110,filter:"brightness(0) invert(1)"},{id:"rode",img:"/rode-logo-white.png",imgW:80,filter:"none"},{id:"fastgoodcuisine",img:"/fgc.webp",imgW:76,filter:"none"},{id:"fgcmarque",img:"/fgc.webp",imgW:76,filter:"none"},{id:"otacospepe",img:"/otacos-logo.png",imgW:118,filter:"none"},{id:"toinelag",img:"/toinelag-avatar.png",imgW:78,filter:"none"},{id:"cyrilmp4",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"},{id:"garmin",img:"/cyrilmp4.png",imgW:80,filter:"none",imgType:"photo"},{id:"edf",img:"/edf-logo.png",imgW:96,filter:"brightness(0) invert(1)"}].map(({id,img,imgW,filter,imgType},idx)=>{const d=META[id];const st=cs[d.card];return(
-          <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={.5+idx*.1}>
-            {imgType==="photo"?<img src={pu(img)} alt="" style={{width:imgW,height:imgW,borderRadius:"50%",objectFit:"cover",border:"3px solid rgba(255,255,255,.2)",flexShrink:0}}/>:<img src={pu(img)} alt="" style={{width:imgW,height:"auto",filter,opacity:.92,flexShrink:0,borderRadius:10,border: id==="toinelag" ? "3px solid rgba(20,20,20,.15)" : id==="fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none"}}/>}
-          </DeckCard>
-        );})}
-      </div>
+
+      {tab === "main" ? (
+        <>
+          <motion.h1
+            key="main-h1"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 48 }}
+          >
+            _decks & cooking
+          </motion.h1>
+          <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", opacity: 0.2, marginBottom: 20 }}>
+            _DECKS
+          </div>
+          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 52, maxWidth: 1155 }}>
+            {HOME_DECKS.map(({ id, logo }, idx) => {
+              const d = META[id];
+              const st = cs[d.card];
+              return (
+                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.3 + idx * 0.1}>
+                  {logo === "far" && <FarLogo size={90} variant="white" />}
+                </DeckCard>
+              );
+            })}
+          </div>
+          <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", opacity: 0.2, marginBottom: 20 }}>
+            COOKING
+          </div>
+          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, maxWidth: 1155 }}>
+            {HOME_COOKING.map(({ id, img, imgW, filter, imgType }, idx) => {
+              const d = META[id];
+              const st = cs[d.card];
+              return (
+                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.5 + idx * 0.1}>
+                  {imgType === "photo" ? (
+                    <img
+                      src={pu(img)}
+                      alt=""
+                      style={{ width: imgW, height: imgW, borderRadius: "50%", objectFit: "cover", border: "3px solid rgba(255,255,255,.2)", flexShrink: 0 }}
+                    />
+                  ) : (
+                    <img
+                      src={pu(img)}
+                      alt=""
+                      style={{
+                        width: imgW,
+                        height: "auto",
+                        filter,
+                        opacity: 0.92,
+                        flexShrink: 0,
+                        borderRadius: 10,
+                        border: id === "toinelag" ? "3px solid rgba(20,20,20,.15)" : id === "fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none",
+                      }}
+                    />
+                  )}
+                </DeckCard>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <>
+          <motion.h1
+            key="archive-h1"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ ...se, fontSize: 40, lineHeight: 1.05, marginBottom: 12, opacity: 0.85 }}
+          >
+            Archive
+          </motion.h1>
+          <p style={{ ...sa, fontSize: 15, opacity: 0.45, marginBottom: 36, maxWidth: 520, lineHeight: 1.5 }}>
+            Cas pratiques historiques - stratégie commerciale FAR et pitch créateur.
+          </p>
+          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 1155 }}>
+            {HOME_ARCHIVE.map(({ id, img, imgType, logo }, idx) => {
+              const d = META[id];
+              const st = cs[d.card];
+              return (
+                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.3 + idx * 0.1}>
+                  {logo === "far" && <FarLogo size={90} variant="white" />}
+                  {img && imgType === "photo" && (
+                    <img
+                      src={pu(img)}
+                      alt=""
+                      style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: "3px solid rgba(255,255,255,.2)", flexShrink: 0 }}
+                    />
+                  )}
+                </DeckCard>
+              );
+            })}
+          </div>
+        </>
+      )}
       <div style={{maxWidth:1155,margin:"0 auto",marginTop:8}}>
         <motion.button type="button" onClick={()=>onOpen("profil")} whileHover={{opacity:.55}} whileTap={{scale:.98}} style={{display:"block",width:"100%",background:"transparent",border:"none",borderTop:"1px solid rgba(26,26,26,.1)",padding:"20px 12px 4px",cursor:"pointer",...mo,fontSize:9,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:B,opacity:.26,textAlign:"center"}}>Mon profil · CV</motion.button>
       </div>
