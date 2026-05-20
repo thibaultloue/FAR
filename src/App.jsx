@@ -1473,7 +1473,7 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 ];
 
 const SFarPositionnement = createSFarPositionnement({
-  Tg, Hl, Sh, Wc, Ar, G2, Cmp, Fn, Th, FarLogo, se, sa, mo, fi, sv, fl,
+  Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu,
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
