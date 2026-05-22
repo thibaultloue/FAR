@@ -1917,12 +1917,7 @@ function Pres({id,onBack,onNav}) {
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
-        pdfFitInnerToSlide(
-          inner,
-          slideArea,
-          id === "otacospepe" ? { minScale: 0.82 } : id === "fgcmarmiton" || id === "farposition" ? { minScale: 0.84 } : {},
-        );
-        if (id === "fgcmarmiton" || id === "farposition") pdfDistributeRootSlack(inner, slideArea);
+        pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
         const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
         pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];

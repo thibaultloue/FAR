@@ -96,12 +96,14 @@ export function createSFGCMarmiton(P) {
         <div
           style={{
             width: "100%",
+            minHeight: "65vh",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            minHeight: "65vh",
             textAlign: "center",
+            padding: "20px 0",
+            boxSizing: "border-box",
           }}
         >
           <motion.div
@@ -180,8 +182,8 @@ export function createSFGCMarmiton(P) {
               style={{
                 padding: "18px 22px",
                 borderRadius: t.cR || 14,
-                background: `${t.a}12`,
-                border: `1px solid ${t.a}35`,
+                background: "rgba(26,26,26,0.07)",
+                border: "1px solid rgba(26,26,26,0.18)",
                 marginBottom: 18,
               }}
             >
@@ -315,13 +317,14 @@ export function createSFGCMarmiton(P) {
         <div
           style={{
             width: "100%",
-            textAlign: "center",
-            padding: "48px 0",
+            minHeight: "65vh",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            minHeight: "65vh",
+            textAlign: "center",
+            padding: "48px 0",
+            boxSizing: "border-box",
           }}
         >
           <motion.div
