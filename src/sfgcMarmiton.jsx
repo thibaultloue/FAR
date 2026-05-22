@@ -239,6 +239,11 @@ export function createSFGCMarmiton(P) {
               </div>
             </Wc>
           </motion.div>
+          <motion.div variants={fu(5)}>
+            <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.55, marginBottom: 14 }}>
+              On peut également envisager une mécanique avec un invité.
+            </div>
+          </motion.div>
           <motion.div variants={fu(8)}>
             <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "22px 28px", fontSize: 16, lineHeight: 1.55 }}>
               Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
@@ -270,11 +275,8 @@ export function createSFGCMarmiton(P) {
             <motion.div variants={fu(8)}>
               <Wc t={t} s={{ padding: "24px 26px", marginTop: 0, height: "100%" }}>
                 <Lb t={t}>YouTube & déclinaisons</Lb>
-                <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58, marginBottom: 14 }}>
+                <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58 }}>
                   Le format long vit sur YouTube. Chaque épisode génère des clips courts : hook, fail, dégustation, avant/après, réaction, verdict.
-                </div>
-                <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.5, paddingTop: 14, borderTop: `1px solid ${t.brd}` }}>
-                  On peut également envisager une mécanique avec un invité.
                 </div>
               </Wc>
             </motion.div>
