@@ -155,52 +155,16 @@ export function createSFGCMarmiton(P) {
           <SlideHead t={t} title="2. Enjeu créatif" />
           <motion.div variants={fu(5)}>
             <Sh t={t} s={{ fontSize: 16, lineHeight: 1.6, marginBottom: 18 }}>
-              Développer un concept qui ne ressemble ni à une vidéo recette classique, ni à un test produit, ni à un placement sponsor plaqué.
+              Développer un concept qui ne ressemble ni à une vidéo recette classique, ni à un test produit, ni à un placement sponsor classique, ni plaqué.
             </Sh>
           </motion.div>
           <motion.div variants={fu(6)}>
-            <Wc t={t} s={{ padding: "22px 26px", marginBottom: 18, marginTop: 0 }}>
+            <Wc t={t} s={{ padding: "22px 26px", marginBottom: 0, marginTop: 0 }}>
               <Lb t={t}>Mécanique d&apos;émission</Lb>
               <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58 }}>
-                Le format doit avoir une vraie mécanique d&apos;émission : une idée forte, une contrainte, une expérience, des réactions, un verdict.
+                Le format doit avoir une vraie mécanique d&apos;émission : une idée forte, une contrainte, une expérience, des réactions, un verdict. On peut également envisager un invité.
               </div>
             </Wc>
-          </motion.div>
-          <motion.div
-            variants={fu(6)}
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr auto 1fr",
-              gap: 20,
-              alignItems: "stretch",
-              padding: "20px 24px",
-              borderRadius: t.cR || 14,
-              background: t.card,
-              border: `1px solid ${t.brd}`,
-            }}
-          >
-            <div style={{ ...sa, fontSize: 15.5, fontWeight: 600, color: t.cardT, lineHeight: 1.55, display: "flex", alignItems: "center" }}>
-              La cuisine devient le moteur du divertissement.
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                ...se,
-                fontSize: 32,
-                fontWeight: 800,
-                color: t.a,
-                lineHeight: 1,
-                padding: "0 4px",
-              }}
-              aria-hidden
-            >
-              →
-            </div>
-            <div style={{ ...sa, fontSize: 15.5, fontWeight: 600, color: t.cardT, lineHeight: 1.55, display: "flex", alignItems: "center" }}>
-              Le produit, la recette ou l&apos;appareil devient le déclencheur de l&apos;épisode.
-            </div>
           </motion.div>
         </Slide>
       ),
@@ -239,13 +203,8 @@ export function createSFGCMarmiton(P) {
               </div>
             </Wc>
           </motion.div>
-          <motion.div variants={fu(5)}>
-            <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.55, marginBottom: 14 }}>
-              On peut également envisager une mécanique avec un invité.
-            </div>
-          </motion.div>
           <motion.div variants={fu(8)}>
-            <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "22px 28px", fontSize: 16, lineHeight: 1.55 }}>
+            <Th t={t} s={{ marginTop: 16, marginBottom: 0, padding: "22px 28px", fontSize: 16, lineHeight: 1.55 }}>
               Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
             </Th>
           </motion.div>
@@ -292,7 +251,7 @@ export function createSFGCMarmiton(P) {
           <SlideHead t={t} title="6. Principe d'intégration" />
           <motion.div variants={fu(5)}>
             <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 18 }}>
-              Le format doit permettre l&apos;intégration naturelle de partenaires food, électroménager, grande distribution et livraison à domicile.
+              Le format doit permettre l&apos;intégration naturelle de partenaires.
             </Sh>
           </motion.div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "stretch" }}>
@@ -377,10 +336,7 @@ export function createSFGCMarmiton(P) {
             <span style={{ ...se, fontSize: 22, fontWeight: 800, color: "#FF6F00" }}>Marmiton</span>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-            <div style={{ ...se, fontSize: 56, fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 20 }}>Merci.</div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-            <div style={{ ...sa, fontSize: 18, color: t.m, lineHeight: 1.6 }}>Thibault Loué</div>
+            <div style={{ ...se, fontSize: 56, fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1 }}>Merci.</div>
           </motion.div>
           <div style={{ width: 60, height: 3, background: t.a, borderRadius: 2, margin: "32px auto 0" }} />
           {back && (
