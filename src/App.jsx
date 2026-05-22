@@ -1502,7 +1502,7 @@ const META = {
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
-  fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 7 slides",tag:"BRIEF CRÉATIF",card:"dark"},
+  fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 8 slides",tag:"BRIEF CRÉATIF",card:"dark"},
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},

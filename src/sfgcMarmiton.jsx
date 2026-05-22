@@ -344,12 +344,50 @@ export function createSFGCMarmiton(P) {
               </Wc>
             </motion.div>
           </div>
+        </Slide>
+      ),
+    },
+
+    {
+      title: "Merci",
+      r: (t, back) => (
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            padding: "48px 0",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "65vh",
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{ display: "flex", alignItems: "center", gap: 22, marginBottom: 40, flexWrap: "wrap", justifyContent: "center" }}
+          >
+            <FarLogo size={90} variant={t.lv} />
+            <div style={{ width: 1, height: 36, background: t.brd }} />
+            <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{ width: 68, height: "auto", borderRadius: 10 }} />
+            <div style={{ width: 1, height: 36, background: t.brd }} />
+            <span style={{ ...se, fontSize: 22, fontWeight: 800, color: "#FF6F00" }}>Marmiton</span>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <div style={{ ...se, fontSize: 56, fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 20 }}>Merci.</div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+            <div style={{ ...sa, fontSize: 18, color: t.m, lineHeight: 1.6 }}>Thibault Loué</div>
+          </motion.div>
+          <div style={{ width: 60, height: 3, background: t.a, borderRadius: 2, margin: "32px auto 0" }} />
           {back && (
-            <motion.div variants={fu(6)} style={{ textAlign: "center", marginTop: 28 }}>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
               <button
                 type="button"
                 onClick={back}
                 style={{
+                  marginTop: 40,
                   background: t.nav,
                   color: t.navT,
                   ...sa,
@@ -365,7 +403,7 @@ export function createSFGCMarmiton(P) {
               </button>
             </motion.div>
           )}
-        </Slide>
+        </div>
       ),
     },
   ];
