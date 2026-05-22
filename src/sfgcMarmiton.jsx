@@ -123,9 +123,14 @@ export function createSFGCMarmiton(P) {
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            <Hl t={t} s={{ fontSize: 44, textAlign: "center", maxWidth: 940, margin: "0 auto" }}>
+            <Hl t={t} s={{ fontSize: 44, textAlign: "center", maxWidth: 940, margin: "0 auto 16px" }}>
               Marmiton × FastGoodCuisine
             </Hl>
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.32 }}>
+            <div style={{ ...mo, fontSize: 13, fontWeight: 600, letterSpacing: 2, color: t.d, textTransform: "uppercase" }}>
+              22 mai 2026
+            </div>
           </motion.div>
         </div>
       ),
