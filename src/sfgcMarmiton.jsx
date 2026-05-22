@@ -227,15 +227,17 @@ export function createSFGCMarmiton(P) {
               </div>
             </div>
           </motion.div>
-          <motion.div variants={fu(6)} style={{ marginBottom: 16 }}>
-            <Lb t={t}>Exemples de tensions éditoriales</Lb>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px 48px" }}>
-              {tensions.map((line) => (
-                <div key={line} style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.5, ...ex }}>
-                  {line}
-                </div>
-              ))}
-            </div>
+          <motion.div variants={fu(6)}>
+            <Wc t={t} s={{ padding: "22px 26px", marginTop: 0, marginBottom: 16, borderTop: `4px solid ${t.a}` }}>
+              <Lb t={t}>Exemples de tensions éditoriales</Lb>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px 48px" }}>
+                {tensions.map((line) => (
+                  <div key={line} style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.5, ...ex }}>
+                    {line}
+                  </div>
+                ))}
+              </div>
+            </Wc>
           </motion.div>
           <motion.div variants={fu(8)}>
             <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "22px 28px", fontSize: 16, lineHeight: 1.55 }}>
