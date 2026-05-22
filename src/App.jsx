@@ -247,6 +247,7 @@ const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,w
 html{-webkit-text-size-adjust:100%;}
 @keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}
 .far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}
+.far-marmiton-slide{width:100% !important;max-width:980px !important;margin-left:auto !important;margin-right:auto !important;}
 @media(max-width:1024px){
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}

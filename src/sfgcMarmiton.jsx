@@ -20,7 +20,7 @@ export function createSFGCMarmiton(P) {
 
   const Para = ({ t, children, s }) => (
     <motion.div variants={fu(5)}>
-      <Sh t={t} s={{ fontSize: 16.5, lineHeight: 1.65, marginBottom: 14, maxWidth: 920, color: t.c, ...s }}>
+      <Sh t={t} s={{ fontSize: 16.5, lineHeight: 1.65, marginBottom: 14, color: t.c, ...s }}>
         {children}
       </Sh>
     </motion.div>
@@ -32,8 +32,10 @@ export function createSFGCMarmiton(P) {
     </div>
   );
 
-  const Slide = ({ t, children }) => (
-    <motion.div initial="h" animate="v" variants={stg(0.05)} style={{ maxWidth: 980 }}>
+  const slideFrame = { width: "100%", maxWidth: 980, margin: "0 auto" };
+
+  const Slide = ({ children }) => (
+    <motion.div initial="h" animate="v" variants={stg(0.05)} className="far-marmiton-slide" style={slideFrame}>
       {children}
     </motion.div>
   );
@@ -50,7 +52,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Marmiton × FastGoodCuisine",
       r: (t) => (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "62vh", textAlign: "center" }}>
+        <div className="far-marmiton-slide" style={{ ...slideFrame, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "62vh", textAlign: "center" }}>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ display: "flex", alignItems: "center", gap: 22, marginBottom: 32, flexWrap: "wrap", justifyContent: "center" }}>
             <FarLogo size={84} variant={t.lv} />
             <div style={{ width: 1, height: 40, background: t.brd }} />
@@ -75,7 +77,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Ambition du projet",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="1. Ambition du projet" title="Ambition du projet" titleS={{ fontSize: 34 }} />
           <Para t={t}>
             Créer un format food entertainment incarné par FastGoodCuisine, pensé pour YouTube et naturellement déclinable sur les réseaux sociaux et l&apos;écosystème Marmiton.
@@ -92,7 +94,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Enjeu créatif",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="2. Enjeu créatif" title="Enjeu créatif" titleS={{ fontSize: 34 }} />
           <Para t={t}>
             Développer un concept qui ne ressemble ni à une vidéo recette classique, ni à un test produit, ni à un placement sponsor plaqué.
@@ -122,7 +124,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Univers éditorial envisagé",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="3. Univers éditorial envisagé" title="Univers éditorial envisagé" titleS={{ fontSize: 34 }} />
           <Para t={t}>
             <strong style={{ fontWeight: 700 }}>Territoire principal : les expériences food.</strong>
@@ -152,7 +154,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Format",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="4. Format" title="Format" titleS={{ fontSize: 34 }} />
           <Para t={t}>
             Créer une plateforme de format déclinable en plusieurs épisodes, capable d&apos;accueillir différents territoires food et différents partenaires commerciaux.
@@ -178,7 +180,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Intégration des marques",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="5. Intégration des marques" title="Intégration des marques" titleS={{ fontSize: 34 }} />
           <Para t={t}>
             Le format doit permettre l&apos;intégration naturelle de partenaires food, électroménager, grande distribution et livraison à domicile.
@@ -203,7 +205,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Intégration scénario",
       r: (t) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="5. Intégration des marques" title="Intégration scénario" titleS={{ fontSize: 34 }} />
           <motion.div variants={fu(6)}>
             <Wc t={t} s={{ padding: "22px 26px", marginBottom: 14, border: `2px solid ${t.a}` }}>
@@ -214,7 +216,7 @@ export function createSFGCMarmiton(P) {
             </Wc>
           </motion.div>
           <Lb t={t}>Exemples</Lb>
-          <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.65, marginBottom: 14, maxWidth: 920 }}>
+          <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.65, marginBottom: 14 }}>
             Une marque food devient l&apos;ingrédient à détourner.
             <br />
             Un appareil devient l&apos;outil obligatoire du test.
@@ -235,7 +237,7 @@ export function createSFGCMarmiton(P) {
     {
       title: "Références",
       r: (t, back) => (
-        <Slide t={t}>
+        <Slide>
           <SlideHead t={t} tag="Annexe - Références" title="Références de format." titleS={{ fontSize: 34 }} />
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 4 }}>
             <motion.div variants={fu(8)}>
