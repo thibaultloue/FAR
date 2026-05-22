@@ -11,7 +11,7 @@ export function createSFGCMarmiton(P) {
 
   const SlideHead = ({ t, title, titleS }) => (
     <motion.div variants={fu(10)}>
-      <Hl t={t} s={{ fontSize: 38, marginBottom: 16, ...titleS }}>{title}</Hl>
+      <Hl t={t} s={{ fontSize: 38, marginBottom: 20, ...titleS }}>{title}</Hl>
     </motion.div>
   );
 
@@ -21,10 +21,51 @@ export function createSFGCMarmiton(P) {
     </motion.div>
   );
 
-  const Lb = ({ t, children }) => (
-    <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, marginBottom: 8, textTransform: "uppercase" }}>
+  const Lb = ({ t, children, s }) => (
+    <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, marginBottom: 10, textTransform: "uppercase", ...s }}>
       {children}
     </div>
+  );
+
+  const ExList = ({ t, items }) => (
+    <div style={{ display: "flex", flexDirection: "column", marginTop: 4 }}>
+      {items.map((line, i) => (
+        <div
+          key={line}
+          style={{
+            ...sa,
+            fontSize: 14,
+            color: t.cardT,
+            lineHeight: 1.5,
+            padding: "11px 0",
+            borderBottom: i < items.length - 1 ? `1px solid ${t.brd}` : "none",
+            ...ex,
+          }}
+        >
+          {line}
+        </div>
+      ))}
+    </div>
+  );
+
+  const IntegrationCol = ({ t, title, body, examples, accent }) => (
+    <Wc
+      t={t}
+      s={{
+        padding: "24px 26px",
+        marginTop: 0,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        borderTop: `4px solid ${accent ? t.a : t.brd}`,
+        boxSizing: "border-box",
+      }}
+    >
+      <div style={{ ...se, fontSize: 18, fontWeight: 800, color: t.a, marginBottom: 12, lineHeight: 1.2 }}>{title}</div>
+      <div style={{ ...sa, fontSize: 15, color: t.cardT, lineHeight: 1.58, marginBottom: 4 }}>{body}</div>
+      <Lb t={t} s={{ marginTop: 16, marginBottom: 0 }}>Exemples</Lb>
+      <ExList t={t} items={examples} />
+    </Wc>
   );
 
   const tensions = [
@@ -33,6 +74,12 @@ export function createSFGCMarmiton(P) {
     "Un Airfryer change-t-il vraiment le game ?",
     "Le fait maison peut-il battre la livraison ?",
     "Que peut-on cuisiner avec un panier imposé ?",
+  ];
+
+  const productExamples = [
+    "KitKat, Pringles, sauces, aides culinaires",
+    "Airfryer, four, machine à café, robot cuisine",
+    "Frigo, plaques, accessoires cuisine",
   ];
 
   const scenarioExamples = [
@@ -112,21 +159,46 @@ export function createSFGCMarmiton(P) {
             </Sh>
           </motion.div>
           <motion.div variants={fu(6)}>
-            <Wc t={t} s={{ padding: "22px 26px", marginBottom: 20, marginTop: 0 }}>
+            <Wc t={t} s={{ padding: "22px 26px", marginBottom: 18, marginTop: 0 }}>
               <Lb t={t}>Mécanique d&apos;émission</Lb>
               <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58 }}>
                 Le format doit avoir une vraie mécanique d&apos;émission : une idée forte, une contrainte, une expérience, des réactions, un verdict.
               </div>
             </Wc>
           </motion.div>
-          <motion.div variants={fu(5)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, maxWidth: 720 }}>
-            <div style={{ ...sa, fontSize: 16, fontWeight: 600, color: t.c, lineHeight: 1.55, textAlign: "center", width: "100%" }}>
+          <motion.div
+            variants={fu(6)}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr auto 1fr",
+              gap: 20,
+              alignItems: "stretch",
+              padding: "20px 24px",
+              borderRadius: t.cR || 14,
+              background: t.card,
+              border: `1px solid ${t.brd}`,
+            }}
+          >
+            <div style={{ ...sa, fontSize: 15.5, fontWeight: 600, color: t.cardT, lineHeight: 1.55, display: "flex", alignItems: "center" }}>
               La cuisine devient le moteur du divertissement.
             </div>
-            <div style={{ ...se, fontSize: 28, fontWeight: 800, color: t.a, lineHeight: 1 }} aria-hidden>
-              ↓
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                ...se,
+                fontSize: 32,
+                fontWeight: 800,
+                color: t.a,
+                lineHeight: 1,
+                padding: "0 4px",
+              }}
+              aria-hidden
+            >
+              →
             </div>
-            <div style={{ ...sa, fontSize: 16, fontWeight: 600, color: t.c, lineHeight: 1.55, textAlign: "center", width: "100%" }}>
+            <div style={{ ...sa, fontSize: 15.5, fontWeight: 600, color: t.cardT, lineHeight: 1.55, display: "flex", alignItems: "center" }}>
               Le produit, la recette ou l&apos;appareil devient le déclencheur de l&apos;épisode.
             </div>
           </motion.div>
@@ -139,30 +211,24 @@ export function createSFGCMarmiton(P) {
       r: (t) => (
         <Slide>
           <SlideHead t={t} title="3. Univers éditorial envisagé" titleS={{ fontSize: 34 }} />
-          <motion.div variants={fu(5)}>
-            <Sh t={t} s={{ fontSize: 15.5, lineHeight: 1.58, marginBottom: 14 }}>
-              <strong style={{ fontWeight: 700, color: t.c }}>Territoire principal : les expériences food.</strong>
-              {" "}
-              Hacks improbables, recettes virales poussées à l&apos;extrême, détournements de produits du quotidien, tests d&apos;appareils, duels Marmiton vs Internet, défis panier, budget, temps ou livraison.
-            </Sh>
-          </motion.div>
-          <motion.div variants={fu(6)}>
-            <Wc t={t} s={{ padding: "18px 22px", marginTop: 0, marginBottom: 14, borderTop: `4px solid ${t.a}` }}>
-              <Lb t={t}>Exemples de tensions éditoriales</Lb>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 20px" }}>
-                {tensions.map((line) => (
-                  <div key={line} style={{ ...sa, fontSize: 14, fontWeight: 600, color: t.cardT, lineHeight: 1.42, ...ex }}>
-                    {line}
-                  </div>
-                ))}
-              </div>
-            </Wc>
-          </motion.div>
-          <motion.div variants={fu(5)}>
-            <div style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.55, paddingLeft: 16, borderLeft: `3px solid ${t.a}` }}>
-              Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
-            </div>
-          </motion.div>
+          <div style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 20, alignItems: "stretch" }}>
+            <motion.div variants={fu(5)} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 0 }}>
+                <strong style={{ fontWeight: 700, color: t.c }}>Territoire principal : les expériences food.</strong>
+                {" "}
+                Hacks improbables, recettes virales poussées à l&apos;extrême, détournements de produits du quotidien, tests d&apos;appareils, duels Marmiton vs Internet, défis panier, budget, temps ou livraison.
+              </Sh>
+              <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "20px 24px", fontSize: 15, lineHeight: 1.55, flex: 1 }}>
+                Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
+              </Th>
+            </motion.div>
+            <motion.div variants={fu(8)}>
+              <Wc t={t} s={{ padding: "22px 26px", marginTop: 0, height: "100%", borderTop: `4px solid ${t.a}` }}>
+                <Lb t={t}>Exemples de tensions éditoriales</Lb>
+                <ExList t={t} items={tensions} />
+              </Wc>
+            </motion.div>
+          </div>
         </Slide>
       ),
     },
@@ -173,67 +239,62 @@ export function createSFGCMarmiton(P) {
         <Slide>
           <SlideHead t={t} title="4. Format" />
           <motion.div variants={fu(5)}>
-            <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 16 }}>
+            <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 18 }}>
               Créer une plateforme de format déclinable en plusieurs épisodes, capable d&apos;accueillir différents territoires food et différents partenaires commerciaux.
             </Sh>
           </motion.div>
-          <motion.div variants={fu(6)}>
-            <Wc t={t} s={{ padding: "20px 24px", marginTop: 0, marginBottom: 14 }}>
-              <Lb t={t}>Saison · 4 à 5 épisodes</Lb>
-              <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.55 }}>
-                Chacun autonome, mais relié par une même mécanique : une idée food, une contrainte, un test, un verdict.
-              </div>
-            </Wc>
-          </motion.div>
-          <motion.div variants={fu(5)}>
-            <Sh t={t} s={{ fontSize: 15.5, lineHeight: 1.58, marginBottom: 10 }}>
-              Le format long vit sur YouTube. Chaque épisode génère des clips courts : hook, fail, dégustation, avant/après, réaction, verdict.
-            </Sh>
-          </motion.div>
-          <motion.div variants={fu(5)}>
-            <div style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.5 }}>On peut également envisager une mécanique avec un invité.</div>
-          </motion.div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "stretch" }}>
+            <motion.div variants={fu(8)}>
+              <Wc t={t} s={{ padding: "24px 26px", marginTop: 0, height: "100%", borderTop: `4px solid ${t.a}` }}>
+                <Lb t={t}>Saison · 4 à 5 épisodes</Lb>
+                <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58 }}>
+                  Chacun autonome, mais relié par une même mécanique : une idée food, une contrainte, un test, un verdict.
+                </div>
+              </Wc>
+            </motion.div>
+            <motion.div variants={fu(8)}>
+              <Wc t={t} s={{ padding: "24px 26px", marginTop: 0, height: "100%" }}>
+                <Lb t={t}>YouTube & déclinaisons</Lb>
+                <div style={{ ...sa, fontSize: 15.5, color: t.cardT, lineHeight: 1.58, marginBottom: 14 }}>
+                  Le format long vit sur YouTube. Chaque épisode génère des clips courts : hook, fail, dégustation, avant/après, réaction, verdict.
+                </div>
+                <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.5, paddingTop: 14, borderTop: `1px solid ${t.brd}` }}>
+                  On peut également envisager une mécanique avec un invité.
+                </div>
+              </Wc>
+            </motion.div>
+          </div>
         </Slide>
       ),
     },
 
     {
-      title: "Intégration des marques",
+      title: "Principe d'intégration",
       r: (t) => (
         <Slide>
-          <SlideHead t={t} title="5. Intégration des marques" />
+          <SlideHead t={t} title="6. Principe d'intégration" />
           <motion.div variants={fu(5)}>
-            <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 16 }}>
+            <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 18 }}>
               Le format doit permettre l&apos;intégration naturelle de partenaires food, électroménager, grande distribution et livraison à domicile.
             </Sh>
           </motion.div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "start" }}>
-            <motion.div variants={fu(8)} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              <Wc t={t} s={{ padding: "22px 24px", marginTop: 0, height: "100%", borderTop: `4px solid ${t.a}` }}>
-                <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.a, marginBottom: 10 }}>Intégration produit</div>
-                <div style={{ ...sa, fontSize: 14.5, color: t.cardT, lineHeight: 1.55 }}>
-                  Ingrédients, produits alimentaires, snacks, accessoires ou appareils cuisine.
-                </div>
-                <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5, marginTop: 10, ...ex }}>
-                  Exemples : KitKat, Pringles, sauces, aides culinaires, Airfryer, four, machine à café, robot cuisine, frigo, plaques.
-                </div>
-              </Wc>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "stretch" }}>
+            <motion.div variants={fu(8)}>
+              <IntegrationCol
+                t={t}
+                accent
+                title="Intégration produit"
+                body="Ingrédients, produits alimentaires, snacks, accessoires ou appareils cuisine."
+                examples={productExamples}
+              />
             </motion.div>
-            <motion.div variants={fu(8)} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <Wc t={t} s={{ padding: "22px 24px", marginTop: 0, border: `2px solid ${t.a}` }}>
-                <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.a, marginBottom: 10 }}>Intégration scénario</div>
-                <div style={{ ...sa, fontSize: 14.5, color: t.cardT, lineHeight: 1.55 }}>
-                  La marque devient un élément structurant de l&apos;épisode : point de départ du hack, contrainte du défi, outil de l&apos;expérience ou révélateur du résultat.
-                </div>
-              </Wc>
-              <Lb t={t}>Exemples</Lb>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {scenarioExamples.map((line) => (
-                  <div key={line} style={{ ...sa, fontSize: 14.5, color: t.c, lineHeight: 1.5, ...ex }}>
-                    {line}
-                  </div>
-                ))}
-              </div>
+            <motion.div variants={fu(8)}>
+              <IntegrationCol
+                t={t}
+                title="Intégration scénario"
+                body="La marque devient un élément structurant de l&apos;épisode : point de départ du hack, contrainte du défi, outil de l&apos;expérience ou révélateur du résultat."
+                examples={scenarioExamples}
+              />
             </motion.div>
           </div>
           <motion.div variants={fu(6)} style={{ marginTop: 16 }}>
@@ -250,7 +311,7 @@ export function createSFGCMarmiton(P) {
       r: (t, back) => (
         <Slide>
           <SlideHead t={t} title="Annexe · Références de format" titleS={{ fontSize: 34 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginTop: 4 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "stretch" }}>
             <motion.div variants={fu(8)}>
               <Wc t={t} s={{ padding: "24px 26px", height: "100%", marginTop: 0 }}>
                 <div style={{ ...se, fontSize: 20, fontWeight: 800, color: t.a, marginBottom: 12 }}>Les Recettes Pompettes</div>
