@@ -247,7 +247,6 @@ const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,w
 html{-webkit-text-size-adjust:100%;}
 @keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}
 .far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}
-.far-marmiton-slide{width:100% !important;max-width:980px !important;margin-left:auto !important;margin-right:auto !important;}
 @media(max-width:1024px){
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}
@@ -1503,7 +1502,7 @@ const META = {
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
-  fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 8 slides",tag:"BRIEF CRÉATIF",card:"dark"},
+  fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 7 slides",tag:"BRIEF CRÉATIF",card:"dark"},
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
@@ -1918,7 +1917,12 @@ function Pres({id,onBack,onNav}) {
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
-        pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
+        pdfFitInnerToSlide(
+          inner,
+          slideArea,
+          id === "otacospepe" ? { minScale: 0.82 } : id === "fgcmarmiton" || id === "farposition" ? { minScale: 0.84 } : {},
+        );
+        if (id === "fgcmarmiton" || id === "farposition") pdfDistributeRootSlack(inner, slideArea);
         const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
         pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
