@@ -211,24 +211,53 @@ export function createSFGCMarmiton(P) {
       r: (t) => (
         <Slide>
           <SlideHead t={t} title="3. Univers éditorial envisagé" titleS={{ fontSize: 34 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 20, alignItems: "stretch" }}>
-            <motion.div variants={fu(5)} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 0 }}>
-                <strong style={{ fontWeight: 700, color: t.c }}>Territoire principal : les expériences food.</strong>
-                {" "}
-                Hacks improbables, recettes virales poussées à l&apos;extrême, détournements de produits du quotidien, tests d&apos;appareils, duels Marmiton vs Internet, défis panier, budget, temps ou livraison.
-              </Sh>
-              <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "20px 24px", fontSize: 15, lineHeight: 1.55, flex: 1 }}>
-                Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
-              </Th>
-            </motion.div>
-            <motion.div variants={fu(8)}>
-              <Wc t={t} s={{ padding: "22px 26px", marginTop: 0, height: "100%", borderTop: `4px solid ${t.a}` }}>
-                <Lb t={t}>Exemples de tensions éditoriales</Lb>
-                <ExList t={t} items={tensions} />
-              </Wc>
-            </motion.div>
-          </div>
+          <motion.div variants={fu(5)}>
+            <div
+              style={{
+                padding: "18px 22px",
+                borderRadius: t.cR || 14,
+                background: `${t.a}12`,
+                border: `1px solid ${t.a}35`,
+                marginBottom: 18,
+              }}
+            >
+              <Lb t={t} s={{ color: t.a, marginBottom: 8 }}>Territoire principal</Lb>
+              <div style={{ ...sa, fontSize: 16, fontWeight: 600, color: t.c, lineHeight: 1.55 }}>
+                Les expériences food : hacks improbables, recettes virales poussées à l&apos;extrême, détournements de produits du quotidien, tests d&apos;appareils, duels Marmiton vs Internet, défis panier, budget, temps ou livraison.
+              </div>
+            </div>
+          </motion.div>
+          <motion.div variants={fu(6)}>
+            <Wc t={t} s={{ padding: "22px 26px", marginTop: 0, marginBottom: 16, borderTop: `4px solid ${t.a}` }}>
+              <Lb t={t}>Exemples de tensions éditoriales</Lb>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14 }}>
+                {tensions.map((line, i) => (
+                  <div
+                    key={line}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 12,
+                      padding: "14px 16px",
+                      borderRadius: 10,
+                      background: t.bg,
+                      border: `1px solid ${t.brd}`,
+                    }}
+                  >
+                    <span style={{ ...mo, fontSize: 11, fontWeight: 800, color: t.a, letterSpacing: 1, flexShrink: 0 }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span style={{ ...sa, fontSize: 14, color: t.cardT, lineHeight: 1.45, ...ex }}>{line}</span>
+                  </div>
+                ))}
+              </div>
+            </Wc>
+          </motion.div>
+          <motion.div variants={fu(8)}>
+            <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "22px 28px", fontSize: 16, lineHeight: 1.55 }}>
+              Le programme doit privilégier les situations, les réactions et les résultats inattendus. Pas une logique tuto. Une logique d&apos;expérience.
+            </Th>
+          </motion.div>
         </Slide>
       ),
     },
