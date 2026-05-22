@@ -1479,7 +1479,7 @@ const SFarPositionnement = createSFarPositionnement({
 });
 
 const SFGCMarmiton = createSFGCMarmiton({
-  Sh, FarLogo, se, sa, mo, pu,
+  Tg, Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu,
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
