@@ -1495,7 +1495,7 @@ function normalizeDeckId(raw) {
 }
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
-  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  8 slides",tag:"POSITIONNEMENT",card:"dark"},
+  farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  11 slides",tag:"POSITIONNEMENT",card:"dark"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},

@@ -23,10 +23,211 @@ export function createSFarPositionnement(P) {
     </>
   );
 
-  const Lb = ({ t, children }) => (
-    <div style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 2, color: t.d, marginBottom: 10, textTransform: "uppercase" }}>
+  const Lb = ({ t, children, s }) => (
+    <div style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 2, color: t.d, marginBottom: 10, textTransform: "uppercase", ...s }}>
       {children}
     </div>
+  );
+
+  const TRIPOD_LEGS = [
+    {
+      index: 1,
+      title: "Protéger la création",
+      intro:
+        "Premier appui du trépied FAR. Avant toute structure ou croissance, l'univers créateur doit rester lisible, cohérent et protégé : ton, formats, communauté, imaginaire et exigence éditoriale.",
+      actions: [
+        "Définir et tenir la ligne éditoriale",
+        "Arbitrer les opportunités — dire non quand ça dénature",
+        "Protéger les catégories et associations sensibles",
+        "Préserver le ton, les formats et l'imaginaire",
+        "Faire entrer la marque dans l'univers, pas l'inverse",
+      ],
+      example: {
+        name: "FastGoodCuisine",
+        role: "Food entertainment",
+        text: "Formats food co-construits, intégrations dans le territoire — pas de placement plaqué qui casse le récit.",
+        img: "/fgc.webp",
+      },
+      footer: "Sans création protégée, la structure et la croissance n'ont pas de socle.",
+      next: "Appui 02 · Solidifier la structure",
+    },
+    {
+      index: 2,
+      title: "Solidifier la structure",
+      intro:
+        "Deuxième appui du trépied. Une fois l'univers défendu, FAR apporte solidité et sérénité : cadre administratif, juridique, fiscal, process, outils, data et priorisation.",
+      actions: [
+        "Cadre administratif, juridique, fiscal et comptable",
+        "Process clairs et outils de pilotage",
+        "Priorisation des sollicitations et du calendrier",
+        "Data et visibilité sur le business du talent",
+        "Sérénité au quotidien pour se concentrer sur la création",
+      ],
+      example: {
+        name: "CYRILmp4",
+        role: "Exploration, gaming, divertissement",
+        text: "Business structuré autour de formats longs, ambassades et projets annuels — pas seulement des posts sponsorisés.",
+        img: "/cyrilmp4.webp",
+      },
+      footer: "Une structure solide libère le talent pour développer sans friction.",
+      next: "Appui 03 · Garantir la croissance",
+    },
+    {
+      index: 3,
+      title: "Garantir la croissance",
+      intro:
+        "Troisième appui du trépied. Quand l'univers est protégé et structuré, FAR ouvre de nouveaux champs : collaborations, ambassades, produits et marques propres, actifs, acquisitions, participations.",
+      actions: [
+        "Ambassades et partenariats long terme",
+        "Actifs propriétaires : marque, podcast, format récurrent",
+        "Co-brandings et opérations premium",
+        "Ouverture de verticaux et territoires adjacents",
+        "Projets structurants plutôt que du one-shot",
+      ],
+      example: {
+        name: "Toinelag",
+        role: "Construction, jeux, divertissement",
+        text: "Lockd, concepts co-construits, produits et challenges marque — la croissance passe par des actifs, pas par le volume.",
+        img: "/toinelag.webp",
+      },
+      footer: "La croissance n'a de valeur que si elle respecte l'univers. La grille de lecture (slide suivante) sert à arbitrer.",
+      next: null,
+    },
+  ];
+
+  const TripodBreadcrumb = ({ t, leg }) => (
+    <motion.div variants={fu(6)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
+      <span style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 2, color: t.d, textTransform: "uppercase" }}>Tripod FAR</span>
+      <span style={{ ...sa, fontSize: 14, color: t.d, lineHeight: 1 }} aria-hidden>
+        →
+      </span>
+      <span style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.a, textTransform: "uppercase" }}>
+        Appui {String(leg.index).padStart(2, "0")}/03 · {leg.title}
+      </span>
+    </motion.div>
+  );
+
+  const TripodLegSlide = ({ t, leg }) => (
+    <motion.div initial="h" animate="v" variants={stg(0.05)} style={{ width: "100%" }}>
+      <TripodBreadcrumb t={t} leg={leg} />
+      <motion.div variants={fu(10)}>
+        <Hl t={t} s={{ fontSize: 34, marginBottom: 14, lineHeight: 1.12 }}>{leg.title}</Hl>
+      </motion.div>
+      <motion.div variants={fu(8)}>
+        <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 18, maxWidth: 960 }}>
+          {leg.intro}
+        </Sh>
+      </motion.div>
+      <div style={{ display: "grid", gridTemplateColumns: "1.12fr 0.88fr", gap: 18, alignItems: "stretch" }}>
+        <motion.div variants={fu(6)}>
+          <div
+            style={{
+              padding: "22px 24px",
+              borderRadius: 16,
+              background: t.card,
+              color: t.cardT,
+              border: `1px solid ${t.brd}`,
+              borderTop: `4px solid ${t.a}`,
+              height: "100%",
+              boxSizing: "border-box",
+            }}
+          >
+            <Lb t={t}>Ce que FAR fait concrètement</Lb>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {leg.actions.map((line, i) => (
+                <div
+                  key={line}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12,
+                    padding: "10px 0",
+                    borderBottom: i < leg.actions.length - 1 ? `1px solid ${t.brd}` : "none",
+                  }}
+                >
+                  <span style={{ ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1, flexShrink: 0, paddingTop: 2 }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{ ...sa, fontSize: 14.5, lineHeight: 1.48 }}>{line}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+        <motion.div variants={fu(8)}>
+          <div
+            style={{
+              padding: 16,
+              borderRadius: 16,
+              background: t.card,
+              border: `1px solid ${t.brd}`,
+              height: "100%",
+              boxSizing: "border-box",
+            }}
+          >
+            <Lb t={t}>Exemple sur le roster</Lb>
+            <div style={{ aspectRatio: "4/3", borderRadius: 12, overflow: "hidden", background: t.cardAlt, marginBottom: 12 }}>
+              <img src={pu(leg.example.img)} alt={leg.example.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            </div>
+            <div style={{ ...se, fontSize: 16, fontWeight: 800, color: t.a, marginBottom: 4 }}>{leg.example.name}</div>
+            <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.5, color: t.d, textTransform: "uppercase", marginBottom: 10 }}>
+              {leg.example.role}
+            </div>
+            <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5 }}>{leg.example.text}</div>
+          </div>
+        </motion.div>
+      </div>
+      <motion.div variants={fu(8)} style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+        <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "18px 24px", fontSize: 15, lineHeight: 1.55 }}>
+          {leg.footer}
+        </Th>
+        {leg.next && (
+          <div style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 2, color: t.d, textAlign: "center", textTransform: "uppercase" }}>
+            Suite · {leg.next}
+          </div>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+
+  const TripodEntryHub = ({ t }) => (
+    <motion.div
+      variants={fu(10)}
+      style={{
+        marginTop: 18,
+        padding: "20px 24px",
+        borderRadius: 14,
+        border: `2px solid ${t.a}`,
+        background: "rgba(26,26,26,0.07)",
+      }}
+    >
+      <Lb t={t} s={{ color: t.a, marginBottom: 10 }}>
+        Point d&apos;entrée
+      </Lb>
+      <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.58, marginBottom: 16 }}>
+        Le trépied est le modèle FAR : tout part de là. Les trois slides suivantes entrent dans chaque appui — ce que cela signifie concrètement pour un univers créateur.
+      </div>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        {TRIPOD_LEGS.map((leg) => (
+          <span
+            key={leg.index}
+            style={{
+              ...mo,
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: 1.5,
+              padding: "10px 14px",
+              borderRadius: 8,
+              background: t.card,
+              border: `1px solid ${t.brd}`,
+              color: t.cardT,
+            }}
+          >
+            {String(leg.index).padStart(2, "0")} · {leg.title}
+          </span>
+        ))}
+      </div>
+    </motion.div>
   );
 
   const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
@@ -179,8 +380,9 @@ export function createSFarPositionnement(P) {
           variants={fu(8)}
           style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, marginTop: 12, textAlign: "center" }}
         >
-          FAR - SYSTÈME QUI STABILISE L&apos;ENSEMBLE
+          FAR · SYSTÈME QUI STABILISE L&apos;ENSEMBLE
         </motion.p>
+        <TripodEntryHub t={t} />
       </motion.div>
     );
   };
@@ -350,10 +552,30 @@ export function createSFarPositionnement(P) {
     },
 
     {
+      title: "Protéger la création",
+      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[0]} />,
+    },
+
+    {
+      title: "Solidifier la structure",
+      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[1]} />,
+    },
+
+    {
+      title: "Garantir la croissance",
+      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[2]} />,
+    },
+
+    {
       title: "Piliers FAR",
       r: (t) => (
         <motion.div initial="h" animate="v" variants={stg(0.06)}>
           <SlideHead t={t} tag="MÉTHODE" title="Notre grille de lecture." titleS={{ fontSize: 34 }} />
+          <motion.div variants={fu(6)}>
+            <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 16, maxWidth: 920 }}>
+              Le trépied est posé. Cette grille sert à arbitrer chaque opportunité au quotidien — après avoir protégé, structuré et développé l&apos;univers.
+            </Sh>
+          </motion.div>
           <motion.div
             initial="h"
             animate="v"
