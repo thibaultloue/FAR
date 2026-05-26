@@ -542,15 +542,13 @@ export function createSFarPositionnement(P) {
                 n: "Teeqzy",
                 u: "Fortnite, gaming communautaire",
                 p: "Maps, espaces de jeu, formats gaming, communautés, activations qualifiées.",
-                img: null,
-                pdf: true,
+                img: "/teeqzy.webp",
               },
               {
                 n: "Bek1ng",
                 u: "Performance gaming, coaching, Call of Duty",
                 p: "Coaching, contenus experts, co-branding expert, équipements, performance.",
-                img: null,
-                pdf: true,
+                img: "/bek1ng.webp",
               },
             ].map((c) => (
               <motion.div
@@ -581,26 +579,7 @@ export function createSFarPositionnement(P) {
                     </div>
                   )}
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8, marginBottom: 8 }}>
-                  <div style={{ ...se, fontSize: 14, fontWeight: 700, color: t.cardT, lineHeight: 1.2 }}>{c.n}</div>
-                  {c.pdf && (
-                    <span
-                      style={{
-                        ...mo,
-                        fontSize: 8,
-                        fontWeight: 700,
-                        color: t.a,
-                        letterSpacing: 1,
-                        flexShrink: 0,
-                        padding: "2px 6px",
-                        borderRadius: 4,
-                        background: `${t.a}22`,
-                      }}
-                    >
-                      PDF
-                    </span>
-                  )}
-                </div>
+                <div style={{ ...se, fontSize: 14, fontWeight: 700, color: t.cardT, lineHeight: 1.2, marginBottom: 8 }}>{c.n}</div>
                 <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 1, color: t.a, textTransform: "uppercase", marginBottom: 8 }}>
                   {c.u}
                 </div>
