@@ -2271,6 +2271,7 @@ const HOME_COOKING = [
   { id: "fgcmarmiton", img: "/fgc.webp", imgW: 76, filter: "none" },
   { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
   { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
+  { id: "toinelagplaydoh", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
