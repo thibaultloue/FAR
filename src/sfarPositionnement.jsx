@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 /** Deck positionnement - DA native T1 + animations mount-based (PDF-safe). */
 export function createSFarPositionnement(P) {
-  const { Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu } = P;
+  const { Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu } = P;
 
   const stg = (d = 0.08) => ({ h: {}, v: { transition: { staggerChildren: d } } });
   const fu = (y = 14) => ({ h: { opacity: 0, y }, v: { opacity: 1, y: 0, transition: { duration: 0.35 } } });
@@ -29,206 +29,322 @@ export function createSFarPositionnement(P) {
     </div>
   );
 
-  const TRIPOD_LEGS = [
+  const FAR_BEAM_STYLES = {
+    1: {
+      layout: "grid",
+      grid: { columns: "1fr 1fr", gap: 16, areas: null, place: null },
+      decor: { w: 240, opacity: 0.1, top: -16, right: 0 },
+      titleWrap: (t) => ({
+        borderLeft: `6px solid ${t.a}`,
+        paddingLeft: 18,
+        marginBottom: 10,
+      }),
+      hookBox: null,
+      block: (t) => ({
+        borderRadius: 18,
+        border: `1px solid ${t.brd}`,
+        borderLeft: `5px solid ${t.a}`,
+        padding: "18px 20px",
+      }),
+      indexColor: (t) => t.thT,
+      indexWrap: (t) => ({
+        minWidth: 36,
+        padding: "6px 10px",
+        borderRadius: 999,
+        background: t.a,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }),
+      footer: (t) => ({ borderRadius: 18, borderLeft: `5px solid ${t.a}` }),
+    },
+    2: {
+      layout: "rows",
+      grid: null,
+      decor: { w: 180, opacity: 0.08, top: 40, right: 24 },
+      titleWrap: (t) => ({
+        display: "inline-block",
+        padding: "4px 14px",
+        marginBottom: 10,
+        border: `2px solid ${t.a}`,
+        borderRadius: 4,
+      }),
+      hookBox: (t) => ({
+        padding: "12px 16px",
+        marginBottom: 18,
+        border: `2px solid ${t.a}`,
+        borderRadius: 4,
+        background: "rgba(26,26,26,0.05)",
+      }),
+      block: (t) => ({ padding: "16px 20px 16px 0" }),
+      indexColor: (t) => t.a,
+      indexWrap: (t) => ({
+        width: 56,
+        minHeight: "100%",
+        background: t.a,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+      }),
+      footer: (t) => ({ borderRadius: 4, border: `2px solid ${t.a}`, background: t.card }),
+    },
+    3: {
+      layout: "grid",
+      grid: {
+        columns: "1fr 1fr",
+        gap: 12,
+        areas: '"a a" "b c" "d d"',
+        place: ["a", "b", "c", "d"],
+      },
+      decor: { w: 260, opacity: 0.12, top: -20, right: -8 },
+      titleWrap: () => ({ marginBottom: 10 }),
+      hookBox: null,
+      block: (t, i) => ({
+        borderRadius: i === 0 ? "16px 16px 8px 16px" : i === 3 ? "8px 16px 16px 16px" : 12,
+        border: `1px solid ${t.brd}`,
+        borderTop: `4px solid ${t.a}`,
+        padding: i === 0 || i === 3 ? "20px 22px" : "16px 18px",
+      }),
+      indexColor: (t) => t.thT,
+      indexWrap: (t) => ({
+        minWidth: 36,
+        padding: "6px 10px",
+        borderRadius: 6,
+        background: t.a,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }),
+      footer: (t) => ({ borderRadius: "8px 16px 16px 16px", borderTop: `4px solid ${t.a}` }),
+    },
+  };
+
+  const FAR_LEGS = [
     {
       index: 1,
+      beam: 1,
       title: "Protéger la création",
-      intro:
-        "Premier appui du trépied FAR. Avant toute structure ou croissance, l'univers créateur doit rester lisible, cohérent et protégé : ton, formats, communauté, imaginaire et exigence éditoriale.",
-      actions: [
-        "Définir et tenir la ligne éditoriale",
-        "Arbitrer les opportunités — dire non quand ça dénature",
-        "Protéger les catégories et associations sensibles",
-        "Préserver le ton, les formats et l'imaginaire",
-        "Faire entrer la marque dans l'univers, pas l'inverse",
+      hook: "Premier faisceau du modèle FAR : défendre l'ADN de l'univers créateur.",
+      blocks: [
+        {
+          t: "Ligne éditoriale & territoire",
+          d: "Poser ce qui fait l'univers : ton, rythme, formats signature, communauté, imaginaire, limites et ambitions. Tout part de là.",
+        },
+        {
+          t: "Arbitrage des opportunités",
+          d: "Qualifier chaque sollicitation. Dire non quand ça dénature. Utiliser la grille de lecture pour trancher vite et juste.",
+        },
+        {
+          t: "Protection des catégories",
+          d: "Sanctuariser les associations sensibles, éviter les conflits de marques, protéger ce qui ne doit pas être dilué.",
+        },
+        {
+          t: "Intégration marque crédible",
+          d: "La marque entre dans l'univers avec un rôle éditorial structurant — jamais comme un placement plaqué qui casse le récit.",
+        },
       ],
-      example: {
-        name: "FastGoodCuisine",
-        role: "Food entertainment",
-        text: "Formats food co-construits, intégrations dans le territoire — pas de placement plaqué qui casse le récit.",
-        img: "/fgc.webp",
-      },
       footer: "Sans création protégée, la structure et la croissance n'ont pas de socle.",
-      next: "Appui 02 · Solidifier la structure",
+      next: "Faisceau 02 · Solidifier la structure",
     },
     {
       index: 2,
+      beam: 2,
       title: "Solidifier la structure",
-      intro:
-        "Deuxième appui du trépied. Une fois l'univers défendu, FAR apporte solidité et sérénité : cadre administratif, juridique, fiscal, process, outils, data et priorisation.",
-      actions: [
-        "Cadre administratif, juridique, fiscal et comptable",
-        "Process clairs et outils de pilotage",
-        "Priorisation des sollicitations et du calendrier",
-        "Data et visibilité sur le business du talent",
-        "Sérénité au quotidien pour se concentrer sur la création",
+      hook: "Deuxième faisceau : rendre l'univers pilotable au quotidien, sans friction.",
+      blocks: [
+        {
+          t: "Cadre admin, juridique & fiscal",
+          d: "Structurer le cadre contractuel, la facturation, la conformité et les relations avec agents ou partenaires.",
+        },
+        {
+          t: "Process & outils",
+          d: "Mettre en place des process clairs, des outils de suivi et une organisation qui simplifie — pas qui alourdit.",
+        },
+        {
+          t: "Priorisation & calendrier",
+          d: "Hiérarchiser les sollicitations, le calendrier éditorial et commercial pour éviter la surcharge.",
+        },
+        {
+          t: "Data & visibilité business",
+          d: "Donner une lecture claire des revenus, des catégories, des pipelines et des priorités à 3-12 mois.",
+        },
       ],
-      example: {
-        name: "CYRILmp4",
-        role: "Exploration, gaming, divertissement",
-        text: "Business structuré autour de formats longs, ambassades et projets annuels — pas seulement des posts sponsorisés.",
-        img: "/cyrilmp4.webp",
-      },
-      footer: "Une structure solide libère le talent pour développer sans friction.",
-      next: "Appui 03 · Garantir la croissance",
+      footer: "Une structure solide libère le talent pour développer sereinement.",
+      next: "Faisceau 03 · Garantir la croissance",
     },
     {
       index: 3,
+      beam: 3,
       title: "Garantir la croissance",
-      intro:
-        "Troisième appui du trépied. Quand l'univers est protégé et structuré, FAR ouvre de nouveaux champs : collaborations, ambassades, produits et marques propres, actifs, acquisitions, participations.",
-      actions: [
-        "Ambassades et partenariats long terme",
-        "Actifs propriétaires : marque, podcast, format récurrent",
-        "Co-brandings et opérations premium",
-        "Ouverture de verticaux et territoires adjacents",
-        "Projets structurants plutôt que du one-shot",
+      hook: "Troisième faisceau : ouvrir de nouveaux champs sans dénaturer l'univers.",
+      blocks: [
+        {
+          t: "Partenariats long terme",
+          d: "Ambassades, récurrence, relations marques sur 6-12 mois — pas seulement des one-shots.",
+        },
+        {
+          t: "Actifs propriétaires",
+          d: "Marque, podcast, format récurrent, événement : construire ce que le talent possède et peut monétiser.",
+        },
+        {
+          t: "Opérations premium",
+          d: "Co-brandings, activations structurantes, formats à forte valeur — au-delà du post sponsorisé.",
+        },
+        {
+          t: "Nouveaux territoires",
+          d: "Ouvrir des verticaux adjacents, des collaborations stratégiques, des participations ou acquisitions quand c'est cohérent.",
+        },
       ],
-      example: {
-        name: "Toinelag",
-        role: "Construction, jeux, divertissement",
-        text: "Lockd, concepts co-construits, produits et challenges marque — la croissance passe par des actifs, pas par le volume.",
-        img: "/toinelag.webp",
-      },
-      footer: "La croissance n'a de valeur que si elle respecte l'univers. La grille de lecture (slide suivante) sert à arbitrer.",
+      footer: "La croissance n'a de valeur que si elle respecte l'univers. La grille de lecture sert à arbitrer.",
       next: null,
     },
   ];
 
-  const TripodBreadcrumb = ({ t, leg }) => (
+  const FarModelBreadcrumb = ({ t, leg }) => (
     <motion.div variants={fu(6)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
-      <span style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 2, color: t.d, textTransform: "uppercase" }}>Tripod FAR</span>
+      <span style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 2, color: t.d, textTransform: "uppercase" }}>Modèle FAR</span>
       <span style={{ ...sa, fontSize: 14, color: t.d, lineHeight: 1 }} aria-hidden>
         →
       </span>
+      <FarBeams w={44} h={14} fill={t.a} active={leg.beam} dimOpacity={0.2} />
       <span style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.a, textTransform: "uppercase" }}>
-        Appui {String(leg.index).padStart(2, "0")}/03 · {leg.title}
+        Faisceau {String(leg.index).padStart(2, "0")}/03 · {leg.title}
       </span>
     </motion.div>
   );
 
-  const TripodLegSlide = ({ t, leg }) => (
-    <motion.div initial="h" animate="v" variants={stg(0.05)} style={{ width: "100%" }}>
-      <TripodBreadcrumb t={t} leg={leg} />
-      <motion.div variants={fu(10)}>
-        <Hl t={t} s={{ fontSize: 34, marginBottom: 14, lineHeight: 1.12 }}>{leg.title}</Hl>
-      </motion.div>
-      <motion.div variants={fu(8)}>
-        <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, marginBottom: 18, maxWidth: 960 }}>
-          {leg.intro}
-        </Sh>
-      </motion.div>
-      <div style={{ display: "grid", gridTemplateColumns: "1.12fr 0.88fr", gap: 18, alignItems: "stretch" }}>
-        <motion.div variants={fu(6)}>
-          <div
-            style={{
-              padding: "22px 24px",
-              borderRadius: 16,
-              background: t.card,
-              color: t.cardT,
-              border: `1px solid ${t.brd}`,
-              borderTop: `4px solid ${t.a}`,
-              height: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <Lb t={t}>Ce que FAR fait concrètement</Lb>
-            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              {leg.actions.map((line, i) => (
-                <div
-                  key={line}
-                  style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 12,
-                    padding: "10px 0",
-                    borderBottom: i < leg.actions.length - 1 ? `1px solid ${t.brd}` : "none",
-                  }}
-                >
-                  <span style={{ ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1, flexShrink: 0, paddingTop: 2 }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span style={{ ...sa, fontSize: 14.5, lineHeight: 1.48 }}>{line}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-        <motion.div variants={fu(8)}>
-          <div
-            style={{
-              padding: 16,
-              borderRadius: 16,
-              background: t.card,
-              border: `1px solid ${t.brd}`,
-              height: "100%",
-              boxSizing: "border-box",
-            }}
-          >
-            <Lb t={t}>Exemple sur le roster</Lb>
-            <div style={{ aspectRatio: "4/3", borderRadius: 12, overflow: "hidden", background: t.cardAlt, marginBottom: 12 }}>
-              <img src={pu(leg.example.img)} alt={leg.example.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-            </div>
-            <div style={{ ...se, fontSize: 16, fontWeight: 800, color: t.a, marginBottom: 4 }}>{leg.example.name}</div>
-            <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.5, color: t.d, textTransform: "uppercase", marginBottom: 10 }}>
-              {leg.example.role}
-            </div>
-            <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5 }}>{leg.example.text}</div>
-          </div>
-        </motion.div>
-      </div>
-      <motion.div variants={fu(8)} style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
-        <Th t={t} s={{ marginTop: 0, marginBottom: 0, padding: "18px 24px", fontSize: 15, lineHeight: 1.55 }}>
-          {leg.footer}
-        </Th>
-        {leg.next && (
-          <div style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 2, color: t.d, textAlign: "center", textTransform: "uppercase" }}>
-            Suite · {leg.next}
-          </div>
-        )}
-      </motion.div>
-    </motion.div>
-  );
+  const FarBeamBlocks = ({ t, leg, style: beamStyle }) => {
+    const renderBlockBody = (block, i) => (
+      <>
+        <div style={{ ...se, fontSize: leg.beam === 2 ? 15 : 16, fontWeight: 800, color: t.c, marginBottom: 8, lineHeight: 1.25 }}>{block.t}</div>
+        <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.52 }}>{block.d}</div>
+      </>
+    );
 
-  const TripodEntryHub = ({ t }) => (
-    <motion.div
-      variants={fu(10)}
-      style={{
-        marginTop: 18,
-        padding: "20px 24px",
-        borderRadius: 14,
-        border: `2px solid ${t.a}`,
-        background: "rgba(26,26,26,0.07)",
-      }}
-    >
-      <Lb t={t} s={{ color: t.a, marginBottom: 10 }}>
-        Point d&apos;entrée
-      </Lb>
-      <div style={{ ...sa, fontSize: 15.5, color: t.c, lineHeight: 1.58, marginBottom: 16 }}>
-        Le trépied est le modèle FAR : tout part de là. Les trois slides suivantes entrent dans chaque appui — ce que cela signifie concrètement pour un univers créateur.
-      </div>
-      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        {TRIPOD_LEGS.map((leg) => (
-          <span
-            key={leg.index}
+    if (beamStyle.layout === "rows") {
+      return (
+        <motion.div
+          initial="h"
+          animate="v"
+          variants={stg(0.06)}
+          style={{ border: `2px solid ${t.a}`, borderRadius: 6, overflow: "hidden", background: t.card }}
+        >
+          {leg.blocks.map((block, i) => (
+            <motion.div
+              key={block.t}
+              variants={fu(10)}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "56px 1fr",
+                borderBottom: i < leg.blocks.length - 1 ? `1px solid ${t.brd}` : "none",
+                color: t.cardT,
+                ...beamStyle.block(t),
+              }}
+            >
+              <div style={{ ...beamStyle.indexWrap(t) }}>
+                <span style={{ ...mo, fontSize: 11, fontWeight: 800, letterSpacing: 1, color: beamStyle.indexColor(t) }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div style={{ padding: "16px 20px 16px 4px" }}>{renderBlockBody(block, i)}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+      );
+    }
+
+    const { grid } = beamStyle;
+    return (
+      <motion.div
+        initial="h"
+        animate="v"
+        variants={stg(0.08)}
+        style={{
+          display: "grid",
+          gridTemplateColumns: grid.columns,
+          gridTemplateAreas: grid.areas || undefined,
+          gap: grid.gap,
+        }}
+      >
+        {leg.blocks.map((block, i) => (
+          <motion.div
+            key={block.t}
+            variants={fu(12)}
             style={{
-              ...mo,
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: 1.5,
-              padding: "10px 14px",
-              borderRadius: 8,
               background: t.card,
-              border: `1px solid ${t.brd}`,
               color: t.cardT,
+              gridArea: grid.place ? grid.place[i] : undefined,
+              ...beamStyle.block(t, i),
             }}
           >
-            {String(leg.index).padStart(2, "0")} · {leg.title}
-          </span>
+            <div style={{ ...beamStyle.indexWrap(t), marginBottom: 10 }}>
+              <span style={{ ...mo, fontSize: 10, fontWeight: 800, letterSpacing: 1, color: beamStyle.indexColor(t) }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            {renderBlockBody(block, i)}
+          </motion.div>
         ))}
-      </div>
-    </motion.div>
-  );
+      </motion.div>
+    );
+  };
+
+  const FarBeamLegSlide = ({ t, leg }) => {
+    const beamStyle = FAR_BEAM_STYLES[leg.beam];
+    const decor = beamStyle.decor;
+
+    return (
+      <motion.div initial="h" animate="v" variants={stg(0.05)} style={{ width: "100%", position: "relative" }}>
+        <div
+          style={{
+            position: "absolute",
+            right: decor.right ?? 0,
+            top: decor.top ?? -12,
+            opacity: decor.opacity,
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        >
+          <FarBeams w={decor.w} fill={t.a} active={leg.beam} dimOpacity={0.14} />
+        </div>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <FarModelBreadcrumb t={t} leg={leg} />
+          <motion.div variants={fu(10)} style={beamStyle.titleWrap(t)}>
+            <Hl t={t} s={{ fontSize: 34, marginBottom: 0, lineHeight: 1.12 }}>
+              {leg.title}
+            </Hl>
+          </motion.div>
+          <motion.div variants={fu(8)} style={beamStyle.hookBox ? beamStyle.hookBox(t) : { marginBottom: 20 }}>
+            <Sh t={t} s={{ fontSize: 15.5, lineHeight: 1.55, margin: 0, maxWidth: 900 }}>
+              {leg.hook}
+            </Sh>
+          </motion.div>
+          <FarBeamBlocks t={t} leg={leg} style={beamStyle} />
+          <motion.div variants={fu(8)} style={{ marginTop: 16 }}>
+            <Th
+              t={t}
+              s={{
+                marginTop: 0,
+                marginBottom: 0,
+                padding: "16px 22px",
+                fontSize: 14.5,
+                lineHeight: 1.5,
+                ...beamStyle.footer(t),
+              }}
+            >
+              {leg.footer}
+            </Th>
+            {leg.next && (
+              <div style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 2, color: t.d, textAlign: "center", marginTop: 12, textTransform: "uppercase" }}>
+                Suite · {leg.next}
+              </div>
+            )}
+          </motion.div>
+        </div>
+      </motion.div>
+    );
+  };
 
   const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
 
@@ -277,115 +393,54 @@ export function createSFarPositionnement(P) {
     }
   };
 
-  const PosTripod = ({ t }) => {
-    const footR = 12;
-    const legs = [
-      {
-        id: "creation",
-        title: "Protéger la création",
-        desc: "Préserver l'ADN du créateur : ton, formats, communauté, imaginaire, cohérence éditoriale et exigence.",
-        footX: 95,
-        footY: 200,
-      },
-      {
-        id: "structure",
-        title: "Solidifier la structure",
-        desc: "Apporter solidité et sérénité : cadre administratif, juridique, fiscal, process, outils, data et priorisation.",
-        footX: 280,
-        footY: 200,
-      },
-      {
-        id: "growth",
-        title: "Garantir la croissance",
-        desc: "Ouvrir de nouveaux champs : collaborations, ambassades, produits et marques propres, actifs, acquisitions, participations.",
-        footX: 465,
-        footY: 200,
-      },
-    ];
-    const apex = { x: 280, y: 52 };
-    const hubR = 40;
-
-    return (
-      <motion.div initial="h" animate="v" variants={stg(0.08)} style={{ marginTop: 8 }}>
-        <motion.div variants={fs} style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
-          <svg viewBox="0 0 560 220" style={{ width: "100%", maxWidth: 780, height: "auto", minHeight: 200 }} aria-label="Trépied univers créateur">
-            {legs.map((leg, i) => (
-              <motion.line
-                key={leg.id}
-                x1={apex.x}
-                y1={apex.y}
-                x2={leg.footX}
-                y2={leg.footY}
-                stroke={t.a}
-                strokeWidth="3"
-                strokeLinecap="round"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 0.55, delay: 0.12 + i * 0.12 }}
-              />
-            ))}
-            <motion.circle
-              cx={apex.x}
-              cy={apex.y}
-              r={hubR}
-              fill={t.th}
-              stroke={t.a}
-              strokeWidth="3"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 180, delay: 0.05 }}
-            />
-            <motion.text
-              x={apex.x}
-              y={apex.y - 2}
-              textAnchor="middle"
-              fill={t.thT}
-              fontSize="10"
-              fontWeight="800"
-              fontFamily="Figtree,sans-serif"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.35 }}
-            >
-              <tspan x={apex.x} dy="-5">
-                Univers
-              </tspan>
-              <tspan x={apex.x} dy="13">
-                créateur
-              </tspan>
-            </motion.text>
-            {legs.map((leg, i) => (
-              <motion.g key={`n-${leg.id}`} initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.45 + i * 0.1, duration: 0.35 }}>
-                <circle cx={leg.footX} cy={leg.footY} r={footR} fill={t.card} stroke={t.a} strokeWidth="2" />
-              </motion.g>
-            ))}
-          </svg>
+  const FarModelOverview = ({ t }) => (
+    <motion.div initial="h" animate="v" variants={stg(0.08)} style={{ marginTop: 8 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 36,
+          alignItems: "center",
+          flexWrap: "wrap",
+          padding: "24px 28px",
+          borderRadius: 16,
+          background: t.card,
+          border: `1px solid ${t.brd}`,
+        }}
+      >
+        <motion.div variants={fu(10)} style={{ flex: "0 0 auto", textAlign: "center" }}>
+          <FarLogo size={92} variant={t.lv} />
+          <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
+            <FarBeams w={128} fill={t.a} />
+          </div>
         </motion.div>
-
-        <motion.div
-          initial="h"
-          animate="v"
-          variants={stg(0.1)}
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20, marginTop: 4 }}
-        >
-          {legs.map((leg) => (
-            <motion.div key={leg.id} variants={fu(14)} style={{ padding: "0 8px", textAlign: "center" }}>
-              <div style={{ ...se, fontSize: 20, fontWeight: 800, color: t.a, marginBottom: 10 }}>{leg.title}</div>
-              <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.55 }}>{leg.desc}</div>
+        <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 14 }}>
+          {FAR_LEGS.map((leg, i) => (
+            <motion.div
+              key={leg.index}
+              variants={fu(12)}
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
+              style={{ display: "flex", alignItems: "center", gap: 18 }}
+            >
+              <FarBeams w={80} h={24} fill={t.a} active={leg.beam} dimOpacity={0.16} />
+              <div>
+                <div style={{ ...mo, fontSize: 10, fontWeight: 800, letterSpacing: 1.5, color: t.a, marginBottom: 4 }}>
+                  Faisceau {String(leg.index).padStart(2, "0")}
+                </div>
+                <div style={{ ...se, fontSize: 18, fontWeight: 800, color: t.c, lineHeight: 1.2 }}>{leg.title}</div>
+              </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        <motion.p
-          variants={fu(8)}
-          style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.d, marginTop: 12, textAlign: "center" }}
-        >
-          FAR · SYSTÈME QUI STABILISE L&apos;ENSEMBLE
-        </motion.p>
-        <TripodEntryHub t={t} />
+        </div>
+      </div>
+      <motion.div variants={fu(8)} style={{ marginTop: 20, maxWidth: 820, marginLeft: "auto", marginRight: "auto" }}>
+        <Sh t={t} s={{ fontSize: 16, lineHeight: 1.58, margin: 0, textAlign: "center" }}>
+          Un univers créateur a besoin d&apos;être défendu, piloté et ouvert — sans perdre ce qui le rend singulier. Trois mouvements complémentaires, dans cet ordre.
+        </Sh>
       </motion.div>
-    );
-  };
+    </motion.div>
+  );
 
   const PosDoDont = ({ t, dos, donts }) => (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 20 }}>
@@ -545,25 +600,35 @@ export function createSFarPositionnement(P) {
       title: "Modèle FAR",
       r: (t) => (
         <motion.div initial="h" animate="v" variants={stg(0.06)}>
-          <SlideHead t={t} tag="TRIPOD FAR" title="Le trépied FAR : un univers créateur repose sur trois appuis." titleS={{ fontSize: 32 }} />
-          <PosTripod t={t} />
+          <SlideHead
+            t={t}
+            tag="MODÈLE FAR"
+            title="Trois faisceaux pour structurer un univers créateur."
+            titleS={{ fontSize: 32 }}
+          />
+          <motion.div variants={fu(8)}>
+            <Sh t={t} s={{ fontSize: 16, lineHeight: 1.55, marginBottom: 4, maxWidth: 880 }}>
+              Protéger la création, solidifier la structure, garantir la croissance.
+            </Sh>
+          </motion.div>
+          <FarModelOverview t={t} />
         </motion.div>
       ),
     },
 
     {
       title: "Protéger la création",
-      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[0]} />,
+      r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[0]} />,
     },
 
     {
       title: "Solidifier la structure",
-      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[1]} />,
+      r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[1]} />,
     },
 
     {
       title: "Garantir la croissance",
-      r: (t) => <TripodLegSlide t={t} leg={TRIPOD_LEGS[2]} />,
+      r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[2]} />,
     },
 
     {
@@ -573,7 +638,7 @@ export function createSFarPositionnement(P) {
           <SlideHead t={t} tag="MÉTHODE" title="Notre grille de lecture." titleS={{ fontSize: 34 }} />
           <motion.div variants={fu(6)}>
             <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 16, maxWidth: 920 }}>
-              Le trépied est posé. Cette grille sert à arbitrer chaque opportunité au quotidien — après avoir protégé, structuré et développé l&apos;univers.
+              Les trois faisceaux sont posés. Cette grille sert à arbitrer chaque opportunité au quotidien — après avoir protégé, structuré et développé l&apos;univers.
             </Sh>
           </motion.div>
           <motion.div

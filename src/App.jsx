@@ -944,18 +944,33 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 // ═══════════════════════════════════════════════════════════════════════════════
 // O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  11 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
-const TitleBars = ({w=130,h,style}) => {
-  const ratio = 382/100;
+/** Trois faisceaux du logo FAR (signature graphique). active = 1|2|3 pour n’en souligner qu’un. */
+const FarBeams = ({ w = 130, h, fill = "#000", active = null, dimOpacity = 0.2, style }) => {
+  const ratio = 382 / 100;
   const _w = w;
-  const _h = h ?? Math.round(_w/ratio);
+  const _h = h ?? Math.round(_w / ratio);
+  const paths = [
+    "0,12 372,4 382,10 372,18 0,14",
+    "0,49 372,40 382,46 372,54 0,51",
+    "0,87 372,77 382,83 372,92 0,89",
+  ];
   return (
-    <svg width={_w} height={_h} viewBox="0 0 382 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style={{flexShrink:0,display:"block",overflow:"visible",...style}} aria-hidden>
-      <polygon points="0,12 372,4 382,10 372,18 0,14" fill="#000"/>
-      <polygon points="0,49 372,40 382,46 372,54 0,51" fill="#000"/>
-      <polygon points="0,87 372,77 382,83 372,92 0,89" fill="#000"/>
+    <svg
+      width={_w}
+      height={_h}
+      viewBox="0 0 382 100"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ flexShrink: 0, display: "block", overflow: "visible", ...style }}
+      aria-hidden
+    >
+      {paths.map((pts, i) => (
+        <polygon key={i} points={pts} fill={fill} opacity={active == null || active === i + 1 ? 1 : dimOpacity} />
+      ))}
     </svg>
   );
 };
+const TitleBars = ({ w = 130, h, style }) => <FarBeams w={w} h={h} fill="#000" style={style} />;
 const FarHeader = ({t}) => (
   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
     <FarLogo size={50} variant={t.logoVariant||"black"}/>
@@ -1327,6 +1342,155 @@ r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marg
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// TOINELAG × PLAY-DOH (HASBRO)  -  PITCH IDÉE  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SToinelagPlayDoh = [
+{title:"Toinelag × Play-Doh",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/toinelag-avatar.png")} alt="Toinelag" style={{width:64,height:64,borderRadius:16,objectFit:"cover",border:`3px solid ${t.c}`,boxShadow:t.cS}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2.5,padding:"7px 14px",background:t.card,borderRadius:8,border:`1px solid ${t.brd}`,display:"inline-block",color:t.d,marginBottom:20}}>HASBRO × PLAY-DOH × TOINELAG</div>
+  <div style={{...se,fontSize:38,fontWeight:900,lineHeight:1.1,maxWidth:860,margin:"0 auto 14px",color:t.c}}>La Bataille Artistique Play-Doh.</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:760,margin:"0 auto 16px"}}>Un format YouTube événement où la créativité devient un vrai spectacle compétitif.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:760}}>Pitch d'idée simple : installer Play-Doh au centre d'un concept natif Toinelag, fun, visuel et immédiatement partageable.</div>
+</div>},
+
+{title:"Pourquoi ce fit",
+r:t=><div>
+  <Tg t={t}>POURQUOI ÇA FIT</Tg>
+  <Hl t={t} s={{fontSize:36}}>Play-Doh a besoin d'un usage showable. Toinelag sait le transformer en spectacle.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginTop:20}}>
+    {[
+      {k:"Audience",v:"Jeune et familiale, forte appétence défis, construction, créativité."},
+      {k:"ADN créateur",v:"Formats de bataille, chrono, contraintes et rebondissements."},
+      {k:"Lisibilité produit",v:"La pâte à modeler est visible, manipulée, jugée à l'écran."},
+      {k:"Brand safety",v:"Univers positif, jeu, création, humour, sans violence ni controverse."},
+    ].map((x,i)=><div key={i} style={{padding:"18px 18px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:8}}>{x.k.toUpperCase()}</div>
+      <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55}}>{x.v}</div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>La Bataille Artistique de Pâte à Modeler</Hl>
+  <Sh t={t}>Des binômes s'affrontent en plusieurs manches créatives Play-Doh, sous contraintes de temps, de thème et de narration.</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"Thème imposé",d:"Ex. Monstre, véhicule, animal hybride, super-héros absurde."},
+      {n:"02",t:"Contrainte surprise",d:"Main non dominante, couleur unique, accessoire obligatoire, temps coupé."},
+      {n:"03",t:"Pitch créatif",d:"Chaque équipe défend sa création en 20 secondes face caméra."},
+      {n:"04",t:"Verdict",d:"Jury + audience (vote social) pour désigner le vainqueur."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        12-18 minutes.<br/>
+        Intro rapide + présentation équipes.<br/>
+        3 manches progressives + twist final.<br/>
+        Reveal gagnant + teasing revanche.
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Produit manipulé en continu.<br/>
+        Couleurs et textures au centre du récit.<br/>
+        Mention naturelle des références Play-Doh utilisées.
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        4-6 extraits courts (Reels / TikTok / Shorts):<br/>
+        - transformations visuelles<br/>
+        - fails drôles<br/>
+        - meilleures créations<br/>
+        - verdict & reactions
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTION</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Vote communauté post-publication pour choisir le thème de l'épisode suivant.
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation Play-Doh",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Play-Doh tient un vrai rôle, pas un simple placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"La marque structure les règles : manches, contraintes, critères de victoire."},
+      {t:"Rôle produit",d:"Les pots, outils et couleurs deviennent les ressources stratégiques du jeu."},
+      {t:"Rôle conversation",d:"La communauté réagit, vote et prolonge le concept entre les épisodes."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Faire de Play-Doh la marque qui transforme la création manuelle en entertainment digital massif.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne Play-Doh",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Hasbro / Play-Doh</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:20}}>
+    {[
+      "Un concept propriétaire facile à décliner en série.",
+      "Un usage produit concret, visible et mémorable.",
+      "Un territoire fun et family friendly cohérent avec Play-Doh.",
+      "Des assets réutilisables en social, paid, e-commerce et RP.",
+      "Une logique long terme : épisode 1, puis saisonnable (rentrée, Noël, etc.).",
+      "Un pont naturel entre notoriété, préférence de marque et considération.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Next steps",
+r:t=><div>
+  <Tg t={t}>NEXT STEPS</Tg>
+  <Hl t={t} s={{fontSize:34}}>Proposition de mise en route (simple)</Hl>
+  <div style={{marginTop:20,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Validation du principe créatif (bataille artistique Play-Doh).",
+      "Workshop éditorial FAR × Play-Doh × Toinelag (60-90 min).",
+      "Écriture du conducteur final (manches, contraintes, casting invités).",
+      "Validation brand safety / claims / produits mis en avant.",
+      "Tournage pilote + plan de découpes sociales.",
+      "Publication + analyse des performances pour décider de la suite.",
+    ].map((s,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 16px",background:i%2?t.card:t.bg,borderBottom:i<5?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,minWidth:24}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.5}}>{s}</span>
+    </div>)}
+  </div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CYRILMP4  -  ACTIVATION AUTO  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyril = [
@@ -1475,7 +1639,7 @@ r:(t,back)=><div><Tg t={t}>SPORT & PASSIONS</Tg><Hl t={t} s={{fontSize:30}}>Ultr
 ];
 
 const SFarPositionnement = createSFarPositionnement({
-  Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu,
+  Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
 });
 
 const SFGCMarmiton = createSFGCMarmiton({
@@ -1485,9 +1649,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -1505,6 +1669,7 @@ const META = {
   fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 8 slides",tag:"BRIEF CRÉATIF",card:"dark"},
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
+  toinelagplaydoh:{l:"Toinelag × Play-Doh",s:"Hasbro pitch · bataille artistique de pâte à modeler · 7 slides",tag:"PITCH IDÉE",card:"toinelag"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
