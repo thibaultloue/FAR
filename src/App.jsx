@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, Children } from "react";
+import { useState, useEffect, useCallback, useRef, Children, createElement } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -240,7 +240,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -352,8 +352,12 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 };
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
+/** Fond T1 (jaune + hachures) : présentation + export PDF doivent utiliser la même liste. */
+const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "fgcmarmiton", "profil"]);
+const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
+
 const DeckMotif = ({deck}) => {
-  if(deck==="case1"||deck==="stratcom"||deck==="farposition"||deck==="fgcmarmiton") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
+  if(deckUsesT1Hatch(deck)) return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
   if(deck==="case2") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
@@ -363,7 +367,6 @@ const DeckMotif = ({deck}) => {
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
   if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,7,19,.14)":i%3===1?"rgba(255,122,1,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
-  if(deck==="profil") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dmProfil" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dmProfil)" width="100%" height="100%"/></svg>;
   return null;
 };
 
@@ -383,6 +386,7 @@ const SV={
   fgcmarque:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   toinelagplaydoh:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
+  cyrilclubmed:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -1386,7 +1390,7 @@ r:t=><div>
       {n:"01",t:"Thème imposé",d:"Ex. Monstre, véhicule, animal hybride, super-héros absurde."},
       {n:"02",t:"Contrainte surprise",d:"Main non dominante, couleur unique, accessoire obligatoire, temps coupé."},
       {n:"03",t:"Pitch créatif",d:"Chaque équipe défend sa création en 20 secondes face caméra."},
-      {n:"04",t:"Verdict",d:"Jury + audience (vote social) pour désigner le vainqueur."},
+      {n:"04",t:"Verdict",d:"Jury simplement pour désigner le vainqueur."},
     ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
       <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
       <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
@@ -1424,9 +1428,9 @@ r:t=><div>
         - meilleures créations<br/>
         - verdict & reactions
       </div>
-      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTION</div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
       <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
-        Vote communauté post-publication pour choisir le thème de l'épisode suivant.
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
       </div>
     </Wc>
   </div>
@@ -1440,7 +1444,7 @@ r:t=><div>
     {[
       {t:"Rôle éditorial",d:"La marque structure les règles : manches, contraintes, critères de victoire."},
       {t:"Rôle produit",d:"Les pots, outils et couleurs deviennent les ressources stratégiques du jeu."},
-      {t:"Rôle conversation",d:"La communauté réagit, vote et prolonge le concept entre les épisodes."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour des créations."},
     ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
       <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
       <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
@@ -1458,11 +1462,11 @@ r:t=><div>
   <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Hasbro / Play-Doh</Hl>
   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:20}}>
     {[
-      "Un concept propriétaire facile à décliner en série.",
+      "Un concept propriétaire clair et immédiatement compréhensible.",
       "Un usage produit concret, visible et mémorable.",
       "Un territoire fun et family friendly cohérent avec Play-Doh.",
       "Des assets réutilisables en social, paid, e-commerce et RP.",
-      "Une logique long terme : épisode 1, puis saisonnable (rentrée, Noël, etc.).",
+      "Un format événementiel simple à activer à date fixe.",
       "Un pont naturel entre notoriété, préférence de marque et considération.",
     ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
       <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
@@ -1471,23 +1475,177 @@ r:t=><div>
   </div>
 </div>},
 
-{title:"Next steps",
+{title:"Timeline",
 r:t=><div>
-  <Tg t={t}>NEXT STEPS</Tg>
-  <Hl t={t} s={{fontSize:34}}>Proposition de mise en route (simple)</Hl>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Proposition de calendrier</Hl>
   <div style={{marginTop:20,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
     {[
-      "Validation du principe créatif (bataille artistique Play-Doh).",
-      "Workshop éditorial FAR × Play-Doh × Toinelag (60-90 min).",
-      "Écriture du conducteur final (manches, contraintes, casting invités).",
-      "Validation brand safety / claims / produits mis en avant.",
-      "Tournage pilote + plan de découpes sociales.",
-      "Publication + analyse des performances pour décider de la suite.",
-    ].map((s,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 16px",background:i%2?t.card:t.bg,borderBottom:i<5?`1px solid ${t.brd}`:"none"}}>
+      "Début Juin - Call de cadrage × Hasbro",
+      "Mi Juin (TBC) - Tournage",
+    ].map((s,i)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"14px 16px",background:i%2?t.card:t.bg,borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
       <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,minWidth:24}}>{String(i+1).padStart(2,"0")}</span>
       <span style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// CYRILMP4 × CLUB MED  -  PITCH IDÉE IMMERSION  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SCyrilClubMed = [
+{title:"CYRILmp4 × Club Med",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>CLUB MED × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:880,margin:"0 auto 14px",color:t.c}}>24h dans le plus vieux Club Med du monde.</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:760,margin:"0 auto 16px"}}>Un format immersion YouTube qui raconte l'histoire et l'esprit Club Med de l'intérieur.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:760}}>Pitch d'idée simple : poser Cyril 24h dans un village mythique et faire vivre le Club Med comme une expérience, pas comme une pub.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>CYRILmp4, le créateur de l'immersion longue durée.</Hl>
+    <Sh t={t}>Sur MP4, Cyril construit des formats « 24h / 100h dans… » : exploration, tension narrative, rencontres et spectacle. Un territoire rare et immédiatement reconnaissable pour une marque comme Club Med.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Formats signature",d:"« 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif » : immersion totale."},
+      {t:"Territoire",d:"Exploration, voyage, aventure, documentaire : le décor devient le personnage principal."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
     </div>)}
   </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>24h dans le plus vieux Club Med du monde</Hl>
+  <Sh t={t}>Cyril passe une journée et une nuit complètes dans un village historique : il en explore les coulisses, l'histoire, les rituels et les rencontres, du lever au coucher.</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"Arrivée & héritage",d:"Découverte du village mythique, son histoire, ce qui en fait le plus ancien encore en activité."},
+      {n:"02",t:"Immersion totale",d:"Vie de GM/GO, activités signature, coulisses, cuisine, rituels et moments de vie du village."},
+      {n:"03",t:"Rencontres",d:"Équipes, habitués, figures du village : ceux qui font l'âme du lieu et racontent son esprit."},
+      {n:"04",t:"La nuit & le réveil",d:"Le village après la tombée du jour puis au petit matin : la boucle 24h se referme."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-25 minutes.<br/>
+        Arrivée + promesse du défi 24h.<br/>
+        Immersion progressive jour - nuit - réveil.<br/>
+        Clôture sur l'esprit et l'héritage du village.
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Le village comme décor permanent.<br/>
+        Activités, équipes et art de vivre au cœur du récit.<br/>
+        Mention naturelle de l'histoire et de l'esprit Club Med.
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Extraits courts (Reels / TikTok / Shorts) :<br/>
+        moments forts d'immersion<br/>
+        rencontres marquantes<br/>
+        coulisses inattendues<br/>
+        la nuit / le réveil dans le village
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation Club Med",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Club Med tient un vrai rôle, pas un simple placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"La marque cadre le défi : le village historique, le format 24h, les temps forts à vivre."},
+      {t:"Rôle expérience",d:"Activités, gastronomie, équipes et art de vivre deviennent les séquences du film."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour de l'expérience."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Faire de Club Med une expérience désirable et vivante aux yeux d'une audience jeune et familiale.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne Club Med",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Club Med</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    Adresser une cible plus jeune : travailler la notoriété et la désirabilité de Club Med auprès d&apos;une audience qui ne pense pas encore « vacances Club Med ».
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept fort et immédiatement compréhensible.",
+      "Une expérience montrée de l'intérieur, concrète et désirable.",
+      "Un territoire positif et family friendly cohérent avec la marque.",
+      "Des assets réutilisables en social, paid, site et CRM.",
+      "Une mise en valeur de l'héritage et de l'esprit Club Med.",
+      "Un pont naturel entre notoriété, désirabilité et considération.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage × Club Med",
+      "Tournage immersion 24h (TBC)",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
 </div>},
 ];
 
@@ -1650,9 +1808,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -1671,17 +1829,121 @@ const META = {
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   toinelagplaydoh:{l:"Toinelag × Play-Doh",s:"Hasbro pitch · bataille artistique de pâte à modeler · 7 slides",tag:"PITCH IDÉE",card:"toinelag"},
+  cyrilclubmed:{l:"CYRILmp4 × Club Med",s:"Pitch idée · « 24h dans le plus vieux Club Med du monde » · 7 slides",tag:"PITCH IDÉE",card:"dark"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
 
-/** Export PDF : même pipeline pour tous les decks ouverts dans `Pres`. */
+/** Export PDF : rendu hors écran (identique pour tous les decks). */
 const PDF_RENDER_W = 1232;
+const PDF_RENDER_W_T1 = 1920;
+const PDF_RENDER_H_T1 = 1080;
 const PDF_CAPTURE_SCALE = 3;
 const PDF_PAGE_W_MM = 338.67;
 const PDF_PAGE_H_MM = 190.5;
+
+function pdfRenderSize(deckId) {
+  if (deckUsesT1Hatch(deckId)) return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
+  const w = PDF_RENDER_W;
+  return { w, h: Math.round((w * 9) / 16) };
+}
+
+let pdfT1HatchTileUrl;
+/** Tuile hachures T1 en bitmap (html2canvas ne gère pas les motifs SVG). */
+function pdfGetT1HatchTileUrl() {
+  if (pdfT1HatchTileUrl) return pdfT1HatchTileUrl;
+  const period = 40;
+  const size = Math.ceil(period * Math.SQRT2) + 2;
+  const cv = document.createElement("canvas");
+  cv.width = size;
+  cv.height = size;
+  const ctx = cv.getContext("2d");
+  ctx.clearRect(0, 0, size, size);
+  ctx.strokeStyle = "rgba(0,0,0,0.025)";
+  ctx.lineWidth = 1;
+  ctx.translate(size / 2, size / 2);
+  ctx.rotate(Math.PI / 4);
+  const span = size * 2;
+  ctx.beginPath();
+  for (let x = -span; x <= span; x += period) {
+    ctx.moveTo(x, -span);
+    ctx.lineTo(x, span);
+  }
+  ctx.stroke();
+  pdfT1HatchTileUrl = cv.toDataURL("image/png");
+  return pdfT1HatchTileUrl;
+}
+
+function pdfWrapPadding(deckId) {
+  if (deckId === "otacospepe") return "14px 26px 8px";
+  if (deckUsesT1Hatch(deckId)) return "60px 100px 52px";
+  return "14px 28px 4px";
+}
+
+function pdfRenderSettleMs(deckId) {
+  return deckId === "farposition" ? 800 : deckUsesT1Hatch(deckId) ? 650 : 520;
+}
+
+function pdfInnerStyle(deckId) {
+  if (deckUsesT1Hatch(deckId)) {
+    return "width:100%;max-width:none;display:flex;align-items:center;justify-content:center;";
+  }
+  return "width:100%;max-width:1580px;";
+}
+
+function pdfSlideAreaStyle(deckId) {
+  return "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1;";
+}
+
+function pdfPrepareT1Clone(root, bgColor) {
+  root.querySelectorAll("svg").forEach((svg) => {
+    if (!svg.querySelector("pattern")) return;
+    const parent = svg.parentElement;
+    if (!parent) return;
+    const layer = root.ownerDocument.createElement("div");
+    const tile = pdfGetT1HatchTileUrl();
+    layer.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:0;background-color:${bgColor};background-image:url(${tile});background-repeat:repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
+    parent.replaceChild(layer, svg);
+  });
+}
+
+/** Réduction uniforme uniquement si débordement (jamais d'agrandissement = pas de déformation volontaire). */
+function pdfScaleDownUniformIfOverflow(slideInner, slideWrap) {
+  slideInner.style.transform = "";
+  slideInner.style.transformOrigin = "";
+  const pad = 6;
+  if (slideInner.scrollHeight <= slideWrap.clientHeight + pad && slideInner.scrollWidth <= slideWrap.clientWidth + pad) {
+    return;
+  }
+  const scale = Math.min(
+    1,
+    slideWrap.clientWidth / slideInner.scrollWidth,
+    slideWrap.clientHeight / slideInner.scrollHeight,
+  );
+  if (scale >= 0.998) return;
+  slideInner.style.transform = `scale(${scale})`;
+  slideInner.style.transformOrigin = "center center";
+}
+
+function pdfFlattenVisibleTree(root) {
+  const win = root.ownerDocument?.defaultView || window;
+  root.querySelectorAll("*").forEach((el) => {
+    const cs = win.getComputedStyle(el);
+    if (parseFloat(cs.opacity) < 0.99) el.style.opacity = "1";
+    const tr = cs.transform;
+    if (!tr || tr === "none") return;
+    try {
+      const m = new win.DOMMatrix(tr);
+      if (Math.abs(m.a - 1) > 0.02 || Math.abs(m.d - 1) > 0.02 || Math.abs(m.e) > 0.5 || Math.abs(m.f) > 0.5) {
+        el.style.transform = "none";
+      }
+    } catch {
+      el.style.transform = "none";
+    }
+  });
+}
 
 function pdfFooterLabel(deckId) {
   return deckId === "profil" ? "confidentiel - thibault loué" : "confidentiel";
@@ -1736,7 +1998,14 @@ function pdfWaitForImages(root) {
   }));
 }
 
-function pdfAppendDeckMotif(root, deck) {
+function pdfAppendDeckMotif(root, deck, bgColor) {
+  if (deckUsesT1Hatch(deck)) {
+    const motif = document.createElement("div");
+    const tile = pdfGetT1HatchTileUrl();
+    motif.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:0;background-color:${bgColor};background-image:url(${tile});background-repeat:repeat;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
+    root.insertBefore(motif, root.firstChild);
+    return;
+  }
   if (deck !== "otacospepe") return;
   const motif = document.createElement("div");
   motif.style.cssText = "position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;";
@@ -1749,23 +2018,118 @@ function pdfAppendDeckMotif(root, deck) {
   root.insertBefore(motif, root.firstChild);
 }
 
+/** Bloque les animations Framer et force l'état visible avant capture. */
+function pdfFreezeMotion(root) {
+  if (!document.querySelector("[data-pdf-motion]")) {
+    const style = document.createElement("style");
+    style.setAttribute("data-pdf-motion", "1");
+    style.textContent = `
+      [data-pdf-capture] *, [data-pdf-capture] *::before, [data-pdf-capture] *::after {
+        animation-duration: 0.001ms !important;
+        animation-delay: 0s !important;
+        transition-duration: 0.001ms !important;
+        transition-delay: 0s !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  pdfForceVisible(root);
+}
+
+/** Framer laisse parfois opacity:0 sans animate:"v" — tout rendre visible avant html2canvas. */
+function pdfForceVisible(root) {
+  const win = root.ownerDocument?.defaultView || window;
+  root.querySelectorAll("*").forEach((el) => {
+    const cs = win.getComputedStyle(el);
+    if (cs.display === "none") return;
+    if (parseFloat(cs.opacity) < 0.99) el.style.opacity = "1";
+    if (cs.visibility === "hidden") el.style.visibility = "visible";
+    const tr = cs.transform;
+    if (tr && tr !== "none" && (tr.includes("matrix(0") || tr.includes("scale(0"))) {
+      el.style.transform = "none";
+    }
+  });
+}
+
+function pdfUnfreezeMotion() {
+  document.querySelector("[data-pdf-motion]")?.remove();
+}
+
+function pdfFitOptsForSlide(deckId, slideIndex) {
+  const opts = {};
+  if (deckId === "otacospepe") opts.minScale = 0.82;
+  if (deckId === "farposition") {
+    // Slides courtes (intro, manifesto, modèle, do/don't, closing) : remplir davantage l'espace.
+    opts.minScale = 0.9;
+    opts.maxScale = 2.0;
+    opts.targetFill = 0.98;
+    opts.useContentWidth = true;
+  } else if (deckUsesT1Hatch(deckId)) {
+    opts.minScale = 0.88;
+    opts.maxScale = slideIndex === 0 ? 1.15 : 1.12;
+  } else if (slideIndex === 0) {
+    opts.maxScale = deckId === "cyrilclubmed" ? 1.18 : 1.15;
+  }
+  return opts;
+}
+
+function pdfApplyScaledContent(content, scale, neededH, neededW) {
+  content.style.transform = `scale(${scale})`;
+  content.style.transformOrigin = "top center";
+  content.style.marginBottom = `${neededH * (scale - 1)}px`;
+  if (neededW > 0 && scale < 1) {
+    content.style.marginLeft = "auto";
+    content.style.marginRight = "auto";
+    content.style.maxWidth = `${neededW}px`;
+  }
+}
+
 function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
-  const availableH = slideArea.clientHeight - 2;
-  const neededH = inner.scrollHeight;
-  if (!availableH || !neededH) return;
-  const minScale = opts.minScale ?? 0.82;
-  const maxScale = opts.maxScale ?? 1;
+  const padV = opts.padV ?? 6;
+  const padW = opts.padW ?? 6;
+  const availableH = slideArea.clientHeight - padV;
+  const availableW = slideArea.clientWidth - padW;
+  const minScale = opts.minScale ?? 0.72;
+  const maxScale = opts.maxScale ?? 1.3;
+  const targetFill = opts.targetFill ?? 0.94;
+  const upscale = opts.upscale !== false;
+
+  const content = inner.firstElementChild;
+  if (!content || !availableH || !availableW) return;
+
+  content.style.transform = "";
+  content.style.transformOrigin = "";
+  content.style.marginBottom = "";
+  content.style.marginLeft = "";
+  content.style.marginRight = "";
+  content.style.maxWidth = "";
+  inner.style.transform = "";
+
+  const neededH = Math.max(inner.scrollHeight, content.scrollHeight, content.offsetHeight);
+  // useContentWidth : ignore la largeur 100% du conteneur (sinon le contenu étroit ne peut jamais s'agrandir).
+  const neededW = opts.useContentWidth
+    ? Math.max(content.scrollWidth, content.offsetWidth)
+    : Math.max(inner.scrollWidth, content.scrollWidth, content.offsetWidth);
+  if (!neededH) return;
+
+  const fitScale = Math.min(availableW / neededW, availableH / neededH);
   let scale;
-  if (neededH > availableH) {
-    scale = Math.max(minScale, Math.min(1, availableH / neededH));
-  } else if (maxScale > 1) {
-    scale = Math.min(maxScale, availableH / neededH);
+  if (fitScale < 1) {
+    scale = Math.max(minScale, fitScale);
+  } else if (upscale && maxScale > 1) {
+    scale = Math.min(maxScale, (availableH * targetFill) / neededH, (availableW * targetFill) / neededW);
   } else {
+    if (opts.distributeSlack) pdfDistributeRootSlack(inner, slideArea);
     return;
   }
-  if (Math.abs(scale - 1) < 0.005) return;
-  inner.style.transform = `scale(${scale})`;
-  inner.style.transformOrigin = "center center";
+
+  if (Math.abs(scale - 1) < 0.004) {
+    if (opts.distributeSlack) pdfDistributeRootSlack(inner, slideArea);
+    return;
+  }
+
+  pdfApplyScaledContent(content, scale, neededH, neededW);
+  if (opts.distributeSlack && scale >= 0.97) pdfDistributeRootSlack(inner, slideArea);
 }
 
 function pdfHexToRgb(hex) {
@@ -1866,16 +2230,17 @@ async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
 
 const PDF_DIRECT_IMAGE_PATTERNS = ["otacos-logo", "pepe-chicken-logo", "fgc.webp", "fgc-refs"];
 
-function pdfCollectAndHideLargeImages(inner, container) {
+function pdfCollectAndHideLargeImages(inner, container, opts = {}) {
+  const { patterns = PDF_DIRECT_IMAGE_PATTERNS, minPx = 8 } = opts;
   const containerRect = container.getBoundingClientRect();
   const imgs = inner.querySelectorAll("img");
   const collected = [];
   for (const img of imgs) {
     if (!img.src) continue;
     const src = img.src;
-    if (!PDF_DIRECT_IMAGE_PATTERNS.some((p) => src.includes(p))) continue;
+    if (patterns && !patterns.some((p) => src.includes(p))) continue;
     const r = img.getBoundingClientRect();
-    if (r.width < 8 || r.height < 8) continue;
+    if (r.width < minPx || r.height < minPx) continue;
     const cs = window.getComputedStyle(img);
     const parent = img.parentElement;
     const parentCs = parent ? window.getComputedStyle(parent) : null;
@@ -2024,12 +2389,14 @@ function Pres({id,onBack,onNav}) {
       /* ignore */
     }
 
-    const renderW = PDF_RENDER_W;
-    const renderH = Math.round((renderW * 9) / 16);
+    const { w: renderW, h: renderH } = pdfRenderSize(id);
     const useVectorBg = id === "otacospepe";
+    const usePhotoOverlay = deckUsesT1Hatch(id);
     const captureScale = useVectorBg ? 3 : PDF_CAPTURE_SCALE;
-    const losslessPdf = useVectorBg;
+    // PNG lossless pour farposition : jaune #FFAA00 exact (le JPEG ternit les orangés saturés) + texte net.
+    const losslessPdf = useVectorBg || id === "farposition";
     const bgRgb = pdfHexToRgb(t.bg);
+    const settleMs = pdfRenderSettleMs(id);
 
     const pdf = new jsPDF({
       orientation: "landscape",
@@ -2042,25 +2409,36 @@ function Pres({id,onBack,onNav}) {
     const footerLabel = pdfFooterLabel(id);
 
     const container = document.createElement("div");
+    container.setAttribute("data-pdf-capture", "1");
     const containerBg = useVectorBg ? "transparent" : t.bg;
-    container.style.cssText = `position:fixed;left:-12000px;top:0;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:2147483646;isolation:isolate;background:${containerBg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
+    container.style.cssText = `position:fixed;left:-24000px;top:0;opacity:1;pointer-events:none;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:-1;isolation:isolate;background:${containerBg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
     document.body.appendChild(container);
 
     const rdom = await import("react-dom/client");
 
+    globalThis.__FAR_PDF_EXPORT = true;
     try {
       for (let i = 0; i < n; i++) {
+        container.innerHTML = "";
+
+        let inner;
+        let slideArea;
         const wrap = document.createElement("div");
-        const pdfPad = id === "otacospepe" ? "14px 26px 8px" : "14px 28px 4px";
+        const pdfPad = pdfWrapPadding(id);
         const wrapBg = useVectorBg ? "transparent" : t.bg;
         wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${wrapBg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
-        pdfAppendDeckMotif(wrap, id);
-        const slideArea = document.createElement("div");
-        slideArea.style.cssText =
-          "flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:1;";
-        const inner = document.createElement("div");
-        inner.style.cssText = "width:100%;max-width:1580px;";
-
+        pdfAppendDeckMotif(wrap, id, t.bg);
+        slideArea = document.createElement("div");
+        slideArea.style.cssText = pdfSlideAreaStyle(id);
+        inner = document.createElement("div");
+        inner.style.cssText = pdfInnerStyle(id);
+        // farposition : les slides "contenu large mais court" (faisceaux, grille, écosystème)
+        // sont mises en page plus étroites pour que l'ajustement puisse les agrandir (texte plus lisible).
+        if (id === "farposition" && i >= 4 && i <= 8) {
+          inner.style.maxWidth = "1300px";
+          inner.style.marginLeft = "auto";
+          inner.style.marginRight = "auto";
+        }
         slideArea.appendChild(inner);
         wrap.appendChild(slideArea);
         if (id !== "otacospepe") {
@@ -2069,23 +2447,28 @@ function Pres({id,onBack,onNav}) {
           footer.textContent = footerLabel;
           wrap.appendChild(footer);
         }
-
-        container.innerHTML = "";
         container.appendChild(wrap);
 
         const tempRoot = rdom.createRoot(inner);
         await new Promise((resolve) => {
           tempRoot.render(slides[i].r(t, null));
-          setTimeout(resolve, 480);
+          setTimeout(resolve, settleMs);
         });
         await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-        await new Promise((resolve) => setTimeout(resolve, 220));
+        await new Promise((resolve) => setTimeout(resolve, 280));
 
         pdfConvertVhVwToPx(inner, renderW, renderH);
         await pdfWaitForImages(inner);
-        pdfFitInnerToSlide(inner, slideArea, id === "otacospepe" ? { minScale: 0.82 } : {});
-        const directImages = useVectorBg ? pdfCollectAndHideLargeImages(inner, container) : [];
-        pdfReplaceObjectFitImages(inner);
+        pdfFreezeMotion(container);
+        pdfFlattenVisibleTree(inner);
+        pdfForceVisible(inner);
+        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i));
+        const directImages = useVectorBg
+          ? pdfCollectAndHideLargeImages(inner, container)
+          : usePhotoOverlay && id !== "farposition"
+            ? pdfCollectAndHideLargeImages(inner, container, { patterns: null, minPx: 28 })
+            : [];
+        if (!usePhotoOverlay) pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -2097,17 +2480,23 @@ function Pres({id,onBack,onNav}) {
           backgroundColor: useVectorBg ? null : t.bg,
           width: renderW,
           height: renderH,
-          windowWidth: renderW,
-          windowHeight: renderH,
           logging: false,
           imageTimeout: 20000,
+          ...(deckUsesT1Hatch(id)
+            ? {
+                onclone: (_doc, node) => {
+                  pdfForceVisible(node);
+                },
+              }
+            : {}),
         });
 
         if (useVectorBg) {
           pdfRestoreSolidBgs(solidBgs);
           pdfRestoreBlur(blurRestore);
-          pdfRestoreLargeImages(directImages);
         }
+        if (directImages.length) pdfRestoreLargeImages(directImages);
+        pdfUnfreezeMotion();
 
         if (useVectorBg) {
           const ctx = canvas.getContext("2d");
@@ -2142,8 +2531,10 @@ function Pres({id,onBack,onNav}) {
           }
         }
         const compression = losslessPdf ? "SLOW" : "NONE";
+        const logicalW = canvas.width / captureScale;
+        const logicalH = canvas.height / captureScale;
         pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, compression);
-        if (useVectorBg && directImages.length) {
+        if (directImages.length) {
           const sx = pageW / renderW;
           const sy = pageH / renderH;
           for (const im of directImages) {
@@ -2155,6 +2546,8 @@ function Pres({id,onBack,onNav}) {
         tempRoot.unmount();
       }
     } finally {
+      globalThis.__FAR_PDF_EXPORT = false;
+      pdfUnfreezeMotion();
       document.body.removeChild(container);
     }
 
@@ -2273,6 +2666,7 @@ const HOME_COOKING = [
   { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
   { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "toinelagplaydoh", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
+  { id: "cyrilclubmed", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },

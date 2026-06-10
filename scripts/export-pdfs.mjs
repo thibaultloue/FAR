@@ -15,6 +15,7 @@ const outDir = path.join(root, "exports");
 const PORT = 4183;
 
 const DECKS = [
+  { id: "farposition", file: "FAR_Positionnement.pdf" },
   { id: "cyrilmp4", file: "CYRILmp4.pdf" },
   { id: "toinelag", file: "Toinelag.pdf" },
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },
@@ -71,7 +72,10 @@ try {
     headless: true,
     args: process.env.CI ? ["--no-sandbox", "--disable-setuid-sandbox"] : [],
   });
-  ctx = await browser.newContext({ acceptDownloads: true });
+  ctx = await browser.newContext({
+    acceptDownloads: true,
+    viewport: { width: 1920, height: 1080 },
+  });
   const page = await ctx.newPage();
 
   await page.goto(`${base}/`, { waitUntil: "networkidle", timeout: 120000 });

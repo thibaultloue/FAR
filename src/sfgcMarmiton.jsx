@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-/** Marmiton × FastGoodCuisine — brief créatif FAR (DA T1, layout aligné decks FAR, PDF-safe). */
+/** Marmiton × FastGoodCuisine - brief créatif FAR (DA T1, layout aligné decks FAR, PDF-safe). */
 export function createSFGCMarmiton(P) {
   const { Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu } = P;
 
