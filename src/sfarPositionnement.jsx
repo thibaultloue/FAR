@@ -1085,59 +1085,80 @@ export function createSFarPositionnement(P) {
             titleS={{ fontSize: 32, maxWidth: 960 }}
           />
           <M variants={fu(6)}>
-            <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 16, maxWidth: 920 }}>
-              Cinq promesses simples qui guident chaque collaboration FAR.
+            <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 14, maxWidth: 920 }}>
+              Une charte simple, qui engage FAR à chaque collaboration.
             </Sh>
           </M>
           <M
-            {...MV()}
-            variants={stg(0.08)}
-            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 14 }}
+            variants={fs}
+            style={{
+              marginTop: 4,
+              background: t.th,
+              borderRadius: 20,
+              padding: "14px 40px 18px",
+              boxShadow: t.cS,
+              position: "relative",
+              overflow: "hidden",
+            }}
           >
-            {[
-              {
-                l: "Liberté garantie",
-                d: "Vous gardez votre voix, votre style et votre liberté. Vous gagnez une structure, une ambition et des perspectives. Transparence totale sur chaque partenariat, aucun engagement commercial imposé.",
-              },
-              {
-                l: "Créativité respectée",
-                d: "Votre univers et votre communauté sont sacrés. Nous n'encadrons pas votre contenu, nous l'amplifions : intégrer les marques avec justesse, sans dénaturer le récit ni l'expérience de la communauté.",
-              },
-              {
-                l: "Contrat clair & flexible",
-                d: "Un contrat sans engagement, basé sur la confiance, qui peut s'arrêter à tout moment sans préavis. Nous recommandons l'exclusivité pour construire sereinement et maximiser la valeur créée.",
-              },
-              {
-                l: "Rémunération juste & évolutive",
-                d: "Pas de grille unique. Elle évolue avec vous, selon l'accompagnement, le chiffre d'affaires et vos besoins réels.",
-              },
-              {
-                l: "Accompagnement sur-mesure",
-                d: "Chaque créateur est unique. Nous sommes le sparring-partner qui vous épaule sur la structure d'entreprise, le développement commercial, l'image et le développement produit.",
-              },
-            ].map((e, i) => (
-              <M
-                key={e.l}
-                variants={fu(12)}
-                style={{
-                  gridColumn: i < 3 ? "span 2" : "span 3",
-                  background: t.card,
-                  color: t.cardT,
-                  borderRadius: 14,
-                  border: `1px solid ${t.brd}`,
-                  borderLeft: `5px solid ${t.a}`,
-                  padding: "18px 20px",
-                }}
-              >
-                <div style={{ ...mo, fontSize: 10, fontWeight: 800, letterSpacing: 1.5, color: t.d, marginBottom: 8 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div style={{ ...se, fontSize: 16, fontWeight: 800, color: t.c, marginBottom: 8, lineHeight: 1.22 }}>
-                  {e.l}
-                </div>
-                <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.5 }}>{e.d}</div>
-              </M>
-            ))}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "12px 0 6px",
+                borderBottom: "1px solid rgba(255,255,255,.12)",
+                marginBottom: 4,
+              }}
+            >
+              <FarLogo size={26} variant="yellow" />
+              <span style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 3, color: t.thT, textTransform: "uppercase" }}>
+                La charte créateur
+              </span>
+            </div>
+            <M {...MV()} variants={stg(0.08)}>
+              {[
+                {
+                  k: "Liberté garantie",
+                  d: "Le créateur garde sa voix, son style et sa liberté. Transparence totale sur chaque partenariat, aucun engagement commercial imposé.",
+                },
+                {
+                  k: "Créativité respectée",
+                  d: "Son univers et sa communauté restent sacrés. FAR n'encadre pas le contenu, il l'amplifie : des marques intégrées avec justesse, sans dénaturer le récit.",
+                },
+                {
+                  k: "Contrat clair & flexible",
+                  d: "Un contrat basé sur la confiance, qui peut s'arrêter à tout moment sans préavis. L'exclusivité reste recommandée pour construire sereinement.",
+                },
+                {
+                  k: "Rémunération juste & évolutive",
+                  d: "Pas de grille unique : la rémunération évolue avec le créateur, selon l'accompagnement, le chiffre d'affaires et les besoins réels.",
+                },
+                {
+                  k: "Accompagnement sur-mesure",
+                  d: "Chaque créateur est unique : un sparring-partner qui l'épaule sur la structure d'entreprise, le développement commercial, l'image et le produit.",
+                },
+              ].map((e, i) => (
+                <M
+                  key={e.k}
+                  variants={fu(10)}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "44px 248px 1fr",
+                    gap: 22,
+                    alignItems: "baseline",
+                    padding: "15px 0",
+                    borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,.1)",
+                  }}
+                >
+                  <span style={{ ...mo, fontSize: 13, fontWeight: 800, letterSpacing: 1, color: t.thT }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{ ...se, fontSize: 18, fontWeight: 800, color: t.thT, lineHeight: 1.18 }}>{e.k}</span>
+                  <span style={{ ...sa, fontSize: 14.5, color: "rgba(255,255,255,.82)", lineHeight: 1.5 }}>{e.d}</span>
+                </M>
+              ))}
+            </M>
           </M>
         </M>
       ),
