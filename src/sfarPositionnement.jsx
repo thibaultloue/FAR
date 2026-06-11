@@ -326,16 +326,16 @@ export function createSFarPositionnement(P) {
           d: "Poser ce qui fait l'univers : ton, rythme, formats signature, communauté, imaginaire, limites et ambitions. Tout part de là.",
         },
         {
+          t: "Intégrer les marques de façon crédible",
+          d: "La marque entre dans l'univers avec un rôle éditorial structurant, jamais comme un placement plaqué qui casse le récit.",
+        },
+        {
           t: "Arbitrage des opportunités",
           d: "Qualifier chaque sollicitation. Dire non quand ça dénature. Utiliser la grille de lecture pour trancher vite et juste.",
         },
         {
           t: "Protection des catégories",
           d: "Sanctuariser les associations sensibles, éviter les conflits de marques, protéger ce qui ne doit pas être dilué.",
-        },
-        {
-          t: "Intégration marque crédible",
-          d: "La marque entre dans l'univers avec un rôle éditorial structurant, jamais comme un placement plaqué qui casse le récit.",
         },
       ],
       footer: "Sans création protégée, la structure et la croissance n'ont pas de socle.",
@@ -347,20 +347,20 @@ export function createSFarPositionnement(P) {
       hook: "2e faisceau : rendre l'univers pilotable au quotidien, sans friction.",
       blocks: [
         {
+          t: "Priorisation, calendrier & soutien",
+          d: "Hiérarchiser les sollicitations et le calendrier éditorial et commercial, avec un soutien FAR au quotidien pour éviter la surcharge et garder le cap.",
+        },
+        {
+          t: "Data & visibilité business",
+          d: "Donner une lecture claire des revenus, des catégories, des pipelines et des priorités à 3-12 mois.",
+        },
+        {
           t: "Cadre admin, juridique & fiscal",
           d: "Structurer le cadre contractuel, la facturation, la conformité et les relations avec agents ou partenaires.",
         },
         {
           t: "Process & outils",
           d: "Mettre en place des process clairs, des outils de suivi et une organisation qui simplifie, pas qui alourdit.",
-        },
-        {
-          t: "Priorisation & calendrier",
-          d: "Hiérarchiser les sollicitations, le calendrier éditorial et commercial pour éviter la surcharge.",
-        },
-        {
-          t: "Data & visibilité business",
-          d: "Donner une lecture claire des revenus, des catégories, des pipelines et des priorités à 3-12 mois.",
         },
       ],
       footer: "Une structure solide libère le talent pour développer sereinement.",
@@ -376,8 +376,8 @@ export function createSFarPositionnement(P) {
           d: "Ambassades, récurrence, relations marques sur 6-12 mois, pas seulement des one-shots.",
         },
         {
-          t: "Actifs propriétaires",
-          d: "Marque, podcast, format récurrent, événement : construire ce que le talent possède et peut monétiser.",
+          t: "Actifs propriétaires des créateurs",
+          d: "Développement de marques, podcasts, formats récurrents, événements : construire ce que le talent possède et peut monétiser.",
         },
         {
           t: "Opérations premium",
@@ -1069,6 +1069,75 @@ export function createSFarPositionnement(P) {
                 </M>
               ))}
             </div>
+          </M>
+        </M>
+      ),
+    },
+
+    {
+      title: "Nos engagements",
+      r: (t) => (
+        <M {...MV()} variants={stg(0.06)}>
+          <SlideHead
+            t={t}
+            tag="ENGAGEMENTS"
+            title="Nos engagements vis-à-vis des créateurs."
+            titleS={{ fontSize: 32, maxWidth: 960 }}
+          />
+          <M variants={fu(6)}>
+            <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 16, maxWidth: 920 }}>
+              Cinq promesses simples qui guident chaque collaboration FAR.
+            </Sh>
+          </M>
+          <M
+            {...MV()}
+            variants={stg(0.08)}
+            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 14 }}
+          >
+            {[
+              {
+                l: "Liberté garantie",
+                d: "Vous gardez votre voix, votre style et votre liberté. Vous gagnez une structure, une ambition et des perspectives. Transparence totale sur chaque partenariat, aucun engagement commercial imposé.",
+              },
+              {
+                l: "Créativité respectée",
+                d: "Votre univers et votre communauté sont sacrés. Nous n'encadrons pas votre contenu, nous l'amplifions : intégrer les marques avec justesse, sans dénaturer le récit ni l'expérience de la communauté.",
+              },
+              {
+                l: "Contrat clair & flexible",
+                d: "Un contrat sans engagement, basé sur la confiance, qui peut s'arrêter à tout moment sans préavis. Nous recommandons l'exclusivité pour construire sereinement et maximiser la valeur créée.",
+              },
+              {
+                l: "Rémunération juste & évolutive",
+                d: "Pas de grille unique. Elle évolue avec vous, selon l'accompagnement, le chiffre d'affaires et vos besoins réels.",
+              },
+              {
+                l: "Accompagnement sur-mesure",
+                d: "Chaque créateur est unique. Nous sommes le sparring-partner qui vous épaule sur la structure d'entreprise, le développement commercial, l'image et le développement produit.",
+              },
+            ].map((e, i) => (
+              <M
+                key={e.l}
+                variants={fu(12)}
+                style={{
+                  gridColumn: i < 3 ? "span 2" : "span 3",
+                  background: t.card,
+                  color: t.cardT,
+                  borderRadius: 14,
+                  border: `1px solid ${t.brd}`,
+                  borderLeft: `5px solid ${t.a}`,
+                  padding: "18px 20px",
+                }}
+              >
+                <div style={{ ...mo, fontSize: 10, fontWeight: 800, letterSpacing: 1.5, color: t.d, marginBottom: 8 }}>
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div style={{ ...se, fontSize: 16, fontWeight: 800, color: t.c, marginBottom: 8, lineHeight: 1.22 }}>
+                  {e.l}
+                </div>
+                <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.5 }}>{e.d}</div>
+              </M>
+            ))}
           </M>
         </M>
       ),

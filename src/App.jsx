@@ -2434,7 +2434,7 @@ function Pres({id,onBack,onNav}) {
         inner.style.cssText = pdfInnerStyle(id);
         // farposition : les slides "contenu large mais court" (faisceaux, grille, écosystème)
         // sont mises en page plus étroites pour que l'ajustement puisse les agrandir (texte plus lisible).
-        if (id === "farposition" && i >= 4 && i <= 8) {
+        if (id === "farposition" && i >= 4 && i <= 9) {
           inner.style.maxWidth = "1300px";
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
