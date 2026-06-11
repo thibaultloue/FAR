@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { createSFarPositionnement } from "./sfarPositionnement.jsx";
+import { createSFarMarques } from "./sfarMarques.jsx";
 import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
 
 /** Chemins publics (GitHub Pages projet → BASE_URL `/FAR/`). */
@@ -29,6 +30,24 @@ const T1 = {
   th2:W, th2T:B,
   ex:B, exT:A, no:W, noT:B, noBrd:"rgba(0,0,0,.1)",
   section:B, sectionT:W, cR:18, cS:"0 2px 20px rgba(0,0,0,.06)", lv:"black",
+};
+/** Deck « pour les marques » : DA dédiée - fond clair froid, encre, accent bleu signal. */
+const MK_BG = "#E8EAF1";
+const MK_INK = "#13151C";
+const MK_ACC = "#3552FF";
+const TFarMarques = {
+  bg:MK_BG, c:MK_INK, c2:"#FFFFFF", m:"rgba(19,21,28,.62)", d:"rgba(19,21,28,.3)",
+  a:MK_ACC, a2:"#FFFFFF",
+  card:"#FFFFFF", cardT:MK_INK,
+  cardAlt:"rgba(53,82,255,.08)",
+  pill:"rgba(53,82,255,.1)", pillA:"#FFFFFF",
+  brd:"rgba(19,21,28,.1)",
+  bar:"rgba(19,21,28,.08)", barF:MK_ACC,
+  nav:MK_INK, navT:"#FFFFFF", note:MK_INK, noteT:"#FFFFFF",
+  th:MK_INK, thT:"#FFFFFF",
+  th2:"#FFFFFF", th2T:MK_INK,
+  ex:MK_INK, exT:"#FFFFFF", no:"#FFFFFF", noT:MK_INK, noBrd:"rgba(19,21,28,.1)",
+  section:MK_INK, sectionT:"#FFFFFF", cR:18, cS:"0 2px 22px rgba(19,21,28,.1)", lv:"black",
 };
 const T2 = {
   bg:B, c:W, c2:A, m:"rgba(248,246,241,.55)", d:"rgba(248,246,241,.2)",
@@ -240,7 +259,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -353,7 +372,7 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
 /** Fond T1 (jaune + hachures) : présentation + export PDF doivent utiliser la même liste. */
-const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "fgcmarmiton", "profil"]);
+const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "farmarques", "fgcmarmiton", "profil"]);
 const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
 
 const DeckMotif = ({deck}) => {
@@ -377,6 +396,7 @@ const fl={h:{opacity:0,x:20},v:{opacity:1,x:0,transition:{duration:.35}}};
 const SV={
   case1:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  farmarques:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   fgcmarmiton:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -1801,6 +1821,10 @@ const SFarPositionnement = createSFarPositionnement({
   Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
 });
 
+const SFarMarques = createSFarMarques({
+  Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu,
+});
+
 const SFGCMarmiton = createSFGCMarmiton({
   Tg, Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu,
 });
@@ -1808,9 +1832,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -1819,6 +1843,7 @@ function normalizeDeckId(raw) {
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  11 slides",tag:"POSITIONNEMENT",card:"dark"},
+  farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  6 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -2062,6 +2087,11 @@ function pdfFitOptsForSlide(deckId, slideIndex) {
     // Slides courtes (intro, manifesto, modèle, do/don't, closing) : remplir davantage l'espace.
     opts.minScale = 0.9;
     opts.maxScale = 2.0;
+    opts.targetFill = 0.98;
+    opts.useContentWidth = true;
+  } else if (deckId === "farmarques") {
+    opts.minScale = 0.9;
+    opts.maxScale = 1.7;
     opts.targetFill = 0.98;
     opts.useContentWidth = true;
   } else if (deckUsesT1Hatch(deckId)) {
@@ -2439,6 +2469,12 @@ function Pres({id,onBack,onNav}) {
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }
+        // farmarques : slides de contenu (1..4) plus étroites pour s'agrandir et remplir l'espace.
+        if (id === "farmarques" && i >= 1 && i <= 4) {
+          inner.style.maxWidth = "1280px";
+          inner.style.marginLeft = "auto";
+          inner.style.marginRight = "auto";
+        }
         slideArea.appendChild(inner);
         wrap.appendChild(slideArea);
         if (id !== "otacospepe") {
@@ -2652,7 +2688,7 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 }
 
 // ─── HOME ─────────────────────────────────────────────────────────────────────
-const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "stratcom", logo: "far" }];
+const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "farmarques", logo: "far" }, { id: "stratcom", logo: "far" }];
 const HOME_ARCHIVE = [
   { id: "case1", logo: "far" },
   { id: "case2", img: "/lebouseuh.png", imgType: "photo" },
@@ -2676,6 +2712,7 @@ function Home({onOpen}) {
   const [tab, setTab] = useState("main");
   const cs = {
     dark:{bg:B,c:W,tBg:"rgba(255,176,0,.15)",tC:A},
+    marques:{bg:"#13151C",c:"#F2F4F8",tBg:"rgba(53,82,255,.22)",tC:"#9AABFF"},
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
