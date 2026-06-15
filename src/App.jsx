@@ -2091,9 +2091,12 @@ function pdfFitOptsForSlide(deckId, slideIndex) {
     opts.useContentWidth = true;
   } else if (deckId === "farmarques") {
     opts.minScale = 0.9;
-    opts.maxScale = 1.7;
-    opts.targetFill = 0.98;
+    opts.maxScale = 2.0;
+    opts.targetFill = 0.99;
     opts.useContentWidth = true;
+    if (slideIndex === 1) opts.maxScale = 2.05;
+    if (slideIndex === 4) opts.maxScale = 1.92;
+    if (slideIndex === 0 || slideIndex === 6) opts.maxScale = 1.85;
   } else if (deckUsesT1Hatch(deckId)) {
     opts.minScale = 0.88;
     opts.maxScale = slideIndex === 0 ? 1.15 : 1.12;
@@ -2469,9 +2472,10 @@ function Pres({id,onBack,onNav}) {
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }
-        // farmarques : slides de contenu (1..5) plus étroites pour s'agrandir et remplir l'espace.
+        // farmarques : slides de contenu (1..5) — largeur cible par slide pour remplir l'espace.
         if (id === "farmarques" && i >= 1 && i <= 5) {
-          inner.style.maxWidth = "1280px";
+          const farmarquesMw = { 1: 1080, 2: 1220, 3: 1260, 4: 1380, 5: 1060 };
+          inner.style.maxWidth = `${farmarquesMw[i] ?? 1280}px`;
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }

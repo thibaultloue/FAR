@@ -45,11 +45,11 @@ export function createSFarMarques(P) {
     <M
       variants={fs}
       style={{
-        marginTop: 18,
+        marginTop: isPdf() ? 12 : 18,
         display: "flex",
         alignItems: "center",
         gap: 20,
-        padding: "18px 26px",
+        padding: isPdf() ? "14px 22px" : "18px 26px",
         borderRadius: 14,
         background: t.a,
         color: "#fff",
@@ -67,124 +67,80 @@ export function createSFarMarques(P) {
 
   const Intro = ({ t, children, s }) => (
     <M variants={fu(8)}>
-      <Sh t={t} s={{ fontSize: 16, lineHeight: 1.6, marginBottom: 18, maxWidth: 1040, ...s }}>
+      <Sh t={t} s={{ fontSize: 16, lineHeight: 1.6, marginBottom: isPdf() ? 10 : 18, maxWidth: 1040, ...s }}>
         {children}
       </Sh>
     </M>
   );
 
-  /** Schéma trépied 3D « blueprint » : un tétraèdre en pointillés. Les 3 appuis montent vers la
-   *  collaboration réussie (apex) ; FAR est le garant qui tient la structure en son cœur. */
+  /** Schéma trépied 3D « blueprint » — tout en SVG (coords fixes) pour un export PDF fidèle. */
   const TripodSchema = ({ t }) => {
     const acc = t.a;
     const con = "rgba(53,82,255,.4)";
     const faint = "rgba(19,21,28,.2)";
     const dot = "2 6";
     const dash = "8 7";
-    const A = { x: 500, y: 90 };
-    const vL = { x: 180, y: 400 };
-    const vR = { x: 820, y: 400 };
-    const vB = { x: 500, y: 300 };
-    const C = { x: 500, y: 367 };
+    const W = 1000;
+    const H = 580;
+    const A = { x: 500, y: 92 };
+    const vL = { x: 180, y: 388 };
+    const vR = { x: 820, y: 388 };
+    const vB = { x: 500, y: 292 };
+    const C = { x: 500, y: 355 };
     const verts = [vL, vB, vR];
     const legs = [
-      { n: "01", k: "L'ambition de la marque", d: "Notoriété, préférence, lancement, considération, conversion.", left: "1%" },
-      { n: "02", k: "L'univers du créateur", d: "Ton, formats, codes éditoriaux et relation de confiance avec sa communauté.", left: "35%" },
-      { n: "03", k: "L'attente de l'audience", d: "Une intégration utile : divertissement, inspiration, usage, preuve, proximité.", left: "69%" },
+      { n: "01", k: "L'ambition de la marque", d: "Notoriété, préférence, lancement, considération, conversion.", cx: 170 },
+      { n: "02", k: "L'univers du créateur", d: "Ton, formats, codes éditoriaux et relation de confiance avec sa communauté.", cx: 500 },
+      { n: "03", k: "L'attente de l'audience", d: "Une intégration utile : divertissement, inspiration, usage, preuve, proximité.", cx: 830 },
     ];
+    const ff = se.fontFamily;
+    const ffm = mo.fontFamily;
     return (
-      <M variants={fs} style={{ position: "relative", width: 720, height: 446, margin: "4px auto 0" }}>
-        <svg width="100%" height="100%" viewBox="0 0 1000 620" fill="none" style={{ position: "absolute", inset: 0, overflow: "visible" }} aria-hidden>
-          <path d="M8,22 V8 H22 M992,22 V8 H978 M8,598 V612 H22 M992,598 V612 H978" stroke={faint} strokeWidth="1.2" />
-          {/* sol (perspective 3D) */}
-          <ellipse cx="500" cy="430" rx="330" ry="44" stroke={faint} strokeWidth="1.4" strokeDasharray={dot} />
-          {/* arêtes arrière de la base (cachées) */}
+      <M variants={fs} style={{ width: W, height: H, margin: isPdf() ? "0 auto" : "2px auto 0" }}>
+        <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} fill="none" style={{ display: "block", overflow: "visible" }} aria-hidden>
+          <path d="M8,22 V8 H22 M992,22 V8 H978 M8,558 V572 H22 M992,558 V572 H978" stroke={faint} strokeWidth="1.2" />
+          <ellipse cx="500" cy="418" rx="330" ry="44" stroke={faint} strokeWidth="1.4" strokeDasharray={dot} />
           <path d={`M${vL.x},${vL.y} L${vB.x},${vB.y}`} stroke={faint} strokeWidth="1.5" strokeDasharray={dot} />
           <path d={`M${vR.x},${vR.y} L${vB.x},${vB.y}`} stroke={faint} strokeWidth="1.5" strokeDasharray={dot} />
-          {/* arête avant de la base */}
           <path d={`M${vL.x},${vL.y} L${vR.x},${vR.y}`} stroke={con} strokeWidth="1.8" strokeDasharray={dash} />
-          {/* liens du garant FAR vers chaque appui */}
           {verts.map((v, i) => (
-            <path key={i} d={`M${C.x},${C.y} L${v.x},${v.y}`} stroke={con} strokeWidth="1.3" strokeDasharray={dot} />
+            <path key={`l${i}`} d={`M${C.x},${C.y} L${v.x},${v.y}`} stroke={con} strokeWidth="1.3" strokeDasharray={dot} />
           ))}
-          {/* jambes du trépied (arêtes 3D en pointillés) */}
           {verts.map((v, i) => (
-            <path key={i} d={`M${A.x},${A.y} L${v.x},${v.y}`} stroke={acc} strokeWidth="2.6" strokeDasharray={dash} strokeLinecap="round" />
+            <path key={`j${i}`} d={`M${A.x},${A.y} L${v.x},${v.y}`} stroke={acc} strokeWidth="2.6" strokeDasharray={dash} strokeLinecap="round" />
           ))}
           <circle cx={A.x} cy={A.y} r="6" fill={acc} />
-          {/* noeuds des appuis */}
           {verts.map((v, i) => (
-            <circle key={i} cx={v.x} cy={v.y} r="6.5" fill={t.bg} stroke={acc} strokeWidth="2.4" />
+            <circle key={`n${i}`} cx={v.x} cy={v.y} r="6.5" fill={t.bg} stroke={acc} strokeWidth="2.4" />
           ))}
-          {/* rappels vers les libellés */}
           {verts.map((v, i) => (
-            <path key={i} d={`M${v.x},${v.y + 8} L${v.x},458`} stroke={con} strokeWidth="1.4" strokeDasharray={dot} />
+            <path key={`r${i}`} d={`M${v.x},${v.y + 8} L${v.x},448`} stroke={con} strokeWidth="1.4" strokeDasharray={dot} />
+          ))}
+          <rect x={A.x - 54} y={A.y - 53} width={108} height={30} rx={15} fill={acc} />
+          <circle cx={A.x - 38} cy={A.y - 38} r={3} fill="#fff" />
+          <text x={A.x + 6} y={A.y - 33} textAnchor="middle" fill="#fff" style={{ fontFamily: ffm, fontSize: 10.5, fontWeight: 800, letterSpacing: 1.3 }}>
+            SUCCÈS
+          </text>
+          <circle cx={C.x} cy={C.y} r={23} fill={acc} stroke={t.bg} strokeWidth={3} />
+          <text x={C.x} y={C.y + 5} textAnchor="middle" fill="#fff" style={{ fontFamily: ffm, fontSize: 14, fontWeight: 800 }}>
+            FAR
+          </text>
+          <rect x={C.x - 72} y={C.y + 30} width={144} height={18} rx={6} fill={t.bg} />
+          <text x={C.x} y={C.y + 43} textAnchor="middle" fill={acc} style={{ fontFamily: ffm, fontSize: 9.5, fontWeight: 700, letterSpacing: 1 }}>
+            GARANT DE L&apos;ÉQUILIBRE
+          </text>
+          {legs.map((leg) => (
+            <foreignObject key={leg.n} x={leg.cx - 148} y={456} width={296} height={118}>
+              <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: "center", fontFamily: ff }}>
+                <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 30, height: 30, borderRadius: 8, background: acc, color: "#fff", fontFamily: ffm, fontSize: 12, fontWeight: 800, marginBottom: 8 }}>
+                  {leg.n}
+                </div>
+                <div style={{ fontFamily: ff, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 6, lineHeight: 1.2 }}>{leg.k}</div>
+                <div style={{ fontFamily: ff, fontSize: 13, color: t.m, lineHeight: 1.45 }}>{leg.d}</div>
+              </div>
+            </foreignObject>
           ))}
         </svg>
-
-        {/* apex : la collaboration réussie */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "5.5%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            alignItems: "center",
-            gap: 7,
-            padding: "6px 14px",
-            borderRadius: 999,
-            background: t.a,
-            color: "#fff",
-            ...mo,
-            fontSize: 10.5,
-            fontWeight: 800,
-            letterSpacing: 1.3,
-            textTransform: "uppercase",
-            whiteSpace: "nowrap",
-            boxShadow: t.cS,
-          }}
-        >
-          <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
-          Succès
-        </div>
-
-        {/* FAR : garant du trépied (coeur de la structure) */}
-        <div style={{ position: "absolute", left: "50%", top: "59.2%", transform: "translate(-50%, -50%)", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div
-            style={{
-              width: 46,
-              height: 46,
-              borderRadius: "50%",
-              background: t.a,
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              ...mo,
-              fontSize: 14,
-              fontWeight: 800,
-              letterSpacing: 0.5,
-              boxShadow: t.cS,
-              border: `3px solid ${t.bg}`,
-            }}
-          >
-            FAR
-          </div>
-          <div style={{ marginTop: 6, ...mo, fontSize: 9.5, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: t.a, background: t.bg, padding: "2px 7px", borderRadius: 6, whiteSpace: "nowrap" }}>
-            garant de l'équilibre
-          </div>
-        </div>
-
-        {legs.map((leg) => (
-          <div key={leg.n} style={{ position: "absolute", left: leg.left, top: "75%", width: "30%", textAlign: "center" }}>
-            <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 30, height: 30, borderRadius: 8, background: t.a, color: "#fff", ...mo, fontSize: 12, fontWeight: 800, marginBottom: 8 }}>
-              {leg.n}
-            </div>
-            <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 6, lineHeight: 1.2 }}>{leg.k}</div>
-            <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.45 }}>{leg.d}</div>
-          </div>
-        ))}
       </M>
     );
   };
@@ -244,7 +200,7 @@ export function createSFarMarques(P) {
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
           <SlideHead t={t} tag="Notre conviction" title="Une collaboration réussie n'est pas à géométrie variable." titleS={{ fontSize: 32, maxWidth: 1020 }} />
-          <Intro t={t} s={{ marginBottom: 4 }}>
+          <Intro t={t} s={{ marginBottom: isPdf() ? 0 : 4 }}>
             Elle naît de l'équilibre entre trois appuis. Le rôle de FAR est d'en être le garant.
           </Intro>
           <TripodSchema t={t} />
@@ -374,7 +330,7 @@ export function createSFarMarques(P) {
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
           <SlideHead t={t} tag="Notre expertise" title="De la stratégie d'influence à la mesure, une chaîne complète." titleS={{ fontSize: 32, maxWidth: 1000 }} />
-          <Intro t={t} s={{ marginBottom: 12 }}>
+          <Intro t={t} s={{ marginBottom: isPdf() ? 8 : 12 }}>
             Nous réunissons l'ensemble des savoir-faire qui font une collaboration réussie. Chaque expertise compte, de la réflexion stratégique à l'activation et à la performance.
           </Intro>
           <M
@@ -425,8 +381,8 @@ export function createSFarMarques(P) {
                   borderRadius: 12,
                   border: `1px solid ${t.brd}`,
                   borderLeft: `4px solid ${t.a}`,
-                  padding: "14px 16px",
-                  minHeight: 118,
+                  padding: isPdf() ? "12px 14px" : "14px 16px",
+                  minHeight: isPdf() ? 108 : 118,
                 }}
               >
                 <div style={{ ...mo, fontSize: 11, fontWeight: 800, letterSpacing: 1, color: t.a, marginBottom: 8 }}>
