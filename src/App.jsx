@@ -1843,7 +1843,7 @@ function normalizeDeckId(raw) {
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  11 slides",tag:"POSITIONNEMENT",card:"dark"},
-  farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  6 slides",tag:"MARQUES",card:"marques"},
+  farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -2469,8 +2469,8 @@ function Pres({id,onBack,onNav}) {
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }
-        // farmarques : slides de contenu (1..4) plus étroites pour s'agrandir et remplir l'espace.
-        if (id === "farmarques" && i >= 1 && i <= 4) {
+        // farmarques : slides de contenu (1..5) plus étroites pour s'agrandir et remplir l'espace.
+        if (id === "farmarques" && i >= 1 && i <= 5) {
           inner.style.maxWidth = "1280px";
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
