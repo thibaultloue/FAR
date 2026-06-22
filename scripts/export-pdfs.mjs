@@ -18,6 +18,7 @@ const DECKS = [
   { id: "farposition", file: "FAR_Positionnement.pdf" },
   { id: "farmarques", file: "FAR_Marques.pdf" },
   { id: "cyrilmp4", file: "CYRILmp4.pdf" },
+  { id: "ponant", file: "PONANT.pdf" },
   { id: "toinelag", file: "Toinelag.pdf" },
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },
 ];

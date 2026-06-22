@@ -32,10 +32,23 @@ export function createSFarMarques(P) {
   const SlideHead = ({ t, tag, title, titleS, subS }) => (
     <>
       <M variants={fu(10)}>
-        <Tg t={t}>{tag}</Tg>
+        <div style={{ whiteSpace: "nowrap" }}>
+          <Tg t={t} s={{ marginBottom: isPdf() ? 20 : 28 }}>{tag}</Tg>
+        </div>
       </M>
       <M variants={fu(12)}>
-        <Hl t={t} s={{ marginBottom: 18, ...titleS }}>{title}</Hl>
+        <Hl
+          t={t}
+          s={{
+            marginBottom: isPdf() ? 14 : 18,
+            width: "100%",
+            maxWidth: "none",
+            textAlign: "left",
+            ...titleS,
+          }}
+        >
+          {title}
+        </Hl>
       </M>
     </>
   );
@@ -61,13 +74,25 @@ export function createSFarMarques(P) {
           {label} →
         </span>
       ) : null}
-      <span style={{ ...se, fontSize: 18, fontWeight: 800, lineHeight: 1.3 }}>{children}</span>
+      <span style={{ ...se, fontSize: 18, fontWeight: 800, lineHeight: 1.3, flex: 1, textAlign: "left" }}>{children}</span>
     </M>
   );
 
   const Intro = ({ t, children, s }) => (
     <M variants={fu(8)}>
-      <Sh t={t} s={{ fontSize: 16, lineHeight: 1.6, marginBottom: isPdf() ? 10 : 18, maxWidth: 1040, ...s }}>
+      <Sh
+        t={t}
+        s={{
+          fontSize: 16,
+          lineHeight: 1.55,
+          marginBottom: isPdf() ? 10 : 18,
+          width: "100%",
+          maxWidth: "none",
+          textAlign: "justify",
+          hyphens: "none",
+          ...s,
+        }}
+      >
         {children}
       </Sh>
     </M>
@@ -130,13 +155,13 @@ export function createSFarMarques(P) {
             GARANT DE L&apos;ÉQUILIBRE
           </text>
           {legs.map((leg) => (
-            <foreignObject key={leg.n} x={leg.cx - 148} y={456} width={296} height={118}>
+            <foreignObject key={leg.n} x={leg.cx - 158} y={452} width={316} height={124}>
               <div xmlns="http://www.w3.org/1999/xhtml" style={{ textAlign: "center", fontFamily: ff }}>
-                <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 30, height: 30, borderRadius: 8, background: acc, color: "#fff", fontFamily: ffm, fontSize: 12, fontWeight: 800, marginBottom: 8 }}>
+                <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 34, height: 34, borderRadius: 9, background: acc, color: "#fff", fontFamily: ffm, fontSize: 13, fontWeight: 800, marginBottom: 10 }}>
                   {leg.n}
                 </div>
-                <div style={{ fontFamily: ff, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 6, lineHeight: 1.2 }}>{leg.k}</div>
-                <div style={{ fontFamily: ff, fontSize: 13, color: t.m, lineHeight: 1.45 }}>{leg.d}</div>
+                <div style={{ fontFamily: ff, fontSize: 19, fontWeight: 800, color: t.c, marginBottom: 8, lineHeight: 1.2, whiteSpace: "nowrap" }}>{leg.k}</div>
+                <div style={{ fontFamily: ff, fontSize: 14.5, color: t.m, lineHeight: 1.5, textAlign: "center", hyphens: "none" }}>{leg.d}</div>
               </div>
             </foreignObject>
           ))}
@@ -199,7 +224,7 @@ export function createSFarMarques(P) {
       title: "Notre conviction",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="Notre conviction" title="Une collaboration réussie n'est pas à géométrie variable." titleS={{ fontSize: 32, maxWidth: 1020 }} />
+          <SlideHead t={t} tag="Notre conviction" title="Une collaboration réussie n'est pas à géométrie variable." titleS={{ fontSize: 32 }} />
           <Intro t={t} s={{ marginBottom: isPdf() ? 0 : 4 }}>
             Elle naît de l'équilibre entre trois appuis. Le rôle de FAR est d'en être le garant.
           </Intro>
@@ -218,7 +243,7 @@ export function createSFarMarques(P) {
             t={t}
             tag="Notre rôle"
             title="Le point de rencontre entre stratégie, marque et culture créateur."
-            titleS={{ fontSize: 32, maxWidth: 1020 }}
+            titleS={{ fontSize: 32 }}
           />
           <Intro t={t}>
             FAR accompagne les marques au-delà du casting de talents : transformer un objectif de communication ou de business en collaboration créateur juste, fluide et performante. Trois expertises complémentaires.
@@ -251,14 +276,17 @@ export function createSFarMarques(P) {
                   borderRadius: 14,
                   border: `1px solid ${t.brd}`,
                   borderTop: `3px solid ${t.a}`,
-                  padding: "20px 22px",
+                  padding: "30px 28px",
+                  minHeight: 250,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <div style={{ ...mo, fontSize: 12, fontWeight: 800, letterSpacing: 1, color: t.a, marginBottom: 12 }}>
+                <div style={{ ...mo, fontSize: 13, fontWeight: 800, letterSpacing: 1, color: t.a, marginBottom: 16 }}>
                   0{i + 1}
                 </div>
-                <div style={{ ...se, fontSize: 18, fontWeight: 800, color: t.c, marginBottom: 10, lineHeight: 1.2 }}>{e.k}</div>
-                <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.55 }}>{e.d}</div>
+                <div style={{ ...se, fontSize: 21, fontWeight: 800, color: t.c, marginBottom: 14, lineHeight: 1.2 }}>{e.k}</div>
+                <div style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.6, textAlign: "justify", hyphens: "none" }}>{e.d}</div>
               </M>
             ))}
           </M>
@@ -272,19 +300,19 @@ export function createSFarMarques(P) {
       title: "Notre méthode",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="Méthode" title="Brand-first. Creator-led. Business-measured." titleS={{ fontSize: 34, maxWidth: 1000 }} />
+          <SlideHead t={t} tag="Méthode" title="Brand-first. Creator-led. Business-measured." titleS={{ fontSize: 34, whiteSpace: "nowrap" }} />
           <Intro t={t}>
             Chaque collaboration part d'une intention de marque claire, puis se construit dans le respect de l'univers du créateur et des attentes de son audience.
           </Intro>
           <M
             variants={fs}
-            style={{ position: "relative", padding: "10px 0 4px" }}
+            style={{ position: "relative", padding: "36px 0 24px" }}
           >
-            <div style={{ position: "absolute", top: 34, left: "11%", right: "11%", height: 3, background: t.brd, borderRadius: 2 }} />
+            <div style={{ position: "absolute", top: 76, left: "11%", right: "11%", height: 3, background: t.brd, borderRadius: 2 }} />
             <M
               {...MV()}
               variants={stg(0.1)}
-              style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18, position: "relative", zIndex: 1 }}
+              style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, position: "relative", zIndex: 1 }}
             >
               {[
                 { n: "01", k: "Cadrer", d: "Identifier l'objectif réel : notoriété, image, préférence, lancement, trafic, considération ou conversion." },
@@ -295,26 +323,26 @@ export function createSFarMarques(P) {
                 <M key={s.n} variants={fu(14)} style={{ textAlign: "center" }}>
                   <div
                     style={{
-                      width: 56,
-                      height: 56,
+                      width: 72,
+                      height: 72,
                       borderRadius: "50%",
                       background: t.a,
                       color: "#fff",
-                      border: `3px solid ${t.bg}`,
+                      border: `4px solid ${t.bg}`,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      margin: "0 auto 14px",
+                      margin: "0 auto 20px",
                       ...mo,
-                      fontSize: 14,
+                      fontSize: 17,
                       fontWeight: 800,
                       boxShadow: t.cS,
                     }}
                   >
                     {s.n}
                   </div>
-                  <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 8 }}>{s.k}</div>
-                  <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.5 }}>{s.d}</div>
+                  <div style={{ ...se, fontSize: 20, fontWeight: 800, color: t.c, marginBottom: 12 }}>{s.k}</div>
+                  <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.6, textAlign: "justify", hyphens: "none" }}>{s.d}</div>
                 </M>
               ))}
             </M>
@@ -329,14 +357,14 @@ export function createSFarMarques(P) {
       title: "Notre expertise",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="Notre expertise" title="De la stratégie d'influence à la mesure, une chaîne complète." titleS={{ fontSize: 32, maxWidth: 1000 }} />
+          <SlideHead t={t} tag="Notre expertise" title="De la stratégie d'influence à la mesure, une chaîne complète." titleS={{ fontSize: 32 }} />
           <Intro t={t} s={{ marginBottom: isPdf() ? 8 : 12 }}>
             Nous réunissons l'ensemble des savoir-faire qui font une collaboration réussie. Chaque expertise compte, de la réflexion stratégique à l'activation et à la performance.
           </Intro>
           <M
             {...MV()}
             variants={stg(0.05)}
-            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}
           >
             {[
               {
@@ -380,16 +408,18 @@ export function createSFarMarques(P) {
                   color: t.cardT,
                   borderRadius: 12,
                   border: `1px solid ${t.brd}`,
-                  borderLeft: `4px solid ${t.a}`,
-                  padding: isPdf() ? "12px 14px" : "14px 16px",
-                  minHeight: isPdf() ? 108 : 118,
+                  borderLeft: `5px solid ${t.a}`,
+                  padding: "20px 20px",
+                  minHeight: 172,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <div style={{ ...mo, fontSize: 11, fontWeight: 800, letterSpacing: 1, color: t.a, marginBottom: 8 }}>
+                <div style={{ ...mo, fontSize: 12, fontWeight: 800, letterSpacing: 1, color: t.a, marginBottom: 12 }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <div style={{ ...se, fontSize: 15, fontWeight: 800, color: t.c, marginBottom: 6, lineHeight: 1.2 }}>{e.k}</div>
-                <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.45 }}>{e.d}</div>
+                <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 10, lineHeight: 1.2, textAlign: "left" }}>{e.k}</div>
+                <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.55, textAlign: "justify", hyphens: "none" }}>{e.d}</div>
               </M>
             ))}
           </M>
@@ -403,7 +433,7 @@ export function createSFarMarques(P) {
       title: "Terrains d'activation",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="Activation" title="Du placement intelligent au partenariat de marque." titleS={{ fontSize: 32, maxWidth: 1000 }} />
+          <SlideHead t={t} tag="Activation" title="Du placement intelligent au partenariat de marque." titleS={{ fontSize: 32, whiteSpace: "nowrap" }} />
           <Intro t={t}>
             Des collaborations adaptées au niveau d'ambition et aux objectifs de chaque marque, de l'intégration simple au dispositif plus structurant.
           </Intro>
@@ -443,7 +473,7 @@ export function createSFarMarques(P) {
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ ...se, fontSize: 17, fontWeight: 800, color: t.c, marginBottom: 5, lineHeight: 1.2 }}>{e.k}</div>
-                  <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5 }}>{e.d}</div>
+                  <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.5, textAlign: "justify", hyphens: "none" }}>{e.d}</div>
                 </div>
               </M>
             ))}

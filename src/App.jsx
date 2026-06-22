@@ -216,6 +216,20 @@ const TC = {
   ex:A, exT:B, no:"rgba(255,255,255,.05)", noT:W, noBrd:"rgba(255,255,255,.08)",
   section:A, sectionT:B, cR:16, cBf:"blur(12px)", lv:"yellow",
 };
+const TPonant = {
+  bg:"#0A1B33", c:"#F4EFE6", c2:"#C9A24B", m:"rgba(244,239,230,.62)", d:"rgba(244,239,230,.26)",
+  a:"#C9A24B", a2:"#F4EFE6",
+  card:"rgba(255,255,255,.05)", cardT:"#F4EFE6",
+  cardAlt:"rgba(201,162,75,.1)",
+  pill:"rgba(201,162,75,.12)", pillA:"rgba(201,162,75,.22)",
+  brd:"rgba(244,239,230,.13)",
+  bar:"rgba(244,239,230,.1)", barF:"#C9A24B",
+  nav:"#C9A24B", navT:"#0A1B33", note:"#F4EFE6", noteT:"#0A1B33",
+  th:"#C9A24B", thT:"#0A1B33",
+  th2:"rgba(255,255,255,.06)", th2T:"#F4EFE6",
+  ex:"#C9A24B", exT:"#0A1B33", no:"rgba(255,255,255,.05)", noT:"#F4EFE6", noBrd:"rgba(244,239,230,.13)",
+  section:"#C9A24B", sectionT:"#0A1B33", cR:16, cBf:"blur(12px)", lv:"white",
+};
 const TGarmin = {
   bg:"#050A0F", c:"#F7FBFF", c2:"#00A9E0", m:"rgba(247,251,255,.64)", d:"rgba(247,251,255,.24)",
   a:"#00A9E0", a2:"#FFFFFF",
@@ -259,7 +273,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -407,6 +421,7 @@ const SV={
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   toinelagplaydoh:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   cyrilclubmed:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  ponant:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -417,7 +432,7 @@ function AC({v,s="",p="",d=1.2}){const[c,setC]=useState(0);const ref=useRef(fals
 
 // ─── PRIMITIVES ───────────────────────────────────────────────────────────────
 const US = {WebkitUserSelect:"text",userSelect:"text"};
-const Tg = ({t,children}) => <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:t.d,marginBottom:28,...US}}>{children}</div>;
+const Tg = ({t,children,s}) => <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:t.d,marginBottom:28,...US,...s}}>{children}</div>;
 const Hl = ({t,children,s}) => <div style={{...se,fontSize:52,fontWeight:800,lineHeight:1.1,letterSpacing:"-0.02em",color:t.c,marginBottom:28,...US,...s}}>{children}</div>;
 const Sh = ({t,children,white,s}) => <div style={{...sa,fontSize:20,fontWeight:400,color:white?t.c2:t.m,lineHeight:1.6,marginBottom:36,...US,...s}}>{children}</div>;
 const Sec = ({t,children,sub}) => <div style={{marginBottom:sub?48:36}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,textTransform:"uppercase",color:t.a,marginBottom:sub?12:0,...US}}>{children}</div>{sub&&<div style={{...se,fontSize:36,fontWeight:800,lineHeight:1.2,color:t.c,...US}}>{sub}</div>}</div>;
@@ -1670,6 +1685,163 @@ r:(t,back)=><div>
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// PONANT × CYRILMP4  -  PITCH IDÉE CROISIÈRE DE LUXE  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SPonant = [
+{title:"PONANT × CYRILmp4",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:30,fontWeight:400,letterSpacing:6,color:t.a}}>PONANT</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>PONANT × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:920,margin:"0 auto 14px",color:t.c}}>{"J'ai cherché tous les détails cachés d'une croisière de luxe."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:780,margin:"0 auto 16px"}}>Un format enquête immersive YouTube où Cyril traque ce qui fait, vraiment, le luxe à bord.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, le créateur de l'immersion longue durée."}</Hl>
+    <Sh t={t}>{"Sur MP4, Cyril construit des formats « 24h / 100h dans… » : exploration, tension narrative, curiosité et sens du détail. Un regard neuf et crédible pour décrypter l'univers d'exception de PONANT."}</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Formats signature",d:"« 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif » : immersion totale et œil d'enquêteur."},
+      {t:"Territoire",d:"Exploration, voyage, coulisses : Cyril sait rendre désirable un lieu en le racontant de l'intérieur."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"Les détails cachés d'une croisière de luxe"}</Hl>
+  <Sh t={t}>{"Cyril mène l'enquête à bord d'un navire PONANT : il cherche, observe, teste et démonte le mythe du luxe pour révéler ce qui le justifie vraiment, geste après geste, détail après détail."}</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"La traque des détails",d:"Du quai à la cabine : repérer ce qui se voit et surtout ce qui se cache, ces attentions qu'on ne remarque pas."},
+      {n:"02",t:"Les coulisses",d:"Cuisine, passerelle, équipage : le travail invisible et l'exigence qui se déploient derrière chaque service."},
+      {n:"03",t:"Les preuves du luxe",d:"Matières, savoir-faire, sur-mesure, art de vivre : les marqueurs concrets qui font l'exception PONANT."},
+      {n:"04",t:"Le verdict",d:"Cyril livre son enquête : le vrai luxe se cache-t-il dans les détails ? Une conclusion sincère et incarnée."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-25 minutes.<br/>
+        {"Embarquement + promesse de l'enquête détails."}<br/>
+        {"Exploration progressive : cabines, ponts, coulisses, équipage."}<br/>
+        {"Clôture sur le verdict et l'art de vivre PONANT."}
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Le navire et ses espaces comme décor permanent."}<br/>
+        {"Gastronomie, suites, expéditions et services au cœur du récit."}<br/>
+        {"Mention naturelle du savoir-faire et de l'esprit PONANT."}
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Extraits courts (Reels / TikTok / Shorts) :"}<br/>
+        détails insoupçonnés du luxe<br/>
+        coulisses cuisine & passerelle<br/>
+        {"top des attentions cachées"}<br/>
+        la suite, le spa, le pont au lever du jour
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation PONANT",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>PONANT tient un vrai rôle, pas un simple placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"La marque cadre l'enquête : le navire, l'itinéraire d'exception, les détails à débusquer."},
+      {t:"Rôle expérience",d:"Gastronomie, suites, expéditions, art de vivre et service deviennent les séquences du film."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Rendre le luxe PONANT désirable et tangible aux yeux d'une audience plus jeune, en montrant l'exception de l'intérieur.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne PONANT",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour PONANT</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    {"Adresser une cible plus jeune : travailler la notoriété et la désirabilité de PONANT auprès d'une audience qui n'imagine pas encore une croisière d'exception."}
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept fort, curieux et immédiatement compréhensible.",
+      "Un territoire premium et positif, fidèle à l'image PONANT.",
+      "Une mise en valeur du savoir-faire et de l'art de vivre PONANT.",
+      "Un pont naturel entre notoriété, désirabilité et considération.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage × PONANT",
+      "Repérage navire & itinéraire (TBC)",
+      "Tournage enquête immersive à bord (TBC)",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CYRILMP4  -  ACTIVATION AUTO  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyril = [
@@ -1832,9 +2004,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, ponant:SPonant, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -1855,6 +2027,7 @@ const META = {
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   toinelagplaydoh:{l:"Toinelag × Play-Doh",s:"Hasbro pitch · bataille artistique de pâte à modeler · 7 slides",tag:"PITCH IDÉE",card:"toinelag"},
   cyrilclubmed:{l:"CYRILmp4 × Club Med",s:"Pitch idée · « 24h dans le plus vieux Club Med du monde » · 7 slides",tag:"PITCH IDÉE",card:"dark"},
+  ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
@@ -2094,14 +2267,19 @@ function pdfFitOptsForSlide(deckId, slideIndex) {
     opts.maxScale = 2.0;
     opts.targetFill = 0.99;
     opts.useContentWidth = true;
-    if (slideIndex === 1) opts.maxScale = 2.05;
-    if (slideIndex === 4) opts.maxScale = 1.92;
+    if (slideIndex === 1) opts.maxScale = 2.3;
+    if (slideIndex === 2 || slideIndex === 3 || slideIndex === 4) opts.maxScale = 2.3;
     if (slideIndex === 0 || slideIndex === 6) opts.maxScale = 1.85;
   } else if (deckUsesT1Hatch(deckId)) {
     opts.minScale = 0.88;
-    opts.maxScale = slideIndex === 0 ? 1.15 : 1.12;
-  } else if (slideIndex === 0) {
-    opts.maxScale = deckId === "cyrilclubmed" ? 1.18 : 1.15;
+    opts.maxScale = slideIndex === 0 ? 1.18 : 1.22;
+    opts.targetFill = 0.96;
+    opts.useContentWidth = true;
+  } else {
+    // Profil pitch (référence PONANT) : remplissage proportionnel, sans déformation.
+    opts.minScale = 0.88;
+    opts.maxScale = slideIndex === 0 ? 1.18 : 1.3;
+    opts.targetFill = 0.96;
   }
   return opts;
 }
@@ -2426,8 +2604,8 @@ function Pres({id,onBack,onNav}) {
     const useVectorBg = id === "otacospepe";
     const usePhotoOverlay = deckUsesT1Hatch(id);
     const captureScale = useVectorBg ? 3 : PDF_CAPTURE_SCALE;
-    // PNG lossless pour farposition : jaune #FFAA00 exact (le JPEG ternit les orangés saturés) + texte net.
-    const losslessPdf = useVectorBg || id === "farposition";
+    // PNG lossless pour tous les decks : fidélité couleurs (jaune FAR, or PONANT, etc.) + texte net.
+    const losslessPdf = true;
     const bgRgb = pdfHexToRgb(t.bg);
     const settleMs = pdfRenderSettleMs(id);
 
@@ -2474,7 +2652,7 @@ function Pres({id,onBack,onNav}) {
         }
         // farmarques : slides de contenu (1..5) — largeur cible par slide pour remplir l'espace.
         if (id === "farmarques" && i >= 1 && i <= 5) {
-          const farmarquesMw = { 1: 1080, 2: 1220, 3: 1260, 4: 1380, 5: 1060 };
+          const farmarquesMw = { 1: 1280, 2: 1240, 3: 1340, 4: 1320, 5: 1540 };
           inner.style.maxWidth = `${farmarquesMw[i] ?? 1280}px`;
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
@@ -2522,13 +2700,9 @@ function Pres({id,onBack,onNav}) {
           height: renderH,
           logging: false,
           imageTimeout: 20000,
-          ...(deckUsesT1Hatch(id)
-            ? {
-                onclone: (_doc, node) => {
-                  pdfForceVisible(node);
-                },
-              }
-            : {}),
+          onclone: (_doc, node) => {
+            pdfForceVisible(node);
+          },
         });
 
         if (useVectorBg) {
@@ -2707,6 +2881,7 @@ const HOME_COOKING = [
   { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "toinelagplaydoh", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "cyrilclubmed", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "ponant", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
@@ -2725,6 +2900,7 @@ function Home({onOpen}) {
     otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
     garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
+    ponant:{bg:"#0A1B33",c:"#F4EFE6",tBg:"rgba(201,162,75,.2)",tC:"#C9A24B"},
     edf:{bg:"#07152B",c:"#F7FAFF",tBg:"rgba(254,80,0,.22)",tC:"#FE5000"},
   };
   return (
