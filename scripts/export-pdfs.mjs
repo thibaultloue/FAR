@@ -21,6 +21,7 @@ const DECKS = [
   { id: "ponant", file: "PONANT.pdf" },
   { id: "whitedesert", file: "White_Desert.pdf" },
   { id: "orientexpress", file: "Orient_Express_Guerlain.pdf" },
+  { id: "belmond", file: "Belmond_Andean_Explorer.pdf" },
   { id: "toinelagikea", file: "Toinelag_IKEA.pdf" },
   { id: "toinelag", file: "Toinelag.pdf" },
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },

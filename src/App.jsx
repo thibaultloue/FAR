@@ -258,6 +258,20 @@ const TOrientExpress = {
   ex:"#C4A052", exT:"#12100E", no:"rgba(255,255,255,.05)", noT:"#F3EDE3", noBrd:"rgba(243,237,227,.14)",
   section:"#C4A052", sectionT:"#12100E", cR:16, cBf:"blur(12px)", lv:"white",
 };
+const TBelmond = {
+  bg:"#241A16", c:"#F5F0E8", c2:"#D4B87A", m:"rgba(245,240,232,.66)", d:"rgba(245,240,232,.32)",
+  a:"#C9A45B", a2:"#F5F0E8",
+  card:"rgba(255,255,255,.05)", cardT:"#F5F0E8",
+  cardAlt:"rgba(201,164,91,.12)",
+  pill:"rgba(201,164,91,.14)", pillA:"rgba(201,164,91,.24)",
+  brd:"rgba(245,240,232,.14)",
+  bar:"rgba(245,240,232,.1)", barF:"#C9A45B",
+  nav:"#C9A45B", navT:"#241A16", note:"#F5F0E8", noteT:"#241A16",
+  th:"#C9A45B", thT:"#241A16",
+  th2:"rgba(255,255,255,.06)", th2T:"#F5F0E8",
+  ex:"#C9A45B", exT:"#241A16", no:"rgba(255,255,255,.05)", noT:"#F5F0E8", noBrd:"rgba(245,240,232,.14)",
+  section:"#C9A45B", sectionT:"#241A16", cR:16, cBf:"blur(12px)", lv:"white",
+};
 const TToinelagIkea = {
   bg:"#0058A3", c:"#FFFFFF", c2:"#FFDB00", m:"rgba(255,255,255,.74)", d:"rgba(255,255,255,.4)",
   a:"#FFDB00", a2:"#FFFFFF",
@@ -315,7 +329,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -467,6 +481,7 @@ const SV={
   ponant:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   whitedesert:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   orientexpress:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  belmond:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -2364,6 +2379,165 @@ r:(t,back)=><div>
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// BELMOND ANDEAN EXPLORER × CYRILMP4  -  TRAIN DE LUXE PÉROU  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SBelmond = [
+{title:"Belmond Andean Explorer × CYRILmp4",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:24,fontWeight:400,letterSpacing:3,color:t.a}}>BELMOND</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>BELMOND ANDEAN EXPLORER × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:920,margin:"0 auto 14px",color:t.c}}>{"24h dans le train de luxe le plus haut du monde."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:800,margin:"0 auto 16px"}}>Un format immersion YouTube à bord de l'Andean Explorer, sur l'une des voies ferrées les plus hautes du monde.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, le créateur de l'immersion longue durée."}</Hl>
+    <Sh t={t}>{"Sur MP4, Cyril construit des formats « 24h / 100h dans… » : exploration, tension narrative, curiosité et sens du détail. Après « 24H sur le train le plus dangereux du monde », il est le créateur idéal pour raconter l'expérience Belmond Andean Explorer."}</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Formats signature",d:"« 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif » : immersion totale et crédibilité terrain sur les formats voyage."},
+      {t:"Territoire",d:"Exploration, aventure, documentaire : Cyril sait rendre désirable un lieu en le racontant de l'intérieur, avec authenticité et spectacle."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"L'odyssée ferroviaire des Andes"}</Hl>
+  <Sh t={t}>{"Cyril embarque à bord de l'Andean Explorer, premier train de luxe d'Amérique du Sud avec nuitée, pour vivre une traversée complète entre Cusco, le lac Titicaca et Arequipa. Il explore, teste et raconte ce qui fait de ce voyage une expérience sans équivalent."}</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"L'embarquement",d:"Départ de Cusco, ancienne capitale de l'Empire inca : le train comme promesse d'une aventure à l'altitude, sur l'une des lignes les plus hautes du monde."},
+      {n:"02",t:"La traversée",d:"Hauts plateaux des Andes, paysages grandioses et lac Titicaca : le décor devient le personnage principal du récit."},
+      {n:"03",t:"La vie à bord",d:"Suites, pont d'observation, spa, gastronomie et nuit en mouvement : l'art de vivre Belmond au rythme des rails."},
+      {n:"04",t:"Le verdict",d:"Arrivée à Arequipa, ville classée UNESCO : Cyril livre son histoire de cette odyssée ferroviaire. Une conclusion sincère et incarnée."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-25 minutes.<br/>
+        {"Embarquement à Cusco + promesse du voyage."}<br/>
+        {"Immersion progressive : traversée, escales, lac Titicaca, vie à bord."}<br/>
+        {"Clôture sur le verdict et l'esprit Belmond."}
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Le train et les paysages andins comme décor permanent."}<br/>
+        {"Suites, observation deck, spa, gastronomie et excursions au cœur du récit."}<br/>
+        {"Mention naturelle du savoir-faire et de l'art de vivre Belmond."}
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Extraits courts (Reels / Shorts) :"}<br/>
+        le train sur les hauts plateaux<br/>
+        champagne au pont d'observation<br/>
+        le lac Titicaca au lever du jour<br/>
+        la nuit en cabine, rails et lumières
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation Belmond",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Belmond tient un vrai rôle, pas un simple placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"La marque cadre le voyage : l'Andean Explorer, l'itinéraire Cusco-Titicaca-Arequipa et la promesse d'une expérience hors norme."},
+      {t:"Rôle expérience",d:"Suites, gastronomie, spa, pont d'observation et excursions deviennent les séquences du film."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour de cette odyssée."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Rendre l'expérience Belmond Andean Explorer désirable et tangible pour une audience plus jeune, en montrant le voyage de luxe ferroviaire de l'intérieur.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne Belmond",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Belmond</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    {"Toucher une cible plus jeune : travailler la notoriété et la désirabilité de Belmond auprès d'une audience qui ne se projette pas encore dans le voyage de luxe ferroviaire."}
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept fort, évocateur et immédiatement compréhensible.",
+      "Le train et le Pérou montrés de l'intérieur, concrets et désirables.",
+      "Un territoire premium fidèle à l'image Belmond et à l'Andean Explorer.",
+      "Des assets réutilisables en social, paid, site et RP.",
+      "Une mise en valeur des itinéraires signature et des escales mythiques.",
+      "Un pont naturel entre notoriété, désirabilité et considération.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage × Belmond",
+      "Choix de l'itinéraire Andean Explorer (TBC)",
+      "Tournage immersion à bord (TBC)",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CYRILMP4  -  ACTIVATION AUTO  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyril = [
@@ -2526,9 +2700,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -2553,6 +2727,7 @@ const META = {
   ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
   whitedesert:{l:"White Desert × CYRILmp4",s:"Idea pitch · « 100 hours at the end of the Earth » · 7 slides",tag:"PITCH IDÉE",card:"whitedesert"},
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
+  belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Pitch idée · « 24h dans le train de luxe le plus haut du monde » · 7 slides",tag:"PITCH IDÉE",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
@@ -3405,6 +3580,7 @@ const HOME_COOKING = [
   { id: "ponant", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "whitedesert", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "orientexpress", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "belmond", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
@@ -3427,6 +3603,7 @@ function Home({onOpen}) {
     ponant:{bg:"#0A1B33",c:"#F4EFE6",tBg:"rgba(201,162,75,.2)",tC:"#C9A24B"},
     whitedesert:{bg:"#081521",c:"#EAF4F8",tBg:"rgba(95,179,217,.2)",tC:"#5FB3D9"},
     orientexpress:{bg:"#12100E",c:"#F3EDE3",tBg:"rgba(196,160,82,.2)",tC:"#C4A052"},
+    belmond:{bg:"#241A16",c:"#F5F0E8",tBg:"rgba(201,164,91,.2)",tC:"#C9A45B"},
     edf:{bg:"#07152B",c:"#F7FAFF",tBg:"rgba(254,80,0,.22)",tC:"#FE5000"},
   };
   return (
