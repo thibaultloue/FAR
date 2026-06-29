@@ -230,6 +230,48 @@ const TPonant = {
   ex:"#C9A24B", exT:"#0A1B33", no:"rgba(255,255,255,.05)", noT:"#F4EFE6", noBrd:"rgba(244,239,230,.13)",
   section:"#C9A24B", sectionT:"#0A1B33", cR:16, cBf:"blur(12px)", lv:"white",
 };
+const TWhiteDesert = {
+  bg:"#081521", c:"#EAF4F8", c2:"#6FB7D6", m:"rgba(234,244,248,.64)", d:"rgba(234,244,248,.3)",
+  a:"#5FB3D9", a2:"#EAF4F8",
+  card:"rgba(255,255,255,.05)", cardT:"#EAF4F8",
+  cardAlt:"rgba(95,179,217,.1)",
+  pill:"rgba(95,179,217,.12)", pillA:"rgba(95,179,217,.22)",
+  brd:"rgba(234,244,248,.14)",
+  bar:"rgba(234,244,248,.1)", barF:"#5FB3D9",
+  nav:"#5FB3D9", navT:"#081521", note:"#EAF4F8", noteT:"#081521",
+  th:"#5FB3D9", thT:"#081521",
+  th2:"rgba(255,255,255,.06)", th2T:"#EAF4F8",
+  ex:"#5FB3D9", exT:"#081521", no:"rgba(255,255,255,.05)", noT:"#EAF4F8", noBrd:"rgba(234,244,248,.14)",
+  section:"#5FB3D9", sectionT:"#081521", cR:16, cBf:"blur(12px)", lv:"white",
+};
+const TOrientExpress = {
+  bg:"#12100E", c:"#F3EDE3", c2:"#D4B87A", m:"rgba(243,237,227,.66)", d:"rgba(243,237,227,.32)",
+  a:"#C4A052", a2:"#F3EDE3",
+  card:"rgba(255,255,255,.05)", cardT:"#F3EDE3",
+  cardAlt:"rgba(196,160,82,.12)",
+  pill:"rgba(196,160,82,.14)", pillA:"rgba(196,160,82,.24)",
+  brd:"rgba(243,237,227,.14)",
+  bar:"rgba(243,237,227,.1)", barF:"#C4A052",
+  nav:"#C4A052", navT:"#12100E", note:"#F3EDE3", noteT:"#12100E",
+  th:"#C4A052", thT:"#12100E",
+  th2:"rgba(255,255,255,.06)", th2T:"#F3EDE3",
+  ex:"#C4A052", exT:"#12100E", no:"rgba(255,255,255,.05)", noT:"#F3EDE3", noBrd:"rgba(243,237,227,.14)",
+  section:"#C4A052", sectionT:"#12100E", cR:16, cBf:"blur(12px)", lv:"white",
+};
+const TToinelagIkea = {
+  bg:"#0058A3", c:"#FFFFFF", c2:"#FFDB00", m:"rgba(255,255,255,.74)", d:"rgba(255,255,255,.4)",
+  a:"#FFDB00", a2:"#FFFFFF",
+  card:"rgba(255,255,255,.08)", cardT:"#FFFFFF",
+  cardAlt:"rgba(255,219,0,.16)",
+  pill:"rgba(255,219,0,.16)", pillA:"rgba(255,219,0,.26)",
+  brd:"rgba(255,255,255,.18)",
+  bar:"rgba(255,255,255,.16)", barF:"#FFDB00",
+  nav:"#FFDB00", navT:"#0058A3", note:"#FFFFFF", noteT:"#0058A3",
+  th:"#FFDB00", thT:"#0A2A4A",
+  th2:"rgba(255,255,255,.09)", th2T:"#FFFFFF",
+  ex:"#FFDB00", exT:"#0A2A4A", no:"rgba(255,255,255,.07)", noT:"#FFFFFF", noBrd:"rgba(255,255,255,.18)",
+  section:"#FFDB00", sectionT:"#0058A3", cR:16, cBf:"blur(12px)", lv:"white",
+};
 const TGarmin = {
   bg:"#050A0F", c:"#F7FBFF", c2:"#00A9E0", m:"rgba(247,251,255,.64)", d:"rgba(247,251,255,.24)",
   a:"#00A9E0", a2:"#FFFFFF",
@@ -273,7 +315,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -420,8 +462,11 @@ const SV={
   fgcmarque:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   toinelagplaydoh:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
+  toinelagikea:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   cyrilclubmed:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   ponant:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  whitedesert:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  orientexpress:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -1528,6 +1573,165 @@ r:t=><div>
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// TOINELAG × IKEA  -  PITCH IDÉE PIÈCE SECRÈTE EN MAGASIN  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SToinelagIkea = [
+{title:"Toinelag × IKEA",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:34,fontWeight:900,letterSpacing:2,color:t.a}}>IKEA</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/toinelag-avatar.png")} alt="Toinelag" style={{width:64,height:64,borderRadius:16,objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>IKEA × TOINELAG</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:900,margin:"0 auto 14px",color:t.c}}>{"J'ai construit une pièce secrète dans un magasin IKEA."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:780,margin:"0 auto 16px"}}>Un format YouTube événement où le plus grand magasin du monde devient un terrain de jeu géant.</div>
+</div>},
+
+{title:"Le talent",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"Toinelag, le créateur qui transforme un lieu en terrain de jeu."}</Hl>
+    <Sh t={t}>{"Construction, cachette, défi et jeu à grande échelle : Toinelag a le talent rare de faire d'un lieu ou d'un produit le moteur d'une aventure. Un profil immédiatement lisible pour une activation retail familiale comme IKEA."}</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"1,6M+",l:"abonnés YouTube"},{v:"645M+",l:"vues cumulées"},{v:"2017",l:"création chaîne"},{v:"Jeune & familiale",l:"audience cœur de cible"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:20,fontWeight:800,color:t.a,lineHeight:1.1}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Formats signature",d:"« Je construis une pièce secrète dans un trampoline park », « Cache-cache extrême dans des cartons », « Survivre 24h dans un magasin »."},
+      {t:"Territoire",d:"Retail, jouet, grande distribution familiale, construction et maison : des univers où son ADN colle naturellement."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:130}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/toinelag-thumb.png")} alt="Toinelag" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"La pièce secrète IKEA"}</Hl>
+  <Sh t={t}>{"IKEA donne carte blanche à Toinelag : un défi officiel pour concevoir et construire, en une journée, une pièce secrète entièrement cachée et habitable dans le magasin, uniquement avec ce qu'il trouve dans les rayons."}</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"Le défi IKEA",d:"IKEA lance officiellement le défi et confie le magasin à Toinelag : showrooms, libre-service et tout l'univers produit comme terrain de jeu."},
+      {n:"02",t:"La construction",d:"Trouver l'emplacement parfait et détourner meubles, étagères et rangements pour bâtir une pièce secrète hyper originale."},
+      {n:"03",t:"L'aménagement",d:"Décorer et meubler la cachette comme un vrai mini-appartement, en piochant dans toute la richesse de l'offre IKEA."},
+      {n:"04",t:"Le grand reveal",d:"Faire découvrir la pièce secrète : le jeu devient « saurez-vous la retrouver ? » et invite la communauté à la chercher en magasin."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-20 minutes.<br/>
+        {"Intro + le défi officiel lancé par IKEA."}<br/>
+        {"Repérage, construction et aménagement de la cachette."}<br/>
+        {"Reveal final + jeu « saurez-vous la retrouver ? »."}
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Le magasin et ses univers comme décor permanent."}<br/>
+        {"Meubles et solutions de rangement détournés au cœur du récit."}<br/>
+        {"Mention naturelle des produits et de l'esprit IKEA."}
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Extraits courts (Reels / Shorts) :"}<br/>
+        la cachette qui prend forme<br/>
+        meilleurs détournements de meubles<br/>
+        le reveal de la pièce secrète<br/>
+        le jeu « cherchez-la en magasin »
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation IKEA",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>IKEA tient un vrai rôle, pas un simple placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"La marque cadre le défi : le magasin, la nuit, la contrainte « 100 % rayons IKEA »."},
+      {t:"Rôle produit",d:"Meubles, rangements et accessoires deviennent les vraies ressources de la construction."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour des détournements."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Faire d'IKEA une marque désirable et complice d'une audience jeune et familiale, en montrant ses produits comme un terrain de créativité sans limites.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne IKEA",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour IKEA</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    {"Toucher une cible plus jeune : travailler la notoriété et la préférence de marque IKEA auprès d'une audience qui ne se projette pas encore dans l'univers maison."}
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept fort, natif du créateur et immédiatement compréhensible.",
+      "Les produits montrés en usage créatif, concret et mémorable.",
+      "Un territoire fun et family friendly cohérent avec la marque.",
+      "Des assets réutilisables en social, paid, e-commerce et magasin.",
+      "Une mise en valeur de la richesse de l'offre et des rangements IKEA.",
+      "Un pont naturel entre notoriété, préférence de marque et trafic magasin.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage × IKEA",
+      "Repérage magasin & validation sécurité (TBC)",
+      "Tournage nuit en magasin (TBC)",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // CYRILMP4 × CLUB MED  -  PITCH IDÉE IMMERSION  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SCyrilClubMed = [
@@ -1832,6 +2036,324 @@ r:(t,back)=><div>
       "Call de cadrage × PONANT",
       "Repérage navire & itinéraire (TBC)",
       "Tournage enquête immersive à bord (TBC)",
+    ]    .map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// WHITE DESERT × CYRILMP4  -  LUXURY ANTARCTICA IDEA PITCH (EN)  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SWhiteDesert = [
+{title:"White Desert × CYRILmp4",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:26,fontWeight:400,letterSpacing:4,color:t.a}}>WHITE DESERT</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>WHITE DESERT × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:940,margin:"0 auto 14px",color:t.c}}>{"100 hours at the end of the Earth."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:800,margin:"0 auto 16px"}}>An immersive YouTube expedition into the most extreme luxury, in the most remote place on Earth.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>THE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, the creator of long-form immersion."}</Hl>
+    <Sh t={t}>{"On MP4, Cyril builds « 24h / 100h inside… » formats: exploration, narrative tension, endurance and a real sense of place. The perfect storyteller to carry an audience to the last continent on Earth."}</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5.21M",l:"YouTube subscribers (MP4)"},{v:"8.5M+",l:"total audience"},{v:"15 yrs",l:"as a creator"},{v:"872K",l:"average views"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Signature formats",d:"« 24H on the most dangerous train in the world », « 100H in a radioactive lake »: total immersion in extreme environments."},
+      {t:"Territory",d:"Exploration, travel, expeditions: Cyril makes the most inaccessible places feel vivid, human and desirable."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:130}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>CENTRAL IDEA</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"100 hours at the end of the Earth"}</Hl>
+  <Sh t={t}>{"Cyril flies from Cape Town to Antarctica and lives the full White Desert experience: a place where the most extreme expedition on the planet meets the most refined luxury. He explores, tests and tells the story of what it really takes to live at the end of the world."}</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"Crossing into the white",d:"Stepping off the plane onto the blue ice: the moment the known world disappears and the white silence begins."},
+      {n:"02",t:"Life at camp",d:"Heated pods, gourmet chefs and just 12 guests, surrounded by nothing but ice. Polar comfort at its most surreal."},
+      {n:"03",t:"The expeditions",d:"South Pole, Emperor penguin colonies, blue ice tunnels and rivers, ice caves, glacier abseiling: the extreme made tangible."},
+      {n:"04",t:"The verdict",d:"Cyril delivers his story: is this the most extraordinary trip on Earth? A sincere, lived-in conclusion."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Video format",
+r:t=><div>
+  <Tg t={t}>RECOMMENDED FORMAT</Tg>
+  <Hl t={t} s={{fontSize:34}}>A YouTube hero film + social cuts</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>HERO VIDEO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-25 minutes.<br/>
+        {"Departure from Cape Town + the promise of the challenge."}<br/>
+        {"Progressive immersion: flight, camp, expeditions, South Pole."}<br/>
+        {"Closing on the verdict and the White Desert spirit."}
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>KEY BRAND MOMENTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"The camps and the ice as a permanent backdrop."}<br/>
+        {"Suites, gourmet dining, flights and expeditions at the heart of the story."}<br/>
+        {"Natural mention of the safety, science and craft behind White Desert."}
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Short cuts (Reels / Shorts):"}<br/>
+        landing on the blue-ice runway<br/>
+        a night in a heated pod<br/>
+        meeting the Emperor penguins<br/>
+        inside the blue ice tunnels
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Additional social cuts as needed (formats, lengths, platforms).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"White Desert activation",
+r:t=><div>
+  <Tg t={t}>BRAND INTEGRATION</Tg>
+  <Hl t={t} s={{fontSize:34}}>White Desert plays a real role, not a placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Editorial role",d:"The brand frames the expedition: the flight, the camps, the South Pole, the once-in-a-lifetime moments."},
+      {t:"Experience role",d:"Suites, fine dining, expeditions and the art of polar living become the sequences of the film."},
+      {t:"Conversation role",d:"The community reacts in the comments and extends the discussion."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIVE</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Make White Desert aspirational and tangible for a younger audience, by showing the most extreme luxury on Earth from the inside.</div>
+  </div>
+</div>},
+
+{title:"What White Desert gains",
+r:t=><div>
+  <Tg t={t}>BENEFITS</Tg>
+  <Hl t={t} s={{fontSize:34}}>Why this idea matters for White Desert</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    {"Reach a new generation: build awareness and desirability among an audience that doesn't yet picture itself in Antarctica."}
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "A strong, vivid and instantly understandable concept.",
+      "A premium, positive territory true to the White Desert image.",
+      "A showcase of the safety, science and craft behind the experience.",
+      "Increase awareness on the French market.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Next steps</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Framing call × White Desert",
+      "Itinerary & camp selection (TBC)",
+      "On-ice immersive shoot during the polar season (TBC)",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Back to home</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ORIENT EXPRESS × GUERLAIN × CYRILMP4  -  ODYSSÉE BIEN-ÊTRE EN MER  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SOrientExpress = [
+{title:"Orient Express × Guerlain × CYRILmp4",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:22,flexWrap:"wrap",justifyContent:"center"}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:22,fontWeight:400,letterSpacing:3,color:t.a}}>ORIENT EXPRESS</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <div style={{...se,fontSize:22,fontWeight:400,letterSpacing:2,color:t.c2}}>GUERLAIN</div>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>ORIENT EXPRESS × GUERLAIN × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:940,margin:"0 auto 14px",color:t.c}}>{"100 heures sur le plus grand voilier du monde."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:820,margin:"0 auto 16px"}}>Un format immersion YouTube au cœur de l'odyssée bien-être la plus singulière jamais imaginée en mer.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, le créateur de l'immersion longue durée."}</Hl>
+    <Sh t={t}>{"Sur MP4, Cyril construit des formats « 24h / 100h dans… » : exploration, tension narrative, curiosité et sens du détail. Le regard idéal pour faire vivre une expérience d'exception à bord de l'Orient Express Corinthian."}</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Formats signature",d:"« 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif » : immersion totale dans des univers hors norme."},
+      {t:"Territoire",d:"Exploration, voyage, expédition : Cyril sait rendre désirable un lieu en le racontant de l'intérieur, avec authenticité et spectacle."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"L'odyssée bien-être en mer"}</Hl>
+  <Sh t={t}>{"Cyril embarque à bord de l'Orient Express Corinthian pour vivre l'expérience complète : le plus grand voilier du monde, le Spa Guerlain et un art de vivre réinventé entre ciel et mer. Il explore, teste et raconte ce qui fait de ce voyage une expérience sans équivalent."}</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"L'embarquement",d:"Découverte de l'Orient Express Corinthian : 220 mètres, trois voiles majestueuses, 54 suites et un palais flottant construit aux Chantiers de l'Atlantique."},
+      {n:"02",t:"Le sanctuaire Guerlain",d:"Immersion dans le Spa Guerlain de 500 m² : rituels signature, suites de soin VIP et retraites wellness pensées pour le voyage."},
+      {n:"03",t:"L'art de vivre à bord",d:"Cuisine Yannick Alléno, bibliothèque, cinéma, couloir de nage à ciel ouvert : chaque espace devient une séquence du récit."},
+      {n:"04",t:"Le verdict",d:"Cyril livre son histoire : cette odyssée sensorielle est-elle le voyage le plus extraordinaire sur mer ? Une conclusion sincère et incarnée."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        15-25 minutes.<br/>
+        {"Embarquement + promesse de l'odyssée bien-être."}<br/>
+        {"Immersion progressive : suites, spa Guerlain, ponts, gastronomie."}<br/>
+        {"Clôture sur le verdict et l'art de vivre Orient Express."}
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Le voilier et la mer comme décor permanent."}<br/>
+        {"Rituels Guerlain, suites, gastronomie et expériences à bord au cœur du récit."}<br/>
+        {"Mention naturelle du savoir-faire, de l'héritage et de l'innovation durable."}
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        {"Extraits courts (Reels / Shorts) :"}<br/>
+        les voiles SolidSail au lever du jour<br/>
+        un rituel signature au Spa Guerlain<br/>
+        la suite avec vue panoramique sur la mer<br/>
+        le couloir de nage à ciel ouvert
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation Orient Express & Guerlain",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Orient Express et Guerlain tiennent un vrai rôle, pas un placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle éditorial",d:"Orient Express cadre le voyage : le voilier, l'itinéraire, l'art de vivre et la promesse d'une expérience hors du commun."},
+      {t:"Rôle expérience",d:"Guerlain structure l'odyssée bien-être : spa, rituels signature, retraites wellness et harmonie corps-esprit."},
+      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour de cette expérience sensorielle."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Faire vivre cette alliance iconique à une audience plus jeune, en montrant comment Orient Express et Guerlain réinventent le voyage de luxe et le bien-être en mer.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagnent Orient Express & Guerlain",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Orient Express & Guerlain</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    {"Toucher une cible plus jeune : travailler la notoriété et la désirabilité du partenariat auprès d'une audience qui ne se projette pas encore dans le voyage de luxe en mer."}
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept fort, sensoriel et immédiatement compréhensible.",
+      "Le Spa Guerlain et le voilier montrés de l'intérieur, concrets et désirables.",
+      "Un territoire premium fidèle à l'héritage des deux maisons françaises.",
+      "Des assets réutilisables en social, paid, site et RP.",
+      "Une mise en valeur du lancement de l'Orient Express Corinthian et de son offre wellness.",
+      "Un pont naturel entre notoriété, désirabilité et considération.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage × Orient Express & Guerlain",
+      "Repérage voilier & itinéraire (TBC)",
+      "Tournage immersion à bord de l'Orient Express Corinthian (TBC)",
     ].map((s,i,arr)=>(
     <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
       <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
@@ -2004,9 +2526,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, cyrilclubmed:SCyrilClubMed, ponant:SPonant, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -2026,8 +2548,11 @@ const META = {
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
   toinelagplaydoh:{l:"Toinelag × Play-Doh",s:"Hasbro pitch · bataille artistique de pâte à modeler · 7 slides",tag:"PITCH IDÉE",card:"toinelag"},
+  toinelagikea:{l:"Toinelag × IKEA",s:"Pitch idée · « Une pièce secrète dans un magasin IKEA » · 7 slides",tag:"PITCH IDÉE",card:"toinelagikea"},
   cyrilclubmed:{l:"CYRILmp4 × Club Med",s:"Pitch idée · « 24h dans le plus vieux Club Med du monde » · 7 slides",tag:"PITCH IDÉE",card:"dark"},
   ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
+  whitedesert:{l:"White Desert × CYRILmp4",s:"Idea pitch · « 100 hours at the end of the Earth » · 7 slides",tag:"PITCH IDÉE",card:"whitedesert"},
+  orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
@@ -2077,7 +2602,7 @@ function pdfGetT1HatchTileUrl() {
 function pdfWrapPadding(deckId) {
   if (deckId === "otacospepe") return "14px 26px 8px";
   if (deckUsesT1Hatch(deckId)) return "60px 100px 52px";
-  return "14px 28px 4px";
+  return "14px 28px 0px";
 }
 
 function pdfRenderSettleMs(deckId) {
@@ -2255,12 +2780,13 @@ function pdfUnfreezeMotion() {
 
 function pdfFitOptsForSlide(deckId, slideIndex) {
   const opts = {};
+  const isCover = slideIndex === 0;
   if (deckId === "otacospepe") opts.minScale = 0.82;
   if (deckId === "farposition") {
     // Slides courtes (intro, manifesto, modèle, do/don't, closing) : remplir davantage l'espace.
     opts.minScale = 0.9;
-    opts.maxScale = 2.0;
-    opts.targetFill = 0.98;
+    opts.maxScale = isCover ? 2.2 : 2.0;
+    opts.targetFill = isCover ? 0.99 : 0.98;
     opts.useContentWidth = true;
   } else if (deckId === "farmarques") {
     opts.minScale = 0.9;
@@ -2269,17 +2795,18 @@ function pdfFitOptsForSlide(deckId, slideIndex) {
     opts.useContentWidth = true;
     if (slideIndex === 1) opts.maxScale = 2.3;
     if (slideIndex === 2 || slideIndex === 3 || slideIndex === 4) opts.maxScale = 2.3;
-    if (slideIndex === 0 || slideIndex === 6) opts.maxScale = 1.85;
+    if (isCover || slideIndex === 6) opts.maxScale = isCover ? 2.1 : 1.85;
   } else if (deckUsesT1Hatch(deckId)) {
     opts.minScale = 0.88;
-    opts.maxScale = slideIndex === 0 ? 1.18 : 1.22;
-    opts.targetFill = 0.96;
+    opts.maxScale = isCover ? 1.42 : 1.22;
+    opts.targetFill = isCover ? 0.98 : 0.96;
     opts.useContentWidth = true;
   } else {
     // Profil pitch (référence PONANT) : remplissage proportionnel, sans déformation.
     opts.minScale = 0.88;
-    opts.maxScale = slideIndex === 0 ? 1.18 : 1.3;
-    opts.targetFill = 0.96;
+    opts.maxScale = isCover ? 1.42 : 1.3;
+    opts.targetFill = isCover ? 0.98 : 0.96;
+    if (isCover) opts.useContentWidth = true;
   }
   return opts;
 }
@@ -2617,7 +3144,6 @@ function Pres({id,onBack,onNav}) {
     });
     const pageW = pdf.internal.pageSize.getWidth();
     const pageH = pdf.internal.pageSize.getHeight();
-    const footerLabel = pdfFooterLabel(id);
 
     const container = document.createElement("div");
     container.setAttribute("data-pdf-capture", "1");
@@ -2659,12 +3185,6 @@ function Pres({id,onBack,onNav}) {
         }
         slideArea.appendChild(inner);
         wrap.appendChild(slideArea);
-        if (id !== "otacospepe") {
-          const footer = document.createElement("div");
-          footer.style.cssText = `flex-shrink:0;width:100%;text-align:center;font-size:9px;line-height:1;opacity:.2;letter-spacing:0.6px;color:${t.m};padding-top:3px;font-family:${sa.fontFamily};position:relative;z-index:1;`;
-          footer.textContent = footerLabel;
-          wrap.appendChild(footer);
-        }
         container.appendChild(wrap);
 
         const tempRoot = rdom.createRoot(inner);
@@ -2880,8 +3400,11 @@ const HOME_COOKING = [
   { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
   { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "toinelagplaydoh", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
+  { id: "toinelagikea", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
   { id: "cyrilclubmed", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "ponant", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "whitedesert", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
+  { id: "orientexpress", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
   { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
@@ -2899,8 +3422,11 @@ function Home({onOpen}) {
     fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
     otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
+    toinelagikea:{bg:"#0058A3",c:"#FFFFFF",tBg:"rgba(255,219,0,.2)",tC:"#FFDB00"},
     garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
     ponant:{bg:"#0A1B33",c:"#F4EFE6",tBg:"rgba(201,162,75,.2)",tC:"#C9A24B"},
+    whitedesert:{bg:"#081521",c:"#EAF4F8",tBg:"rgba(95,179,217,.2)",tC:"#5FB3D9"},
+    orientexpress:{bg:"#12100E",c:"#F3EDE3",tBg:"rgba(196,160,82,.2)",tC:"#C4A052"},
     edf:{bg:"#07152B",c:"#F7FAFF",tBg:"rgba(254,80,0,.22)",tC:"#FE5000"},
   };
   return (
