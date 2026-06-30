@@ -2956,14 +2956,14 @@ function pdfUnfreezeMotion() {
 function pdfFitOptsForSlide(deckId, slideIndex) {
   const opts = {};
   const isCover = slideIndex === 0;
-  if (deckId === "otacospepe") opts.minScale = 0.82;
   if (deckId === "farposition") {
-    // Slides courtes (intro, manifesto, modèle, do/don't, closing) : remplir davantage l'espace.
-    opts.minScale = 0.9;
-    opts.maxScale = isCover ? 2.2 : 2.0;
-    opts.targetFill = isCover ? 0.99 : 0.98;
-    opts.useContentWidth = true;
-  } else if (deckId === "farmarques") {
+    // Même logique proportionnelle que les pitch decks (White Desert, PONANT…).
+    opts.minScale = 0.88;
+    opts.maxScale = isCover ? 1.42 : 1.3;
+    opts.targetFill = isCover ? 0.98 : 0.96;
+    if (isCover) opts.useContentWidth = true;
+  } else if (deckId === "otacospepe") opts.minScale = 0.82;
+  else if (deckId === "farmarques") {
     opts.minScale = 0.9;
     opts.maxScale = 2.0;
     opts.targetFill = 0.99;
@@ -3344,13 +3344,6 @@ function Pres({id,onBack,onNav}) {
         slideArea.style.cssText = pdfSlideAreaStyle(id);
         inner = document.createElement("div");
         inner.style.cssText = pdfInnerStyle(id);
-        // farposition : les slides "contenu large mais court" (faisceaux, grille, écosystème)
-        // sont mises en page plus étroites pour que l'ajustement puisse les agrandir (texte plus lisible).
-        if (id === "farposition" && i >= 4 && i <= 9) {
-          inner.style.maxWidth = "1300px";
-          inner.style.marginLeft = "auto";
-          inner.style.marginRight = "auto";
-        }
         // farmarques : slides de contenu (1..5) — largeur cible par slide pour remplir l'espace.
         if (id === "farmarques" && i >= 1 && i <= 5) {
           const farmarquesMw = { 1: 1280, 2: 1240, 3: 1340, 4: 1320, 5: 1540 };
@@ -3381,7 +3374,7 @@ function Pres({id,onBack,onNav}) {
           : usePhotoOverlay && id !== "farposition"
             ? pdfCollectAndHideLargeImages(inner, container, { patterns: null, minPx: 28 })
             : [];
-        if (!usePhotoOverlay) pdfReplaceObjectFitImages(inner);
+        if (!usePhotoOverlay || id === "farposition") pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));

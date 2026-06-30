@@ -363,7 +363,7 @@ export function createSFarPositionnement(P) {
           d: "Mettre en place des process clairs, des outils de suivi et une organisation qui simplifie, pas qui alourdit.",
         },
       ],
-      footer: "Une structure solide libère le talent pour développer sereinement.",
+      footer: "Une structure solide libère le créateur pour développer sereinement.",
     },
     {
       index: 3,
@@ -377,7 +377,7 @@ export function createSFarPositionnement(P) {
         },
         {
           t: "Actifs propriétaires des créateurs",
-          d: "Développement de marques, podcasts, formats récurrents, événements : construire ce que le talent possède et peut monétiser.",
+          d: "Développement de marques, podcasts, formats récurrents, événements : construire ce que le créateur possède et peut monétiser.",
         },
         {
           t: "Opérations premium",
@@ -557,7 +557,7 @@ export function createSFarPositionnement(P) {
       k: "body",
       t: "Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste.",
     },
-    { k: "body", t: "Pour que chaque talent puisse construire plus grand, sans perdre ce qui le rend singulier." },
+    { k: "body", t: "Pour que chaque créateur puisse construire plus grand, sans perdre ce qui le rend singulier." },
     { k: "body", t: "Et que chaque marque puisse trouver sa place dans un univers qui existe déjà." },
     { k: "tagline", t: "Qui veut aller loin, vient ici." },
   ];
@@ -759,7 +759,7 @@ export function createSFarPositionnement(P) {
             minHeight: 0,
             flex: isPdf() ? "none" : 1,
             overflow: isPdf() ? "visible" : "hidden",
-            width: isPdf() ? 920 : "100%",
+            width: "100%",
           }}
         >
           <M variants={fu(8)} style={{ marginBottom: 10, width: "100%" }}>
@@ -782,45 +782,19 @@ export function createSFarPositionnement(P) {
     },
 
     {
-      title: "Talents / univers",
+      title: "Créateurs / univers",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
           <SlideHead
             t={t}
             tag="NOTRE ROSTER"
-            title="À taille humaine. 100 % créateurs-entrepreneurs."
+            title="Un roster à taille humaine."
             titleS={{ fontSize: 32 }}
           />
-          <M
-            {...MV()}
-            variants={stg(0.06)}
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 18 }}
-          >
-            {[
-              {
-                t: "Notre roster à taille humaine",
-                d: "Moins de talents = plus de présence, plus de suivi, plus de qualité d'accompagnement, pas un catalogue à gérer.",
-              },
-              {
-                t: "100 % créateurs-entrepreneurs",
-                d: "Marques propres, formats, business au-delà du reach : chaque talent au roster construit déjà des actifs.",
-              },
-            ].map((box) => (
-              <M
-                key={box.t}
-                variants={fu(12)}
-                style={{
-                  padding: "18px 20px",
-                  borderRadius: 14,
-                  background: t.th,
-                  color: t.thT,
-                  border: `1px solid ${t.brd}`,
-                }}
-              >
-                <div style={{ ...se, fontSize: 17, fontWeight: 800, marginBottom: 8, lineHeight: 1.25 }}>{box.t}</div>
-                <div style={{ ...sa, fontSize: 13.5, lineHeight: 1.52, opacity: 0.92 }}>{box.d}</div>
-              </M>
-            ))}
+          <M variants={fu(8)} style={{ marginBottom: 18 }}>
+            <Sh t={t} s={{ fontSize: 15.5, lineHeight: 1.55, margin: 0, maxWidth: 880 }}>
+              Moins de créateurs = plus de présence, plus de suivi, plus de qualité d&apos;accompagnement. Pas un catalogue à gérer.
+            </Sh>
           </M>
           <M
             {...MV()}
@@ -959,7 +933,7 @@ export function createSFarPositionnement(P) {
           <SlideHead
             t={t}
             tag="ACCOMPAGNEMENT"
-            title="Ce que nous faisons pour le talent fait avancer tout l'écosystème."
+            title="Ce que nous faisons pour le créateur fait avancer tout l'écosystème."
             titleS={{ fontSize: 30, maxWidth: 960 }}
           />
 
@@ -975,7 +949,7 @@ export function createSFarPositionnement(P) {
             }}
           >
             <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.a, marginBottom: 16 }}>
-              POUR LE TALENT
+              POUR LE CRÉATEUR
             </div>
             <div style={{ position: "relative", paddingTop: 6 }}>
               <div style={{ position: "absolute", top: 30, left: "6%", right: "6%", height: 3, background: t.brd, borderRadius: 2 }} />
@@ -1041,7 +1015,7 @@ export function createSFarPositionnement(P) {
                   w: "Audience",
                   t: "Un projet qui paraît évident.",
                   b: "Une communauté qui comprend, adhère et reste engagée. Le partenariat renforce le lien plutôt que de le fragiliser.",
-                  d: "Quand le talent est structuré et la marque bien placée, l'audience saisit naturellement pourquoi le projet existe.",
+                  d: "Quand le créateur est structuré et la marque bien placée, l'audience saisit naturellement pourquoi le projet existe.",
                 },
               ].map((o, i) => (
                 <M
@@ -1179,17 +1153,15 @@ export function createSFarPositionnement(P) {
               "Développer des actifs, produits, formats ou marques propres.",
               "Protéger la cohérence éditoriale.",
               "Dire « partenaire de stratégie, de création et de visibilité ».",
-              "Parler de développement serein et durable.",
             ]}
             donts={[
               "Parler de profil ou d'inventaire.",
               "Partir uniquement du brief marque.",
               "Plaquer une intégration sponsorisée.",
               "Ajouter de la complexité.",
-              "Réduire le talent à son audience.",
+              "Réduire le créateur à son audience.",
               "Dire oui à tout.",
               "Dire « support de campagne ».",
-              "Parler seulement de monétisation.",
             ]}
           />
         </M>
@@ -1207,7 +1179,7 @@ export function createSFarPositionnement(P) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "flex-start",
-            width: isPdf() ? "fit-content" : "100%",
+            width: "100%",
           }}
         >
           <M
@@ -1230,7 +1202,7 @@ export function createSFarPositionnement(P) {
             style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.6, maxWidth: 680, margin: "0 auto", display: "flex", flexDirection: "column", gap: 12 }}
           >
             <p style={{ margin: 0 }}>
-              Pour les talents, c&apos;est un cadre pour grandir sans se dénaturer.
+              Pour les créateurs, c&apos;est un cadre pour grandir sans se dénaturer.
             </p>
             <p style={{ margin: 0 }}>
               Pour les marques, c&apos;est une façon de créer avec des univers forts, sans les interrompre.
