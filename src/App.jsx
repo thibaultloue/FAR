@@ -2392,27 +2392,27 @@ r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",just
     <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
   </div>
   <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:20}}>BELMOND ANDEAN EXPLORER × CYRILMP4</div>
-  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:920,margin:"0 auto 14px",color:t.c}}>{"24h dans le train de luxe le plus haut du monde."}</div>
-  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:800,margin:"0 auto 16px"}}>Un format immersion YouTube à bord de l'Andean Explorer, sur l'une des voies ferrées les plus hautes du monde.</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:920,margin:"0 auto 14px",color:t.c}}>{"24 hours on the world's highest luxury train."}</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:800,margin:"0 auto 16px"}}>An immersive YouTube format aboard the Andean Explorer, on one of the highest railway routes in the world.</div>
 </div>},
 
 {title:"CYRILmp4",
 r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
   <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
-    <Tg t={t}>LE TALENT</Tg>
-    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, le créateur de l'immersion longue durée."}</Hl>
-    <Sh t={t}>{"Sur MP4, Cyril construit des formats « 24h / 100h dans… » : exploration, tension narrative, curiosité et sens du détail. Après « 24H sur le train le plus dangereux du monde », il est le créateur idéal pour raconter l'expérience Belmond Andean Explorer."}</Sh>
+    <Tg t={t}>THE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>{"CYRILmp4, the creator of long-form immersion."}</Hl>
+    <Sh t={t}>{"On MP4, Cyril builds « 24h / 100h inside… » formats: exploration, narrative tension, curiosity and attention to detail. After « 24H on the most dangerous train in the world », he is the ideal creator to tell the Belmond Andean Explorer story."}</Sh>
     <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
-      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+      {[{v:"5.21M",l:"YouTube subscribers (MP4)"},{v:"8.5M+",l:"total audience"},{v:"15 yrs",l:"as a creator"},{v:"872K",l:"average views"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
         <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
         <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
       </div>)}
     </div>
     {[
-      {t:"Formats signature",d:"« 24H sur le train le plus dangereux du monde », « 100H dans un lac radioactif » : immersion totale et crédibilité terrain sur les formats voyage."},
-      {t:"Territoire",d:"Exploration, aventure, documentaire : Cyril sait rendre désirable un lieu en le racontant de l'intérieur, avec authenticité et spectacle."},
+      {t:"Signature formats",d:"« 24H on the most dangerous train in the world », « 100H in a radioactive lake »: total immersion and on-the-ground credibility for travel formats."},
+      {t:"Territory",d:"Exploration, adventure, documentary: Cyril makes a place feel desirable by telling it from the inside, with authenticity and spectacle."},
     ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
-      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:130}}>{a.t}</div>
       <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
     </div>)}
   </div>
@@ -2423,15 +2423,15 @@ r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
 
 {title:"Concept",
 r:t=><div>
-  <Tg t={t}>IDÉE CENTRALE</Tg>
-  <Hl t={t} s={{fontSize:34}}>{"L'odyssée ferroviaire des Andes"}</Hl>
-  <Sh t={t}>{"Cyril embarque à bord de l'Andean Explorer, premier train de luxe d'Amérique du Sud avec nuitée, pour vivre une traversée complète entre Cusco, le lac Titicaca et Arequipa. Il explore, teste et raconte ce qui fait de ce voyage une expérience sans équivalent."}</Sh>
+  <Tg t={t}>CENTRAL IDEA</Tg>
+  <Hl t={t} s={{fontSize:34}}>{"The Andean railway odyssey"}</Hl>
+  <Sh t={t}>{"Cyril boards the Andean Explorer, South America's first luxury train with overnight accommodation, for a full journey between Cusco, Lake Titicaca and Arequipa. He explores, tests and tells the story of what makes this trip unlike anything else."}</Sh>
   <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
     {[
-      {n:"01",t:"L'embarquement",d:"Départ de Cusco, ancienne capitale de l'Empire inca : le train comme promesse d'une aventure à l'altitude, sur l'une des lignes les plus hautes du monde."},
-      {n:"02",t:"La traversée",d:"Hauts plateaux des Andes, paysages grandioses et lac Titicaca : le décor devient le personnage principal du récit."},
-      {n:"03",t:"La vie à bord",d:"Suites, pont d'observation, spa, gastronomie et nuit en mouvement : l'art de vivre Belmond au rythme des rails."},
-      {n:"04",t:"Le verdict",d:"Arrivée à Arequipa, ville classée UNESCO : Cyril livre son histoire de cette odyssée ferroviaire. Une conclusion sincère et incarnée."},
+      {n:"01",t:"Boarding",d:"Departure from Cusco, ancient capital of the Inca Empire: the train as the promise of a high-altitude adventure, on one of the highest lines in the world."},
+      {n:"02",t:"The crossing",d:"Andean high plains, breathtaking landscapes and Lake Titicaca: the scenery becomes the main character of the story."},
+      {n:"03",t:"Life on board",d:"Suites, observation deck, spa, fine dining and a night in motion: the Belmond art of living at the rhythm of the rails."},
+      {n:"04",t:"The verdict",d:"Arrival in Arequipa, a UNESCO World Heritage city: Cyril delivers his story of this railway odyssey. A sincere, lived-in conclusion."},
     ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
       <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
       <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
@@ -2440,78 +2440,78 @@ r:t=><div>
   </div>
 </div>},
 
-{title:"Déroulé vidéo",
+{title:"Video format",
 r:t=><div>
-  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
-  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube + découpes sociales</Hl>
+  <Tg t={t}>RECOMMENDED FORMAT</Tg>
+  <Hl t={t} s={{fontSize:34}}>A YouTube hero film + social cuts</Hl>
   <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
     <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
-      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>HERO VIDEO</div>
       <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
         15-25 minutes.<br/>
-        {"Embarquement à Cusco + promesse du voyage."}<br/>
-        {"Immersion progressive : traversée, escales, lac Titicaca, vie à bord."}<br/>
-        {"Clôture sur le verdict et l'esprit Belmond."}
+        {"Boarding in Cusco + the promise of the journey."}<br/>
+        {"Progressive immersion: crossing, stops, Lake Titicaca, life on board."}<br/>
+        {"Closing on the verdict and the Belmond spirit."}
       </div>
-      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>KEY BRAND MOMENTS</div>
       <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
-        {"Le train et les paysages andins comme décor permanent."}<br/>
-        {"Suites, observation deck, spa, gastronomie et excursions au cœur du récit."}<br/>
-        {"Mention naturelle du savoir-faire et de l'art de vivre Belmond."}
+        {"The train and the Andean landscapes as a permanent backdrop."}<br/>
+        {"Suites, observation deck, spa, fine dining and excursions at the heart of the story."}<br/>
+        {"Natural mention of Belmond craft and art of living."}
       </div>
     </Wc>
     <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
       <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
       <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
-        {"Extraits courts (Reels / Shorts) :"}<br/>
-        le train sur les hauts plateaux<br/>
-        champagne au pont d'observation<br/>
-        le lac Titicaca au lever du jour<br/>
-        la nuit en cabine, rails et lumières
+        {"Short cuts (Reels / Shorts):"}<br/>
+        the train across the high plains<br/>
+        champagne on the observation deck<br/>
+        Lake Titicaca at sunrise<br/>
+        a night in the cabin, rails and lights
       </div>
       <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
       <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
-        Découpes sociales additionnelles selon besoins (formats, durées, plateformes).
+        Additional social cuts as needed (formats, lengths, platforms).
       </div>
     </Wc>
   </div>
 </div>},
 
-{title:"Activation Belmond",
+{title:"Belmond activation",
 r:t=><div>
-  <Tg t={t}>INTÉGRATION MARQUE</Tg>
-  <Hl t={t} s={{fontSize:34}}>Belmond tient un vrai rôle, pas un simple placement.</Hl>
+  <Tg t={t}>BRAND INTEGRATION</Tg>
+  <Hl t={t} s={{fontSize:34}}>Belmond plays a real role, not a placement.</Hl>
   <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
     {[
-      {t:"Rôle éditorial",d:"La marque cadre le voyage : l'Andean Explorer, l'itinéraire Cusco-Titicaca-Arequipa et la promesse d'une expérience hors norme."},
-      {t:"Rôle expérience",d:"Suites, gastronomie, spa, pont d'observation et excursions deviennent les séquences du film."},
-      {t:"Rôle conversation",d:"La communauté réagit en commentaires et prolonge la discussion autour de cette odyssée."},
+      {t:"Editorial role",d:"The brand frames the journey: the Andean Explorer, the Cusco-Titicaca-Arequipa route and the promise of an extraordinary experience."},
+      {t:"Experience role",d:"Suites, fine dining, spa, observation deck and excursions become the sequences of the film."},
+      {t:"Conversation role",d:"The community reacts in the comments and extends the discussion around this odyssey."},
     ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
       <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
       <div style={{...sa,fontSize:14,color:t.thT,opacity:.9,lineHeight:1.55}}>{x.d}</div>
     </div>)}
   </div>
   <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
-    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
-    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Rendre l'expérience Belmond Andean Explorer désirable et tangible pour une audience plus jeune, en montrant le voyage de luxe ferroviaire de l'intérieur.</div>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIVE</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Make the Belmond Andean Explorer experience aspirational and tangible for a younger audience, by showing luxury rail travel from the inside.</div>
   </div>
 </div>},
 
-{title:"Ce que gagne Belmond",
+{title:"What Belmond gains",
 r:t=><div>
-  <Tg t={t}>BÉNÉFICES</Tg>
-  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Belmond</Hl>
+  <Tg t={t}>BENEFITS</Tg>
+  <Hl t={t} s={{fontSize:34}}>Why this idea matters for Belmond</Hl>
   <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
-    {"Toucher une cible plus jeune : travailler la notoriété et la désirabilité de Belmond auprès d'une audience qui ne se projette pas encore dans le voyage de luxe ferroviaire."}
+    {"Reach a younger audience: build awareness and desirability among people who don't yet picture themselves in luxury rail travel."}
   </Th>
   <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
     {[
-      "Un concept fort, évocateur et immédiatement compréhensible.",
-      "Le train et le Pérou montrés de l'intérieur, concrets et désirables.",
-      "Un territoire premium fidèle à l'image Belmond et à l'Andean Explorer.",
-      "Des assets réutilisables en social, paid, site et RP.",
-      "Une mise en valeur des itinéraires signature et des escales mythiques.",
-      "Un pont naturel entre notoriété, désirabilité et considération.",
+      "A strong, vivid and instantly understandable concept.",
+      "The train and Peru shown from the inside, concrete and desirable.",
+      "A premium territory true to the Belmond and Andean Explorer image.",
+      "Assets reusable across social, paid, website and PR.",
+      "A showcase of signature itineraries and iconic stops.",
+      "A natural bridge between awareness, desirability and consideration.",
     ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
       <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
       <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
@@ -2522,18 +2522,18 @@ r:t=><div>
 {title:"Timeline",
 r:(t,back)=><div>
   <Tg t={t}>TIMELINE</Tg>
-  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <Hl t={t} s={{fontSize:34}}>Next steps</Hl>
   <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
     {[
-      "Call de cadrage × Belmond",
-      "Choix de l'itinéraire Andean Explorer (TBC)",
-      "Tournage immersion à bord (TBC)",
+      "Framing call × Belmond",
+      "Andean Explorer itinerary selection (TBC)",
+      "On-board immersive shoot (TBC)",
     ].map((s,i,arr)=>(
     <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
       <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
     </div>))}
   </div>
-  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Back to home</button>}</div>
 </div>},
 ];
 
@@ -2727,7 +2727,7 @@ const META = {
   ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
   whitedesert:{l:"White Desert × CYRILmp4",s:"Idea pitch · « 100 hours at the end of the Earth » · 7 slides",tag:"PITCH IDÉE",card:"whitedesert"},
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
-  belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Pitch idée · « 24h dans le train de luxe le plus haut du monde » · 7 slides",tag:"PITCH IDÉE",card:"belmond"},
+  belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Idea pitch · « 24 hours on the world's highest luxury train » · 7 slides",tag:"IDEA PITCH",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
