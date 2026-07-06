@@ -25,6 +25,7 @@ const DECKS = [
   { id: "toinelagikea", file: "Toinelag_IKEA.pdf" },
   { id: "toinelag", file: "Toinelag.pdf" },
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },
+  { id: "fgcdeliveroo", file: "Deliveroo_FastGoodCuisine.pdf" },
 ];
 
 function pingOnce(host, port) {

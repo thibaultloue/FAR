@@ -165,6 +165,43 @@ const TFGCMarque = {
   lv: "black",
 };
 
+/** Thème deck Deliveroo × FastGoodCuisine : clair, accents teal Deliveroo + secondaire corail food. */
+const TFgcDeliveroo = {
+  bg: "#FBF7F4",
+  c: "#152826",
+  c2: "#00A79D",
+  m: "rgba(21,40,38,.62)",
+  d: "rgba(21,40,38,.32)",
+  a: "#00CCBC",
+  a2: "#FF5A3C",
+  card: "#FFFFFF",
+  cardT: "#152826",
+  cardAlt: "rgba(0,204,188,.1)",
+  pill: "rgba(0,204,188,.16)",
+  pillA: "rgba(255,90,60,.2)",
+  brd: "rgba(21,40,38,.1)",
+  bar: "rgba(21,40,38,.08)",
+  barF: "#00CCBC",
+  nav: "#00CCBC",
+  navT: "#05312D",
+  note: "#EAFBF9",
+  noteT: "#152826",
+  th: "#00CCBC",
+  thT: "#05312D",
+  th2: "#E6FAF7",
+  th2T: "#06423B",
+  ex: "#00CCBC",
+  exT: "#05312D",
+  no: "rgba(21,40,38,.05)",
+  noT: "#152826",
+  noBrd: "rgba(21,40,38,.1)",
+  section: "#00CCBC",
+  sectionT: "#05312D",
+  cR: 14,
+  cS: "0 2px 24px rgba(21,40,38,.08)",
+  lv: "black",
+};
+
 /** Toinelag : jaune vif, bleu ciel, noir (AD proche de l'avatar chaîne). */
 const TToinelag = {
   bg: "#FFE14A",
@@ -329,7 +366,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -482,6 +519,7 @@ const SV={
   whitedesert:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   orientexpress:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   belmond:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  fgcdeliveroo:{i:{opacity:0,y:34},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
@@ -1039,6 +1077,168 @@ r:t=><div><Tg t={t}>FAST GOOD CUISINE</Tg><Hl t={t} s={{fontSize:32,lineHeight:1
 
 {title:"Nuage de marques",
 r:(t,back)=><div><Tg t={t}>CIBLES INDICATIVES</Tg><Hl t={t} s={{fontSize:32,marginBottom:14}}>Marques au bon profil pour l'activation</Hl><Sh t={t} s={{marginBottom:18,fontSize:17}}>Inclut les terrains type long format food / OP, food service, snacking, GMS, CHR, livraison, financement, électroménager et seconde main.</Sh><Bc t={t} labels={["McDonald's","KFC","Burger King","Subway","Starbucks","Five Guys","Quick","Kinder","Haribo","Oreo","LU","Milka","Ben & Jerry's","Häagen-Dazs","Yoplait","Activia","Danone","Barilla","Panzani","Evian","Volvic","Coca-Cola","Oasis","Sprite","Schweppes","Red Bull","Monster","Pepsi","Lurpak","Président","Elle & Vire","Kiri","Uber Eats","Deliveroo","Carrefour","Auchan","Intermarché","Leclerc","Monoprix","Franprix","Mastercard","MACIF","MACSF","Groupama","Tefal","Moulinex","KitchenAid","Le Creuset","Seb","Rowenta","De'Longhi","Bosch","Siemens","Smeg","LG","Samsung","Miele","Whirlpool","Electrolux","Philips","Candy","Beko","Dyson","Vinted"]}/><div style={{...sa,fontSize:11,color:t.d,marginTop:14,lineHeight:1.45,maxWidth:760,marginLeft:"auto",marginRight:"auto",textAlign:"center"}}>Illustrations indicatives ; aucune présupposition de partenariat ou de contact en cours avec les marques citées.</div><div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div></div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// DELIVEROO × FASTGOODCUISINE  -  « TERMINE LE BURGER GÉANT »  -  9 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SFgcDeliveroo = [
+{title:"Deliveroo × FastGoodCuisine",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"62vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:16,marginBottom:22,flexWrap:"wrap",justifyContent:"center"}}>
+    <FarLogo size={64} variant={t.lv}/>
+    <div style={{width:1,height:26,background:t.brd}}/>
+    <img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:60,height:"auto",borderRadius:12,border:`1px solid ${t.brd}`}}/>
+    <div style={{width:1,height:26,background:t.brd}}/>
+    <div style={{...se,fontSize:24,fontWeight:900,letterSpacing:1,color:t.a}}>deliveroo</div>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.c2,marginBottom:18}}>PITCH IDÉE · DELIVEROO × FASTGOODCUISINE</div>
+  <div style={{...se,fontSize:44,fontWeight:900,lineHeight:1.08,maxWidth:900,margin:"0 auto 14px",color:t.c}}>Termine le Burger Géant, gagne 10 000€.</div>
+  <div style={{...sa,fontSize:19,color:t.a2,fontWeight:700,lineHeight:1.3,maxWidth:820,margin:"0 auto 22px"}}>Une compilation de défis food XXL sur YouTube, portée par Deliveroo comme partenaire exclusif.</div>
+  <div style={{width:"100%",maxWidth:820,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`,boxShadow:t.cS}}>
+    <img src={pu("/burger/burger-cover.jpg")} alt="Burger géant" style={{width:"100%",height:300,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"FastGoodCuisine",
+r:t=><div style={{display:"flex",gap:32,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>La chaîne food qui transforme la cuisine en spectacle.</Hl>
+    <Sh t={t}>Chaîne YouTube food française majeure : recettes, tests, hacks et grands concepts à enjeu. Une audience massive et engagée, le terrain idéal pour un format événementiel où une marque food tient un rôle central.</Sh>
+    <div style={{display:"flex",gap:12,marginBottom:24}}>{[{v:"7,5M+",l:"abonnés YouTube"},{v:"2M",l:"Instagram"},{v:"2,5 Md+",l:"vues cumulées"}].map((s,i)=><div key={i} style={{flex:1,padding:"14px 12px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center",boxShadow:t.cS}}><div style={{...se,fontSize:24,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>
+    {[{t:"Formats forts",d:"Comparatifs, tests, hacks, défis à enjeu : la cuisine comme divertissement grand public, lisible pour un sponsor."},{t:"Grands concepts",d:"« Le Dernier Qui Quitte La Table », « Plat à 1€ vs 10 000€ avec MrBeast » : des vidéos-événement à très fort volume de vues."}].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"9px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:130}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div></div>)}
+  </div>
+  <div style={{flex:2,borderRadius:16,overflow:"hidden",flexShrink:0}}><img src={pu("/fgc.webp")} alt="FastGoodCuisine" style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:16,minHeight:320}}/></div>
+</div>},
+
+{title:"Le brief",
+r:t=><div>
+  <Tg t={t}>LE CONCEPT</Tg>
+  <Hl t={t} s={{fontSize:34}}>Une compilation de défis food, un burger géant en finale.</Hl>
+  <Sh t={t} s={{marginBottom:20}}>Un long format YouTube rythmé : une série de défis food spectaculaires qui s'enchaînent, jusqu'à l'épreuve ultime autour d'un burger géant à 10 000€.</Sh>
+  <div style={{display:"flex",gap:18,alignItems:"stretch"}}>
+    <Wc t={t} s={{flex:1,padding:"26px 24px",marginTop:0}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:16}}>BRIEF DE LA VIDÉO</div>
+      {[{t:"Compilation de challenges",d:"Une succession de défis food, avec un burger géant comme épreuve finale."},{t:"6 à 8 défis autour de la food",d:"Des épreuves variées, visuelles et à fort potentiel viral."},{t:"Des candidats différents",d:"Pas les mêmes participants d'un défi à l'autre : du rythme et de la variété."}].map((x,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:i<2?16:0}}><div style={{...se,fontSize:16,fontWeight:800,color:t.a2,minWidth:22}}>{String(i+1).padStart(2,"0")}</div><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,marginBottom:4}}>{x.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{x.d}</div></div></div>)}
+    </Wc>
+    <div style={{width:240,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,boxShadow:t.cS}}>
+      <img src={pu("/burger/burger-giant.jpg")} alt="Burger géant" style={{width:"100%",height:140,objectFit:"cover",display:"block"}}/>
+    </div>
+  </div>
+</div>},
+
+{title:"Les épreuves",
+r:t=><div>
+  <Tg t={t}>LES ÉPREUVES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Des pistes de défis, en cours de conception.</Hl>
+  <Sh t={t} s={{marginBottom:14}}>Le format prévoit 6 à 8 épreuves food avant le burger géant. Les trois exemples ci-dessous illustrent le type de défis envisagés : le line-up final sera co-construit avec Deliveroo.</Sh>
+  <div style={{marginBottom:16,padding:"12px 16px",borderRadius:10,background:t.note,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a2}}>EN CONCEPTION</span>
+    <div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.5,marginTop:6}}>Exemples indicatifs, non figés : nombre, ordre et mécaniques des défis à affiner ensemble.</div>
+  </div>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14}}>
+    {[
+      {img:"/burger/hotdog-long.jpg",t:"Le plus long Hot Dog",d:"En 20 min, un mangeur pro affronte 3 amateurs : qui avale le plus de hot dogs ?"},
+      {img:"/burger/plates-stack.jpg",t:"Transporter le plus de plats",d:"Transporter un maximum de plats d'un point A à un point B sans tout faire tomber."},
+      {img:"/burger/pizza-group.jpg",t:"Distribution de pizza",d:"100 pizzas chacun : le premier à toutes les distribuer gagne. Un défi 100 % livraison."},
+    ].map((x,i)=><div key={i} style={{borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,background:t.card,boxShadow:t.cS,display:"flex",flexDirection:"column"}}>
+      <div style={{height:150,overflow:"hidden"}}><img src={pu(x.img)} alt={x.t} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/></div>
+      <div style={{padding:"14px 16px 16px"}}>
+        <div style={{...mo,fontSize:9,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:6}}>{`EXEMPLE ${String(i+1).padStart(2,"0")}`}</div>
+        <div style={{...se,fontSize:16,fontWeight:800,color:t.c,marginBottom:6,lineHeight:1.2}}>{x.t}</div>
+        <div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>{x.d}</div>
+      </div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"L'épreuve principale",
+r:t=><div>
+  <Tg t={t}>ÉPREUVE PRINCIPALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Termine le Burger Géant.</Hl>
+  <div style={{display:"flex",gap:18,alignItems:"stretch",marginTop:8}}>
+    <div style={{flex:1}}>
+      <Sh t={t} s={{marginBottom:16,fontSize:17}}>Le plus gros burger jamais cuisiné sur la chaîne. 10 candidats doivent le terminer ensemble : s'ils y arrivent, ils repartent avec la cagnotte. Sinon, les mains vides.</Sh>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+        {[{t:"Un burger XXL",d:"Poids et hauteur affichés à l'écran (ex. 35 kg, 1 m), nombre de steaks et de fromages."},{t:"Un temps limité",d:"Compte à rebours et barre de progression du burger à l'écran, pour la tension."},{t:"Une cagnotte",d:"Jusqu'à 10 000€ en jeu : l'enjeu qui porte tout le récit jusqu'au climax."},{t:"Un collectif",d:"10 candidats ensemble : réussite ou échec partagés, pour l'émotion finale."}].map((x,i)=><div key={i} style={{padding:"14px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,boxShadow:t.cS}}><div style={{...se,fontSize:15,fontWeight:800,color:t.c,marginBottom:6}}>{x.t}</div><div style={{...sa,fontSize:13,color:t.m,lineHeight:1.5}}>{x.d}</div></div>)}
+      </div>
+    </div>
+    <div style={{width:240,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,boxShadow:t.cS}}>
+      <img src={pu("/burger/burger-giant.jpg")} alt="Burger géant" style={{width:"100%",height:140,objectFit:"cover",display:"block"}}/>
+    </div>
+  </div>
+</div>},
+
+{title:"Activation Deliveroo",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>INTÉGRATION MARQUE</Tg>
+    <Hl t={t} s={{fontSize:33}}>Deliveroo tient un vrai rôle, pas un simple logo.</Hl>
+    <Sh t={t} s={{marginBottom:18}}>Le concept est truffé de livraison et de logistique food : Deliveroo s'y inscrit naturellement, du premier défi au burger géant.</Sh>
+    <div style={{display:"flex",flexDirection:"column",gap:10}}>
+      {[
+        {t:"Partenaire officiel du format",present:"Deliveroo présente et récompense les défis, avec une présence lisible tout au long de la vidéo."},
+        {t:"Le défi livraison signature",present:"La « distribution de pizza » et le « transport de plats » deviennent des épreuves aux couleurs Deliveroo."},
+        {t:"La cagnotte & le burger géant",present:"Deliveroo dote la cagnotte et fait livrer le burger géant : la marque incarne le climax."},
+      ].map((x,i)=><div key={i} style={{display:"flex",gap:12,padding:"13px 16px",borderRadius:12,background:t.th,color:t.thT,alignItems:"flex-start"}}><span style={{...mo,fontSize:11,fontWeight:800,marginTop:2,opacity:.7}}>{String(i+1).padStart(2,"0")}</span><div><div style={{...se,fontSize:16,fontWeight:800,marginBottom:3,lineHeight:1.2}}>{x.t}</div><div style={{...sa,fontSize:13.5,lineHeight:1.5,opacity:.92}}>{x.present}</div></div></div>)}
+    </div>
+  </div>
+  <div style={{width:270,flexShrink:0,alignSelf:"center",borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`,boxShadow:t.cS}}>
+    <img src={pu("/burger/pizza-delivery.jpg")} alt="Livraison" style={{width:"100%",height:360,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Ce que gagne Deliveroo",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Deliveroo.</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>Associer Deliveroo à un moment food fort, générateur de vues et de conversation, auprès d'une audience jeune et gourmande.</Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+    {[
+      "Un concept food fort, viral et immédiatement compréhensible.",
+      "Un rôle éditorial central, au-delà du simple placement produit.",
+      "Des épreuves livraison qui incarnent la promesse Deliveroo.",
+      "Une audience massive, jeune et très engagée sur la food.",
+      "Des assets réutilisables en social, paid et CRM.",
+      "Un format pensé pour vivre en replay et en découpes courtes.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,boxShadow:t.cS}}><span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span></div>)}
+  </div>
+</div>},
+
+{title:"Format & diffusion",
+r:t=><div>
+  <Tg t={t}>FORMAT & DIFFUSION</Tg>
+  <Hl t={t} s={{fontSize:34}}>Une vidéo hero + des découpes sociales.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginTop:8}}>
+    <Wc t={t} s={{padding:22,marginTop:0}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO YOUTUBE</div>
+      <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.65}}>Long format : enchaînement des 6-8 défis, montée en tension jusqu'au burger géant et au verdict.<br/>Présence Deliveroo sur les épreuves livraison, la cagnotte et le climax.</div>
+    </Wc>
+    <Wc t={t} s={{padding:22,marginTop:0}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>DÉCOUPES SOCIALES</div>
+      <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.65}}>Reels / Shorts / TikTok : le défi pizza, le hot dog géant, le burger XXL.<br/>Formats courts pensés pour la reprise et l'amplification paid.</div>
+    </Wc>
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.note,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a2}}>OPTION</span>
+    <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55,marginTop:6}}>Déclinaison possible d'une LTO ou d'une opération drive-to-app Deliveroo autour du burger géant.</div>
+  </div>
+</div>},
+
+{title:"Prochaines étapes",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {["Call de cadrage × Deliveroo","Choix des défis & rôle de la marque (TBC)","Production & tournage du format (TBC)"].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2700,9 +2900,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -2718,6 +2918,7 @@ const META = {
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
+  fgcdeliveroo:{l:"Deliveroo × FastGoodCuisine",s:"Pitch idée · « Termine le Burger Géant, gagne 10 000€ » · 9 slides",tag:"PITCH IDÉE",card:"fgcdeliveroo"},
   fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 8 slides",tag:"BRIEF CRÉATIF",card:"dark"},
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
   toinelag:{l:"[MARQUE] × Toinelag",s:"Retail & jouet  -  le magasin devient un terrain de jeu",tag:"ACTIVATION",card:"toinelag"},
@@ -3564,6 +3765,7 @@ const HOME_COOKING = [
   { id: "rode", img: "/rode-logo-white.png", imgW: 80, filter: "none" },
   { id: "fastgoodcuisine", img: "/fgc.webp", imgW: 76, filter: "none" },
   { id: "fgcmarque", img: "/fgc.webp", imgW: 76, filter: "none" },
+  { id: "fgcdeliveroo", img: "/fgc.webp", imgW: 76, filter: "none" },
   { id: "fgcmarmiton", img: "/fgc.webp", imgW: 76, filter: "none" },
   { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
   { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
@@ -3589,6 +3791,7 @@ function Home({onOpen}) {
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
     fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
+    fgcdeliveroo:{bg:"#EAFBF9",c:"#152826",tBg:"rgba(0,204,188,.2)",tC:"#008E82"},
     otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
     toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
     toinelagikea:{bg:"#0058A3",c:"#FFFFFF",tBg:"rgba(255,219,0,.2)",tC:"#FFDB00"},
