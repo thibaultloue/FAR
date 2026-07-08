@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { createSFarPositionnement } from "./sfarPositionnement.jsx";
 import { createSFarMarques } from "./sfarMarques.jsx";
+import { createSFarRoster } from "./sfarRoster.jsx";
 import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
 
 /** Chemins publics (GitHub Pages projet → BASE_URL `/FAR/`). */
@@ -91,6 +92,22 @@ const TR = {
   ex:"#fff", exT:"#C62828", no:"rgba(255,255,255,.06)", noT:"#fff", noBrd:"rgba(255,255,255,.08)",
   section:"#fff", sectionT:"#C62828", cR:10, lv:"white",
 };
+/** Le Grand JD : sombre cinématographique (reportage / urbex / paranormal), accent vert spectral. */
+const TGrandJd = {
+  bg:"#121417", c:"#F1F4F3", c2:"#4FCFB8", m:"rgba(241,244,243,.58)", d:"rgba(241,244,243,.28)",
+  a:"#4FCFB8", a2:"#F1F4F3",
+  card:"rgba(255,255,255,.05)", cardT:"#F1F4F3",
+  cardAlt:"rgba(79,207,184,.1)",
+  pill:"rgba(79,207,184,.12)", pillA:"rgba(79,207,184,.22)",
+  brd:"rgba(241,244,243,.1)",
+  bar:"rgba(241,244,243,.1)", barF:"#4FCFB8",
+  nav:"#4FCFB8", navT:"#0B1B18", note:"#F1F4F3", noteT:"#121417",
+  th:"#4FCFB8", thT:"#0B1B18",
+  th2:"rgba(255,255,255,.06)", th2T:"#F1F4F3",
+  ex:"#4FCFB8", exT:"#0B1B18", no:"rgba(255,255,255,.05)", noT:"#F1F4F3", noBrd:"rgba(241,244,243,.1)",
+  section:"#4FCFB8", sectionT:"#0B1B18", cR:16, cBf:"blur(12px)", lv:"white",
+};
+
 /** FGC: fond blush / pêche rosé, rouge tomate, basilic, orange FAR (c2). */
 const TFGC = {
   bg:"#FFF2F5",
@@ -366,7 +383,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, case2:T2, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -479,7 +496,7 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
 /** Fond T1 (jaune + hachures) : présentation + export PDF doivent utiliser la même liste. */
-const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "farmarques", "fgcmarmiton", "profil"]);
+const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "farmarques", "fgcmarmiton", "profil", "farroster"]);
 const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
 
 const DeckMotif = ({deck}) => {
@@ -504,9 +521,11 @@ const SV={
   case1:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farmarques:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  farroster:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   fgcmarmiton:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  grandjd:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
   fastgoodcuisine:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
@@ -949,6 +968,117 @@ r:t=>{const rb="#DB0A40",rbBg="#1E1E2C",rbY="#F5C518";return <div><div style={{d
 
 {title:"Activations",
 r:(t,back,nav)=>{const cards=[{id:"shopify",bg:"#81B840",c:"#1a2e05",tag:"ACTIVATION",title:"Activation Shopify",sub:"Shopify × Le Bouseuh × Lockd « L'envers du drop »",img:"/shopify-logo.png",imgW:110,imgFilter:"brightness(0) invert(1)",logoVar:"white"},{id:"rode",bg:"#C62828",c:"#fff",tag:"ACTIVATION",title:"Activation RØDE",sub:"RØDE × Le Bouseuh Podcast « Hors du setup »",img:"/rode-logo-white.png",imgW:80,imgFilter:"none",logoVar:"white"},{id:"fastgoodcuisine",bg:"#FFF2F5",c:"#1C1410",tag:"OPÉRATION",title:"Le combat des chefs",sub:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"black"},{id:"fgcmarque",bg:"#FFF4F7",c:"#1C1410",tag:"ACTIVATION",title:"[MARQUE] × FastGoodCuisine",sub:"Média, divertissement, Pepe Chicken & Pop's",img:"/fgc.webp",imgW:72,imgFilter:"none",logoVar:"black"},{id:"toinelag",bg:"#FFE14A",c:"#141414",tag:"ACTIVATION",title:"[MARQUE] × Toinelag",sub:"Retail & jouet  -  le magasin terrain de jeu",img:"/toinelag-avatar.png",imgW:76,imgFilter:"none",logoVar:"black"}];return <div style={{display:"flex",flexDirection:"column",justifyContent:"center",minHeight:"60vh"}}><div style={{...mo,fontSize:16,fontWeight:700,letterSpacing:5,color:t.a,marginBottom:20,textAlign:"center"}}>EXEMPLES D'ACTIVATION</div><div style={{...se,fontSize:44,fontWeight:800,lineHeight:1.15,maxWidth:900,margin:"0 auto 24px",textAlign:"center"}}>Exemples concrets d'activation & de format à destination des marques.</div><div style={{width:80,height:3,background:t.a,borderRadius:2,margin:"0 auto 40px"}}/><div style={{display:"grid",gridTemplateColumns:"repeat(2, minmax(0, 1fr))",gap:16,maxWidth:900,margin:"0 auto"}}>{cards.map((a,i)=><ActCard key={i} a={a} nav={nav}/>)}</div></div>}},
+
+{title:"Merci",
+r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LE GRAND JD  -  8 SLIDES (prospection créateur, version légère)
+// ═══════════════════════════════════════════════════════════════════════════════
+/** Placeholder visuel : encadré pointillé décrivant l'image/contenu à fournir. */
+const JDPh = ({t,label,h,r,style}) => <div style={{height:h||160,borderRadius:r||12,border:`1.5px dashed ${t.a}`,background:t.cardAlt,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,textAlign:"center",padding:16,...style}}>
+  <div style={{width:34,height:34,borderRadius:"50%",border:`1.5px solid ${t.a}`,display:"flex",alignItems:"center",justifyContent:"center",color:t.a,fontSize:16}}>⛰</div>
+  <div style={{fontFamily:"monospace",fontSize:9.5,fontWeight:800,letterSpacing:2,color:t.a}}>IMAGE À FOURNIR</div>
+  <div style={{fontSize:11.5,color:t.m,lineHeight:1.4,maxWidth:240}}>{label}</div>
+</div>;
+
+const SGrandJd = [
+
+{title:"Objectifs",
+r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
+  <div style={{flex:3}}>
+    <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:26}}>
+      <div style={{width:56,height:56,borderRadius:"50%",border:`1.5px dashed ${t.a}`,background:t.cardAlt,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:"monospace",fontSize:8,fontWeight:800,letterSpacing:.5,color:t.a,textAlign:"center",lineHeight:1.1}}>AVATAR<br/>JD</div>
+      <div style={{width:1,height:32,background:t.brd}}/>
+      <FarLogo size={68} variant={t.lv}/>
+    </div>
+    <div style={{...se,fontSize:56,fontWeight:800,lineHeight:1.02,marginBottom:18,color:t.c}}>Le Grand JD × FAR</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:26}}/>
+    <div style={{display:"flex",flexDirection:"column",gap:12}}>
+      {[{t:"Multiplier tes opportunités business",d:"Une force de frappe commerciale dédiée, sans t'ajouter de charge."},{t:"Donner de l'ampleur à tes projets",d:"Des moyens et des partenaires à la hauteur de tes ambitions."},{t:"Faire rayonner ton univers",d:"Reportage, urbex/paranormal, storytelling : une identité forte à valoriser."},{t:"Préserver ton exigence éditoriale",d:"On protège ta ligne et ton récit. Toujours."}].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:7}}/><div><span style={{...sa,fontSize:16,fontWeight:700,color:t.c}}>{o.t}</span><span style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.5}}> — {o.d}</span></div></div>)}
+    </div>
+  </div>
+  <div style={{flex:2}}>
+    <JDPh t={t} h={440} r={20} label="Portrait vertical de JD (format 4/5) — plan cinématographique, ambiance sombre / exploration si possible." style={{width:"100%"}}/>
+  </div>
+</div>},
+
+{title:"Qui sommes-nous",
+r:t=><div><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:22}}><FarLogo size={56} variant={t.lv}/><div style={{width:1,height:30,background:t.brd}}/><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d}}>QUI SOMMES-NOUS</div></div>
+  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Une agence qui fait grandir les univers créateurs.</div>
+  <div style={{...sa,fontSize:16,color:t.m,lineHeight:1.65,marginBottom:26,maxWidth:900}}>Chez FAR, un créateur n'est pas qu'une audience mais un univers à part entière, avec ses codes, son rythme et ses ambitions. Notre mission : structurer, protéger et développer ces univers sans les dénaturer, pour que chaque créateur grandisse et que chaque marque y trouve une place légitime.</div>
+  <div style={{display:"flex",gap:14,marginBottom:26}}>{[{v:"5",l:"créateurs exclusifs"},{v:"8",l:"à horizon 12 mois"},{v:"10 ans",l:"d'expérience marques & créateurs"},{v:"100+",l:"campagnes réalisées"}].map((s,i)=><div key={i} style={{flex:1,padding:"20px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:13,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Protéger la création",d:"Chaque créateur possède sa niche et sa trajectoire de revenus. On arbitre les opportunités : dire non quand ça dénature le récit et le contenu."},{t:"Pricing fondé sur la valeur",d:"On vend de la valeur, pas seulement du reach. Des devis qui reflètent ce que tu apportes réellement."},{t:"Garantir la croissance",d:"Partenariats long terme, co-brandings, formats à forte valeur, monétisation des actifs propriétaires."}].map((item,i)=><div key={i} style={{flex:1,padding:"22px 18px",borderRight:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:16,fontWeight:700,color:t.c,marginBottom:6}}>{item.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{item.d}</div></div>)}</div>
+</div>},
+
+{title:"Nos engagements",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>NOS ENGAGEMENTS</div>
+  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Un partenaire commercial, jamais un patron.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:900}}>FAR serait ton équipe commerciale externe. Tu gardes la main sur tes deals internes et ta ligne édito. Voici nos règles, sans ambiguïté.</div>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Apport d'affaires",d:"Commissions par palier sur les deals externes que l'on t'amène. Zéro deal, zéro frais."},{t:"Liberté totale",d:"Tu gardes la main sur tes deals entrants. On ne touche pas à ta ligne éditoriale."},{t:"Esprit d'équipe",d:"Une équipe commerciale externe : pas de sollicitations inutiles, on filtre pour toi."},{t:"Partenaires fiables",d:"On ne te présente que des partenaires cohérents. Aucun deal qui pourrait fragiliser ton image."},{t:"Décisions partagées",d:"On t'implique dans chaque décision commerciale. On ne signe rien sans ton accord."},{t:"Croissance, pas bradage",d:"On maximise ta valeur. On ne brade jamais tes tarifs pour closer plus vite."}].map((e,i)=><div key={i} style={{padding:"20px 22px",background:i%2===0?t.card:"transparent",borderBottom:i<4?`1px solid ${t.brd}`:"none",borderRight:i%2===0?`1px solid ${t.brd}`:"none",display:"flex",gap:14}}><div style={{...mo,fontSize:15,fontWeight:800,color:t.a,minWidth:24}}>{String(i+1).padStart(2,"0")}</div><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,marginBottom:4}}>{e.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{e.d}</div></div></div>)}</div>
+</div>},
+
+{title:"Ce que l'on te propose",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>CE QUE L'ON TE PROPOSE</div>
+  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Accélérateur de business, sans engagement.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:900}}>Une collaboration 100 % gagnante en semi-exclusivité : nous serions ton équipe commerciale externe pour combler les trous entre tes gros formats et transformer ta qualité en flux régulier.</div>
+  <div style={{display:"flex",gap:18,alignItems:"stretch"}}>
+    <div style={{flex:1,padding:"26px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:16}}>COMMISSION PAR PALIER</div>
+      {[{r:"Deal < 20 k€",p:"20 %"},{r:"Deal 20 – 35 k€",p:"25 %"},{r:"Deal > 35 k€",p:"30 %"}].map((c,i)=><div key={i} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:15.5,color:t.c}}>{c.r}</div><div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{c.p}</div></div>)}
+      <div style={{...sa,fontSize:13,color:t.d,marginTop:14,fontStyle:"italic"}}>Uniquement sur le business additionnel que l'on t'apporte.</div>
+    </div>
+    <div style={{flex:1,padding:"26px 24px",borderRadius:14,background:t.cardAlt,border:`1px solid ${t.brd}`,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:14}}>CROISSANCE DU TAUX DE REMPLISSAGE</div>
+      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:14}}><div style={{...se,fontSize:44,fontWeight:800,color:t.c}}>~28 %</div><div style={{...sa,fontSize:20,color:t.a}}>→</div><div style={{...se,fontSize:44,fontWeight:800,color:t.a}}>~100 %</div></div>
+      <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.6}}>On muscle la partie commerciale pour combler les trous entre tes gros formats. Plus de revenus réguliers à réinvestir dans tes productions et tes projets externes.</div>
+    </div>
+  </div>
+</div>},
+
+{title:"Pourquoi toi",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POURQUOI TOI</div>
+  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Tu n'es pas un « simple » créateur.</div>
+  <div style={{...sa,fontSize:16,color:t.m,lineHeight:1.65,marginBottom:24,maxWidth:920}}>Entrepreneur, producteur, réalisateur, cameraman, monteur, documentariste : tu as bâti un véritable univers et tu es la référence dans ton domaine. Tu es déjà structuré.</div>
+  <div style={{display:"flex",gap:14,marginBottom:24}}>{[{v:"+6,4M",l:"abonnés cumulés"},{v:"966k",l:"vues moy. YouTube"},{v:"362k",l:"vues moy. Instagram"},{v:"177k",l:"vues moy. TikTok"}].map((s,i)=><div key={i} style={{flex:1,padding:"18px 14px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:12.5,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>
+  <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>3 GRANDS AXES ÉDITORIAUX</div>
+  <div style={{display:"flex",gap:14}}>{[{t:"Reportages & documentaires",d:"Un regard de réalisateur, des formats longs et incarnés à forte valeur.",ph:"Miniature reportage / doc (16/9)"},{t:"Paranormal / Urbex",d:"Ta série Phantasma : une signature immersive et identifiable, un territoire à toi.",ph:"Miniature Phantasma / urbex (16/9)"},{t:"Storytelling",d:"L'art du récit vrai qui tient en haleine, transposable à toutes les marques.",ph:"Miniature storytelling (16/9)"}].map((a,i)=><div key={i} style={{flex:1,borderRadius:14,background:t.card,border:`1px solid ${t.brd}`,overflow:"hidden",display:"flex",flexDirection:"column"}}><JDPh t={t} h={120} r={0} label={a.ph} style={{border:"none",borderBottom:`1.5px dashed ${t.a}`}}/><div style={{padding:"18px 20px"}}><div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:8}}>{`AXE ${String(i+1).padStart(2,"0")}`}</div><div style={{...sa,fontSize:16,fontWeight:700,color:t.c,marginBottom:6}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{a.d}</div></div></div>)}</div>
+</div>},
+
+{title:"Pour aller plus loin",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POUR ALLER PLUS LOIN</div>
+  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Des catégories de partenaires taillées pour ton univers.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:920}}>Quelques exemples de territoires cohérents avec ton contenu et son émotion. À affiner ensemble.</div>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14}}>{[
+    {t:"VPN & sécurité",f:"Tous formats",b:"NordVPN, Cyberghost, Surfshark",d:"L'angoisse de la fuite de données en écho à la peur ressentie en exploration."},
+    {t:"Livres audio",f:"Storytelling",b:"Audible, Lizzie",d:"Le parallèle naturel avec un public amateur de récits et d'histoires."},
+    {t:"Finance & banque",f:"Tous formats",b:"Trade Republic, Revolut",d:"Protéger ses finances : simple, sans stress, à l'inverse des situations vécues en tournage."},
+    {t:"Habillement technique",f:"Explorations / doc",b:"Décathlon, The North Face, Patagonia, Salomon",d:"Le matériel réellement utile lors des explorations et expéditions (type ambassadeur)."},
+    {t:"Jeux d'horreur / escape",f:"Tous formats",b:"Jeux d'horreur, escape games",d:"Une extension ludique directe de l'univers paranormal et de la tension."},
+    {t:"Food & boissons",f:"Tous formats",b:"Air up, Holy",d:"Le réconfort pendant les tournages angoissants : un contraste qui parle."},
+  ].map((p,i)=><div key={i} style={{padding:"18px 18px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c}}>{p.t}</div><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1,color:t.a,background:t.pill,padding:"3px 8px",borderRadius:5}}>{p.f}</div></div><div style={{...sa,fontSize:13,color:t.a2,opacity:.8,marginBottom:8,fontWeight:600}}>{p.b}</div><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.5}}>{p.d}</div></div>)}</div>
+</div>},
+
+{title:"Le deal",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>LE DEAL  -  SEMI-EXCLUSIVITÉ</div>
+  <div style={{...se,fontSize:40,fontWeight:800,lineHeight:1.12,marginBottom:24}}>Ce que l'on t'apporte.</div>
+  <div style={{display:"flex",gap:20,alignItems:"stretch"}}>
+    <div style={{flex:3}}>{[
+      "Des opportunités business en plus, avec des partenaires triés et cohérents.",
+      "Une monétisation optimisée de tes 3 formats : documentaire, urbex/paranormal, storytelling.",
+      "Des revenus plus réguliers à réinvestir dans tes productions.",
+      "Aucune décision sans ton accord, aucun bradage de tes tarifs.",
+      "FAR = équipe commerciale externe, sans exclusivité totale : tu gardes la main sur tes deals internes et ta ligne édito.",
+      "Objectif : passer d'un taux de remplissage de ~28 % à ~100 %.",
+    ].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:i<5?`1px solid ${t.brd}`:"none"}}><div style={{width:22,height:22,borderRadius:11,background:t.a,color:t.navT,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...mo,fontSize:12,fontWeight:800}}>✓</div><div style={{...sa,fontSize:15.5,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div>
+    <div style={{flex:2,padding:"26px 24px",borderRadius:16,background:t.cardAlt,border:`1px solid ${t.brd}`,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:16}}>COMMISSION PAR PALIER</div>
+      {[{r:"< 20 k€",p:"20 %"},{r:"20 – 35 k€",p:"25 %"},{r:"> 35 k€",p:"30 %"}].map((c,i)=><div key={i} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:16,color:t.c}}>{c.r}</div><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{c.p}</div></div>)}
+      <div style={{...sa,fontSize:13,color:t.m,marginTop:16,lineHeight:1.5}}>Uniquement sur le business additionnel apporté par FAR. Sans exclusivité totale.</div>
+    </div>
+  </div>
+</div>},
 
 {title:"Merci",
 r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
@@ -2893,6 +3023,10 @@ const SFarMarques = createSFarMarques({
   Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu,
 });
 
+const SFarRoster = createSFarRoster({
+  Tg, Hl, Sh, FarLogo, se, sa, mo, pu,
+});
+
 const SFGCMarmiton = createSFGCMarmiton({
   Tg, Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu,
 });
@@ -2900,9 +3034,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, case2:S2, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -2913,7 +3047,9 @@ const META = {
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  11 slides",tag:"POSITIONNEMENT",card:"dark"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
+  farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  12 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
+  grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires en semi-exclusivité · 8 slides",tag:"PROSPECTION",card:"grandjd"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
@@ -3705,9 +3841,9 @@ function Pres({id,onBack,onNav}) {
       </motion.div>}</AnimatePresence>
       <div ref={slideRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
         <AnimatePresence mode="wait">
-          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
+          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -3755,10 +3891,11 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 }
 
 // ─── HOME ─────────────────────────────────────────────────────────────────────
-const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "farmarques", logo: "far" }, { id: "stratcom", logo: "far" }];
+const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "farmarques", logo: "far" }, { id: "stratcom", logo: "far" }, { id: "farroster", logo: "far" }];
 const HOME_ARCHIVE = [
   { id: "case1", logo: "far" },
   { id: "case2", img: "/lebouseuh.png", imgType: "photo" },
+  { id: "grandjd", logo: "far" },
 ];
 const HOME_COOKING = [
   { id: "shopify", img: "/shopify-logo.png", imgW: 110, filter: "brightness(0) invert(1)" },
@@ -3787,6 +3924,7 @@ function Home({onOpen}) {
     dark:{bg:B,c:W,tBg:"rgba(255,176,0,.15)",tC:A},
     marques:{bg:"#13151C",c:"#F2F4F8",tBg:"rgba(53,82,255,.22)",tC:"#9AABFF"},
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
+    grandjd:{bg:"#121417",c:"#F1F4F3",tBg:"rgba(79,207,184,.18)",tC:"#4FCFB8"},
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},

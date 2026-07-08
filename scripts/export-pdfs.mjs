@@ -17,6 +17,7 @@ const PORT = 4183;
 const DECKS = [
   { id: "farposition", file: "FAR_Positionnement.pdf" },
   { id: "farmarques", file: "FAR_Marques.pdf" },
+  { id: "farroster", file: "FAR_Agence_Roster.pdf" },
   { id: "cyrilmp4", file: "CYRILmp4.pdf" },
   { id: "ponant", file: "PONANT.pdf" },
   { id: "whitedesert", file: "White_Desert.pdf" },
@@ -26,6 +27,7 @@ const DECKS = [
   { id: "toinelag", file: "Toinelag.pdf" },
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },
   { id: "fgcdeliveroo", file: "Deliveroo_FastGoodCuisine.pdf" },
+  { id: "grandjd", file: "Le_Grand_JD.pdf" },
 ];
 
 function pingOnce(host, port) {
