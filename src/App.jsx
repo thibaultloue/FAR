@@ -424,6 +424,7 @@ html{-webkit-text-size-adjust:100%;}
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}
   .far-home-grid{grid-template-columns:1fr !important;max-width:100% !important;}
+  .far-folder-grid{grid-template-columns:1fr 1fr !important;max-width:100% !important;}
   .far-header{padding:10px 16px !important;}
   .far-header .far-bar{display:none !important;}
   .far-slide-wrap{padding:24px 20px 100px !important;}
@@ -438,6 +439,7 @@ html{-webkit-text-size-adjust:100%;}
   .far-home{padding:24px 16px !important;}
   .far-home h1{font-size:28px !important;}
   .far-home-grid{grid-template-columns:1fr !important;gap:12px !important;}
+  .far-folder-grid{grid-template-columns:1fr !important;gap:14px !important;}
   .far-header{padding:8px 12px !important;flex-wrap:wrap;}
   .far-header>div:first-child{gap:8px !important;}
   .far-header>div:first-child>span{display:none !important;}
@@ -4788,197 +4790,472 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 }
 
 // ─── HOME ─────────────────────────────────────────────────────────────────────
-const HOME_DECKS = [{ id: "farposition", logo: "far" }, { id: "farmarques", logo: "far" }, { id: "stratcom", logo: "far" }, { id: "farroster", logo: "far" }];
-const HOME_ARCHIVE = [
-  { id: "case1", logo: "far" },
-  { id: "case2", img: "/lebouseuh.png", imgType: "photo" },
-  { id: "grandjd", logo: "far" },
-  { id: "bouseuh", img: "/lebouseuh.png", imgType: "photo" },
-  { id: "unchained", img: "/unchained/portrait.jpg", imgType: "photo" },
-];
-const HOME_COOKING = [
-  { id: "shopify", img: "/shopify-logo.png", imgW: 110, filter: "brightness(0) invert(1)" },
-  { id: "rode", img: "/rode-logo-white.png", imgW: 80, filter: "none" },
-  { id: "fastgoodcuisine", img: "/fgc.webp", imgW: 76, filter: "none" },
-  { id: "fgcmarque", img: "/fgc.webp", imgW: 76, filter: "none" },
-  { id: "fgcdeliveroo", img: "/fgc.webp", imgW: 76, filter: "none" },
-  { id: "fgcmarmiton", img: "/fgc.webp", imgW: 76, filter: "none" },
-  { id: "otacospepe", img: "/otacos-logo.png", imgW: 118, filter: "none" },
-  { id: "toinelag", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
-  { id: "toinelagplaydoh", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
-  { id: "toinelagikea", img: "/toinelag-avatar.png", imgW: 78, filter: "none" },
-  { id: "cyrilclubmed", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "ponant", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "whitedesert", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "orientexpress", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "belmond", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "cyrilmp4", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "garmin", img: "/cyrilmp4.png", imgW: 80, filter: "none", imgType: "photo" },
-  { id: "edf", img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
+const HOME_CARD_VIS = {
+  farposition: { logo: "far" },
+  farmarques: { logo: "far" },
+  stratcom: { logo: "far" },
+  farroster: { logo: "far" },
+  case1: { logo: "far" },
+  case2: { img: "/lebouseuh.png", imgW: 100, imgType: "photo" },
+  grandjd: { logo: "far" },
+  bouseuh: { img: "/lebouseuh.png", imgW: 100, imgType: "photo" },
+  unchained: { img: "/unchained/portrait.jpg", imgW: 100, imgType: "photo" },
+  shopify: { img: "/shopify-logo.png", imgW: 110, filter: "brightness(0) invert(1)" },
+  rode: { img: "/rode-logo-white.png", imgW: 80 },
+  fastgoodcuisine: { img: "/fgc.webp", imgW: 76 },
+  fgcmarque: { img: "/fgc.webp", imgW: 76, border: "2px solid rgba(28,20,16,.12)" },
+  fgcdeliveroo: { img: "/fgc.webp", imgW: 76 },
+  fgcmarmiton: { img: "/fgc.webp", imgW: 76 },
+  otacospepe: { img: "/otacos-logo.png", imgW: 118 },
+  toinelag: { img: "/toinelag-avatar.png", imgW: 78, border: "3px solid rgba(20,20,20,.15)" },
+  toinelagplaydoh: { img: "/toinelag-avatar.png", imgW: 78 },
+  toinelagikea: { img: "/toinelag-avatar.png", imgW: 78 },
+  cyrilclubmed: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  ponant: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  whitedesert: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  orientexpress: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  belmond: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  cyrilmp4: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  garmin: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  edf: { img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
+};
+
+const HOME_FOLDERS = [
+  {
+    id: "far",
+    label: "FAR",
+    title: "FAR.",
+    blurb: "Positionnement, offre marques, stratégie commerciale et roster.",
+    color: "#1A1A1A",
+    accent: "#FFAA00",
+    text: "#F8F6F1",
+    showFarMark: true,
+    decks: ["farposition", "farmarques", "stratcom", "farroster"],
+  },
+  {
+    id: "cyril",
+    label: "CYRILmp4",
+    title: "CYRILmp4.",
+    blurb: "Aventure, luxe voyage et partenariats long terme.",
+    color: "#0A1628",
+    accent: "#C9A24B",
+    text: "#F4EFE6",
+    photo: "/cyrilmp4.png",
+    photoRound: true,
+    decks: ["cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
+  },
+  {
+    id: "fgc",
+    label: "FastGoodCuisine",
+    title: "FastGoodCuisine.",
+    blurb: "Opérations food, activations marques et pitchs idée.",
+    color: "#C62828",
+    accent: "#FFD4A8",
+    text: "#FFFFFF",
+    photo: "/fgc.webp",
+    decks: ["fastgoodcuisine", "fgcmarque", "fgcdeliveroo", "fgcmarmiton", "otacospepe"],
+  },
+  {
+    id: "toinelag",
+    label: "Toinelag",
+    title: "Toinelag.",
+    blurb: "Retail, jouet et formats magasin grandeur nature.",
+    color: "#1565C0",
+    accent: "#FFE14A",
+    text: "#FFFFFF",
+    photo: "/toinelag-avatar.png",
+    decks: ["toinelag", "toinelagplaydoh", "toinelagikea"],
+  },
+  {
+    id: "pitch",
+    label: "Pitch créateur",
+    title: "Pitch créateur.",
+    blurb: "Decks de prospection pour accompagner un univers créateur.",
+    color: "#121417",
+    accent: "#4FCFB8",
+    text: "#F1F4F3",
+    decks: ["grandjd", "bouseuh", "unchained"],
+  },
 ];
 
-function Home({onOpen}) {
-  const [tab, setTab] = useState("main");
-  const cs = {
-    dark:{bg:B,c:W,tBg:"rgba(255,176,0,.15)",tC:A},
-    marques:{bg:"#13151C",c:"#F2F4F8",tBg:"rgba(53,82,255,.22)",tC:"#9AABFF"},
-    light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
-    grandjd:{bg:"#121417",c:"#F1F4F3",tBg:"rgba(79,207,184,.18)",tC:"#4FCFB8"},
-    bouseuh:{bg:"#0D0F12",c:"#F3F5F4",tBg:"rgba(198,242,78,.18)",tC:"#C6F24E"},
-    unchained:{bg:"#0E0A16",c:"#F3F0FA",tBg:"rgba(177,76,255,.2)",tC:"#B14CFF"},
-    shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
-    rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
-    fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
-    fgcmarque:{bg:"#FFF4F7",c:"#1C1410",tBg:"rgba(255,107,53,.16)",tC:"#E85A24"},
-    fgcdeliveroo:{bg:"#EAFBF9",c:"#152826",tBg:"rgba(0,204,188,.2)",tC:"#008E82"},
-    otacospepe:{bg:"#111111",c:"#FFC400",tBg:"rgba(255,122,0,.2)",tC:"#FF7A00"},
-    toinelag:{bg:"#FFE14A",c:"#141414",tBg:"rgba(30,116,232,.22)",tC:"#0F3D7A"},
-    toinelagikea:{bg:"#0058A3",c:"#FFFFFF",tBg:"rgba(255,219,0,.2)",tC:"#FFDB00"},
-    garmin:{bg:"#050A0F",c:"#F7FBFF",tBg:"rgba(0,169,224,.16)",tC:"#00A9E0"},
-    ponant:{bg:"#0A1B33",c:"#F4EFE6",tBg:"rgba(201,162,75,.2)",tC:"#C9A24B"},
-    whitedesert:{bg:"#081521",c:"#EAF4F8",tBg:"rgba(95,179,217,.2)",tC:"#5FB3D9"},
-    orientexpress:{bg:"#12100E",c:"#F3EDE3",tBg:"rgba(196,160,82,.2)",tC:"#C4A052"},
-    belmond:{bg:"#241A16",c:"#F5F0E8",tBg:"rgba(201,164,91,.2)",tC:"#C9A45B"},
-    edf:{bg:"#07152B",c:"#F7FAFF",tBg:"rgba(254,80,0,.22)",tC:"#FE5000"},
-  };
+const HOME_ARCHIVE = {
+  title: "Archive.",
+  blurb: "Cas pratiques historiques et activations Bouseuh.",
+  decks: ["shopify", "rode", "case1", "case2"],
+};
+
+function folderDeckCount(folder) {
+  return folder.decks.length;
+}
+
+function HomeDeckVisual({ id }) {
+  const v = HOME_CARD_VIS[id];
+  if (!v) return null;
+  if (v.logo === "far") return <FarLogo size={90} variant="white" />;
+  if (v.imgType === "photo") {
+    return (
+      <img
+        src={pu(v.img)}
+        alt=""
+        style={{
+          width: v.imgW,
+          height: v.imgW,
+          borderRadius: "50%",
+          objectFit: "cover",
+          border: "3px solid rgba(255,255,255,.2)",
+          flexShrink: 0,
+        }}
+      />
+    );
+  }
   return (
-    <div className="far-home" style={{minHeight:"100vh",background:A,padding:"44px 52px",...sa,color:B}}>
+    <img
+      src={pu(v.img)}
+      alt=""
+      style={{
+        width: v.imgW,
+        height: "auto",
+        filter: v.filter || "none",
+        opacity: 0.92,
+        flexShrink: 0,
+        borderRadius: 10,
+        border: v.border || "none",
+      }}
+    />
+  );
+}
+
+function FolderCard({ folder, index, onOpen }) {
+  const count = folderDeckCount(folder);
+  const [hovered, setHovered] = useState(false);
+  const bg = folder.color;
+  const accent = folder.accent;
+  const fg = folder.text;
+  return (
+    <motion.button
+      type="button"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      onClick={() => onOpen(folder.id)}
+      style={{
+        display: "block",
+        width: "100%",
+        padding: 0,
+        border: "none",
+        background: "transparent",
+        cursor: "pointer",
+        textAlign: "left",
+        ...sa,
+        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        transition: "transform .22s ease",
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          height: 228,
+          background: bg,
+          color: fg,
+          borderRadius: 24,
+          overflow: "hidden",
+          boxShadow: hovered ? "0 18px 40px rgba(0,0,0,.2)" : "0 8px 22px rgba(0,0,0,.12)",
+          transition: "box-shadow .22s ease",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 4,
+            background: accent,
+            opacity: 0.85,
+          }}
+        />
+        {folder.photo && (
+          <img
+            src={pu(folder.photo)}
+            alt=""
+            style={{
+              position: "absolute",
+              right: 18,
+              bottom: 18,
+              width: 112,
+              height: 112,
+              objectFit: "cover",
+              borderRadius: folder.photoRound ? "50%" : 20,
+              border: `3px solid ${accent}55`,
+              opacity: 0.95,
+              pointerEvents: "none",
+            }}
+          />
+        )}
+        {folder.showFarMark && (
+          <div
+            style={{
+              position: "absolute",
+              right: 22,
+              bottom: 28,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 10,
+              pointerEvents: "none",
+            }}
+          >
+            <FarLogo size={68} variant="white" />
+            <FarBeams w={84} fill={accent} />
+          </div>
+        )}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 1,
+              height: "100%",
+              boxSizing: "border-box",
+              padding: "28px 24px 22px",
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: folder.photo || folder.showFarMark ? "62%" : "100%",
+            }}
+          >
+            <div style={{ ...se, fontSize: 28, fontWeight: 800, lineHeight: 1.08, marginBottom: "auto" }}>{folder.title}</div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 16, gap: 10 }}>
+              <span style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 1.4, opacity: 0.45 }}>
+                {count} deck{count > 1 ? "s" : ""}
+              </span>
+              <span style={{ ...mo, fontSize: 12, fontWeight: 700, letterSpacing: 1, color: accent, whiteSpace: "nowrap" }}>Ouvrir →</span>
+            </div>
+          </div>
+      </div>
+    </motion.button>
+  );
+}
+
+function Home({ onOpen }) {
+  const [tab, setTab] = useState("main");
+  const [folderId, setFolderId] = useState(null);
+  const cs = {
+    dark: { bg: B, c: W, tBg: "rgba(255,176,0,.15)", tC: A },
+    marques: { bg: "#13151C", c: "#F2F4F8", tBg: "rgba(53,82,255,.22)", tC: "#9AABFF" },
+    light: { bg: W, c: B, tBg: "rgba(26,26,26,.06)", tC: B, brd: `1px solid rgba(0,0,0,.08)` },
+    grandjd: { bg: "#121417", c: "#F1F4F3", tBg: "rgba(79,207,184,.18)", tC: "#4FCFB8" },
+    bouseuh: { bg: "#0D0F12", c: "#F3F5F4", tBg: "rgba(198,242,78,.18)", tC: "#C6F24E" },
+    unchained: { bg: "#0E0A16", c: "#F3F0FA", tBg: "rgba(177,76,255,.2)", tC: "#B14CFF" },
+    shopify: { bg: "#81B840", c: "#1a2e05", tBg: "rgba(0,0,0,.1)", tC: "#1a2e05" },
+    rode: { bg: "#C62828", c: "#fff", tBg: "rgba(255,255,255,.15)", tC: "#fff" },
+    fgc: { bg: "#FFF2F5", c: "#1C1410", tBg: "rgba(224,31,42,.11)", tC: "#B01822" },
+    fgcmarque: { bg: "#FFF4F7", c: "#1C1410", tBg: "rgba(255,107,53,.16)", tC: "#E85A24" },
+    fgcdeliveroo: { bg: "#EAFBF9", c: "#152826", tBg: "rgba(0,204,188,.2)", tC: "#008E82" },
+    otacospepe: { bg: "#111111", c: "#FFC400", tBg: "rgba(255,122,0,.2)", tC: "#FF7A00" },
+    toinelag: { bg: "#FFE14A", c: "#141414", tBg: "rgba(30,116,232,.22)", tC: "#0F3D7A" },
+    toinelagikea: { bg: "#0058A3", c: "#FFFFFF", tBg: "rgba(255,219,0,.2)", tC: "#FFDB00" },
+    garmin: { bg: "#050A0F", c: "#F7FBFF", tBg: "rgba(0,169,224,.16)", tC: "#00A9E0" },
+    ponant: { bg: "#0A1B33", c: "#F4EFE6", tBg: "rgba(201,162,75,.2)", tC: "#C9A24B" },
+    whitedesert: { bg: "#081521", c: "#EAF4F8", tBg: "rgba(95,179,217,.2)", tC: "#5FB3D9" },
+    orientexpress: { bg: "#12100E", c: "#F3EDE3", tBg: "rgba(196,160,82,.2)", tC: "#C4A052" },
+    belmond: { bg: "#241A16", c: "#F5F0E8", tBg: "rgba(201,164,91,.2)", tC: "#C9A45B" },
+    edf: { bg: "#07152B", c: "#F7FAFF", tBg: "rgba(254,80,0,.22)", tC: "#FE5000" },
+  };
+
+  const openFolder = (id) => {
+    setTab("main");
+    setFolderId(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goHomeFolders = () => {
+    setTab("main");
+    setFolderId(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goArchive = () => {
+    setTab("archive");
+    setFolderId(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const activeFolder = HOME_FOLDERS.find((f) => f.id === folderId) || null;
+
+  const renderDeckGrid = (deckIds, delayBase = 0.12) => (
+    <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 1155 }}>
+      {deckIds.map((id, idx) => {
+        const d = META[id];
+        const st = cs[d.card] || cs.dark;
+        return (
+          <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={delayBase + idx * 0.06}>
+            <HomeDeckVisual id={id} />
+          </DeckCard>
+        );
+      })}
+    </div>
+  );
+
+  const renderFolderContents = (folder) => (
+    <motion.div key={folder.id} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+      <button
+        type="button"
+        onClick={goHomeFolders}
+        style={{
+          background: "none",
+          border: "1px solid rgba(26,26,26,.14)",
+          color: B,
+          ...sa,
+          fontSize: 13,
+          padding: "8px 16px",
+          borderRadius: 8,
+          cursor: "pointer",
+          opacity: 0.55,
+          marginBottom: 28,
+        }}
+      >
+        ← Dossiers
+      </button>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 10 }}>
+        {folder.showFarMark ? (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <FarLogo size={48} variant="black" />
+            <FarBeams w={64} fill={folder.accent} />
+          </div>
+        ) : folder.photo ? (
+          <img
+            src={pu(folder.photo)}
+            alt=""
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: folder.photoRound ? "50%" : 14,
+              objectFit: "cover",
+              border: `2px solid ${folder.color}`,
+              flexShrink: 0,
+            }}
+          />
+        ) : null}
+        <div>
+          <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase", opacity: 0.35, marginBottom: 6 }}>
+            {folder.label}
+          </div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
+            <h1 style={{ ...se, fontSize: 44, lineHeight: 1.05, margin: 0 }}>{folder.title}</h1>
+            <span style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 1.5, opacity: 0.28 }}>
+              {folderDeckCount(folder)} deck{folderDeckCount(folder) > 1 ? "s" : ""}
+            </span>
+          </div>
+        </div>
+      </div>
+      <p style={{ ...sa, fontSize: 15, opacity: 0.48, marginBottom: 32, maxWidth: 560, lineHeight: 1.5 }}>{folder.blurb}</p>
+      {renderDeckGrid(folder.decks)}
+    </motion.div>
+  );
+
+  return (
+    <div className="far-home" style={{ minHeight: "100vh", background: A, padding: "44px 52px 64px", ...sa, color: B }}>
       <style>{FC}</style>
-      <motion.div initial={{opacity:0,y:-10}} animate={{opacity:1,y:0}} transition={{duration:.5}} style={{marginBottom:72}}>
-        <div onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} style={{display:"flex",alignItems:"center",gap:16,flexWrap:"wrap",cursor:"pointer"}}>
-          <div className="far-logo-hover"><FarLogo size={80} variant="black"/></div>
-          <div style={{width:1,height:32,background:"rgba(0,0,0,.12)"}}/>
-          <span style={{...se,fontSize:22,fontWeight:700}}>THIBAULT LOUÉ</span>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} style={{ marginBottom: 36 }}>
+        <div onClick={goHomeFolders} style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap", cursor: "pointer" }}>
+          <div className="far-logo-hover">
+            <FarLogo size={80} variant="black" />
+          </div>
+          <div style={{ width: 1, height: 32, background: "rgba(0,0,0,.12)" }} />
+          <span style={{ ...se, fontSize: 22, fontWeight: 700 }}>THIBAULT LOUÉ</span>
         </div>
       </motion.div>
 
-      <div style={{display:"flex",gap:8,marginBottom:40,flexWrap:"wrap"}}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 40, flexWrap: "wrap" }}>
         {[
-          { id: "main", label: "_decks & cooking" },
-          { id: "archive", label: "Archive" },
-        ].map(({ id, label }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setTab(id)}
-            style={{
-              ...mo,
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: 2,
-              textTransform: "uppercase",
-              padding: "10px 18px",
-              borderRadius: 999,
-              border: tab === id ? "none" : "1px solid rgba(26,26,26,.12)",
-              background: tab === id ? B : "transparent",
-              color: tab === id ? A : B,
-              opacity: tab === id ? 1 : 0.45,
-              cursor: "pointer",
-            }}
-          >
-            {label}
-          </button>
-        ))}
+          { id: "main", label: "_decks & cooking", onClick: goHomeFolders },
+          { id: "archive", label: "Archive", onClick: goArchive },
+        ].map(({ id, label, onClick }) => {
+          const isOn = tab === id;
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={onClick}
+              style={{
+                ...mo,
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                padding: "10px 18px",
+                borderRadius: 999,
+                border: isOn ? "none" : "1px solid rgba(26,26,26,.12)",
+                background: isOn ? B : "transparent",
+                color: isOn ? A : B,
+                opacity: isOn ? 1 : 0.45,
+                cursor: "pointer",
+              }}
+            >
+              {label}
+            </button>
+          );
+        })}
       </div>
 
-      {tab === "main" ? (
-        <>
-          <motion.h1
-            key="main-h1"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 48 }}
-          >
-            _decks & cooking
-          </motion.h1>
-          <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", opacity: 0.2, marginBottom: 20 }}>
-            _DECKS
-          </div>
-          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 52, maxWidth: 1155 }}>
-            {HOME_DECKS.map(({ id, logo }, idx) => {
-              const d = META[id];
-              const st = cs[d.card];
-              return (
-                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.3 + idx * 0.1}>
-                  {logo === "far" && <FarLogo size={90} variant="white" />}
-                </DeckCard>
-              );
-            })}
-          </div>
-          <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", opacity: 0.2, marginBottom: 20 }}>
-            COOKING
-          </div>
-          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20, maxWidth: 1155 }}>
-            {HOME_COOKING.map(({ id, img, imgW, filter, imgType }, idx) => {
-              const d = META[id];
-              const st = cs[d.card];
-              return (
-                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.5 + idx * 0.1}>
-                  {imgType === "photo" ? (
-                    <img
-                      src={pu(img)}
-                      alt=""
-                      style={{ width: imgW, height: imgW, borderRadius: "50%", objectFit: "cover", border: "3px solid rgba(255,255,255,.2)", flexShrink: 0 }}
-                    />
-                  ) : (
-                    <img
-                      src={pu(img)}
-                      alt=""
-                      style={{
-                        width: imgW,
-                        height: "auto",
-                        filter,
-                        opacity: 0.92,
-                        flexShrink: 0,
-                        borderRadius: 10,
-                        border: id === "toinelag" ? "3px solid rgba(20,20,20,.15)" : id === "fgcmarque" ? "2px solid rgba(28,20,16,.12)" : "none",
-                      }}
-                    />
-                  )}
-                </DeckCard>
-              );
-            })}
-          </div>
-        </>
-      ) : (
-        <>
-          <motion.h1
-            key="archive-h1"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            style={{ ...se, fontSize: 40, lineHeight: 1.05, marginBottom: 12, opacity: 0.85 }}
-          >
-            Archive
-          </motion.h1>
-          <p style={{ ...sa, fontSize: 15, opacity: 0.45, marginBottom: 36, maxWidth: 520, lineHeight: 1.5 }}>
-            Cas pratiques historiques - stratégie commerciale FAR et pitch créateur.
-          </p>
-          <div className="far-home-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, maxWidth: 1155 }}>
-            {HOME_ARCHIVE.map(({ id, img, imgType, logo }, idx) => {
-              const d = META[id];
-              const st = cs[d.card];
-              return (
-                <DeckCard key={id} id={id} st={st} d={d} onOpen={onOpen} delay={0.3 + idx * 0.1}>
-                  {logo === "far" && <FarLogo size={90} variant="white" />}
-                  {img && imgType === "photo" && (
-                    <img
-                      src={pu(img)}
-                      alt=""
-                      style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", border: "3px solid rgba(255,255,255,.2)", flexShrink: 0 }}
-                    />
-                  )}
-                </DeckCard>
-              );
-            })}
-          </div>
-        </>
-      )}
-      <div style={{maxWidth:1155,margin:"0 auto",marginTop:8}}>
-        <motion.button type="button" onClick={()=>onOpen("profil")} whileHover={{opacity:.55}} whileTap={{scale:.98}} style={{display:"block",width:"100%",background:"transparent",border:"none",borderTop:"1px solid rgba(26,26,26,.1)",padding:"20px 12px 4px",cursor:"pointer",...mo,fontSize:9,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:B,opacity:.26,textAlign:"center"}}>Mon profil · CV</motion.button>
+      <div style={{ maxWidth: 1155 }}>
+        {tab === "archive" ? (
+          <motion.div key="archive" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+            <h1 style={{ ...se, fontSize: 40, lineHeight: 1.05, marginBottom: 12, opacity: 0.85 }}>{HOME_ARCHIVE.title}</h1>
+            <p style={{ ...sa, fontSize: 15, opacity: 0.45, marginBottom: 36, maxWidth: 520, lineHeight: 1.5 }}>{HOME_ARCHIVE.blurb}</p>
+            {renderDeckGrid(HOME_ARCHIVE.decks)}
+          </motion.div>
+        ) : activeFolder ? (
+          renderFolderContents(activeFolder)
+        ) : (
+          <motion.div key="folders" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
+            <h1 style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 12 }}>_decks & cooking</h1>
+            <p style={{ ...sa, fontSize: 16, opacity: 0.45, marginBottom: 40, maxWidth: 520, lineHeight: 1.5 }}>
+              Ouvre un dossier pour accéder aux decks.
+            </p>
+            <div
+              className="far-folder-grid"
+              style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 22, maxWidth: 1155 }}
+            >
+              {HOME_FOLDERS.map((folder, idx) => (
+                <FolderCard key={folder.id} folder={folder} index={idx} onOpen={openFolder} />
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
-      <div style={{...sa,fontSize:12,color:B,opacity:.25,textAlign:"center",marginTop:36,letterSpacing:1}}>confidentiel - thibault loué</div>
+
+      <div style={{ maxWidth: 1155, margin: "0 auto", marginTop: 48 }}>
+        <motion.button
+          type="button"
+          onClick={() => onOpen("profil")}
+          whileHover={{ opacity: 0.55 }}
+          whileTap={{ scale: 0.98 }}
+          style={{
+            display: "block",
+            width: "100%",
+            background: "transparent",
+            border: "none",
+            borderTop: "1px solid rgba(26,26,26,.1)",
+            padding: "20px 12px 4px",
+            cursor: "pointer",
+            ...mo,
+            fontSize: 9,
+            fontWeight: 600,
+            letterSpacing: 3,
+            textTransform: "uppercase",
+            color: B,
+            opacity: 0.26,
+            textAlign: "center",
+          }}
+        >
+          Mon profil · CV
+        </motion.button>
+      </div>
+      <div style={{ ...sa, fontSize: 12, color: B, opacity: 0.25, textAlign: "center", marginTop: 36, letterSpacing: 1 }}>
+        confidentiel - thibault loué
+      </div>
     </div>
   );
 }
