@@ -4874,9 +4874,28 @@ const HOME_FOLDERS = [
     color: "#121417",
     accent: "#4FCFB8",
     text: "#F1F4F3",
+    anonPicto: true,
     decks: ["grandjd", "bouseuh", "unchained"],
   },
 ];
+
+const HOME_FOLDER_IDS = new Set(HOME_FOLDERS.map((f) => f.id));
+
+const AnonCreatorPicto = ({ size = 112, color = "#4FCFB8" }) => (
+  <svg width={size} height={size} viewBox="0 0 112 112" fill="none" aria-hidden style={{ display: "block" }}>
+    <circle cx="56" cy="56" r="54" stroke={color} strokeWidth="2.5" opacity="0.35" />
+    <circle cx="56" cy="42" r="18" fill={color} opacity="0.9" />
+    <path
+      d="M28 92c4.5-18 16-28 28-28s23.5 10 28 28"
+      stroke={color}
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      fill={color}
+      fillOpacity="0.22"
+      opacity="0.95"
+    />
+  </svg>
+);
 
 const HOME_ARCHIVE = {
   title: "Archive.",
@@ -4927,7 +4946,6 @@ function HomeDeckVisual({ id }) {
 
 function FolderCard({ folder, index, onOpen }) {
   const count = folderDeckCount(folder);
-  const [hovered, setHovered] = useState(false);
   const bg = folder.color;
   const accent = folder.accent;
   const fg = folder.text;
@@ -4937,8 +4955,8 @@ function FolderCard({ folder, index, onOpen }) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
+      whileHover="hover"
+      whileTap={{ scale: 0.985 }}
       onClick={() => onOpen(folder.id)}
       style={{
         display: "block",
@@ -4949,11 +4967,17 @@ function FolderCard({ folder, index, onOpen }) {
         cursor: "pointer",
         textAlign: "left",
         ...sa,
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
-        transition: "transform .22s ease",
       }}
     >
-      <div
+      <motion.div
+        variants={{
+          hover: {
+            y: -10,
+            scale: 1.025,
+            boxShadow: `0 22px 48px rgba(0,0,0,.28), 0 0 0 1px ${accent}55, 0 12px 40px ${accent}33`,
+          },
+        }}
+        transition={{ type: "spring", stiffness: 380, damping: 28 }}
         style={{
           position: "relative",
           height: 228,
@@ -4961,12 +4985,13 @@ function FolderCard({ folder, index, onOpen }) {
           color: fg,
           borderRadius: 24,
           overflow: "hidden",
-          boxShadow: hovered ? "0 18px 40px rgba(0,0,0,.2)" : "0 8px 22px rgba(0,0,0,.12)",
-          transition: "box-shadow .22s ease",
+          boxShadow: "0 8px 22px rgba(0,0,0,.12)",
         }}
       >
-        <div
+        <motion.div
           aria-hidden
+          variants={{ hover: { height: 7, opacity: 1 } }}
+          transition={{ duration: 0.25 }}
           style={{
             position: "absolute",
             top: 0,
@@ -4977,10 +5002,24 @@ function FolderCard({ folder, index, onOpen }) {
             opacity: 0.85,
           }}
         />
+        <motion.div
+          aria-hidden
+          variants={{ hover: { opacity: 0.18 } }}
+          transition={{ duration: 0.3 }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(ellipse at 80% 70%, ${accent} 0%, transparent 55%)`,
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+        />
         {folder.photo && (
-          <img
+          <motion.img
             src={pu(folder.photo)}
             alt=""
+            variants={{ hover: { scale: 1.08, rotate: -2, y: -4 } }}
+            transition={{ type: "spring", stiffness: 280, damping: 20 }}
             style={{
               position: "absolute",
               right: 18,
@@ -4992,11 +5031,14 @@ function FolderCard({ folder, index, onOpen }) {
               border: `3px solid ${accent}55`,
               opacity: 0.95,
               pointerEvents: "none",
+              transformOrigin: "center bottom",
             }}
           />
         )}
         {folder.showFarMark && (
-          <div
+          <motion.div
+            variants={{ hover: { scale: 1.08, y: -6 } }}
+            transition={{ type: "spring", stiffness: 280, damping: 20 }}
             style={{
               position: "absolute",
               right: 22,
@@ -5010,36 +5052,52 @@ function FolderCard({ folder, index, onOpen }) {
           >
             <FarLogo size={68} variant="white" />
             <FarBeams w={84} fill={accent} />
-          </div>
+          </motion.div>
         )}
-          <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              height: "100%",
-              boxSizing: "border-box",
-              padding: "28px 24px 22px",
-              display: "flex",
-              flexDirection: "column",
-              maxWidth: folder.photo || folder.showFarMark ? "62%" : "100%",
-            }}
+        {folder.anonPicto && (
+          <motion.div
+            variants={{ hover: { scale: 1.1, y: -6, rotate: -3 } }}
+            transition={{ type: "spring", stiffness: 280, damping: 20 }}
+            style={{ position: "absolute", right: 18, bottom: 18, pointerEvents: "none", opacity: 0.92 }}
           >
-            <div style={{ ...se, fontSize: 28, fontWeight: 800, lineHeight: 1.08, marginBottom: "auto" }}>{folder.title}</div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 16, gap: 10 }}>
-              <span style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 1.4, opacity: 0.45 }}>
-                {count} deck{count > 1 ? "s" : ""}
-              </span>
-              <span style={{ ...mo, fontSize: 12, fontWeight: 700, letterSpacing: 1, color: accent, whiteSpace: "nowrap" }}>Ouvrir →</span>
-            </div>
+            <AnonCreatorPicto size={112} color={accent} />
+          </motion.div>
+        )}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 1,
+            height: "100%",
+            boxSizing: "border-box",
+            padding: "28px 24px 22px",
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: folder.photo || folder.showFarMark || folder.anonPicto ? "62%" : "100%",
+          }}
+        >
+          <div style={{ ...se, fontSize: 28, fontWeight: 800, lineHeight: 1.08, marginBottom: "auto" }}>{folder.title}</div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 16, gap: 10 }}>
+            <span style={{ ...mo, fontSize: 11, fontWeight: 600, letterSpacing: 1.4, opacity: 0.45 }}>
+              {count} deck{count > 1 ? "s" : ""}
+            </span>
+            <motion.span
+              variants={{ hover: { x: 4, color: accent } }}
+              transition={{ type: "spring", stiffness: 400, damping: 24 }}
+              style={{ ...mo, fontSize: 12, fontWeight: 700, letterSpacing: 1, color: accent, whiteSpace: "nowrap", display: "inline-block" }}
+            >
+              Ouvrir →
+            </motion.span>
           </div>
-      </div>
+        </div>
+      </motion.div>
     </motion.button>
   );
 }
 
 function Home({ onOpen }) {
-  const [tab, setTab] = useState("main");
-  const [folderId, setFolderId] = useState(null);
+  const route = parseHash();
+  const tab = route.view === "archive" ? "archive" : "main";
+  const folderId = route.view === "folder" ? route.folderId : null;
   const cs = {
     dark: { bg: B, c: W, tBg: "rgba(255,176,0,.15)", tC: A },
     marques: { bg: "#13151C", c: "#F2F4F8", tBg: "rgba(53,82,255,.22)", tC: "#9AABFF" },
@@ -5064,20 +5122,17 @@ function Home({ onOpen }) {
   };
 
   const openFolder = (id) => {
-    setTab("main");
-    setFolderId(id);
+    window.location.hash = `folder/${id}`;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goHomeFolders = () => {
-    setTab("main");
-    setFolderId(null);
+    window.location.hash = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const goArchive = () => {
-    setTab("archive");
-    setFolderId(null);
+    window.location.hash = "archive";
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -5123,6 +5178,8 @@ function Home({ onOpen }) {
             <FarLogo size={48} variant="black" />
             <FarBeams w={64} fill={folder.accent} />
           </div>
+        ) : folder.anonPicto ? (
+          <AnonCreatorPicto size={56} color={folder.accent} />
         ) : folder.photo ? (
           <img
             src={pu(folder.photo)}
@@ -5210,10 +5267,7 @@ function Home({ onOpen }) {
           renderFolderContents(activeFolder)
         ) : (
           <motion.div key="folders" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-            <h1 style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 12 }}>_decks & cooking</h1>
-            <p style={{ ...sa, fontSize: 16, opacity: 0.45, marginBottom: 40, maxWidth: 520, lineHeight: 1.5 }}>
-              Ouvre un dossier pour accéder aux decks.
-            </p>
+            <h1 style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 40 }}>_decks & cooking</h1>
             <div
               className="far-folder-grid"
               style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 22, maxWidth: 1155 }}
@@ -5288,46 +5342,64 @@ function Gate({children}){
 // ─── APP ──────────────────────────────────────────────────────────────────────
 function parseHash() {
   const h = window.location.hash.replace(/^#/, "");
-  if (!h) return { d: null, s: 0 };
+  if (!h) return { view: "home" };
   const [raw, s] = h.split("/");
+  if (raw === "folder" && s && HOME_FOLDER_IDS.has(s)) return { view: "folder", folderId: s };
+  if (raw === "archive") return { view: "archive" };
   const d = normalizeDeckId(raw);
-  const slide = parseInt(s, 10);
-  return { d, s: Number.isFinite(slide) && slide >= 0 ? slide : 0 };
+  if (d) {
+    const slide = parseInt(s, 10);
+    return { view: "deck", d, s: Number.isFinite(slide) && slide >= 0 ? slide : 0 };
+  }
+  return { view: "home" };
 }
+
 export default function App() {
-  const [deck, setDeck] = useState(() => parseHash().d);
-  const navDeck = useCallback((d) => {
-    setDeck(d);
-    window.location.hash = d ? `${d}/0` : "";
-  }, []);
-  const goBack = useCallback(() => {
-    setDeck(null);
-    window.location.hash = "";
-  }, []);
+  const [route, setRoute] = useState(() => parseHash());
+
   useEffect(() => {
     const syncFromHash = () => {
-      const h = window.location.hash.replace(/^#/, "");
-      const [raw, sPart] = h.split("/");
-      const d = normalizeDeckId(raw);
-      if (raw && !d) {
-        const u = new URL(window.location.href);
-        u.hash = "";
-        window.history.replaceState(null, "", u.pathname + u.search);
-        setDeck(null);
-        return;
+      const next = parseHash();
+      if (next.view === "home" && window.location.hash.replace(/^#/, "")) {
+        const raw = window.location.hash.replace(/^#/, "").split("/")[0];
+        if (raw && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
+          const u = new URL(window.location.href);
+          u.hash = "";
+          window.history.replaceState(null, "", u.pathname + u.search);
+        }
       }
-      if (d && d !== raw) {
-        const slide = parseInt(sPart, 10);
-        const s = Number.isFinite(slide) && slide >= 0 ? slide : 0;
-        const u = new URL(window.location.href);
-        u.hash = `#${d}/${s}`;
-        window.history.replaceState(null, "", u.toString());
+      if (next.view === "deck" && next.d) {
+        const h = window.location.hash.replace(/^#/, "");
+        const [raw, sPart] = h.split("/");
+        if (next.d !== raw) {
+          const u = new URL(window.location.href);
+          u.hash = `#${next.d}/${next.s}`;
+          window.history.replaceState(null, "", u.toString());
+        }
       }
-      setDeck(parseHash().d);
+      setRoute(next);
     };
     syncFromHash();
     window.addEventListener("hashchange", syncFromHash);
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
-  return <Gate>{deck ? <Pres key={deck} id={deck} onBack={goBack} onNav={navDeck} /> : <Home onOpen={navDeck} />}</Gate>;
+
+  const navDeck = useCallback((d) => {
+    window.location.hash = d ? `${d}/0` : "";
+  }, []);
+
+  const goBack = useCallback(() => {
+    if (window.history.length > 1) window.history.back();
+    else window.location.hash = "";
+  }, []);
+
+  return (
+    <Gate>
+      {route.view === "deck" && route.d ? (
+        <Pres key={route.d} id={route.d} onBack={goBack} onNav={navDeck} />
+      ) : (
+        <Home key={`${route.view}-${route.folderId || ""}`} onOpen={navDeck} />
+      )}
+    </Gate>
+  );
 }
