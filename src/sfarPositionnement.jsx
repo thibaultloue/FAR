@@ -1237,3 +1237,187 @@ export function createSFarPositionnement(P) {
     },
   ];
 }
+
+function FarGrillePictoStatic({ id, size = 38, stroke = "#1A1A1A", opacity = 0.52 }) {
+  const svgProps = {
+    width: size,
+    height: size,
+    viewBox: "0 0 64 64",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": true,
+    style: { display: "block", opacity },
+  };
+  const sw = 1.6;
+  if (id === "vision") {
+    return (
+      <svg {...svgProps}>
+        <path d="M32 17 C21 17 13 25 11 32 C13 39 21 47 32 47 C43 47 51 39 53 32 C51 25 43 17 32 17 Z" stroke={stroke} strokeWidth={sw} />
+        <circle cx="32" cy="32" r="7" stroke={stroke} strokeWidth={1.4} />
+        <circle cx="32" cy="32" r="2.5" fill={stroke} />
+      </svg>
+    );
+  }
+  if (id === "serenite") {
+    return (
+      <svg {...svgProps}>
+        <path d="M32 13 L50 19.5 V33.5 C50 41.5 42 49 32 51 C22 49 14 41.5 14 33.5 V19.5 Z" stroke={stroke} strokeWidth={sw} strokeLinejoin="round" />
+        <path d="M24 33 Q32 27 40 33" stroke={stroke} strokeWidth={1.3} strokeLinecap="round" fill="none" />
+      </svg>
+    );
+  }
+  if (id === "structure") {
+    return (
+      <svg {...svgProps}>
+        <rect x="17" y="17" width="30" height="30" stroke={stroke} strokeWidth={sw} />
+        <line x1="17" y1="27" x2="47" y2="27" stroke={stroke} strokeWidth={1.1} />
+        <line x1="17" y1="37" x2="47" y2="37" stroke={stroke} strokeWidth={1.1} />
+        <line x1="27" y1="17" x2="27" y2="47" stroke={stroke} strokeWidth={1.1} />
+        <line x1="37" y1="17" x2="37" y2="47" stroke={stroke} strokeWidth={1.1} />
+      </svg>
+    );
+  }
+  if (id === "ambition") {
+    return (
+      <svg {...svgProps}>
+        <path d="M18 44 V34 H26 V26 H34 V18 H42" stroke={stroke} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M42 18 L50 12 M42 18 H48" stroke={stroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...svgProps}>
+      <path d="M32 16 V22" stroke={stroke} strokeWidth={1.3} strokeLinecap="round" />
+      <path d="M22 26 L25 29 M42 26 L39 29" stroke={stroke} strokeWidth={1.2} strokeLinecap="round" />
+      <circle cx="32" cy="30" r="9" stroke={stroke} strokeWidth={sw} />
+      <path d="M27 40 H37" stroke={stroke} strokeWidth={1.4} strokeLinecap="round" />
+      <path d="M29 44 H35 V40 H29 Z" stroke={stroke} strokeWidth={1.3} strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** Slides 8-9 positionnement · version statique pour decks prospection créateur. */
+export function createPosProspectInsertSlides(P) {
+  const { Tg, Hl, Sh, se, sa, mo } = P;
+  return [
+    {
+      title: "Piliers FAR",
+      r: (t) => (
+        <div>
+          <Tg t={t}>MÉTHODE</Tg>
+          <Hl t={t} s={{ fontSize: 34, marginBottom: 8 }}>Notre grille de lecture.</Hl>
+          <Sh t={t} s={{ fontSize: 15, lineHeight: 1.55, marginBottom: 16, maxWidth: 920 }}>
+            Elle sert à arbitrer chaque opportunité au quotidien.
+          </Sh>
+          <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "nowrap" }}>
+            {[
+              { p: "Vision", icon: "vision", q: "Est-ce que ça construit aujourd'hui en pensant à demain ?" },
+              { p: "Sérénité", icon: "serenite", q: "Est-ce que le cadre est fluide, clair et sur-mesure ?" },
+              { p: "Structure", icon: "structure", q: "Est-ce que ça simplifie, automatise ou clarifie quelque chose ?" },
+              { p: "Ambition", icon: "ambition", q: "Est-ce que l'idée mérite plus qu'une simple prise de parole ?" },
+              { p: "Opportunité", icon: "opportunite", q: "Est-ce que ça fait émerger un projet durable ?" },
+            ].map((x) => (
+              <div key={x.p} style={{ flex: 1, minWidth: 0, padding: "18px 14px 16px", borderTop: `3px solid ${t.a}` }}>
+                <div style={{ marginBottom: 10 }}>
+                  <FarGrillePictoStatic id={x.icon} stroke={t.a} />
+                </div>
+                <div style={{ ...se, fontSize: 20, fontWeight: 800, color: t.a, marginBottom: 8, lineHeight: 1, whiteSpace: "nowrap" }}>{x.p}</div>
+                <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.45 }}>{x.q}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Ce que FAR apporte",
+      r: (t) => (
+        <div>
+          <Tg t={t}>ACCOMPAGNEMENT</Tg>
+          <Hl t={t} s={{ fontSize: 28, maxWidth: 960, marginBottom: 8 }}>
+            Ce que nous faisons pour le créateur fait avancer tout l&apos;écosystème.
+          </Hl>
+          <div
+            style={{
+              marginTop: 8,
+              padding: "20px 22px 18px",
+              borderRadius: 16,
+              border: `2px solid ${t.a}`,
+              background: `${t.a}10`,
+              marginBottom: 18,
+            }}
+          >
+            <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 2, color: t.a, marginBottom: 14 }}>POUR LE CRÉATEUR</div>
+            <div style={{ position: "relative", paddingTop: 4 }}>
+              <div style={{ position: "absolute", top: 26, left: "6%", right: "6%", height: 3, background: t.brd, borderRadius: 2 }} />
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, position: "relative", zIndex: 1 }}>
+                {[
+                  { n: "01", t: "Clarifier", d: "Positionnement, valeurs, ambitions, ligne éditoriale, priorités." },
+                  { n: "02", t: "Structurer", d: "Administratif, juridique, fiscal, comptable, recrutement, process, outils, data." },
+                  { n: "03", t: "Développer", d: "Collaborations, ambassades, formats, produits propriétaires, marques propres, actifs." },
+                  { n: "04", t: "Protéger", d: "Cohérence éditoriale, image, droits, arbitrages, choix des bonnes opportunités." },
+                ].map((s) => (
+                  <div key={s.n} style={{ textAlign: "center" }}>
+                    <div
+                      style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: "50%",
+                        background: t.th,
+                        color: t.thT,
+                        border: `3px solid ${t.a}`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        margin: "0 auto 10px",
+                        ...mo,
+                        fontSize: 11,
+                        fontWeight: 800,
+                      }}
+                    >
+                      {s.n}
+                    </div>
+                    <div style={{ ...sa, fontSize: 14, fontWeight: 800, color: t.c, marginBottom: 5, whiteSpace: "nowrap" }}>{s.t}</div>
+                    <div style={{ ...sa, fontSize: 11, color: t.m, lineHeight: 1.4 }}>{s.d}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "stretch", gap: 14 }}>
+            <div style={{ flex: "0 0 36px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingTop: 20 }}>
+              <div style={{ width: 2, flex: 1, minHeight: 32, background: `linear-gradient(180deg, ${t.a}, ${t.brd})`, borderRadius: 2 }} />
+              <span style={{ ...mo, fontSize: 16, fontWeight: 800, color: t.a, margin: "6px 0" }}>→</span>
+              <div style={{ width: 2, flex: 1, minHeight: 32, background: t.brd, borderRadius: 2 }} />
+            </div>
+            <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+              {[
+                {
+                  w: "Marque",
+                  t: "Un rôle juste dans l'univers du créateur.",
+                  b: "Des partenariats crédibles, mieux acceptés et plus performants, sans dénaturer l'univers ni briser la confiance.",
+                  d: "Nous identifions où la marque peut s'inscrire sans interrompre le récit : un projet légitime, pas un placement plaqué.",
+                },
+                {
+                  w: "Audience",
+                  t: "Un projet qui paraît évident.",
+                  b: "Une communauté qui comprend, adhère et reste engagée. Le partenariat renforce le lien plutôt que de le fragiliser.",
+                  d: "Quand le créateur est structuré et la marque bien placée, l'audience saisit naturellement pourquoi le projet existe.",
+                },
+              ].map((o) => (
+                <div key={o.w} style={{ padding: "18px 18px", borderRadius: 14, background: t.card, border: `1px solid ${t.brd}` }}>
+                  <div style={{ ...mo, fontSize: 9, fontWeight: 700, letterSpacing: 2, color: t.d, marginBottom: 8 }}>CONSÉQUENCE</div>
+                  <div style={{ ...se, fontSize: 20, fontWeight: 800, color: t.c, marginBottom: 6 }}>{o.w}</div>
+                  <div style={{ ...sa, fontSize: 14, fontWeight: 700, color: t.a, marginBottom: 8, lineHeight: 1.35 }}>{o.t}</div>
+                  <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.45, marginBottom: 10 }}>{o.d}</div>
+                  <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.5, color: t.a, marginBottom: 4, textTransform: "uppercase" }}>Bénéfice</div>
+                  <div style={{ ...sa, fontSize: 13, fontWeight: 600, color: t.c, lineHeight: 1.45, margin: 0 }}>{o.b}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+}

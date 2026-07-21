@@ -4,8 +4,8 @@
 export function createSFarRoster(P) {
   const { Tg, Hl, Sh, FarLogo, se, sa, mo, pu } = P;
 
-  /** En export PDF le deck rend à 1580px de large : les vignettes 16/9 y sont
-   *  plus hautes qu'à l'écran, le panneau doit donc être plus haut. */
+  /** En export PDF le deck rend en largeur contrainte (1300px) puis est agrandi
+   *  pour remplir la page : le panneau prend sa hauteur naturelle (jamais coupé). */
   const isPdf = () => Boolean(globalThis.__FAR_PDF_EXPORT);
 
   /** Placeholder : élément à fournir / valider à la main. */
@@ -46,7 +46,7 @@ export function createSFarRoster(P) {
     const { bg, acc } = da;
     return (
       <div style={{ width: "100%" }}>
-        <div style={{ background: bg, borderRadius: 26, padding: "24px 36px", color: "#fff", boxShadow: "0 10px 44px rgba(0,0,0,.22)", position: "relative", overflow: "hidden", height: isPdf() ? 695 : 644, display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
+        <div style={{ background: bg, borderRadius: 26, padding: "24px 36px", color: "#fff", boxShadow: "0 10px 44px rgba(0,0,0,.22)", position: "relative", overflow: "hidden", height: isPdf() ? "auto" : 644, minHeight: isPdf() ? 600 : undefined, display: "flex", flexDirection: "column", boxSizing: "border-box" }}>
           <div style={{ position: "absolute", top: -70, right: -70, width: 260, height: 260, borderRadius: "50%", background: `${acc}17`, pointerEvents: "none" }} />
           <div style={{ display: "flex", alignItems: "center", gap: 18, marginBottom: 10 }}>
             <img
@@ -150,7 +150,69 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 2. L'AGENCE ─────────────────────────────────────────────────────────
+    // ── 2. MANIFESTO (repris du deck positionnement) ────────────────────────
+    {
+      title: "Manifesto",
+      r: (t) => {
+        const ms = (k) => {
+          switch (k) {
+            case "hook":
+              return { ...se, fontSize: 19, fontWeight: 700, color: t.c, lineHeight: 1.18, margin: "0 0 10px" };
+            case "verse":
+              return { ...se, fontSize: 14, fontWeight: 600, color: t.c, lineHeight: 1.2, margin: "0 0 1px" };
+            case "univers":
+              return { ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1.2, margin: "6px 0 4px" };
+            case "trait":
+              return { ...se, fontSize: 13, fontWeight: 700, color: t.c, lineHeight: 1.22, margin: "0 0 2px" };
+            case "pillar":
+              return { ...sa, fontSize: 12.5, fontWeight: 600, color: t.c, lineHeight: 1.3, margin: "0 0 2px" };
+            case "mission":
+              return { ...se, fontSize: 14, fontWeight: 800, color: t.a, lineHeight: 1.22, margin: "6px 0 4px" };
+            case "tagline":
+              return { ...se, fontSize: 16, fontWeight: 800, color: t.a, lineHeight: 1.2, margin: "8px 0 0" };
+            default:
+              return { ...sa, fontSize: 12, color: t.m, lineHeight: 1.32, margin: "0 0 3px" };
+          }
+        };
+        const blocks = [
+          { k: "verse", t: "C'est une manière de voir." },
+          { k: "verse", t: "De créer." },
+          { k: "verse", t: "De raconter." },
+          { k: "verse", t: "De rassembler." },
+          { k: "univers", t: "C'est un univers." },
+          { k: "trait", t: "Un univers a ses codes." },
+          { k: "trait", t: "Son rythme. Ses formats. Sa communauté." },
+          { k: "trait", t: "Ses exigences. Ses limites. Ses ambitions." },
+          { k: "body", t: "Pour aller loin, il ne suffit pas d'être visible." },
+          { k: "pillar", t: "Il faut être compris avant d'être exposé." },
+          { k: "pillar", t: "Structuré sans être bridé." },
+          { k: "pillar", t: "Protégé sans être enfermé." },
+          { k: "pillar", t: "Développé sans être dénaturé." },
+          { k: "mission", t: "C'est la mission de FAR." },
+          { k: "body", t: "Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste." },
+          { k: "body", t: "Pour que chaque créateur puisse construire plus grand, sans perdre ce qui le rend singulier." },
+          { k: "body", t: "Et que chaque marque puisse trouver sa place dans un univers qui existe déjà." },
+          { k: "tagline", t: "Qui veut aller loin, vient ici." },
+        ];
+        return (
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", width: "100%" }}>
+            <div style={{ ...mo, fontSize: 13, fontWeight: 600, letterSpacing: 3, textTransform: "uppercase", color: t.d, marginBottom: 10 }}>
+              MANIFESTO
+            </div>
+            <p style={{ ...ms("hook"), maxWidth: 900 }}>
+              Chez FAR, nous pensons qu&apos;un créateur ne se résume pas à son audience.
+            </p>
+            <div style={{ maxWidth: 920, width: "100%", textAlign: "center" }}>
+              {blocks.map((b, i) => (
+                <p key={i} style={ms(b.k)}>{b.t}</p>
+              ))}
+            </div>
+          </div>
+        );
+      },
+    },
+
+    // ── 3. L'AGENCE ─────────────────────────────────────────────────────────
     {
       title: "L'agence",
       r: (t) => (
@@ -158,7 +220,7 @@ export function createSFarRoster(P) {
           <Tg t={t} s={{ marginBottom: 12 }}>L&apos;AGENCE</Tg>
           <div style={{ display: "flex", gap: 28, alignItems: "stretch", marginBottom: 30 }}>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <Hl t={t} s={{ fontSize: 28, marginBottom: 12 }}>Une agence d&apos;accompagnement de créateurs de contenu.</Hl>
+              <Hl t={t} s={{ fontSize: 28, marginBottom: 12 }}>FAR by La Porte.</Hl>
               <Sh t={t} s={{ fontSize: 14, lineHeight: 1.55, marginBottom: 10 }}>
                 FAR est une agence d&apos;accompagnement de créateurs de contenu (macro). Nous proposons un accompagnement 360° afin qu&apos;ils puissent se concentrer pleinement sur ce qui les anime : la création.
               </Sh>
@@ -207,7 +269,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 3. NOS CRÉATEURS (roster mosaïque colorée) ──────────────────────────
+    // ── 4. NOS CRÉATEURS (roster mosaïque colorée) ──────────────────────────
     {
       title: "Nos créateurs",
       r: (t) => (
@@ -243,7 +305,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 4. FASTGOODCUISINE ──────────────────────────────────────────────────
+    // ── 5. FASTGOODCUISINE ──────────────────────────────────────────────────
     {
       title: "FastGoodCuisine",
       r: () => (
@@ -272,7 +334,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 5. CYRILMP4 ─────────────────────────────────────────────────────────
+    // ── 6. CYRILMP4 ─────────────────────────────────────────────────────────
     {
       title: "CYRILmp4",
       r: () => (
@@ -300,7 +362,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 6. CYRILSTUDIO ──────────────────────────────────────────────────────
+    // ── 7. CYRILSTUDIO ──────────────────────────────────────────────────────
     {
       title: "CYRILstudio",
       r: () => (
@@ -326,7 +388,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 7. TOINELAG ─────────────────────────────────────────────────────────
+    // ── 8. TOINELAG ─────────────────────────────────────────────────────────
     {
       title: "Toinelag",
       r: () => (
@@ -353,7 +415,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 8. TOINELAG GAMING / TOINELAG + ─────────────────────────────────────
+    // ── 9. TOINELAG GAMING / TOINELAG + ─────────────────────────────────────
     {
       title: "Toinelag Gaming / +",
       r: () => (
@@ -380,7 +442,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 9. LE ROUTIN ────────────────────────────────────────────────────────
+    // ── 10. LE ROUTIN ───────────────────────────────────────────────────────
     {
       title: "Le Routin",
       r: () => (
@@ -409,7 +471,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 10. BEK1NG ──────────────────────────────────────────────────────────
+    // ── 11. BEK1NG ──────────────────────────────────────────────────────────
     {
       title: "Bek1ng",
       r: () => (
@@ -432,7 +494,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 11. TEEQZY ──────────────────────────────────────────────────────────
+    // ── 12. TEEQZY ──────────────────────────────────────────────────────────
     {
       title: "Teeqzy",
       r: () => (
@@ -455,7 +517,7 @@ export function createSFarRoster(P) {
       ),
     },
 
-    // ── 12. MERCI ───────────────────────────────────────────────────────────
+    // ── 13. MERCI ───────────────────────────────────────────────────────────
     {
       title: "Merci",
       r: (t, back) => (

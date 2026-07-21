@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef, Children, createElement } fro
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import { createSFarPositionnement } from "./sfarPositionnement.jsx";
+import { createSFarPositionnement, createPosProspectInsertSlides } from "./sfarPositionnement.jsx";
 import { createSFarMarques } from "./sfarMarques.jsx";
 import { createSFarRoster } from "./sfarRoster.jsx";
 import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
@@ -106,6 +106,36 @@ const TGrandJd = {
   th2:"rgba(255,255,255,.06)", th2T:"#F1F4F3",
   ex:"#4FCFB8", exT:"#0B1B18", no:"rgba(255,255,255,.05)", noT:"#F1F4F3", noBrd:"rgba(241,244,243,.1)",
   section:"#4FCFB8", sectionT:"#0B1B18", cR:16, cBf:"blur(12px)", lv:"white",
+};
+
+const TBouseuh = {
+  bg:"#0D0F12", c:"#F3F5F4", c2:"#C6F24E", m:"rgba(243,245,244,.58)", d:"rgba(243,245,244,.28)",
+  a:"#C6F24E", a2:"#F3F5F4",
+  card:"rgba(255,255,255,.05)", cardT:"#F3F5F4",
+  cardAlt:"rgba(198,242,78,.1)",
+  pill:"rgba(198,242,78,.12)", pillA:"rgba(198,242,78,.22)",
+  brd:"rgba(243,245,244,.1)",
+  bar:"rgba(243,245,244,.1)", barF:"#C6F24E",
+  nav:"#C6F24E", navT:"#12180A", note:"#F3F5F4", noteT:"#0D0F12",
+  th:"#C6F24E", thT:"#12180A",
+  th2:"rgba(255,255,255,.06)", th2T:"#F3F5F4",
+  ex:"#C6F24E", exT:"#12180A", no:"rgba(255,255,255,.05)", noT:"#F3F5F4", noBrd:"rgba(243,245,244,.1)",
+  section:"#C6F24E", sectionT:"#12180A", cR:16, cBf:"blur(12px)", lv:"white",
+};
+
+const TUnchained = {
+  bg:"#0E0A16", c:"#F3F0FA", c2:"#B14CFF", m:"rgba(243,240,250,.58)", d:"rgba(243,240,250,.28)",
+  a:"#B14CFF", a2:"#F3F0FA",
+  card:"rgba(255,255,255,.05)", cardT:"#F3F0FA",
+  cardAlt:"rgba(177,76,255,.12)",
+  pill:"rgba(177,76,255,.14)", pillA:"rgba(177,76,255,.24)",
+  brd:"rgba(243,240,250,.1)",
+  bar:"rgba(243,240,250,.1)", barF:"#B14CFF",
+  nav:"#B14CFF", navT:"#12082A", note:"#F3F0FA", noteT:"#0E0A16",
+  th:"#B14CFF", thT:"#12082A",
+  th2:"rgba(255,255,255,.06)", th2T:"#F3F0FA",
+  ex:"#B14CFF", exT:"#12082A", no:"rgba(255,255,255,.05)", noT:"#F3F0FA", noBrd:"rgba(243,240,250,.1)",
+  section:"#B14CFF", sectionT:"#12082A", cR:16, cBf:"blur(12px)", lv:"white",
 };
 
 /** FGC: fond blush / pêche rosé, rouge tomate, basilic, orange FAR (c2). */
@@ -383,7 +413,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -526,6 +556,8 @@ const SV={
   fgcmarmiton:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   case2:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   grandjd:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  bouseuh:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  unchained:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   shopify:{i:{opacity:0,y:40},a:{opacity:1,y:0},e:{opacity:0,y:-40},t:{type:"spring",stiffness:260,damping:25}},
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
   fastgoodcuisine:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
@@ -974,114 +1006,909 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// LE GRAND JD  -  8 SLIDES (prospection créateur, version légère)
+// LE GRAND JD  -  12 SLIDES (prospection créateur, version légère)
 // ═══════════════════════════════════════════════════════════════════════════════
-/** Placeholder visuel : encadré pointillé décrivant l'image/contenu à fournir. */
-const JDPh = ({t,label,h,r,style}) => <div style={{height:h||160,borderRadius:r||12,border:`1.5px dashed ${t.a}`,background:t.cardAlt,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,textAlign:"center",padding:16,...style}}>
-  <div style={{width:34,height:34,borderRadius:"50%",border:`1.5px solid ${t.a}`,display:"flex",alignItems:"center",justifyContent:"center",color:t.a,fontSize:16}}>⛰</div>
-  <div style={{fontFamily:"monospace",fontSize:9.5,fontWeight:800,letterSpacing:2,color:t.a}}>IMAGE À FOURNIR</div>
-  <div style={{fontSize:11.5,color:t.m,lineHeight:1.4,maxWidth:240}}>{label}</div>
-</div>;
+const POS_PROSPECT_INSERT = createPosProspectInsertSlides({ Tg, Hl, Sh, se, sa, mo });
 
 const SGrandJd = [
 
-{title:"Objectifs",
+{title:"Présentation",
 r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
   <div style={{flex:3}}>
-    <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:26}}>
-      <div style={{width:56,height:56,borderRadius:"50%",border:`1.5px dashed ${t.a}`,background:t.cardAlt,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:"monospace",fontSize:8,fontWeight:800,letterSpacing:.5,color:t.a,textAlign:"center",lineHeight:1.1}}>AVATAR<br/>JD</div>
+    <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+      <img src={pu("/grandjd/jd-portrait.jpg")} alt="Le Grand JD" style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:`2px solid ${t.a}`,flexShrink:0}}/>
       <div style={{width:1,height:32,background:t.brd}}/>
       <FarLogo size={68} variant={t.lv}/>
+      <FarBeams w={96} fill={t.a} style={{marginLeft:4}}/>
     </div>
-    <div style={{...se,fontSize:56,fontWeight:800,lineHeight:1.02,marginBottom:18,color:t.c}}>Le Grand JD × FAR</div>
-    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:26}}/>
-    <div style={{display:"flex",flexDirection:"column",gap:12}}>
-      {[{t:"Multiplier tes opportunités business",d:"Une force de frappe commerciale dédiée, sans t'ajouter de charge."},{t:"Donner de l'ampleur à tes projets",d:"Des moyens et des partenaires à la hauteur de tes ambitions."},{t:"Faire rayonner ton univers",d:"Reportage, urbex/paranormal, storytelling : une identité forte à valoriser."},{t:"Préserver ton exigence éditoriale",d:"On protège ta ligne et ton récit. Toujours."}].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:7}}/><div><span style={{...sa,fontSize:16,fontWeight:700,color:t.c}}>{o.t}</span><span style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.5}}> — {o.d}</span></div></div>)}
+    <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2.5,color:t.a,marginBottom:14}}>PROSPECTION · APPORT D'AFFAIRES</div>
+    <div style={{...se,fontSize:48,fontWeight:800,lineHeight:1.05,marginBottom:14,color:t.c,whiteSpace:"nowrap"}}>Le Grand JD{"\u00A0"}×{"\u00A0"}FAR</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:20}}/>
+    <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.45,marginBottom:22,maxWidth:580,whiteSpace:"nowrap"}}>Une force de frappe commerciale pour faire grandir ton univers et tes revenus.</div>
+    <div style={{display:"flex",flexDirection:"column",gap:14}}>
+      {[
+        {t:"Multiplier tes opportunités",d:"Une équipe dédiée, sans te rajouter de charge."},
+        {t:"Combler les trous entre tes gros formats",d:"Des marques qui ont une raison d'être dans ton récit."},
+        {t:"Faire rayonner ton univers",d:"Reportage, urbex, paranormal, rencontres."},
+        {t:"Préserver ton exigence",d:"On protège ta ligne et ton récit. Toujours."},
+      ].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:8}}/><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,lineHeight:1.25,whiteSpace:"nowrap"}}>{o.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginTop:2,whiteSpace:"nowrap"}}>{o.d}</div></div></div>)}
     </div>
   </div>
-  <div style={{flex:2}}>
-    <JDPh t={t} h={440} r={20} label="Portrait vertical de JD (format 4/5) — plan cinématographique, ambiance sombre / exploration si possible." style={{width:"100%"}}/>
+  <div style={{flex:2,borderRadius:20,overflow:"hidden",boxShadow:"0 18px 50px rgba(0,0,0,.45)",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/grandjd/jd-portrait.jpg")} alt="Le Grand JD" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
   </div>
 </div>},
 
-{title:"Qui sommes-nous",
-r:t=><div><div style={{display:"flex",alignItems:"center",gap:20,marginBottom:22}}><FarLogo size={56} variant={t.lv}/><div style={{width:1,height:30,background:t.brd}}/><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d}}>QUI SOMMES-NOUS</div></div>
-  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Une agence qui fait grandir les univers créateurs.</div>
-  <div style={{...sa,fontSize:16,color:t.m,lineHeight:1.65,marginBottom:26,maxWidth:900}}>Chez FAR, un créateur n'est pas qu'une audience mais un univers à part entière, avec ses codes, son rythme et ses ambitions. Notre mission : structurer, protéger et développer ces univers sans les dénaturer, pour que chaque créateur grandisse et que chaque marque y trouve une place légitime.</div>
-  <div style={{display:"flex",gap:14,marginBottom:26}}>{[{v:"5",l:"créateurs exclusifs"},{v:"8",l:"à horizon 12 mois"},{v:"10 ans",l:"d'expérience marques & créateurs"},{v:"100+",l:"campagnes réalisées"}].map((s,i)=><div key={i} style={{flex:1,padding:"20px 16px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:28,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:13,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>
-  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Protéger la création",d:"Chaque créateur possède sa niche et sa trajectoire de revenus. On arbitre les opportunités : dire non quand ça dénature le récit et le contenu."},{t:"Pricing fondé sur la valeur",d:"On vend de la valeur, pas seulement du reach. Des devis qui reflètent ce que tu apportes réellement."},{t:"Garantir la croissance",d:"Partenariats long terme, co-brandings, formats à forte valeur, monétisation des actifs propriétaires."}].map((item,i)=><div key={i} style={{flex:1,padding:"22px 18px",borderRight:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:16,fontWeight:700,color:t.c,marginBottom:6}}>{item.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{item.d}</div></div>)}</div>
+{title:"L'agence",
+r:t=><div>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:12}}><FarLogo size={48} variant={t.lv}/><div style={{width:1,height:26,background:t.brd}}/><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:3,color:t.d}}>L'AGENCE</div><div style={{flex:1}}/><FarBeams w={90} fill={t.a}/></div>
+  <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.12,marginBottom:8,whiteSpace:"nowrap"}}>Faire grandir les univers créateurs.</div>
+  <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginBottom:12,whiteSpace:"nowrap"}}>Chez FAR, un créateur ne se résume pas à son audience{"\u00A0"}: c'est un univers. Notre mission{"\u00A0"}: le faire grandir juste.</div>
+  <div style={{display:"flex",gap:10,marginBottom:14}}>{[
+    {v:"Roster",l:"à taille humaine"},
+    {v:"10\u00A0ans",l:"d'expérience marques & créateurs"},
+    {v:"+50",l:"marques accompagnées"},
+    {v:"100+",l:"campagnes réalisées"},
+  ].map((s,i)=><div key={i} style={{flex:1,padding:"11px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11.5,color:t.m,marginTop:3,whiteSpace:"nowrap"}}>{s.l}</div></div>)}</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[
+    {
+      t:"Protéger la création",
+      hook:"Défendre l'ADN de l'univers.",
+      pts:["Ligne éditoriale & territoire","Intégrations marques crédibles","Arbitrage des opportunités","Protection des catégories"],
+    },
+    {
+      t:"Solidifier la structure",
+      hook:"Rendre l'univers pilotable.",
+      pts:["Priorisation & calendrier","Data & visibilité business","Cadre admin, juridique, fiscal","Process & outils"],
+    },
+    {
+      t:"Garantir la croissance",
+      hook:"Ouvrir sans dénaturer.",
+      pts:["Partenariats long terme","Actifs propriétaires","Opérations premium","Remplissage 100\u00A0% intelligent"],
+    },
+  ].map((item,i)=><div key={i} style={{flex:1,padding:"14px 16px",borderRight:i<2?`1px solid ${t.brd}`:"none",background:i%2===0?t.card:"transparent"}}>
+    <div style={{marginBottom:8}}><FarBeams w={52} fill={t.a} active={i+1} dimOpacity={0.22}/></div>
+    <div style={{...mo,fontSize:9,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:4}}>{`FAISCEAU 0${i+1}`}</div>
+    <div style={{...sa,fontSize:14.5,fontWeight:700,color:t.c,marginBottom:3,lineHeight:1.2,whiteSpace:"nowrap"}}>{item.t}</div>
+    <div style={{...sa,fontSize:12.5,color:t.m,marginBottom:10,lineHeight:1.35,whiteSpace:"nowrap"}}>{item.hook}</div>
+    {item.pts.map((p,j)=><div key={j} style={{display:"flex",gap:8,padding:"4px 0",borderTop:j===0?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:12,fontWeight:800,color:t.a,flexShrink:0}}>→</span>
+      <span style={{...sa,fontSize:12.5,color:t.c,lineHeight:1.35,whiteSpace:"nowrap"}}>{p}</span>
+    </div>)}
+  </div>)}</div>
+</div>},
+
+{title:"Manifesto",
+r:t=>{
+  const ms=k=>{
+    switch(k){
+      case"hook":return{...se,fontSize:19,fontWeight:700,color:t.c,lineHeight:1.18,margin:"0 0 10px"};
+      case"verse":return{...se,fontSize:14,fontWeight:600,color:t.c,lineHeight:1.2,margin:"0 0 1px"};
+      case"univers":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"6px 0 4px"};
+      case"trait":return{...se,fontSize:13,fontWeight:700,color:t.c,lineHeight:1.22,margin:"0 0 2px"};
+      case"pillar":return{...sa,fontSize:12.5,fontWeight:600,color:t.c,lineHeight:1.3,margin:"0 0 2px"};
+      case"mission":return{...se,fontSize:14,fontWeight:800,color:t.a,lineHeight:1.22,margin:"6px 0 4px"};
+      case"tagline":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"8px 0 0"};
+      default:return{...sa,fontSize:12,color:t.m,lineHeight:1.32,margin:"0 0 3px"};
+    }
+  };
+  const blocks=[
+    {k:"verse",t:"C'est une manière de voir."},
+    {k:"verse",t:"De créer."},
+    {k:"verse",t:"De raconter."},
+    {k:"verse",t:"De rassembler."},
+    {k:"univers",t:"C'est un univers."},
+    {k:"trait",t:"Un univers a ses codes."},
+    {k:"trait",t:"Son rythme. Ses formats. Sa communauté."},
+    {k:"trait",t:"Ses exigences. Ses limites. Ses ambitions."},
+    {k:"body",t:"Pour aller loin, il ne suffit pas d'être visible."},
+    {k:"pillar",t:"Il faut être compris avant d'être exposé."},
+    {k:"pillar",t:"Structuré sans être bridé."},
+    {k:"pillar",t:"Protégé sans être enfermé."},
+    {k:"pillar",t:"Développé sans être dénaturé."},
+    {k:"mission",t:"C'est la mission de FAR."},
+    {k:"body",t:"Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste."},
+    {k:"body",t:"Pour que chaque créateur puisse construire plus grand, sans perdre ce qui le rend singulier."},
+    {k:"body",t:"Et que chaque marque puisse trouver sa place dans un univers qui existe déjà."},
+    {k:"tagline",t:"Qui veut aller loin, vient ici."},
+  ];
+  return(
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",width:"100%"}}>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center",marginBottom:14}}>
+        <FarLogo size={72} variant={t.lv}/>
+        <div style={{marginTop:10,display:"flex",justifyContent:"center"}}>
+          <FarBeams w={110} fill={t.a}/>
+        </div>
+      </div>
+      <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:t.d,marginBottom:10}}>MANIFESTO</div>
+      <p style={{...ms("hook"),maxWidth:900}}>Chez FAR, nous pensons qu&apos;un créateur ne se résume pas à son audience.</p>
+      <div style={{maxWidth:920,width:"100%",textAlign:"center"}}>
+        {blocks.map((b,i)=><p key={i} style={ms(b.k)}>{b.t}</p>)}
+      </div>
+    </div>
+  );
+}},
+
+...POS_PROSPECT_INSERT,
+
+{title:"Pourquoi toi",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>POURQUOI TOI</Tg>
+    <Hl t={t} s={{fontSize:28,marginBottom:8,whiteSpace:"nowrap"}}>Tu es le type de créateur que FAR veut accompagner.</Hl>
+    <Sh t={t} s={{fontSize:14,marginBottom:14,whiteSpace:"nowrap"}}>Des univers singuliers, déjà structurés, formats longs à forte valeur. Pas du reach seul{"\u00A0"}: un récit défendable.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:14}}>
+      {[
+        {v:"4,2M",l:"abonnés YouTube"},
+        {v:"6,4M+",l:"audience cumulée"},
+        {v:"~950K",l:"abonnés Instagram"},
+        {v:"17 ans",l:"d'ancienneté créateur"},
+      ].map((s,i)=><div key={i} style={{padding:"11px 8px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:10.5,color:t.m,marginTop:3,lineHeight:1.3,whiteSpace:"nowrap"}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Tes formats",d:"Du long incarné, documentaire, enquête : une surface premium, pas du contenu jetable."},
+      {t:"Ton territoire",d:"Reportage, urbex, paranormal, rencontres : un positionnement lisible pour les marques."},
+      {t:"Ta signature",d:"Phantasma et tes actifs propriétaires : ce qui te différencie, et qu'on sait défendre."},
+      {t:"Ton potentiel",d:"Brand safety, audience solide, et un taux de remplissage encore très ouvert."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"7px 0",borderBottom:i<3?`1px solid ${t.brd}`:"none",alignItems:"baseline"}}>
+      <div style={{...sa,fontSize:13.5,fontWeight:700,color:t.a,minWidth:110,whiteSpace:"nowrap"}}>{a.t}</div>
+      <div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.4,whiteSpace:"nowrap"}}>{a.d}</div>
+    </div>)}
+    <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.d,marginTop:14,marginBottom:8}}>TON UNIVERS</div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>{[
+      {t:"Reportages & documentaires",img:"/grandjd/axe-1-reportage.png"},
+      {t:"Paranormal / Urbex",img:"/grandjd/axe-2-urbex.png"},
+      {t:"Rencontres",img:"/grandjd/axe-3-rencontres.png"},
+    ].map((a,i)=><div key={i} style={{borderRadius:10,overflow:"hidden",border:`1px solid ${t.brd}`,background:t.card}}>
+      <img src={pu(a.img)} alt={a.t} style={{width:"100%",height:72,objectFit:"cover",objectPosition:"center",display:"block"}}/>
+      <div style={{...sa,fontSize:12,fontWeight:700,color:t.c,padding:"7px 8px",lineHeight:1.25,whiteSpace:"nowrap"}}>{a.t}</div>
+    </div>)}</div>
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/grandjd/jd-portrait-2.jpg")} alt="Le Grand JD" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  </div>
+</div>},
+
+{title:"Ce que l'on te propose",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"}}>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>MAIS AUSSI, OPTIMISER TON REMPLISSAGE</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:10,color:t.c,whiteSpace:"nowrap"}}>Un manque à gagner qui ralentit ta croissance.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>Au-delà de tes qualités{"\u00A0"}: un taux trop bas. On cherche à se rapprocher de 100{"\u00A0"}%, un sponsor par vidéo, sans dénaturer ton univers.</div>
+  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE</div>
+  <div style={{display:"flex",alignItems:"baseline",justifyContent:"center",gap:28,whiteSpace:"nowrap",marginBottom:36}}>
+    <div style={{...se,fontSize:100,fontWeight:800,color:t.c,letterSpacing:"-0.03em",lineHeight:1}}>~28{"\u00A0"}%</div>
+    <div style={{...sa,fontSize:52,color:t.a,fontWeight:700}}>→</div>
+    <div style={{...se,fontSize:100,fontWeight:800,color:t.a,letterSpacing:"-0.03em",lineHeight:1}}>~100{"\u00A0"}%</div>
+  </div>
+  <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Plus de CA à chaque vidéo, réinvesti dans tes productions - sans jamais te dénaturer.</div>
+</div>},
+
+{title:"Valeur ajoutée",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>PREUVE DE LECTURE</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>3 vidéos sans marque. 3 intégrations qu'on aurait imaginées.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:24,whiteSpace:"nowrap"}}>Trois succès diffusés sans sponsor{"\u00A0"}: autant de manque à gagner. Voici ce qu'on aurait activé - natif, exigeant, défendable.</div>
+  <div style={{display:"flex",flexDirection:"column",gap:0,borderTop:`1px solid ${t.brd}`}}>
+    {[
+      {
+        n:"01",
+        v:"58 jours pour filmer un animal que personne ne voit",
+        brand:"Sony",
+        angle:"Rendre visible l'invisible",
+        d:"Patience, optique, basse lumière : Sony entre en préparation et sur le terrain.",
+      },
+      {
+        n:"02",
+        v:"L'épidémie la plus étrange de France",
+        brand:"Qare",
+        angle:"Comprendre ce qu'on ne comprend pas",
+        d:"Symptômes flous, accès au soin : Qare s'ancre dans la tension du mystère.",
+      },
+      {
+        n:"03",
+        v:"Le lac aux squelettes",
+        brand:"The North Face",
+        angle:"L'expédition avant le mystère",
+        d:"Altitude, froid, accès extrême : la marque équipe la démarche d'enquête sur le terrain.",
+      },
+    ].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"40px 1.15fr 0.85fr 1.35fr",gap:18,alignItems:"start",padding:"18px 0",borderBottom:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:13,fontWeight:800,color:t.a,paddingTop:2}}>{x.n}</div>
+      <div>
+        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d,marginBottom:6}}>VIDÉO</div>
+        <div style={{...sa,fontSize:14.5,fontWeight:700,color:t.c,lineHeight:1.35,whiteSpace:"nowrap"}}>{x.v}</div>
+      </div>
+      <div>
+        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.a,marginBottom:6}}>MARQUE</div>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a,lineHeight:1.15,marginBottom:4,whiteSpace:"nowrap"}}>{x.brand}</div>
+        <div style={{...sa,fontSize:13.5,fontWeight:600,color:t.c,lineHeight:1.3,whiteSpace:"nowrap"}}>{x.angle}</div>
+      </div>
+      <div>
+        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d,marginBottom:6}}>ANGLE</div>
+        <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.45,whiteSpace:"nowrap"}}>{x.d}</div>
+      </div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"On ne te met pas la bague au doigt",
+r:t=><div style={{width:"100%"}}>
+  <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",minHeight:"58vh"}}>
+    <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:22}}>LE CADRE</div>
+    <div style={{...se,fontSize:54,fontWeight:800,lineHeight:1.08,marginBottom:24,color:t.c,whiteSpace:"nowrap"}}>On ne te met pas la bague au doigt.</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:26}}/>
+    <div style={{...sa,fontSize:18.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>FAR s'ajoute à ce que tu as déjà{"\u00A0"}: un bonus commercial, sans exclusivité, sans toucher à ta liberté.</div>
+  </div>
 </div>},
 
 {title:"Nos engagements",
 r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>NOS ENGAGEMENTS</div>
-  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Un partenaire commercial, jamais un patron.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:900}}>FAR serait ton équipe commerciale externe. Tu gardes la main sur tes deals internes et ta ligne édito. Voici nos règles, sans ambiguïté.</div>
-  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:0,borderRadius:16,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[{t:"Apport d'affaires",d:"Commissions par palier sur les deals externes que l'on t'amène. Zéro deal, zéro frais."},{t:"Liberté totale",d:"Tu gardes la main sur tes deals entrants. On ne touche pas à ta ligne éditoriale."},{t:"Esprit d'équipe",d:"Une équipe commerciale externe : pas de sollicitations inutiles, on filtre pour toi."},{t:"Partenaires fiables",d:"On ne te présente que des partenaires cohérents. Aucun deal qui pourrait fragiliser ton image."},{t:"Décisions partagées",d:"On t'implique dans chaque décision commerciale. On ne signe rien sans ton accord."},{t:"Croissance, pas bradage",d:"On maximise ta valeur. On ne brade jamais tes tarifs pour closer plus vite."}].map((e,i)=><div key={i} style={{padding:"20px 22px",background:i%2===0?t.card:"transparent",borderBottom:i<4?`1px solid ${t.brd}`:"none",borderRight:i%2===0?`1px solid ${t.brd}`:"none",display:"flex",gap:14}}><div style={{...mo,fontSize:15,fontWeight:800,color:t.a,minWidth:24}}>{String(i+1).padStart(2,"0")}</div><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,marginBottom:4}}>{e.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{e.d}</div></div></div>)}</div>
-</div>},
-
-{title:"Ce que l'on te propose",
-r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>CE QUE L'ON TE PROPOSE</div>
-  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Accélérateur de business, sans engagement.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:900}}>Une collaboration 100 % gagnante en semi-exclusivité : nous serions ton équipe commerciale externe pour combler les trous entre tes gros formats et transformer ta qualité en flux régulier.</div>
-  <div style={{display:"flex",gap:18,alignItems:"stretch"}}>
-    <div style={{flex:1,padding:"26px 24px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}>
-      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:16}}>COMMISSION PAR PALIER</div>
-      {[{r:"Deal < 20 k€",p:"20 %"},{r:"Deal 20 – 35 k€",p:"25 %"},{r:"Deal > 35 k€",p:"30 %"}].map((c,i)=><div key={i} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:15.5,color:t.c}}>{c.r}</div><div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{c.p}</div></div>)}
-      <div style={{...sa,fontSize:13,color:t.d,marginTop:14,fontStyle:"italic"}}>Uniquement sur le business additionnel que l'on t'apporte.</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.15,marginBottom:10,whiteSpace:"nowrap"}}>Une équipe commerciale externe, à tes côtés.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5,marginBottom:18,whiteSpace:"nowrap"}}>Tu gardes la main sur tes deals, ton réseau et ta ligne édito. Voici nos règles, sans ambiguïté.</div>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.ex,color:t.exT}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16}}>CE QU'ON FAIT</div>
+      {[
+        "Commission uniquement sur le business qu'on t'apporte.",
+        "Uniquement des marques cohérentes avec ton univers.",
+        "On filtre pour toi : moins de bruit, plus de partenaires.",
+        "Rien n'est signé sans ton accord.",
+        "On défend ta valeur et ton pricing.",
+        "Tu gardes la main sur ton réseau et ta ligne édito.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(0,0,0,.1)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(0,0,0,.14)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800}} aria-hidden>✓</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
     </div>
-    <div style={{flex:1,padding:"26px 24px",borderRadius:14,background:t.cardAlt,border:`1px solid ${t.brd}`,display:"flex",flexDirection:"column",justifyContent:"center"}}>
-      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:14}}>CROISSANCE DU TAUX DE REMPLISSAGE</div>
-      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:14}}><div style={{...se,fontSize:44,fontWeight:800,color:t.c}}>~28 %</div><div style={{...sa,fontSize:20,color:t.a}}>→</div><div style={{...se,fontSize:44,fontWeight:800,color:t.a}}>~100 %</div></div>
-      <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.6}}>On muscle la partie commerciale pour combler les trous entre tes gros formats. Plus de revenus réguliers à réinvestir dans tes productions et tes projets externes.</div>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.no,color:t.noT,border:`1px solid ${t.noBrd}`}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16,opacity:0.65}}>CE QU'ON NE FAIT PAS</div>
+      {[
+        "Prendre une commission sur tes deals entrants.",
+        "Te pousser des marques hors sujet pour faire du volume.",
+        "T'ajouter des sollicitations et du bruit inutiles.",
+        "Signer quoi que ce soit dans ton dos.",
+        "Brader tes tarifs pour closer plus vite.",
+        "Toucher à ta ligne éditoriale ou à ta créativité.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(128,128,128,.12)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(255,255,255,.06)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800,color:t.m}} aria-hidden>✕</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,opacity:0.9,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
     </div>
   </div>
-</div>},
-
-{title:"Pourquoi toi",
-r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POURQUOI TOI</div>
-  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Tu n'es pas un « simple » créateur.</div>
-  <div style={{...sa,fontSize:16,color:t.m,lineHeight:1.65,marginBottom:24,maxWidth:920}}>Entrepreneur, producteur, réalisateur, cameraman, monteur, documentariste : tu as bâti un véritable univers et tu es la référence dans ton domaine. Tu es déjà structuré.</div>
-  <div style={{display:"flex",gap:14,marginBottom:24}}>{[{v:"+6,4M",l:"abonnés cumulés"},{v:"966k",l:"vues moy. YouTube"},{v:"362k",l:"vues moy. Instagram"},{v:"177k",l:"vues moy. TikTok"}].map((s,i)=><div key={i} style={{flex:1,padding:"18px 14px",borderRadius:12,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:12.5,color:t.m,marginTop:4}}>{s.l}</div></div>)}</div>
-  <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,color:t.d,marginBottom:12}}>3 GRANDS AXES ÉDITORIAUX</div>
-  <div style={{display:"flex",gap:14}}>{[{t:"Reportages & documentaires",d:"Un regard de réalisateur, des formats longs et incarnés à forte valeur.",ph:"Miniature reportage / doc (16/9)"},{t:"Paranormal / Urbex",d:"Ta série Phantasma : une signature immersive et identifiable, un territoire à toi.",ph:"Miniature Phantasma / urbex (16/9)"},{t:"Storytelling",d:"L'art du récit vrai qui tient en haleine, transposable à toutes les marques.",ph:"Miniature storytelling (16/9)"}].map((a,i)=><div key={i} style={{flex:1,borderRadius:14,background:t.card,border:`1px solid ${t.brd}`,overflow:"hidden",display:"flex",flexDirection:"column"}}><JDPh t={t} h={120} r={0} label={a.ph} style={{border:"none",borderBottom:`1.5px dashed ${t.a}`}}/><div style={{padding:"18px 20px"}}><div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:8}}>{`AXE ${String(i+1).padStart(2,"0")}`}</div><div style={{...sa,fontSize:16,fontWeight:700,color:t.c,marginBottom:6}}>{a.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.55}}>{a.d}</div></div></div>)}</div>
-</div>},
-
-{title:"Pour aller plus loin",
-r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>POUR ALLER PLUS LOIN</div>
-  <div style={{...se,fontSize:38,fontWeight:800,lineHeight:1.15,marginBottom:12}}>Des catégories de partenaires taillées pour ton univers.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,marginBottom:26,maxWidth:920}}>Quelques exemples de territoires cohérents avec ton contenu et son émotion. À affiner ensemble.</div>
-  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14}}>{[
-    {t:"VPN & sécurité",f:"Tous formats",b:"NordVPN, Cyberghost, Surfshark",d:"L'angoisse de la fuite de données en écho à la peur ressentie en exploration."},
-    {t:"Livres audio",f:"Storytelling",b:"Audible, Lizzie",d:"Le parallèle naturel avec un public amateur de récits et d'histoires."},
-    {t:"Finance & banque",f:"Tous formats",b:"Trade Republic, Revolut",d:"Protéger ses finances : simple, sans stress, à l'inverse des situations vécues en tournage."},
-    {t:"Habillement technique",f:"Explorations / doc",b:"Décathlon, The North Face, Patagonia, Salomon",d:"Le matériel réellement utile lors des explorations et expéditions (type ambassadeur)."},
-    {t:"Jeux d'horreur / escape",f:"Tous formats",b:"Jeux d'horreur, escape games",d:"Une extension ludique directe de l'univers paranormal et de la tension."},
-    {t:"Food & boissons",f:"Tous formats",b:"Air up, Holy",d:"Le réconfort pendant les tournages angoissants : un contraste qui parle."},
-  ].map((p,i)=><div key={i} style={{padding:"18px 18px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}><div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8}}><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c}}>{p.t}</div><div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1,color:t.a,background:t.pill,padding:"3px 8px",borderRadius:5}}>{p.f}</div></div><div style={{...sa,fontSize:13,color:t.a2,opacity:.8,marginBottom:8,fontWeight:600}}>{p.b}</div><div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.5}}>{p.d}</div></div>)}</div>
 </div>},
 
 {title:"Le deal",
-r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>LE DEAL  -  SEMI-EXCLUSIVITÉ</div>
-  <div style={{...se,fontSize:40,fontWeight:800,lineHeight:1.12,marginBottom:24}}>Ce que l'on t'apporte.</div>
-  <div style={{display:"flex",gap:20,alignItems:"stretch"}}>
-    <div style={{flex:3}}>{[
-      "Des opportunités business en plus, avec des partenaires triés et cohérents.",
-      "Une monétisation optimisée de tes 3 formats : documentaire, urbex/paranormal, storytelling.",
-      "Des revenus plus réguliers à réinvestir dans tes productions.",
-      "Aucune décision sans ton accord, aucun bradage de tes tarifs.",
-      "FAR = équipe commerciale externe, sans exclusivité totale : tu gardes la main sur tes deals internes et ta ligne édito.",
-      "Objectif : passer d'un taux de remplissage de ~28 % à ~100 %.",
-    ].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"14px 0",borderBottom:i<5?`1px solid ${t.brd}`:"none"}}><div style={{width:22,height:22,borderRadius:11,background:t.a,color:t.navT,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...mo,fontSize:12,fontWeight:800}}>✓</div><div style={{...sa,fontSize:15.5,color:t.c,lineHeight:1.5}}>{c}</div></div>)}</div>
-    <div style={{flex:2,padding:"26px 24px",borderRadius:16,background:t.cardAlt,border:`1px solid ${t.brd}`,display:"flex",flexDirection:"column",justifyContent:"center"}}>
-      <div style={{...mo,fontSize:11,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:16}}>COMMISSION PAR PALIER</div>
-      {[{r:"< 20 k€",p:"20 %"},{r:"20 – 35 k€",p:"25 %"},{r:"> 35 k€",p:"30 %"}].map((c,i)=><div key={i} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 0",borderBottom:i<2?`1px solid ${t.brd}`:"none"}}><div style={{...sa,fontSize:16,color:t.c}}>{c.r}</div><div style={{...se,fontSize:26,fontWeight:800,color:t.a}}>{c.p}</div></div>)}
-      <div style={{...sa,fontSize:13,color:t.m,marginTop:16,lineHeight:1.5}}>Uniquement sur le business additionnel apporté par FAR. Sans exclusivité totale.</div>
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>LE DEAL · APPORT D'AFFAIRES</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.1,marginBottom:26,color:t.c,whiteSpace:"nowrap"}}>Commission uniquement sur le business additionnel.</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,marginBottom:26}}>
+    {[
+      {r:"Deal < 20\u00A0k€",p:"20\u00A0%"},
+      {r:"Deal 20 - 35\u00A0k€",p:"25\u00A0%"},
+      {r:"Deal > 35\u00A0k€",p:"30\u00A0%"},
+    ].map((c,i)=><div key={i} style={{flex:1,padding:"26px 22px",background:i===1?t.card:i===2?t.cardAlt:"transparent",borderRight:i<2?`1px solid ${t.brd}`:"none",textAlign:"center"}}>
+      <div style={{...sa,fontSize:14.5,color:t.m,marginBottom:12,whiteSpace:"nowrap"}}>{c.r}</div>
+      <div style={{...se,fontSize:42,fontWeight:800,color:t.a,letterSpacing:"-0.02em",whiteSpace:"nowrap"}}>{c.p}</div>
+    </div>)}
+  </div>
+  <div style={{width:28,height:2,background:t.a,marginBottom:16}}/>
+  <div style={{...sa,fontSize:16,color:t.c,lineHeight:1.55,fontWeight:500,whiteSpace:"nowrap"}}>La cohérence d'abord{"\u00A0"}: chaque marque a sa place dans ton récit, tu gardes la main, on ne brade jamais tes tarifs.</div>
+</div>},
+
+{title:"Merci",
+r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:40}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:52,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:16}}>Merci.</div><div style={{...sa,fontSize:17,color:t.c2,lineHeight:1.6,maxWidth:520,marginBottom:8}}>Qui veut aller loin, vient ici.</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"28px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:36,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// LE BOUSEUH  -  13 SLIDES (prospection créateur, actifs propriétaires)
+// ═══════════════════════════════════════════════════════════════════════════════
+const SBouseuh = [
+
+{title:"Présentation",
+r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
+  <div style={{flex:3}}>
+    <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+      <img src={pu("/lebouseuh.png")} alt="Le Bouseuh" style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:`2px solid ${t.a}`,flexShrink:0}}/>
+      <div style={{width:1,height:32,background:t.brd}}/>
+      <FarLogo size={68} variant={t.lv}/>
+      <FarBeams w={96} fill={t.a} style={{marginLeft:4}}/>
+    </div>
+    <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2.5,color:t.a,marginBottom:14}}>PROSPECTION · APPORT D'AFFAIRES</div>
+    <div style={{...se,fontSize:48,fontWeight:800,lineHeight:1.05,marginBottom:14,color:t.c,whiteSpace:"nowrap"}}>Le Bouseuh{"\u00A0"}×{"\u00A0"}FAR</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:20}}/>
+    <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.45,marginBottom:22,maxWidth:580,whiteSpace:"nowrap"}}>Une force de frappe commerciale pour développer tes actifs et faire grandir ta valeur.</div>
+    <div style={{display:"flex",flexDirection:"column",gap:14}}>
+      {[
+        {t:"Structurer ton écosystème",d:"Audience, Lockd, podcast : un seul récit commercial."},
+        {t:"Développer tes actifs propriétaires",d:"Transformer ce que tu possèdes en revenus récurrents."},
+        {t:"Ouvrir les bonnes catégories",d:"Des marques qui ont une place dans ton univers."},
+        {t:"Préserver ta liberté",d:"On protège ta ligne et ta créativité. Toujours."},
+      ].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:8}}/><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,lineHeight:1.25,whiteSpace:"nowrap"}}>{o.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginTop:2,whiteSpace:"nowrap"}}>{o.d}</div></div></div>)}
+    </div>
+  </div>
+  <div style={{flex:2,borderRadius:20,overflow:"hidden",boxShadow:"0 18px 50px rgba(0,0,0,.45)",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/case2_imgs/slide1_img1.jpg")} alt="Le Bouseuh" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  </div>
+</div>},
+
+{title:"L'agence",
+r:t=><div>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:12}}><FarLogo size={48} variant={t.lv}/><div style={{width:1,height:26,background:t.brd}}/><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:3,color:t.d}}>L'AGENCE</div><div style={{flex:1}}/><FarBeams w={90} fill={t.a}/></div>
+  <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.12,marginBottom:8,whiteSpace:"nowrap"}}>Faire grandir les univers créateurs.</div>
+  <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginBottom:12,whiteSpace:"nowrap"}}>Chez FAR, un créateur ne se résume pas à son audience{"\u00A0"}: c'est un univers. Notre mission{"\u00A0"}: le faire grandir juste.</div>
+  <div style={{display:"flex",gap:10,marginBottom:14}}>{[
+    {v:"Roster",l:"à taille humaine"},
+    {v:"10\u00A0ans",l:"d'expérience marques & créateurs"},
+    {v:"+50",l:"marques accompagnées"},
+    {v:"100+",l:"campagnes réalisées"},
+  ].map((s,i)=><div key={i} style={{flex:1,padding:"11px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11.5,color:t.m,marginTop:3,whiteSpace:"nowrap"}}>{s.l}</div></div>)}</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[
+    {
+      t:"Protéger la création",
+      hook:"Défendre l'ADN de l'univers.",
+      pts:["Ligne éditoriale & territoire","Intégrations marques crédibles","Arbitrage des opportunités","Protection des catégories"],
+    },
+    {
+      t:"Solidifier la structure",
+      hook:"Rendre l'univers pilotable.",
+      pts:["Priorisation & calendrier","Data & visibilité business","Cadre admin, juridique, fiscal","Process & outils"],
+    },
+    {
+      t:"Garantir la croissance",
+      hook:"Ouvrir sans dénaturer.",
+      pts:["Partenariats long terme","Actifs propriétaires","Opérations premium","Récurrence & valeur par deal"],
+    },
+  ].map((item,i)=><div key={i} style={{flex:1,padding:"14px 16px",borderRight:i<2?`1px solid ${t.brd}`:"none",background:i%2===0?t.card:"transparent"}}>
+    <div style={{marginBottom:8}}><FarBeams w={52} fill={t.a} active={i+1} dimOpacity={0.22}/></div>
+    <div style={{...mo,fontSize:9,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:4}}>{`FAISCEAU 0${i+1}`}</div>
+    <div style={{...sa,fontSize:14.5,fontWeight:700,color:t.c,marginBottom:3,lineHeight:1.2,whiteSpace:"nowrap"}}>{item.t}</div>
+    <div style={{...sa,fontSize:12.5,color:t.m,marginBottom:10,lineHeight:1.35,whiteSpace:"nowrap"}}>{item.hook}</div>
+    {item.pts.map((p,j)=><div key={j} style={{display:"flex",gap:8,padding:"4px 0",borderTop:j===0?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:12,fontWeight:800,color:t.a,flexShrink:0}}>→</span>
+      <span style={{...sa,fontSize:12.5,color:t.c,lineHeight:1.35,whiteSpace:"nowrap"}}>{p}</span>
+    </div>)}
+  </div>)}</div>
+</div>},
+
+{title:"Manifesto",
+r:t=>{
+  const ms=k=>{
+    switch(k){
+      case"hook":return{...se,fontSize:19,fontWeight:700,color:t.c,lineHeight:1.18,margin:"0 0 10px"};
+      case"verse":return{...se,fontSize:14,fontWeight:600,color:t.c,lineHeight:1.2,margin:"0 0 1px"};
+      case"univers":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"6px 0 4px"};
+      case"trait":return{...se,fontSize:13,fontWeight:700,color:t.c,lineHeight:1.22,margin:"0 0 2px"};
+      case"pillar":return{...sa,fontSize:12.5,fontWeight:600,color:t.c,lineHeight:1.3,margin:"0 0 2px"};
+      case"mission":return{...se,fontSize:14,fontWeight:800,color:t.a,lineHeight:1.22,margin:"6px 0 4px"};
+      case"tagline":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"8px 0 0"};
+      default:return{...sa,fontSize:12,color:t.m,lineHeight:1.32,margin:"0 0 3px"};
+    }
+  };
+  const blocks=[
+    {k:"verse",t:"C'est une manière de voir."},
+    {k:"verse",t:"De créer."},
+    {k:"verse",t:"De raconter."},
+    {k:"verse",t:"De rassembler."},
+    {k:"univers",t:"C'est un univers."},
+    {k:"trait",t:"Un univers a ses codes."},
+    {k:"trait",t:"Son rythme. Ses formats. Sa communauté."},
+    {k:"trait",t:"Ses exigences. Ses limites. Ses ambitions."},
+    {k:"body",t:"Pour aller loin, il ne suffit pas d'être visible."},
+    {k:"pillar",t:"Il faut être compris avant d'être exposé."},
+    {k:"pillar",t:"Structuré sans être bridé."},
+    {k:"pillar",t:"Protégé sans être enfermé."},
+    {k:"pillar",t:"Développé sans être dénaturé."},
+    {k:"mission",t:"C'est la mission de FAR."},
+    {k:"body",t:"Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste."},
+    {k:"body",t:"Pour que chaque créateur puisse construire plus grand, sans perdre ce qui le rend singulier."},
+    {k:"body",t:"Et que chaque marque puisse trouver sa place dans un univers qui existe déjà."},
+    {k:"tagline",t:"Qui veut aller loin, vient ici."},
+  ];
+  return(
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",width:"100%"}}>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center",marginBottom:14}}>
+        <FarLogo size={72} variant={t.lv}/>
+        <div style={{marginTop:10,display:"flex",justifyContent:"center"}}>
+          <FarBeams w={110} fill={t.a}/>
+        </div>
+      </div>
+      <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:t.d,marginBottom:10}}>MANIFESTO</div>
+      <p style={{...ms("hook"),maxWidth:900}}>Chez FAR, nous pensons qu&apos;un créateur ne se résume pas à son audience.</p>
+      <div style={{maxWidth:920,width:"100%",textAlign:"center"}}>
+        {blocks.map((b,i)=><p key={i} style={ms(b.k)}>{b.t}</p>)}
+      </div>
+    </div>
+  );
+}},
+
+...POS_PROSPECT_INSERT,
+
+{title:"Pourquoi toi",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>POURQUOI TOI</Tg>
+    <Hl t={t} s={{fontSize:28,marginBottom:8,whiteSpace:"nowrap"}}>Tu es exactement le créateur que FAR veut accompagner.</Hl>
+    <Sh t={t} s={{fontSize:14,marginBottom:14,whiteSpace:"nowrap"}}>Une audience massive, des actifs à toi, un récit d'entrepreneur. Un business défendable, déjà structuré.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:14}}>
+      {[
+        {v:"4,61M",l:"abonnés YouTube"},
+        {v:"2,1M",l:"followers Twitch"},
+        {v:"6,7M+",l:"audience cumulée"},
+        {v:"Samsung",l:"ambassadeur France"},
+      ].map((s,i)=><div key={i} style={{padding:"11px 8px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:10.5,color:t.m,marginTop:3,lineHeight:1.3,whiteSpace:"nowrap"}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Tes formats",d:"YouTube long, live Twitch, podcast hebdo : des surfaces premium, incarnées et durables."},
+      {t:"Ton territoire",d:"Gaming, lifestyle, entrepreneuriat : un positionnement lisible et rare."},
+      {t:"Ta signature",d:"Lockd et ton podcast : des actifs à toi, qu'on sait défendre et développer."},
+      {t:"Ton potentiel",d:"Brand safety, audience mature, envie de construire concrète."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"7px 0",borderBottom:i<3?`1px solid ${t.brd}`:"none",alignItems:"baseline"}}>
+      <div style={{...sa,fontSize:13.5,fontWeight:700,color:t.a,minWidth:110,whiteSpace:"nowrap"}}>{a.t}</div>
+      <div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.4,whiteSpace:"nowrap"}}>{a.d}</div>
+    </div>)}
+    <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.d,marginTop:14,marginBottom:8}}>TON UNIVERS</div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>{[
+      {t:"Ta chaîne",img:"/case2_imgs/slide3_img4.jpg"},
+      {t:"Lockd",img:"/bouseuh-lockd2.png"},
+      {t:"Ton podcast",img:"/case2_imgs/slide7_img12.jpg"},
+    ].map((a,i)=><div key={i} style={{borderRadius:10,overflow:"hidden",border:`1px solid ${t.brd}`,background:t.card}}>
+      <img src={pu(a.img)} alt={a.t} style={{width:"100%",height:72,objectFit:"cover",objectPosition:"center",display:"block"}}/>
+      <div style={{...sa,fontSize:12,fontWeight:700,color:t.c,padding:"7px 8px",lineHeight:1.25,whiteSpace:"nowrap"}}>{a.t}</div>
+    </div>)}</div>
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/lebouseuh.png")} alt="Le Bouseuh" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  </div>
+</div>},
+
+{title:"Le fit parfait",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>POURQUOI TOI</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>Le Bouseuh{"\u00A0"}×{"\u00A0"}FAR{"\u00A0"}= le fit parfait.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:26,whiteSpace:"nowrap"}}>Tu coches exactement ce qu'on cherche chez un créateur à accompagner.</div>
+  <div style={{display:"flex",flexDirection:"column",gap:0}}>{[
+    {t:"Un territoire éditorial clair",d:"Gaming, lifestyle, entrepreneuriat. Un récit de passage lisible : du créateur au fondateur."},
+    {t:"Des partenariats longs déjà tenus",d:"Ambassadeur Samsung France, partenaire Nutripure. Tu sais tenir une association durable."},
+    {t:"Des actifs à toi, déjà structurés",d:"Lockd et ton podcast. Deux leviers hors inventaire média, qu'on sait défendre et développer."},
+    {t:"Fiabilité et brand safety",d:"Audience mature, ton maîtrisé, associations existantes qui rassurent les marques."},
+    {t:"Une envie de construire concrète",d:"Lockd prouve ton ambition entrepreneuriale. Tu bâtis, tu structures, tu avances."},
+  ].map((item,i)=><div key={i} style={{display:"flex",alignItems:"stretch",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}>
+    <div style={{width:44,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+      <div style={{width:22,height:22,borderRadius:11,background:t.a,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <span style={{...mo,fontSize:12,fontWeight:800,color:t.exT}}>✓</span>
+      </div>
+    </div>
+    <div style={{flex:1,padding:"15px 12px 15px 8px"}}>
+      <div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,marginBottom:3,whiteSpace:"nowrap"}}>{item.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.45,whiteSpace:"nowrap"}}>{item.d}</div>
+    </div>
+  </div>)}</div>
+</div>},
+
+{title:"Tes catégories",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>TES CATÉGORIES</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>D'abord protéger ce que tu as. Ensuite ouvrir.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:28,whiteSpace:"nowrap"}}>4 catégories à sanctuariser parce qu'elles sont déjà liées à toi. 5 territoires à ouvrir intelligemment.</div>
+  <div style={{display:"flex",gap:32}}>
+    <div style={{flex:1}}>
+      <div style={{...mo,fontSize:13,fontWeight:700,letterSpacing:2,color:"#E7614E",marginBottom:16}}>À SANCTUARISER</div>
+      {[
+        {t:"Habillement",d:"Lockd est ton actif propriétaire."},
+        {t:"Nutrition",d:"Nutripure t'est déjà associé."},
+        {t:"Tech grand public",d:"Samsung, ton association forte."},
+        {t:"Podcast",d:"Ton format hebdo, à protéger et faire grandir."},
+      ].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"11px 0",borderBottom:i<3?`1px solid ${t.brd}`:"none",alignItems:"baseline"}}>
+        <div style={{width:8,height:8,borderRadius:4,background:"#E7614E",flexShrink:0,alignSelf:"center"}}/>
+        <div style={{...sa,fontSize:14,fontWeight:700,color:t.c,minWidth:150,whiteSpace:"nowrap"}}>{c.t}</div>
+        <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,whiteSpace:"nowrap"}}>{c.d}</div>
+      </div>)}
+    </div>
+    <div style={{flex:1}}>
+      <div style={{...mo,fontSize:13,fontWeight:700,letterSpacing:2,color:t.a,marginBottom:16}}>TERRITOIRES À OUVRIR</div>
+      {[
+        {t:"Commerce / e-commerce",d:"Extension naturelle de Lockd."},
+        {t:"Finance / pilotage",d:"Le récit de ton passage entrepreneur."},
+        {t:"Logistique / livraison",d:"Le backstage de ton business."},
+        {t:"Audio / mobilité",d:"Extension de ton podcast."},
+        {t:"Lifestyle / performance",d:"La maturité de ton profil."},
+      ].map((c,i)=><div key={i} style={{display:"flex",gap:12,padding:"10px 0",borderBottom:i<4?`1px solid ${t.brd}`:"none",alignItems:"baseline"}}>
+        <div style={{width:8,height:8,borderRadius:4,background:t.a,flexShrink:0,alignSelf:"center"}}/>
+        <div style={{...sa,fontSize:14,fontWeight:700,color:t.c,minWidth:170,whiteSpace:"nowrap"}}>{c.t}</div>
+        <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,whiteSpace:"nowrap"}}>{c.d}</div>
+      </div>)}
     </div>
   </div>
 </div>},
 
+{title:"Notre vision pour toi",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>NOTRE VISION POUR TOI</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>Un remplissage intelligent, vecteur de croissance.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:26,whiteSpace:"nowrap"}}>Se rapprocher de 100{"\u00A0"}% en activant chaque surface avec le bon partenaire - choisi avec exigence.</div>
+  <div style={{display:"flex",flexDirection:"column",gap:0}}>{[
+    {t:"1 partenaire structurant Lockd",d:"Ton commerce comme preuve d'entrepreneuriat."},
+    {t:"1 sponsor récurrent podcast",d:"Ton podcast en logique de saison ou d'année."},
+    {t:"1 partenaire long-terme complémentaire",d:"Un territoire qu'on ouvre pour toi."},
+    {t:"Chaque surface activée",d:"Un partenaire par format, cohérent avec ton univers - sans jamais le dénaturer."},
+  ].map((s,i)=><div key={i} style={{display:"flex",alignItems:"center",gap:20,padding:"14px 0",borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+    <div style={{width:40,height:40,borderRadius:10,background:t.a+"15",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...mo,fontSize:16,fontWeight:700,color:t.a}}>→</div>
+    <div>
+      <div style={{...sa,fontSize:16.5,fontWeight:700,color:t.c,whiteSpace:"nowrap"}}>{s.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,marginTop:2,whiteSpace:"nowrap"}}>{s.d}</div>
+    </div>
+  </div>)}</div>
+</div>},
+
+{title:"On ne te met pas la bague au doigt",
+r:t=><div style={{width:"100%"}}>
+  <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",minHeight:"58vh"}}>
+    <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:22}}>LE CADRE</div>
+    <div style={{...se,fontSize:54,fontWeight:800,lineHeight:1.08,marginBottom:24,color:t.c,whiteSpace:"nowrap"}}>On ne te met pas la bague au doigt.</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:26}}/>
+    <div style={{...sa,fontSize:18.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>FAR s'ajoute à ce que tu as déjà{"\u00A0"}: un bonus commercial, sans exclusivité, sans toucher à ta liberté.</div>
+  </div>
+</div>},
+
+{title:"Nos engagements",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>NOS ENGAGEMENTS</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.15,marginBottom:10,whiteSpace:"nowrap"}}>Une équipe commerciale externe, à tes côtés.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5,marginBottom:18,whiteSpace:"nowrap"}}>Tu gardes la main sur tes deals, ton réseau et ta ligne édito. Voici nos règles, sans ambiguïté.</div>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.ex,color:t.exT}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16}}>CE QU'ON FAIT</div>
+      {[
+        "Commission uniquement sur le business qu'on t'apporte.",
+        "Uniquement des marques cohérentes avec ton univers.",
+        "On filtre pour toi : moins de bruit, plus de partenaires.",
+        "On développe tes actifs propriétaires : Lockd, podcast.",
+        "On défend ta valeur et ton pricing.",
+        "Tu gardes la main sur ton réseau et ta ligne édito.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(0,0,0,.1)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(0,0,0,.14)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800}} aria-hidden>✓</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
+    </div>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.no,color:t.noT,border:`1px solid ${t.noBrd}`}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16,opacity:0.65}}>CE QU'ON NE FAIT PAS</div>
+      {[
+        "Prendre une commission sur tes deals entrants.",
+        "Te pousser des marques hors sujet pour faire du volume.",
+        "T'ajouter des sollicitations et du bruit inutiles.",
+        "Signer quoi que ce soit dans ton dos.",
+        "Brader tes tarifs pour closer plus vite.",
+        "Toucher à ta ligne éditoriale ou à ta créativité.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(128,128,128,.12)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(255,255,255,.06)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800,color:t.m}} aria-hidden>✕</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,opacity:0.9,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
+    </div>
+  </div>
+</div>},
+
+{title:"Le deal",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>LE DEAL · APPORT D'AFFAIRES</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.1,marginBottom:26,color:t.c,whiteSpace:"nowrap"}}>Commission uniquement sur le business additionnel.</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,marginBottom:26}}>
+    {[
+      {r:"Deal < 20\u00A0k€",p:"20\u00A0%"},
+      {r:"Deal 20 - 35\u00A0k€",p:"25\u00A0%"},
+      {r:"Deal > 35\u00A0k€",p:"30\u00A0%"},
+    ].map((c,i)=><div key={i} style={{flex:1,padding:"26px 22px",background:i===1?t.card:i===2?t.cardAlt:"transparent",borderRight:i<2?`1px solid ${t.brd}`:"none",textAlign:"center"}}>
+      <div style={{...sa,fontSize:14.5,color:t.m,marginBottom:12,whiteSpace:"nowrap"}}>{c.r}</div>
+      <div style={{...se,fontSize:42,fontWeight:800,color:t.a,letterSpacing:"-0.02em",whiteSpace:"nowrap"}}>{c.p}</div>
+    </div>)}
+  </div>
+  <div style={{width:28,height:2,background:t.a,marginBottom:16}}/>
+  <div style={{...sa,fontSize:16,color:t.c,lineHeight:1.55,fontWeight:500,whiteSpace:"nowrap"}}>La cohérence d'abord{"\u00A0"}: chaque marque a sa place dans ton récit, tu gardes la main, on ne brade jamais tes tarifs.</div>
+</div>},
+
 {title:"Merci",
-r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:48}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:56,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:24}}>Merci.</div><div style={{...sa,fontSize:18,color:t.c2,lineHeight:1.6,maxWidth:600}}>Thibault Loué</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"32px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:40,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:40}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:52,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:16}}>Merci.</div><div style={{...sa,fontSize:17,color:t.c2,lineHeight:1.6,maxWidth:520,marginBottom:8}}>Qui veut aller loin, vient ici.</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"28px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:36,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// UNCHAINED  -  13 SLIDES (prospection créateur, multi-chaînes & produits)
+// ═══════════════════════════════════════════════════════════════════════════════
+const SUnchained = [
+
+{title:"Présentation",
+r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
+  <div style={{flex:3}}>
+    <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+      <img src={pu("/unchained/portrait.jpg")} alt="Unchained" style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:`2px solid ${t.a}`,flexShrink:0}}/>
+      <div style={{width:1,height:32,background:t.brd}}/>
+      <FarLogo size={68} variant={t.lv}/>
+      <FarBeams w={96} fill={t.a} style={{marginLeft:4}}/>
+    </div>
+    <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2.5,color:t.a,marginBottom:14}}>PROSPECTION · APPORT D'AFFAIRES</div>
+    <div style={{...se,fontSize:48,fontWeight:800,lineHeight:1.05,marginBottom:14,color:t.c,whiteSpace:"nowrap"}}>Unchained{"\u00A0"}×{"\u00A0"}FAR</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:20}}/>
+    <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.45,marginBottom:22,maxWidth:580,whiteSpace:"nowrap"}}>Une force de frappe commerciale pour donner de l'ampleur à ton univers et à tes projets.</div>
+    <div style={{display:"flex",flexDirection:"column",gap:14}}>
+      {[
+        {t:"Multiplier tes opportunités business",d:"Une équipe dédiée, sans te rajouter de charge."},
+        {t:"Donner de l'ampleur à tes projets",d:"Des produits à toi, pas seulement des collabs."},
+        {t:"Faire rayonner ton univers",d:"Vlogs IRL, défis, gaming : un seul récit."},
+        {t:"Préserver ton exigence éditoriale",d:"On protège ta ligne et ton ton. Toujours."},
+      ].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:8}}/><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,lineHeight:1.25,whiteSpace:"nowrap"}}>{o.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginTop:2,whiteSpace:"nowrap"}}>{o.d}</div></div></div>)}
+    </div>
+  </div>
+  <div style={{flex:2,borderRadius:20,overflow:"hidden",boxShadow:"0 18px 50px rgba(0,0,0,.45)",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/unchained/portrait.jpg")} alt="Unchained" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  </div>
+</div>},
+
+{title:"L'agence",
+r:t=><div>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:12}}><FarLogo size={48} variant={t.lv}/><div style={{width:1,height:26,background:t.brd}}/><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:3,color:t.d}}>L'AGENCE</div><div style={{flex:1}}/><FarBeams w={90} fill={t.a}/></div>
+  <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.12,marginBottom:8,whiteSpace:"nowrap"}}>Faire grandir les univers créateurs.</div>
+  <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginBottom:12,whiteSpace:"nowrap"}}>Chez FAR, un créateur ne se résume pas à son audience{"\u00A0"}: c'est un univers. Notre mission{"\u00A0"}: le faire grandir juste.</div>
+  <div style={{display:"flex",gap:10,marginBottom:14}}>{[
+    {v:"Roster",l:"à taille humaine"},
+    {v:"10\u00A0ans",l:"d'expérience marques & créateurs"},
+    {v:"+50",l:"marques accompagnées"},
+    {v:"100+",l:"campagnes réalisées"},
+  ].map((s,i)=><div key={i} style={{flex:1,padding:"11px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11.5,color:t.m,marginTop:3,whiteSpace:"nowrap"}}>{s.l}</div></div>)}</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[
+    {
+      t:"Protéger la création",
+      hook:"Défendre l'ADN de l'univers.",
+      pts:["Ligne éditoriale & territoire","Intégrations marques crédibles","Arbitrage des opportunités","Protection des catégories"],
+    },
+    {
+      t:"Solidifier la structure",
+      hook:"Rendre l'univers pilotable.",
+      pts:["Priorisation & calendrier","Data & visibilité business","Cadre admin, juridique, fiscal","Process & outils"],
+    },
+    {
+      t:"Garantir la croissance",
+      hook:"Ouvrir sans dénaturer.",
+      pts:["Partenariats long terme","Produits & actifs propriétaires","Opérations premium","Remplissage 100\u00A0% intelligent"],
+    },
+  ].map((item,i)=><div key={i} style={{flex:1,padding:"14px 16px",borderRight:i<2?`1px solid ${t.brd}`:"none",background:i%2===0?t.card:"transparent"}}>
+    <div style={{marginBottom:8}}><FarBeams w={52} fill={t.a} active={i+1} dimOpacity={0.22}/></div>
+    <div style={{...mo,fontSize:9,fontWeight:800,letterSpacing:1.5,color:t.a,marginBottom:4}}>{`FAISCEAU 0${i+1}`}</div>
+    <div style={{...sa,fontSize:14.5,fontWeight:700,color:t.c,marginBottom:3,lineHeight:1.2,whiteSpace:"nowrap"}}>{item.t}</div>
+    <div style={{...sa,fontSize:12.5,color:t.m,marginBottom:10,lineHeight:1.35,whiteSpace:"nowrap"}}>{item.hook}</div>
+    {item.pts.map((p,j)=><div key={j} style={{display:"flex",gap:8,padding:"4px 0",borderTop:j===0?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...sa,fontSize:12,fontWeight:800,color:t.a,flexShrink:0}}>→</span>
+      <span style={{...sa,fontSize:12.5,color:t.c,lineHeight:1.35,whiteSpace:"nowrap"}}>{p}</span>
+    </div>)}
+  </div>)}</div>
+</div>},
+
+{title:"Manifesto",
+r:t=>{
+  const ms=k=>{
+    switch(k){
+      case"hook":return{...se,fontSize:19,fontWeight:700,color:t.c,lineHeight:1.18,margin:"0 0 10px"};
+      case"verse":return{...se,fontSize:14,fontWeight:600,color:t.c,lineHeight:1.2,margin:"0 0 1px"};
+      case"univers":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"6px 0 4px"};
+      case"trait":return{...se,fontSize:13,fontWeight:700,color:t.c,lineHeight:1.22,margin:"0 0 2px"};
+      case"pillar":return{...sa,fontSize:12.5,fontWeight:600,color:t.c,lineHeight:1.3,margin:"0 0 2px"};
+      case"mission":return{...se,fontSize:14,fontWeight:800,color:t.a,lineHeight:1.22,margin:"6px 0 4px"};
+      case"tagline":return{...se,fontSize:16,fontWeight:800,color:t.a,lineHeight:1.2,margin:"8px 0 0"};
+      default:return{...sa,fontSize:12,color:t.m,lineHeight:1.32,margin:"0 0 3px"};
+    }
+  };
+  const blocks=[
+    {k:"verse",t:"C'est une manière de voir."},
+    {k:"verse",t:"De créer."},
+    {k:"verse",t:"De raconter."},
+    {k:"verse",t:"De rassembler."},
+    {k:"univers",t:"C'est un univers."},
+    {k:"trait",t:"Un univers a ses codes."},
+    {k:"trait",t:"Son rythme. Ses formats. Sa communauté."},
+    {k:"trait",t:"Ses exigences. Ses limites. Ses ambitions."},
+    {k:"body",t:"Pour aller loin, il ne suffit pas d'être visible."},
+    {k:"pillar",t:"Il faut être compris avant d'être exposé."},
+    {k:"pillar",t:"Structuré sans être bridé."},
+    {k:"pillar",t:"Protégé sans être enfermé."},
+    {k:"pillar",t:"Développé sans être dénaturé."},
+    {k:"mission",t:"C'est la mission de FAR."},
+    {k:"body",t:"Accompagner les univers créateurs avec la vision, le cadre, les opportunités et la sérénité nécessaires pour grandir juste."},
+    {k:"body",t:"Pour que chaque créateur puisse construire plus grand, sans perdre ce qui le rend singulier."},
+    {k:"body",t:"Et que chaque marque puisse trouver sa place dans un univers qui existe déjà."},
+    {k:"tagline",t:"Qui veut aller loin, vient ici."},
+  ];
+  return(
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",width:"100%"}}>
+      <div style={{display:"flex",flexDirection:"column",alignItems:"center",marginBottom:14}}>
+        <FarLogo size={72} variant={t.lv}/>
+        <div style={{marginTop:10,display:"flex",justifyContent:"center"}}>
+          <FarBeams w={110} fill={t.a}/>
+        </div>
+      </div>
+      <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,textTransform:"uppercase",color:t.d,marginBottom:10}}>MANIFESTO</div>
+      <p style={{...ms("hook"),maxWidth:900}}>Chez FAR, nous pensons qu&apos;un créateur ne se résume pas à son audience.</p>
+      <div style={{maxWidth:920,width:"100%",textAlign:"center"}}>
+        {blocks.map((b,i)=><p key={i} style={ms(b.k)}>{b.t}</p>)}
+      </div>
+    </div>
+  );
+}},
+
+...POS_PROSPECT_INSERT,
+
+{title:"Pourquoi toi",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>POURQUOI TOI</Tg>
+    <Hl t={t} s={{fontSize:28,marginBottom:8,whiteSpace:"nowrap"}}>Tu es déjà structuré.</Hl>
+    <Sh t={t} s={{fontSize:14,marginBottom:14,whiteSpace:"nowrap"}}>Installé sur YouTube depuis 2017, tu as fait grandir ton gaming vers un divertissement grand public. Un écosystème rare.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:14}}>
+      {[
+        {v:"+15M",l:"abonnés cumulés"},
+        {v:"~7,3M",l:"chaîne gaming"},
+        {v:"~6,2M",l:"chaîne principale"},
+        {v:"Epic\u00A0Games",l:"créateur certifié"},
+      ].map((s,i)=><div key={i} style={{padding:"11px 8px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:10.5,color:t.m,marginTop:3,lineHeight:1.3,whiteSpace:"nowrap"}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Tes formats",d:"YouTube long, gaming quotidien, lives : un rythme de publication très élevé."},
+      {t:"Ton territoire",d:"Vlogs IRL, défis, gaming : un divertissement grand public et fédérateur."},
+      {t:"Ta signature",d:"Tryhard et LaFrenchTacos : des produits et des concepts qui portent ton nom."},
+      {t:"Ton potentiel",d:"Communauté large et engagée, sur YouTube, Instagram, TikTok et Snapchat."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"7px 0",borderBottom:i<3?`1px solid ${t.brd}`:"none",alignItems:"baseline"}}>
+      <div style={{...sa,fontSize:13.5,fontWeight:700,color:t.a,minWidth:110,whiteSpace:"nowrap"}}>{a.t}</div>
+      <div style={{...sa,fontSize:13.5,color:t.m,lineHeight:1.4,whiteSpace:"nowrap"}}>{a.d}</div>
+    </div>)}
+    <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:2,color:t.d,marginTop:14,marginBottom:8}}>TON UNIVERS</div>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>{[
+      {t:"Vlogs IRL",img:"/unchained/thumb-vlog.jpg"},
+      {t:"Défis / Expériences",img:"/unchained/thumb-defis.jpg"},
+      {t:"Gaming",img:"/unchained/thumb-gaming.jpg"},
+    ].map((a,i)=><div key={i} style={{borderRadius:10,overflow:"hidden",border:`1px solid ${t.brd}`,background:t.card}}>
+      <img src={pu(a.img)} alt={a.t} style={{width:"100%",height:72,objectFit:"cover",objectPosition:"center",display:"block"}}/>
+      <div style={{...sa,fontSize:12,fontWeight:700,color:t.c,padding:"7px 8px",lineHeight:1.25,whiteSpace:"nowrap"}}>{a.t}</div>
+    </div>)}</div>
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/unchained/portrait-bw.png")} alt="Unchained" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  </div>
+</div>},
+
+{title:"Le fit parfait",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>POURQUOI TOI</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>Unchained{"\u00A0"}×{"\u00A0"}FAR{"\u00A0"}= le fit parfait.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:26,whiteSpace:"nowrap"}}>Tu coches exactement ce qu'on cherche chez un créateur à accompagner.</div>
+  <div style={{display:"flex",flexDirection:"column",gap:0}}>{[
+    {t:"Un écosystème multi-chaînes",d:"Chaîne principale, gaming, formats exclusifs : une audience répartie et complémentaire."},
+    {t:"Un territoire grand public",d:"Vlogs IRL, défis, gaming. Un divertissement fédérateur, lisible pour les marques."},
+    {t:"Une preuve de produit déjà faite",d:"La collab Tryhard prouve que ta communauté répond à un produit qui porte ton nom."},
+    {t:"Un rythme de publication rare",d:"Reels, TikTok, Shorts : un volume qui devient un vrai actif commercial."},
+    {t:"Une envie de construire concrète",d:"LaFrenchTacos, certifié Epic Games : tu bâtis des concepts, pas juste des vidéos."},
+  ].map((item,i)=><div key={i} style={{display:"flex",alignItems:"stretch",gap:0,borderBottom:i<4?`1px solid ${t.brd}`:"none"}}>
+    <div style={{width:44,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+      <div style={{width:22,height:22,borderRadius:11,background:t.a,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <span style={{...mo,fontSize:12,fontWeight:800,color:t.exT}}>✓</span>
+      </div>
+    </div>
+    <div style={{flex:1,padding:"15px 12px 15px 8px"}}>
+      <div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,marginBottom:3,whiteSpace:"nowrap"}}>{item.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.45,whiteSpace:"nowrap"}}>{item.d}</div>
+    </div>
+  </div>)}</div>
+</div>},
+
+{title:"Tes partenaires",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>POUR ALLER PLUS LOIN</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>Transformer ton volume de publication en volume de collabs.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:24,whiteSpace:"nowrap"}}>Chaque format ouvre des catégories cohérentes - sans cannibaliser ton contenu ni saturer ton audience.</div>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:14}}>{[
+    {c:"Équipements sportifs",f:"Format gaming",b:"Nike, Puma, Adidas, GymShark, Foot Locker"},
+    {c:"Food & énergie",f:"Tous formats",b:"Holy, Air Up, compléments alimentaires"},
+    {c:"Fintech & VPN",f:"Vlog / expériences",b:"NordVPN, Qonto, Revolut, Boursorama"},
+    {c:"Gaming & e-sport",f:"Format gaming",b:"Éditeurs de jeux, jeux mobiles"},
+    {c:"Set-up & mobilier",f:"Format gaming",b:"Bureaux, éclairage, sièges gaming"},
+    {c:"Grand public / ambassadeur",f:"Marque blanche",b:"EDF, assurances, banques, tech"},
+  ].map((x,i)=><div key={i} style={{padding:"16px 16px 18px",borderRadius:14,background:t.card,border:`1px solid ${t.brd}`}}>
+    <div style={{...sa,fontSize:15,fontWeight:700,color:t.c,marginBottom:5,whiteSpace:"nowrap"}}>{x.c}</div>
+    <div style={{...mo,fontSize:10.5,letterSpacing:1,color:t.a,background:t.a+"18",padding:"3px 8px",borderRadius:4,display:"inline-block",marginBottom:8,whiteSpace:"nowrap"}}>{x.f}</div>
+    <div style={{...sa,fontSize:13,color:t.m,lineHeight:1.45}}>{x.b}</div>
+  </div>)}</div>
+</div>},
+
+{title:"Notre vision pour toi",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"}}>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>NOTRE VISION POUR TOI</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:10,color:t.c,whiteSpace:"nowrap"}}>Un remplissage intelligent, vecteur de croissance.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>On muscle la partie commerciale pour combler les trous entre tes gros formats, avec les bons partenaires.</div>
+  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE</div>
+  <div style={{display:"flex",alignItems:"stretch",justifyContent:"center",gap:40,marginBottom:34}}>
+    {[
+      {l:"Chaîne principale",v:"~25\u00A0%"},
+      {l:"Chaîne gaming",v:"~70\u00A0%"},
+    ].map((x,i)=><div key={i} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:8}}>
+      <div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:1,color:t.d,whiteSpace:"nowrap"}}>{x.l}</div>
+      <div style={{display:"flex",alignItems:"baseline",gap:16,whiteSpace:"nowrap"}}>
+        <div style={{...se,fontSize:56,fontWeight:800,color:t.c,letterSpacing:"-0.03em",lineHeight:1}}>{x.v}</div>
+        <div style={{...sa,fontSize:28,color:t.a,fontWeight:700}}>→</div>
+        <div style={{...se,fontSize:56,fontWeight:800,color:t.a,letterSpacing:"-0.03em",lineHeight:1}}>~100{"\u00A0"}%</div>
+      </div>
+    </div>)}
+  </div>
+  <div style={{...sa,fontSize:16.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Plus de CA à chaque format, réinvesti dans tes productions et tes projets - sans jamais te dénaturer.</div>
+</div>},
+
+{title:"On ne te met pas la bague au doigt",
+r:t=><div style={{width:"100%"}}>
+  <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",minHeight:"58vh"}}>
+    <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:22}}>LE CADRE · SEMI-EXCLUSIVITÉ</div>
+    <div style={{...se,fontSize:54,fontWeight:800,lineHeight:1.08,marginBottom:24,color:t.c,whiteSpace:"nowrap"}}>On ne te met pas la bague au doigt.</div>
+    <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:26}}/>
+    <div style={{...sa,fontSize:18.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>FAR s'ajoute à ce que tu as déjà{"\u00A0"}: un bonus commercial, sans exclusivité totale, sans toucher à ta liberté.</div>
+  </div>
+</div>},
+
+{title:"Nos engagements",
+r:t=><div><div style={{...mo,fontSize:14,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>NOS ENGAGEMENTS</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.15,marginBottom:10,whiteSpace:"nowrap"}}>Une équipe commerciale externe, à tes côtés.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.5,marginBottom:18,whiteSpace:"nowrap"}}>Tu gardes la main sur tes deals, ton réseau et ta ligne édito. Voici nos règles, sans ambiguïté.</div>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.ex,color:t.exT}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16}}>CE QU'ON FAIT</div>
+      {[
+        "Commission uniquement sur le business qu'on t'apporte.",
+        "Uniquement des marques cohérentes avec ton univers.",
+        "On filtre pour toi : moins de bruit, plus de partenaires.",
+        "On développe tes produits propriétaires, pas juste des collabs.",
+        "On défend ta valeur et ton pricing.",
+        "Tu gardes la main sur ton réseau et ta ligne édito.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(0,0,0,.1)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(0,0,0,.14)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800}} aria-hidden>✓</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
+    </div>
+    <div style={{padding:"22px 26px",borderRadius:16,background:t.no,color:t.noT,border:`1px solid ${t.noBrd}`}}>
+      <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2,marginBottom:16,opacity:0.65}}>CE QU'ON NE FAIT PAS</div>
+      {[
+        "Prendre une commission sur tes deals entrants.",
+        "Te pousser des marques hors sujet pour faire du volume.",
+        "T'ajouter des sollicitations et du bruit inutiles.",
+        "Signer quoi que ce soit dans ton dos.",
+        "Brader tes tarifs pour closer plus vite.",
+        "Toucher à ta ligne éditoriale ou à ta créativité.",
+      ].map((line,i,arr)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"8px 0",borderBottom:i<arr.length-1?"1px solid rgba(128,128,128,.12)":"none"}}>
+        <span style={{width:22,height:22,borderRadius:6,background:"rgba(255,255,255,.06)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:13,fontWeight:800,color:t.m}} aria-hidden>✕</span>
+        <span style={{...sa,fontSize:13.5,lineHeight:1.45,opacity:0.9,whiteSpace:"nowrap"}}>{line}</span>
+      </div>)}
+    </div>
+  </div>
+</div>},
+
+{title:"Le deal",
+r:t=><div>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:12}}>LE DEAL · APPORT D'AFFAIRES</div>
+  <div style={{...se,fontSize:34,fontWeight:800,lineHeight:1.1,marginBottom:26,color:t.c,whiteSpace:"nowrap"}}>Commission uniquement sur le business additionnel.</div>
+  <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`,marginBottom:26}}>
+    {[
+      {r:"Deal < 20\u00A0k€",p:"20\u00A0%"},
+      {r:"Deal 20 - 35\u00A0k€",p:"25\u00A0%"},
+      {r:"Deal > 35\u00A0k€",p:"30\u00A0%"},
+    ].map((c,i)=><div key={i} style={{flex:1,padding:"26px 22px",background:i===1?t.card:i===2?t.cardAlt:"transparent",borderRight:i<2?`1px solid ${t.brd}`:"none",textAlign:"center"}}>
+      <div style={{...sa,fontSize:14.5,color:t.m,marginBottom:12,whiteSpace:"nowrap"}}>{c.r}</div>
+      <div style={{...se,fontSize:42,fontWeight:800,color:t.a,letterSpacing:"-0.02em",whiteSpace:"nowrap"}}>{c.p}</div>
+    </div>)}
+  </div>
+  <div style={{width:28,height:2,background:t.a,marginBottom:16}}/>
+  <div style={{...sa,fontSize:16,color:t.c,lineHeight:1.55,fontWeight:500,whiteSpace:"nowrap"}}>La cohérence d'abord{"\u00A0"}: chaque marque a sa place dans ton récit, tu gardes la main, on ne brade jamais tes tarifs.</div>
+</div>},
+
+{title:"Merci",
+r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:40}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:52,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:16}}>Merci.</div><div style={{...sa,fontSize:17,color:t.c2,lineHeight:1.6,maxWidth:520,marginBottom:8}}>Qui veut aller loin, vient ici.</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"28px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:36,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -3034,9 +3861,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -3047,9 +3874,11 @@ const META = {
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  11 slides",tag:"POSITIONNEMENT",card:"dark"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
-  farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  12 slides",tag:"ROSTER",card:"dark"},
+  farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
-  grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires en semi-exclusivité · 8 slides",tag:"PROSPECTION",card:"grandjd"},
+  grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 12 slides",tag:"PROSPECTION",card:"grandjd"},
+  bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 13 slides",tag:"PROSPECTION",card:"bouseuh"},
+  unchained:{l:"Unchained × FAR",s:"Prospection créateur · multi-chaînes & produits · 13 slides",tag:"PROSPECTION",card:"unchained"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
@@ -3290,15 +4119,19 @@ function pdfUnfreezeMotion() {
   document.querySelector("[data-pdf-motion]")?.remove();
 }
 
-function pdfFitOptsForSlide(deckId, slideIndex) {
+function pdfFitOptsForSlide(deckId, slideIndex, slideCount = 0) {
   const opts = {};
   const isCover = slideIndex === 0;
+  const isLast = slideCount > 0 && slideIndex === slideCount - 1;
   if (deckId === "farposition") {
-    // Même logique proportionnelle que les pitch decks (White Desert, PONANT…).
+    // Même logique proportionnelle que les pitch decks (White Desert, PONANT…) :
+    // contenu contraint en largeur (maxWidth par slide dans l'export) puis agrandi.
     opts.minScale = 0.88;
-    opts.maxScale = isCover ? 1.42 : 1.3;
     opts.targetFill = isCover ? 0.98 : 0.96;
-    if (isCover) opts.useContentWidth = true;
+    opts.useContentWidth = true;
+    if (isCover) opts.maxScale = 1.42;
+    else if (slideIndex === 1 || isLast) opts.maxScale = 1.6; // manifesto / closing (texte centré)
+    else opts.maxScale = 1.4;
   } else if (deckId === "otacospepe") opts.minScale = 0.82;
   else if (deckId === "farmarques") {
     opts.minScale = 0.9;
@@ -3308,6 +4141,17 @@ function pdfFitOptsForSlide(deckId, slideIndex) {
     if (slideIndex === 1) opts.maxScale = 2.3;
     if (slideIndex === 2 || slideIndex === 3 || slideIndex === 4) opts.maxScale = 2.3;
     if (isCover || slideIndex === 6) opts.maxScale = isCover ? 2.1 : 1.85;
+  } else if (deckId === "farroster") {
+    // Aligné sur les pitch decks (White Desert…) : contenu contraint en largeur
+    // (voir maxWidth par slide dans l'export), puis agrandi pour remplir la page.
+    opts.minScale = 0.88;
+    opts.targetFill = isCover ? 0.98 : 0.96;
+    opts.useContentWidth = true;
+    if (isCover) opts.maxScale = 1.42;
+    else if (slideIndex === 1 || isLast) opts.maxScale = 1.6; // manifesto / merci (texte centré)
+    else if (slideIndex === 2) opts.maxScale = 1.4; // l'agence (texte + schéma)
+    else if (slideIndex === 3) opts.maxScale = 1.5; // mosaïque roster (contenu peu haut)
+    else opts.maxScale = 1.34;
   } else if (deckUsesT1Hatch(deckId)) {
     opts.minScale = 0.88;
     opts.maxScale = isCover ? 1.42 : 1.22;
@@ -3363,6 +4207,7 @@ function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
   if (!neededH) return;
 
   const fitScale = Math.min(availableW / neededW, availableH / neededH);
+  if (globalThis.__FAR_PDF_DEBUG) console.log("[pdf-fit]", JSON.stringify({ availableW, availableH, neededW, neededH, fitScale: +fitScale.toFixed(3), minScale, maxScale, targetFill }));
   let scale;
   if (fitScale < 1) {
     scale = Math.max(minScale, fitScale);
@@ -3425,6 +4270,10 @@ function pdfRestoreSolidBgs(collected) {
   for (const c of collected) c.el.style.backgroundColor = c.prevBg;
 }
 
+/** Prépare une image pour incrustation directe dans le PDF.
+ *  Photos opaques → JPEG haute qualité (poids ÷10 vs PNG, aucune perte visible) ;
+ *  les coins arrondis sont découpés vectoriellement dans le PDF (voir addImage).
+ *  PNG conservé uniquement quand l'alpha est nécessaire (contain / source transparente). */
 async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -3443,35 +4292,34 @@ async function pdfPrepImageForRect(src, w, h, br, objectFit, supersample = 3) {
         if (sourceRatio > targetRatio) { drawH = w / sourceRatio; drawY = (h - drawH) / 2; }
         else if (sourceRatio < targetRatio) { drawW = h * sourceRatio; drawX = (w - drawW) / 2; }
       }
-      const baseScale = Math.max(supersample, sw / Math.max(1, drawW), sh / Math.max(1, drawH));
-      const scale = Math.min(baseScale, 12);
+      // Canvas plafonné à la résolution utile de la source : sur-échantillonner
+      // au-delà des pixels sources n'apporte rien et alourdit le fichier.
+      const sourceScale = Math.max(cropW / Math.max(1, drawW), cropH / Math.max(1, drawH));
+      const scale = Math.min(supersample, Math.max(0.5, sourceScale));
       const cv = document.createElement("canvas");
       cv.width = Math.max(1, Math.round(w * scale));
       cv.height = Math.max(1, Math.round(h * scale));
       const ctx = cv.getContext("2d");
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
-      if (br > 0) {
-        const rr = Math.min(br * scale, cv.width / 2, cv.height / 2);
-        ctx.beginPath();
-        ctx.moveTo(rr, 0);
-        ctx.lineTo(cv.width - rr, 0);
-        ctx.quadraticCurveTo(cv.width, 0, cv.width, rr);
-        ctx.lineTo(cv.width, cv.height - rr);
-        ctx.quadraticCurveTo(cv.width, cv.height, cv.width - rr, cv.height);
-        ctx.lineTo(rr, cv.height);
-        ctx.quadraticCurveTo(0, cv.height, 0, cv.height - rr);
-        ctx.lineTo(0, rr);
-        ctx.quadraticCurveTo(0, 0, rr, 0);
-        ctx.closePath();
-        ctx.clip();
-      }
       ctx.drawImage(
         img,
         cropX, cropY, cropW, cropH,
         drawX * scale, drawY * scale, drawW * scale, drawH * scale,
       );
-      resolve(cv.toDataURL("image/png"));
+      // Le dessin couvre-t-il tout le canvas (pas de marges "contain") ?
+      const coversCanvas = drawX <= 0.01 && drawY <= 0.01 && drawW >= w - 0.02 && drawH >= h - 0.02;
+      let opaque = coversCanvas;
+      if (opaque) {
+        // Sonde éparse du canal alpha (sources PNG/WebP potentiellement transparentes).
+        const data = ctx.getImageData(0, 0, cv.width, cv.height).data;
+        const step = Math.max(4, Math.floor(data.length / 4 / 4000)) * 4;
+        for (let p = 3; p < data.length; p += step) {
+          if (data[p] < 250) { opaque = false; break; }
+        }
+      }
+      if (opaque) resolve({ dataUrl: cv.toDataURL("image/jpeg", 0.9), type: "JPEG" });
+      else resolve({ dataUrl: cv.toDataURL("image/png"), type: "PNG" });
     };
     img.onerror = () => resolve(null);
     img.src = src;
@@ -3642,9 +4490,13 @@ function Pres({id,onBack,onNav}) {
     const { w: renderW, h: renderH } = pdfRenderSize(id);
     const useVectorBg = id === "otacospepe";
     const usePhotoOverlay = deckUsesT1Hatch(id);
-    const captureScale = useVectorBg ? 3 : PDF_CAPTURE_SCALE;
-    // PNG lossless pour tous les decks : fidélité couleurs (jaune FAR, or PONANT, etc.) + texte net.
-    const losslessPdf = true;
+    // Résolution de sortie homogène entre decks : les decks T1 rendent à 1920px
+    // (2× → 3840px), les autres à 1232px (3× → 3696px, référence White Desert).
+    const captureScale = useVectorBg ? 3 : usePhotoOverlay ? 2 : PDF_CAPTURE_SCALE;
+    // Fond de page : encodage adaptatif par page — PNG (fidèle et léger sur les
+    // aplats/texte) vs JPEG 0.92 (léger sur les photos) ; on garde le plus petit.
+    // Les decks à fond vectoriel restent en PNG (alpha nécessaire).
+    const losslessPdf = useVectorBg;
     const bgRgb = pdfHexToRgb(t.bg);
     const settleMs = pdfRenderSettleMs(id);
 
@@ -3688,6 +4540,21 @@ function Pres({id,onBack,onNav}) {
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }
+        // farroster / farposition : largeur cible par slide (texte centré vs contenu
+        // dense) pour que le contenu puisse être agrandi et remplir la page comme
+        // les pitch decks (White Desert : layout ~1176px puis remplissage ~96 %).
+        if (id === "farroster") {
+          const isTextSlide = i === 0 || i === 1 || i === n - 1;
+          inner.style.maxWidth = isTextSlide ? "1000px" : i === 2 ? "1180px" : i === 3 ? "1120px" : "1300px";
+          inner.style.marginLeft = "auto";
+          inner.style.marginRight = "auto";
+        }
+        if (id === "farposition" && i > 0) {
+          const isTextSlide = i === 1 || i === n - 1;
+          inner.style.maxWidth = isTextSlide ? "1000px" : "1240px";
+          inner.style.marginLeft = "auto";
+          inner.style.marginRight = "auto";
+        }
         slideArea.appendChild(inner);
         wrap.appendChild(slideArea);
         container.appendChild(wrap);
@@ -3705,7 +4572,7 @@ function Pres({id,onBack,onNav}) {
         pdfFreezeMotion(container);
         pdfFlattenVisibleTree(inner);
         pdfForceVisible(inner);
-        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i));
+        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i, n));
         const directImages = useVectorBg
           ? pdfCollectAndHideLargeImages(inner, container)
           : usePhotoOverlay && id !== "farposition"
@@ -3751,7 +4618,22 @@ function Pres({id,onBack,onNav}) {
           ctx.putImageData(id2, 0, 0);
         }
 
-        const imgData = losslessPdf ? canvas.toDataURL("image/png") : canvas.toDataURL("image/jpeg", 1);
+        let imgData;
+        let imgType;
+        if (losslessPdf) {
+          imgData = canvas.toDataURL("image/png");
+          imgType = "PNG";
+        } else {
+          const asPng = canvas.toDataURL("image/png");
+          const asJpg = canvas.toDataURL("image/jpeg", 0.92);
+          if (asJpg.length < asPng.length) {
+            imgData = asJpg;
+            imgType = "JPEG";
+          } else {
+            imgData = asPng;
+            imgType = "PNG";
+          }
+        }
         if (i > 0) pdf.addPage();
         if (useVectorBg) {
           pdf.setFillColor(bgRgb[0], bgRgb[1], bgRgb[2]);
@@ -3769,17 +4651,32 @@ function Pres({id,onBack,onNav}) {
             }
           }
         }
-        const compression = losslessPdf ? "SLOW" : "NONE";
+        const compression = imgType === "PNG" ? "SLOW" : "NONE";
         const logicalW = canvas.width / captureScale;
         const logicalH = canvas.height / captureScale;
-        pdf.addImage(imgData, losslessPdf ? "PNG" : "JPEG", 0, 0, pageW, pageH, undefined, compression);
+        pdf.addImage(imgData, imgType, 0, 0, pageW, pageH, undefined, compression);
         if (directImages.length) {
           const sx = pageW / renderW;
           const sy = pageH / renderH;
           for (const im of directImages) {
-            const dataUrl = await pdfPrepImageForRect(im.src, im.w, im.h, im.br, im.objectFit, 3);
-            if (!dataUrl) continue;
-            pdf.addImage(dataUrl, "PNG", im.x * sx, im.y * sy, im.w * sx, im.h * sy, undefined, "FAST");
+            const prepped = await pdfPrepImageForRect(im.src, im.w, im.h, im.br, im.objectFit, 3);
+            if (!prepped) continue;
+            const dx = im.x * sx;
+            const dy = im.y * sy;
+            const dw = im.w * sx;
+            const dh = im.h * sy;
+            // Coins arrondis découpés vectoriellement (permet le JPEG sans alpha).
+            const hasClip = im.br > 0.5;
+            if (hasClip) {
+              pdf.saveGraphicsState();
+              const rx = Math.min(im.br * sx, dw / 2);
+              const ry = Math.min(im.br * sy, dh / 2);
+              pdf.roundedRect(dx, dy, dw, dh, rx, ry, null);
+              pdf.clip();
+              pdf.discardPath();
+            }
+            pdf.addImage(prepped.dataUrl, prepped.type, dx, dy, dw, dh, undefined, "FAST");
+            if (hasClip) pdf.restoreGraphicsState();
           }
         }
         tempRoot.unmount();
@@ -3896,6 +4793,8 @@ const HOME_ARCHIVE = [
   { id: "case1", logo: "far" },
   { id: "case2", img: "/lebouseuh.png", imgType: "photo" },
   { id: "grandjd", logo: "far" },
+  { id: "bouseuh", img: "/lebouseuh.png", imgType: "photo" },
+  { id: "unchained", img: "/unchained/portrait.jpg", imgType: "photo" },
 ];
 const HOME_COOKING = [
   { id: "shopify", img: "/shopify-logo.png", imgW: 110, filter: "brightness(0) invert(1)" },
@@ -3925,6 +4824,8 @@ function Home({onOpen}) {
     marques:{bg:"#13151C",c:"#F2F4F8",tBg:"rgba(53,82,255,.22)",tC:"#9AABFF"},
     light:{bg:W,c:B,tBg:"rgba(26,26,26,.06)",tC:B,brd:`1px solid rgba(0,0,0,.08)`},
     grandjd:{bg:"#121417",c:"#F1F4F3",tBg:"rgba(79,207,184,.18)",tC:"#4FCFB8"},
+    bouseuh:{bg:"#0D0F12",c:"#F3F5F4",tBg:"rgba(198,242,78,.18)",tC:"#C6F24E"},
+    unchained:{bg:"#0E0A16",c:"#F3F0FA",tBg:"rgba(177,76,255,.2)",tC:"#B14CFF"},
     shopify:{bg:"#81B840",c:"#1a2e05",tBg:"rgba(0,0,0,.1)",tC:"#1a2e05"},
     rode:{bg:"#C62828",c:"#fff",tBg:"rgba(255,255,255,.15)",tC:"#fff"},
     fgc:{bg:"#FFF2F5",c:"#1C1410",tBg:"rgba(224,31,42,.11)",tC:"#B01822"},
