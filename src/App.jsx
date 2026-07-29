@@ -398,6 +398,20 @@ const TEdf = {
   ex:"#FE5000", exT:"#07152B", no:"rgba(255,255,255,.08)", noT:"#F7FAFF", noBrd:"rgba(255,255,255,.16)",
   section:"#FE5000", sectionT:"#07152B", cR:16, cBf:"blur(12px)", lv:"yellow",
 };
+const TSlip = {
+  bg:"#F7F2EB", c:"#0B1F3A", c2:"#E30613", m:"rgba(11,31,58,.62)", d:"rgba(11,31,58,.28)",
+  a:"#E30613", a2:"#0B1F3A",
+  card:"#FFFFFF", cardT:"#0B1F3A",
+  cardAlt:"rgba(227,6,19,.08)",
+  pill:"rgba(227,6,19,.12)", pillA:"rgba(227,6,19,.2)",
+  brd:"rgba(11,31,58,.12)",
+  bar:"rgba(11,31,58,.12)", barF:"#E30613",
+  nav:"#E30613", navT:"#FFFFFF", note:"#0B1F3A", noteT:"#F7F2EB",
+  th:"#E30613", thT:"#FFFFFF",
+  th2:"#0B1F3A", th2T:"#F7F2EB",
+  ex:"#E30613", exT:"#FFFFFF", no:"rgba(11,31,58,.06)", noT:"#0B1F3A", noBrd:"rgba(11,31,58,.12)",
+  section:"#E30613", sectionT:"#FFFFFF", cR:16, cBf:"blur(12px)", lv:"black",
+};
 const TOtacosPepe = {
   bg:"#FFC400", c:"#171006", c2:"#111111", m:"rgba(23,16,6,.64)", d:"rgba(23,16,6,.32)",
   a:"#E30713", a2:"#FF7A01",
@@ -413,7 +427,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -576,6 +590,7 @@ const SV={
   cyrilmp4:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   garmin:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   edf:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
+  cyrilslip:{i:{opacity:0,scale:.97},a:{opacity:1,scale:1},e:{opacity:0,scale:.97},t:{duration:.4,ease:[.25,.46,.45,.94]}},
   otacospepe:{i:{opacity:0,y:34},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:25}},
   profil:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
 };
@@ -1178,62 +1193,66 @@ r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
 r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"}}>
   <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>MAIS AUSSI, OPTIMISER TON REMPLISSAGE</div>
   <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:10,color:t.c,whiteSpace:"nowrap"}}>Un manque à gagner qui ralentit ta croissance.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>Au-delà de tes qualités{"\u00A0"}: un taux trop bas. On cherche à se rapprocher de 100{"\u00A0"}%, un sponsor par vidéo, sans dénaturer ton univers.</div>
-  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>Au-delà de tes qualités{"\u00A0"}: un taux trop bas. L'objectif{"\u00A0"}: se rapprocher de 100{"\u00A0"}% sur le long terme, un sponsor par vidéo, sans dénaturer ton univers.</div>
+  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE · LONG TERME</div>
   <div style={{display:"flex",alignItems:"baseline",justifyContent:"center",gap:28,whiteSpace:"nowrap",marginBottom:36}}>
     <div style={{...se,fontSize:100,fontWeight:800,color:t.c,letterSpacing:"-0.03em",lineHeight:1}}>~28{"\u00A0"}%</div>
     <div style={{...sa,fontSize:52,color:t.a,fontWeight:700}}>→</div>
     <div style={{...se,fontSize:100,fontWeight:800,color:t.a,letterSpacing:"-0.03em",lineHeight:1}}>~100{"\u00A0"}%</div>
   </div>
-  <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Plus de CA à chaque vidéo, réinvesti dans tes productions - sans jamais te dénaturer.</div>
+  <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Une trajectoire long terme{"\u00A0"}: plus de CA à chaque vidéo, réinvesti dans tes productions - sans jamais te dénaturer.</div>
 </div>},
 
 {title:"Valeur ajoutée",
-r:t=><div>
-  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>PREUVE DE LECTURE</div>
-  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>3 vidéos sans marque. 3 intégrations qu'on aurait imaginées.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:24,whiteSpace:"nowrap"}}>Trois succès diffusés sans sponsor{"\u00A0"}: autant de manque à gagner. Voici ce qu'on aurait activé - natif, exigeant, défendable.</div>
-  <div style={{display:"flex",flexDirection:"column",gap:0,borderTop:`1px solid ${t.brd}`}}>
-    {[
-      {
-        n:"01",
-        v:"58 jours pour filmer un animal que personne ne voit",
-        brand:"Sony",
-        angle:"Rendre visible l'invisible",
-        d:"Patience, optique, basse lumière : Sony entre en préparation et sur le terrain.",
-      },
-      {
-        n:"02",
-        v:"L'épidémie la plus étrange de France",
-        brand:"Qare",
-        angle:"Comprendre ce qu'on ne comprend pas",
-        d:"Symptômes flous, accès au soin : Qare s'ancre dans la tension du mystère.",
-      },
-      {
-        n:"03",
-        v:"Le lac aux squelettes",
-        brand:"The North Face",
-        angle:"L'expédition avant le mystère",
-        d:"Altitude, froid, accès extrême : la marque équipe la démarche d'enquête sur le terrain.",
-      },
-    ].map((x,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"40px 1.15fr 0.85fr 1.35fr",gap:18,alignItems:"start",padding:"18px 0",borderBottom:`1px solid ${t.brd}`}}>
-      <div style={{...mo,fontSize:13,fontWeight:800,color:t.a,paddingTop:2}}>{x.n}</div>
-      <div>
-        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d,marginBottom:6}}>VIDÉO</div>
-        <div style={{...sa,fontSize:14.5,fontWeight:700,color:t.c,lineHeight:1.35,whiteSpace:"nowrap"}}>{x.v}</div>
+r:t=>{
+  const cols="48px minmax(0,1.15fr) minmax(0,1.25fr)";
+  const rows=[
+    {
+      n:"01",
+      v:"58 jours pour filmer un animal que personne ne voit",
+      brand:"Optique & capture",
+      angle:"Rendre visible l'invisible",
+      d:"Patience, basse lumière, longue focale. Ex. Sony, Canon, Fujifilm.",
+    },
+    {
+      n:"02",
+      v:"L'épidémie la plus étrange de France",
+      brand:"Santé digitale",
+      angle:"Comprendre ce qu'on ne comprend pas",
+      d:"Symptômes flous, accès au soin, diagnostic. Ex. Qare, Doctolib, Alan.",
+    },
+    {
+      n:"03",
+      v:"Le lac aux squelettes",
+      brand:"4x4 & mobilité",
+      angle:"L'expédition avant le mystère",
+      d:"Accès extrême, altitude, terrain hostile. Ex. Land Rover, Jeep, Toyota.",
+    },
+  ];
+  return(
+    <div>
+      <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>PREUVE DE LECTURE</div>
+      <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.15,marginBottom:8,color:t.c}}>3 vidéos sans marque. 3 intégrations qu'on aurait imaginées.</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:22}}>Trois succès diffusés sans sponsor{"\u00A0"}: autant de manque à gagner. Voici ce qu'on aurait activé - natif, exigeant, défendable.</div>
+      <div style={{display:"grid",gridTemplateColumns:cols,gap:24,padding:"0 0 10px",borderBottom:`1px solid ${t.brd}`}}>
+        <div/>
+        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d}}>VIDÉO · CATÉGORIE</div>
+        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d}}>INTÉGRATION</div>
       </div>
-      <div>
-        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.a,marginBottom:6}}>MARQUE</div>
-        <div style={{...se,fontSize:22,fontWeight:800,color:t.a,lineHeight:1.15,marginBottom:4,whiteSpace:"nowrap"}}>{x.brand}</div>
-        <div style={{...sa,fontSize:13.5,fontWeight:600,color:t.c,lineHeight:1.3,whiteSpace:"nowrap"}}>{x.angle}</div>
-      </div>
-      <div>
-        <div style={{...mo,fontSize:10,fontWeight:700,letterSpacing:1.5,color:t.d,marginBottom:6}}>ANGLE</div>
-        <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.45,whiteSpace:"nowrap"}}>{x.d}</div>
-      </div>
-    </div>)}
-  </div>
-</div>},
+      {rows.map((x,i)=>(
+        <div key={i} style={{display:"grid",gridTemplateColumns:cols,gap:24,alignItems:"start",padding:"18px 0",borderBottom:`1px solid ${t.brd}`}}>
+          <div style={{...mo,fontSize:15,fontWeight:800,color:t.a,lineHeight:1.3}}>{x.n}</div>
+          <div>
+            <div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,lineHeight:1.35,marginBottom:10}}>{x.v}</div>
+            <div style={{...se,fontSize:20,fontWeight:800,color:t.a,lineHeight:1.15,marginBottom:4}}>{x.brand}</div>
+            <div style={{...sa,fontSize:13.5,fontWeight:600,color:t.c,lineHeight:1.35}}>{x.angle}</div>
+          </div>
+          <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.5,paddingTop:2}}>{x.d}</div>
+        </div>
+      ))}
+    </div>
+  );
+}},
 
 {title:"On ne te met pas la bague au doigt",
 r:t=><div style={{width:"100%"}}>
@@ -1304,7 +1323,7 @@ r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flex
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// LE BOUSEUH  -  13 SLIDES (prospection créateur, actifs propriétaires)
+// LE BOUSEUH  -  14 SLIDES (prospection créateur, actifs propriétaires)
 // ═══════════════════════════════════════════════════════════════════════════════
 const SBouseuh = [
 
@@ -1528,11 +1547,25 @@ r:t=><div>
   </div>
 </div>},
 
+{title:"Ce que l'on te propose",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"}}>
+  <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>MAIS AUSSI, OPTIMISER TON REMPLISSAGE</div>
+  <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:10,color:t.c,whiteSpace:"nowrap"}}>Un manque à gagner qui ralentit ta croissance.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>Au-delà de tes qualités{"\u00A0"}: un taux trop bas. L'objectif{"\u00A0"}: se rapprocher de 100{"\u00A0"}% sur le long terme, un sponsor par vidéo, sans dénaturer ton univers.</div>
+  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE · LONG TERME</div>
+  <div style={{display:"flex",alignItems:"baseline",justifyContent:"center",gap:28,whiteSpace:"nowrap",marginBottom:36}}>
+    <div style={{...se,fontSize:100,fontWeight:800,color:t.c,letterSpacing:"-0.03em",lineHeight:1}}>~28{"\u00A0"}%</div>
+    <div style={{...sa,fontSize:52,color:t.a,fontWeight:700}}>→</div>
+    <div style={{...se,fontSize:100,fontWeight:800,color:t.a,letterSpacing:"-0.03em",lineHeight:1}}>~100{"\u00A0"}%</div>
+  </div>
+  <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Une trajectoire long terme{"\u00A0"}: plus de CA à chaque vidéo, réinvesti dans tes productions - sans jamais te dénaturer.</div>
+</div>},
+
 {title:"Notre vision pour toi",
 r:t=><div>
   <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>NOTRE VISION POUR TOI</div>
   <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:8,color:t.c,whiteSpace:"nowrap"}}>Un remplissage intelligent, vecteur de croissance.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:26,whiteSpace:"nowrap"}}>Se rapprocher de 100{"\u00A0"}% en activant chaque surface avec le bon partenaire - choisi avec exigence.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:26,whiteSpace:"nowrap"}}>Se rapprocher de 100{"\u00A0"}% sur le long terme, en activant chaque surface avec le bon partenaire - choisi avec exigence.</div>
   <div style={{display:"flex",flexDirection:"column",gap:0}}>{[
     {t:"1 partenaire structurant Lockd",d:"Ton commerce comme preuve d'entrepreneuriat."},
     {t:"1 sponsor récurrent podcast",d:"Ton podcast en logique de saison ou d'année."},
@@ -1827,8 +1860,8 @@ r:t=><div>
 r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",textAlign:"center"}}>
   <div style={{...mo,fontSize:13,fontWeight:600,letterSpacing:3,color:t.d,marginBottom:10}}>NOTRE VISION POUR TOI</div>
   <div style={{...se,fontSize:32,fontWeight:800,lineHeight:1.12,marginBottom:10,color:t.c,whiteSpace:"nowrap"}}>Un remplissage intelligent, vecteur de croissance.</div>
-  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>On muscle la partie commerciale pour combler les trous entre tes gros formats, avec les bons partenaires.</div>
-  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.45,marginBottom:34,whiteSpace:"nowrap"}}>On muscle la partie commerciale pour combler les trous entre tes gros formats - avec les bons partenaires, sur le long terme.</div>
+  <div style={{...mo,fontSize:12,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:20}}>OBJECTIF REMPLISSAGE · LONG TERME</div>
   <div style={{display:"flex",alignItems:"stretch",justifyContent:"center",gap:40,marginBottom:34}}>
     {[
       {l:"Chaîne principale",v:"~25\u00A0%"},
@@ -1842,7 +1875,7 @@ r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",text
       </div>
     </div>)}
   </div>
-  <div style={{...sa,fontSize:16.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Plus de CA à chaque format, réinvesti dans tes productions et tes projets - sans jamais te dénaturer.</div>
+  <div style={{...sa,fontSize:16.5,color:t.m,lineHeight:1.55,whiteSpace:"nowrap"}}>Une trajectoire long terme{"\u00A0"}: plus de CA à chaque format, réinvesti dans tes productions et tes projets - sans jamais te dénaturer.</div>
 </div>},
 
 {title:"On ne te met pas la bague au doigt",
@@ -3063,6 +3096,168 @@ r:(t,back)=><div>
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// LE SLIP FRANÇAIS × CYRILMP4  -  PITCH IDÉE UNBOXING CALEÇON  -  7 SLIDES
+// ═══════════════════════════════════════════════════════════════════════════════
+const SCyrilSlip = [
+{title:"Le Slip Français × CYRILmp4",
+r:t=><div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",minHeight:"64vh",textAlign:"center",width:"100%"}}>
+  <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
+    <FarLogo size={72} variant={t.lv}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/slip-francais-logo.png")} alt="Le Slip Français" style={{width:64,height:64,objectFit:"contain"}}/>
+    <div style={{width:1,height:28,background:t.brd}}/>
+    <img src={pu("/cyrilmp4.png")} alt="CYRILmp4" style={{width:64,height:64,borderRadius:"50%",objectFit:"cover",border:`3px solid ${t.a}`}}/>
+  </div>
+  <div style={{...mo,fontSize:11,fontWeight:600,letterSpacing:2.5,padding:"7px 14px",background:t.pill,borderRadius:8,display:"inline-block",color:t.a,marginBottom:20}}>LE SLIP FRANÇAIS × CYRILMP4</div>
+  <div style={{...se,fontSize:42,fontWeight:900,lineHeight:1.1,maxWidth:880,margin:"0 auto 14px",color:t.c}}>Unboxing — le caleçon français.</div>
+  <div style={{...sa,fontSize:19,color:t.a,fontWeight:700,lineHeight:1.3,maxWidth:760,margin:"0 auto 16px"}}>Le seul unboxing où le produit se porte vraiment.</div>
+  <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6,maxWidth:760}}>Pitch d&apos;idée : un format YouTube court, drôle et made in France, où Cyril ouvre le colis, raconte le produit et enfile le caleçon.</div>
+</div>},
+
+{title:"CYRILmp4",
+r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
+  <div style={{flex:3,display:"flex",flexDirection:"column",justifyContent:"center"}}>
+    <Tg t={t}>LE TALENT</Tg>
+    <Hl t={t} s={{fontSize:36}}>CYRILmp4, le créateur de l&apos;immersion longue durée.</Hl>
+    <Sh t={t}>Sur MP4, Cyril construit des formats extrêmes : exploration, tension narrative, spectacle. Ici, le contraste fait le pitch — après les trains dangereux et les lacs radioactifs, un unboxing de caleçon français.</Sh>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4, 1fr)",gap:10,marginBottom:20}}>
+      {[{v:"5,21M",l:"abonnés YouTube (MP4)"},{v:"8,5M+",l:"audience cumulée"},{v:"15 ans",l:"d'ancienneté créateur"},{v:"872K",l:"moyenne de vues"}].map((s,i)=><div key={i} style={{padding:"12px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}>
+        <div style={{...se,fontSize:22,fontWeight:800,color:t.a}}>{s.v}</div>
+        <div style={{...sa,fontSize:11,color:t.m,marginTop:4,lineHeight:1.35}}>{s.l}</div>
+      </div>)}
+    </div>
+    {[
+      {t:"Contraste fort",d:"L'audience attend l'extrême. Un unboxing LSF devient un événement comique et mémorable."},
+      {t:"Crédibilité",d:"Cyril sait raconter un produit sans le dénaturer : détail, humour, preuve d'usage."},
+    ].map((a,i)=><div key={i} style={{display:"flex",gap:10,padding:"8px 0",borderBottom:i<1?`1px solid ${t.brd}`:"none"}}>
+      <div style={{...sa,fontSize:14,fontWeight:700,color:t.a,minWidth:120}}>{a.t}</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{a.d}</div>
+    </div>)}
+  </div>
+  <div style={{width:280,flexShrink:0,alignSelf:"center",borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    <img src={pu("/garmin-cyril-photo.png")} alt="CYRILmp4" style={{width:"100%",height:340,objectFit:"cover",display:"block"}}/>
+  </div>
+</div>},
+
+{title:"Concept",
+r:t=><div>
+  <Tg t={t}>IDÉE CENTRALE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Unboxing — le caleçon français</Hl>
+  <Sh t={t}>Cyril reçoit le colis Le Slip Français, le déballage devient un récit : packaging, matières, made in France, premier essayage. Un format court, incarné, 100 % produit.</Sh>
+  <div style={{display:"flex",flexDirection:"column",gap:0,marginTop:22,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      {n:"01",t:"Le colis",d:"Arrivée du colis, promesse LSF, setup humour : « après le nucléaire, le caleçon »."},
+      {n:"02",t:"L'unpack",d:"Ouverture, packaging, détails produit, matières, élastique, finitions made in France."},
+      {n:"03",t:"L'essai",d:"Premier essayage caméra : confort, maintien, verdict à chaud — le produit se porte vraiment."},
+      {n:"04",t:"Le verdict",d:"Synthèse made in France, ateliers, pourquoi LSF a sa place dans l'univers Cyril."},
+    ].map((row,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"62px 220px 1fr",gap:0,borderBottom:i<3?`1px solid ${t.brd}`:"none"}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"center",background:t.cardAlt}}><span style={{...mo,fontSize:12,fontWeight:800,color:t.a}}>{row.n}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:15,fontWeight:700,color:t.c}}>{row.t}</span></div>
+      <div style={{padding:"16px 14px",display:"flex",alignItems:"center"}}><span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{row.d}</span></div>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Déroulé vidéo",
+r:t=><div>
+  <Tg t={t}>FORMAT RECOMMANDÉ</Tg>
+  <Hl t={t} s={{fontSize:34}}>Un format hero YouTube court + découpes sociales</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"1.1fr .9fr",gap:18,marginTop:20}}>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>VIDÉO HÉRO</div>
+      <div style={{...sa,fontSize:15,color:t.m,lineHeight:1.6}}>
+        8-12 minutes.<br/>
+        Hook contraste + ouverture du colis.<br/>
+        Unpack détaillé produit & packaging.<br/>
+        Essai + verdict made in France.
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>MOMENTS-CLÉS MARQUE</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Packaging et signature visuelle LSF.<br/>
+        Preuve d&apos;usage réelle (l&apos;essai).<br/>
+        Mention ateliers / made in France.
+      </div>
+    </Wc>
+    <Wc t={t} s={{marginTop:0,padding:22,border:`1px solid ${t.brd}`}}>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginBottom:10}}>SOCIAL CUTS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Extraits courts (Reels / TikTok / Shorts) :<br/>
+        hook « unboxing caleçon »<br/>
+        détail packaging<br/>
+        réaction à l&apos;essai<br/>
+        punchline made in France
+      </div>
+      <div style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a,marginTop:18,marginBottom:10}}>OPTIONS</div>
+      <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.6}}>
+        Code promo / lien shop en description et pin commentaire.
+      </div>
+    </Wc>
+  </div>
+</div>},
+
+{title:"Activation LSF",
+r:t=><div>
+  <Tg t={t}>INTÉGRATION MARQUE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Le Slip Français tient le rôle principal, pas un placement.</Hl>
+  <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12,marginTop:22}}>
+    {[
+      {t:"Rôle produit",d:"Le caleçon est le héros de la vidéo : unpack, matière, essai, verdict."},
+      {t:"Rôle storytelling",d:"Made in France, ateliers, packaging : la preuve entre dans le récit."},
+      {t:"Rôle conversion",d:"CTA clair : shop, code créateur, lien en description et pin."},
+    ].map((x,i)=><div key={i} style={{padding:"20px 16px",borderRadius:12,background:t.th,border:`1px solid ${t.brd}`}}>
+      <div style={{...se,fontSize:18,fontWeight:800,color:t.thT,marginBottom:8,lineHeight:1.2}}>{x.t}</div>
+      <div style={{...sa,fontSize:14,color:t.thT,opacity:.95,lineHeight:1.55}}>{x.d}</div>
+    </div>)}
+  </div>
+  <div style={{marginTop:16,padding:"14px 16px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+    <span style={{...mo,fontSize:10,fontWeight:800,letterSpacing:2,color:t.a}}>OBJECTIF</span>
+    <div style={{...sa,fontSize:14.5,color:t.m,lineHeight:1.55,marginTop:6}}>Rendre Le Slip Français désirable, crédible et achetable auprès d&apos;une audience jeune et masculine, avec humour et preuve d&apos;usage.</div>
+  </div>
+</div>},
+
+{title:"Ce que gagne LSF",
+r:t=><div>
+  <Tg t={t}>BÉNÉFICES</Tg>
+  <Hl t={t} s={{fontSize:34}}>Pourquoi cette idée est intéressante pour Le Slip Français</Hl>
+  <Th t={t} s={{marginTop:14,marginBottom:18,padding:"18px 22px",fontSize:15,lineHeight:1.55}}>
+    Associer une marque made in France à un créateur d&apos;immersion massive : notoriété, preuve produit et intention d&apos;achat dans un format court et partageable.
+  </Th>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginTop:0}}>
+    {[
+      "Un concept immédiatement compréhensible : unboxing caleçon.",
+      "Une preuve d'usage réelle — le produit se porte à l'écran.",
+      "Un storytelling made in France incarné, pas un claim abstract.",
+      "Des assets réutilisables en social, paid, site et CRM.",
+      "Un contraste mémorable avec l'univers Cyril = viralité naturelle.",
+      "Un pont clair entre notoriété, désirabilité et conversion shop.",
+    ].map((txt,i)=><div key={i} style={{display:"flex",gap:10,padding:"14px 14px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`}}>
+      <span style={{...mo,fontSize:11,fontWeight:800,color:t.a,marginTop:2}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:14,color:t.m,lineHeight:1.5}}>{txt}</span>
+    </div>)}
+  </div>
+</div>},
+
+{title:"Timeline",
+r:(t,back)=><div>
+  <Tg t={t}>TIMELINE</Tg>
+  <Hl t={t} s={{fontSize:34}}>Prochaines étapes</Hl>
+  <div style={{marginTop:24,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>
+    {[
+      "Call de cadrage FAR × Le Slip Français × Cyril",
+      "Sélection produit / gamme à unboxer",
+      "Tournage unboxing + essai (1/2 journée)",
+      "Mise en ligne YouTube + cuts sociaux + CTA shop",
+    ].map((s,i,arr)=>(
+    <div key={i} style={{display:"flex",gap:12,padding:"16px 20px",background:i%2?t.card:t.bg,borderBottom:i<arr.length-1?`1px solid ${t.brd}`:"none"}}>
+      <span style={{...mo,fontSize:12,fontWeight:800,color:t.a,minWidth:28}}>{String(i+1).padStart(2,"0")}</span>
+      <span style={{...sa,fontSize:16,color:t.c,lineHeight:1.5}}>{s}</span>
+    </div>))}
+  </div>
+  <div style={{textAlign:"center",marginTop:28}}>{back&&<button onClick={back} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>
+</div>},
+];
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // PONANT × CYRILMP4  -  PITCH IDÉE CROISIÈRE DE LUXE  -  7 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
 const SPonant = [
@@ -3863,9 +4058,9 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -3879,7 +4074,7 @@ const META = {
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 12 slides",tag:"PROSPECTION",card:"grandjd"},
-  bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 13 slides",tag:"PROSPECTION",card:"bouseuh"},
+  bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 14 slides",tag:"PROSPECTION",card:"bouseuh"},
   unchained:{l:"Unchained × FAR",s:"Prospection créateur · multi-chaînes & produits · 13 slides",tag:"PROSPECTION",card:"unchained"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
@@ -3892,6 +4087,7 @@ const META = {
   toinelagplaydoh:{l:"Toinelag × Play-Doh",s:"Hasbro pitch · bataille artistique de pâte à modeler · 7 slides",tag:"PITCH IDÉE",card:"toinelag"},
   toinelagikea:{l:"Toinelag × IKEA",s:"Pitch idée · « Une pièce secrète dans un magasin IKEA » · 7 slides",tag:"PITCH IDÉE",card:"toinelagikea"},
   cyrilclubmed:{l:"CYRILmp4 × Club Med",s:"Pitch idée · « 24h dans le plus vieux Club Med du monde » · 7 slides",tag:"PITCH IDÉE",card:"dark"},
+  cyrilslip:{l:"Le Slip Français × CYRILmp4",s:"Pitch idée · « Unboxing — le caleçon français » · 7 slides",tag:"PITCH IDÉE",card:"slip"},
   ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
   whitedesert:{l:"White Desert × CYRILmp4",s:"Idea pitch · « 100 hours at the end of the Earth » · 7 slides",tag:"PITCH IDÉE",card:"whitedesert"},
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
@@ -4811,6 +5007,7 @@ const HOME_CARD_VIS = {
   toinelagplaydoh: { img: "/toinelag-avatar.png", imgW: 78 },
   toinelagikea: { img: "/toinelag-avatar.png", imgW: 78 },
   cyrilclubmed: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  cyrilslip: { img: "/slip-francais-logo.png", imgW: 72 },
   ponant: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   whitedesert: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   orientexpress: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
@@ -4842,7 +5039,7 @@ const HOME_FOLDERS = [
     text: "#F4EFE6",
     photo: "/cyrilmp4.png",
     photoRound: true,
-    decks: ["cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
+    decks: ["cyrilslip", "cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
   },
   {
     id: "fgc",
@@ -5119,6 +5316,7 @@ function Home({ onOpen }) {
     orientexpress: { bg: "#12100E", c: "#F3EDE3", tBg: "rgba(196,160,82,.2)", tC: "#C4A052" },
     belmond: { bg: "#241A16", c: "#F5F0E8", tBg: "rgba(201,164,91,.2)", tC: "#C9A45B" },
     edf: { bg: "#07152B", c: "#F7FAFF", tBg: "rgba(254,80,0,.22)", tC: "#FE5000" },
+    slip: { bg: "#F7F2EB", c: "#0B1F3A", tBg: "rgba(227,6,19,.14)", tC: "#E30613" },
   };
 
   const openFolder = (id) => {
