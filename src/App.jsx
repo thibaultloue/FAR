@@ -4647,7 +4647,15 @@ function ActCard({a,nav}){
 // ─── PRESENTATION ─────────────────────────────────────────────────────────────
 function Pres({id,onBack,onNav}) {
   const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
-  const setCur = useCallback(v=>{setCurRaw(prev=>{const next=typeof v==="function"?v(prev):v;window.location.hash=`${id}/${next}`;return next;});},[id]);
+  const setCur = useCallback(v=>{setCurRaw(prev=>{
+    const next=typeof v==="function"?v(prev):v;
+    const u=new URL(window.location.href);
+    u.hash=`#${id}/${next}`;
+    // Remplace l'entrée courante : les slides ne polluent pas l'historique
+    // (sinon « ← Retour » / back navigateur rejoue les slides au lieu du dossier).
+    window.history.replaceState(null,"",u.toString());
+    return next;
+  });},[id]);
   const [notes,setNotes] = useState(false);
   const [nav,setNav] = useState(false);
   const [pdfing,setPdfing] = useState(false);
@@ -5099,6 +5107,14 @@ const HOME_ARCHIVE = {
   blurb: "Cas pratiques historiques et activations Bouseuh.",
   decks: ["shopify", "rode", "case1", "case2"],
 };
+
+/** Hash parent pour « ← Retour » depuis un deck (dossier, archive, ou home). */
+const DECK_BACK_HASH = (() => {
+  const m = {};
+  for (const f of HOME_FOLDERS) for (const d of f.decks) m[d] = `folder/${f.id}`;
+  for (const d of HOME_ARCHIVE.decks) m[d] = "archive";
+  return m;
+})();
 
 function folderDeckCount(folder) {
   return folder.decks.length;
@@ -5587,9 +5603,13 @@ export default function App() {
   }, []);
 
   const goBack = useCallback(() => {
+    if (route.view === "deck" && route.d) {
+      window.location.hash = DECK_BACK_HASH[route.d] || "";
+      return;
+    }
     if (window.history.length > 1) window.history.back();
     else window.location.hash = "";
-  }, []);
+  }, [route.view, route.d]);
 
   return (
     <Gate>
