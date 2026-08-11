@@ -1,0 +1,6 @@
+exports
+node_modules
+dist
+.git
+*.local
+.DS_Store
