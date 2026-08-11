@@ -431,7 +431,7 @@ const TProfil = T1;
 const TM = { case1:T1, farposition:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
-const FC = `@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap');
+const FC = `@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;500;600&family=Karla:ital,wght@0,400..700;1,400..700&display=swap');
 html{-webkit-text-size-adjust:100%;}
 @keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}
 .far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}

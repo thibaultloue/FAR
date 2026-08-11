@@ -1,10 +1,10 @@
 /**
  * Pitch créateurs — DA Keynote épurée (anti-template IA).
- * Structure : Ouverture → FAR → Manifesto → Pourquoi toi → Proposition → Preuve/vision → Cadre → Deal → Merci
+ * Typo : Bricolage Grotesque (titres) + Karla (corps) — casual, pas SaaS.
  */
 
-const kd = { fontFamily: "'Syne',sans-serif" };
-const kb = { fontFamily: "'Instrument Sans',sans-serif" };
+const kd = { fontFamily: "'Bricolage Grotesque',sans-serif" };
+const kb = { fontFamily: "'Karla',sans-serif" };
 
 const grain = {
   backgroundImage:
@@ -20,7 +20,7 @@ function KRule({ t, w = 48 }) {
 
 function KEyebrow({ t, children }) {
   return (
-    <div style={{ ...kb, fontSize: 13, fontWeight: 500, letterSpacing: 0.2, color: t.m, marginBottom: 18 }}>
+    <div style={{ ...kb, fontSize: 14, fontWeight: 500, letterSpacing: 0.15, color: t.m, marginBottom: 16 }}>
       {children}
     </div>
   );
@@ -28,7 +28,18 @@ function KEyebrow({ t, children }) {
 
 function KTitle({ t, children, s }) {
   return (
-    <div style={{ ...kd, fontSize: 52, fontWeight: 700, letterSpacing: "-0.035em", lineHeight: 1.05, color: t.c, marginBottom: 18, ...s }}>
+    <div
+      style={{
+        ...kd,
+        fontSize: 52,
+        fontWeight: 650,
+        letterSpacing: "-0.03em",
+        lineHeight: 1.08,
+        color: t.c,
+        marginBottom: 18,
+        ...s,
+      }}
+    >
       {children}
     </div>
   );
@@ -36,7 +47,7 @@ function KTitle({ t, children, s }) {
 
 function KLead({ t, children, s }) {
   return (
-    <div style={{ ...kb, fontSize: 20, fontWeight: 400, lineHeight: 1.45, color: t.m, maxWidth: 640, ...s }}>
+    <div style={{ ...kb, fontSize: 20, fontWeight: 400, lineHeight: 1.5, color: t.m, maxWidth: 640, ...s }}>
       {children}
     </div>
   );
@@ -59,17 +70,17 @@ function slideFar({ FarLogo }) {
           <FarLogo size={56} variant={t.lv} />
         </div>
         <KEyebrow t={t}>Qui on est</KEyebrow>
-        <KTitle t={t} s={{ fontSize: 48, marginBottom: 28 }}>
+        <KTitle t={t} s={{ fontSize: 48, marginBottom: 24 }}>
           On est FAR.
         </KTitle>
-        <KLead t={t} s={{ marginBottom: 48 }}>
-          Une petite structure. On accompagne des créateurs, et on vend des marques qui ont une place réelle dans leur univers.
+        <KLead t={t} s={{ marginBottom: 44 }}>
+          Petite boîte. On bosse avec des créateurs, et on trouve des marques qui ont vraiment leur place dans ce qu&apos;ils font.
         </KLead>
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {[
-            { n: "Roster serré", d: "Peu de talents. On choisit." },
-            { n: "10 ans", d: "Marques et créateurs — pas de théorie." },
-            { n: "Une règle", d: "Si ça ne tient pas dans ton récit, on ne le pousse pas." },
+            { n: "Roster serré", d: "Peu de gens. On choisit avec qui on avance." },
+            { n: "10 ans", d: "Du concret marques + créateurs. Pas de slides creux." },
+            { n: "Une règle", d: "Si ça colle pas à ton univers, on pousse pas." },
           ].map((x, i) => (
             <div
               key={i}
@@ -83,8 +94,8 @@ function slideFar({ FarLogo }) {
                 alignItems: "baseline",
               }}
             >
-              <div style={{ ...kd, fontSize: 22, fontWeight: 700, color: t.c, letterSpacing: "-0.02em" }}>{x.n}</div>
-              <div style={{ ...kb, fontSize: 18, color: t.m, lineHeight: 1.4 }}>{x.d}</div>
+              <div style={{ ...kd, fontSize: 22, fontWeight: 650, color: t.c, letterSpacing: "-0.02em" }}>{x.n}</div>
+              <div style={{ ...kb, fontSize: 18, color: t.m, lineHeight: 1.45 }}>{x.d}</div>
             </div>
           ))}
         </div>
@@ -99,19 +110,19 @@ function slideManifesto() {
     r: (t) => (
       <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "left" }}>
         <KEyebrow t={t}>Ce qu&apos;on croit</KEyebrow>
-        <KTitle t={t} s={{ fontSize: 44, maxWidth: 720, marginBottom: 36 }}>
+        <KTitle t={t} s={{ fontSize: 44, maxWidth: 720, marginBottom: 32 }}>
           Un créateur, c&apos;est un univers.
           <br />
-          Pas une audience.
+          Pas juste des vues.
         </KTitle>
-        <KBody t={t} s={{ fontSize: 19, maxWidth: 640, marginBottom: 20, color: t.c }}>
-          Des codes. Un rythme. Une exigence. Une communauté qui te suit pour ça.
+        <KBody t={t} s={{ fontSize: 19, maxWidth: 640, marginBottom: 18, color: t.c }}>
+          Tes codes, ton rythme, ce que ta communauté vient chercher chez toi.
         </KBody>
-        <KBody t={t} s={{ fontSize: 19, maxWidth: 640, marginBottom: 40 }}>
-          Notre job : faire grandir cet univers — sans le dénaturer.
+        <KBody t={t} s={{ fontSize: 19, maxWidth: 640, marginBottom: 36 }}>
+          Notre job : faire grandir ça — sans te transformer en panneau pub.
         </KBody>
         <KRule t={t} w={40} />
-        <div style={{ ...kd, fontSize: 24, fontWeight: 700, color: t.a, letterSpacing: "-0.02em" }}>
+        <div style={{ ...kd, fontSize: 24, fontWeight: 650, color: t.a, letterSpacing: "-0.02em" }}>
           Qui veut aller loin, vient ici.
         </div>
       </div>
@@ -125,15 +136,15 @@ function slideCadre({ semi } = {}) {
     r: (t) => (
       <div style={{ maxWidth: 780, margin: "0 auto", textAlign: "center" }}>
         <KEyebrow t={t}>{semi ? "Le cadre · semi-exclusivité" : "Le cadre"}</KEyebrow>
-        <KTitle t={t} s={{ fontSize: 48, marginBottom: 24, textAlign: "center" }}>
-          On ne te met pas
+        <KTitle t={t} s={{ fontSize: 48, marginBottom: 22, textAlign: "center" }}>
+          On te met pas
           <br />
           la bague au doigt.
         </KTitle>
-        <KLead t={t} s={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 560 }}>
+        <KLead t={t} s={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 540 }}>
           {semi
-            ? "On s'ajoute à ce que tu as déjà. Pas d'exclusivité totale. Ta liberté reste intacte."
-            : "On s'ajoute à ce que tu as déjà. Pas d'exclusivité. Ta liberté reste intacte."}
+            ? "On s'ajoute à ce que tu as déjà. Pas d'exclusivité totale. Tu gardes ta liberté."
+            : "On s'ajoute à ce que tu as déjà. Pas d'exclusivité. Tu gardes ta liberté."}
         </KLead>
         <div
           style={{
@@ -147,9 +158,9 @@ function slideCadre({ semi } = {}) {
           }}
         >
           {[
-            "Commission seulement sur ce qu'on t'apporte.",
-            "Rien n'est signé sans toi.",
-            "On ne touche pas à ta ligne édito.",
+            "On prend une com' uniquement sur ce qu'on t'apporte.",
+            "Rien n'est signé dans ton dos.",
+            "On touche pas à ta ligne édito.",
           ].map((line, i) => (
             <div
               key={i}
@@ -159,7 +170,7 @@ function slideCadre({ semi } = {}) {
                 color: t.c,
                 padding: "16px 0",
                 borderBottom: `1px solid ${t.brd}`,
-                lineHeight: 1.4,
+                lineHeight: 1.45,
               }}
             >
               {line}
@@ -176,12 +187,12 @@ function slideDeal() {
     title: "Le deal",
     r: (t) => (
       <div style={{ maxWidth: 860 }}>
-        <KEyebrow t={t}>Apport d&apos;affaires</KEyebrow>
+        <KEyebrow t={t}>Le deal</KEyebrow>
         <KTitle t={t} s={{ fontSize: 40, marginBottom: 12 }}>
-          Commission sur le business additionnel.
+          On est payés sur le business qu&apos;on amène.
         </KTitle>
-        <KLead t={t} s={{ marginBottom: 48, maxWidth: 520 }}>
-          Pas sur tes deals entrants. Pas sur ton existant.
+        <KLead t={t} s={{ marginBottom: 44, maxWidth: 520 }}>
+          Pas sur tes deals entrants. Pas sur ce que tu as déjà.
         </KLead>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0, borderTop: `1px solid ${t.brd}` }}>
           {[
@@ -198,12 +209,12 @@ function slideDeal() {
               }}
             >
               <div style={{ ...kb, fontSize: 14, color: t.m, marginBottom: 14 }}>{c.r}</div>
-              <div style={{ ...kd, fontSize: 48, fontWeight: 700, color: t.a, letterSpacing: "-0.04em", lineHeight: 1 }}>{c.p}</div>
+              <div style={{ ...kd, fontSize: 48, fontWeight: 650, color: t.a, letterSpacing: "-0.04em", lineHeight: 1 }}>{c.p}</div>
             </div>
           ))}
         </div>
         <KBody t={t} s={{ marginTop: 36, color: t.c }}>
-          Cohérence d&apos;abord. Tu gardes la main. On ne brade pas tes tarifs.
+          La cohérence d&apos;abord. Tu valides tout. On brade pas tes tarifs.
         </KBody>
       </div>
     ),
@@ -218,7 +229,7 @@ function slideMerci({ FarLogo }) {
         <div style={{ marginBottom: 48 }}>
           <FarLogo size={72} variant={t.lv} />
         </div>
-        <div style={{ ...kd, fontSize: 64, fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 1, marginBottom: 20, color: t.c }}>
+        <div style={{ ...kd, fontSize: 64, fontWeight: 650, letterSpacing: "-0.035em", lineHeight: 1, marginBottom: 20, color: t.c }}>
           Merci.
         </div>
         <div style={{ ...kb, fontSize: 18, color: t.m, marginBottom: 8 }}>Qui veut aller loin, vient ici.</div>
@@ -265,7 +276,7 @@ function slideOpen({ name, photo, line, FarLogo, pu }) {
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 36 }}>
             <FarLogo size={44} variant={t.lv} />
           </div>
-          <KEyebrow t={t}>Apport d&apos;affaires</KEyebrow>
+          <KEyebrow t={t}>Un petit pitch, sans bullshit</KEyebrow>
           <KTitle t={t} s={{ fontSize: 56, marginBottom: 22 }}>
             {name}
             <span style={{ color: t.a }}> × </span>
@@ -302,7 +313,7 @@ function slidePourquoi({ title, lead, stats, points }) {
     r: (t) => (
       <div style={{ maxWidth: 900 }}>
         <KEyebrow t={t}>Pourquoi toi</KEyebrow>
-        <KTitle t={t} s={{ fontSize: 44, marginBottom: 16, maxWidth: 700 }}>
+        <KTitle t={t} s={{ fontSize: 44, marginBottom: 16, maxWidth: 720 }}>
           {title}
         </KTitle>
         <KLead t={t} s={{ marginBottom: 44, maxWidth: 560 }}>
@@ -311,7 +322,7 @@ function slidePourquoi({ title, lead, stats, points }) {
         <div style={{ display: "flex", gap: 40, marginBottom: 48, flexWrap: "wrap" }}>
           {stats.map((s, i) => (
             <div key={i}>
-              <div style={{ ...kd, fontSize: 36, fontWeight: 700, color: t.a, letterSpacing: "-0.03em", lineHeight: 1 }}>{s.v}</div>
+              <div style={{ ...kd, fontSize: 36, fontWeight: 650, color: t.a, letterSpacing: "-0.03em", lineHeight: 1 }}>{s.v}</div>
               <div style={{ ...kb, fontSize: 14, color: t.m, marginTop: 8 }}>{s.l}</div>
             </div>
           ))}
@@ -329,7 +340,7 @@ function slidePourquoi({ title, lead, stats, points }) {
                 alignItems: "baseline",
               }}
             >
-              <div style={{ ...kd, fontSize: 16, fontWeight: 700, color: t.c }}>{p.t}</div>
+              <div style={{ ...kd, fontSize: 16, fontWeight: 650, color: t.c }}>{p.t}</div>
               <div style={{ ...kb, fontSize: 16, color: t.m, lineHeight: 1.45 }}>{p.d}</div>
             </div>
           ))}
@@ -348,9 +359,9 @@ function slideRemplissage({ from, to = "~100 %", note, dual }) {
         <KTitle t={t} s={{ fontSize: 40, marginBottom: 14, textAlign: "center" }}>
           Remplir ce qui est vide.
           <br />
-          Sur le long terme.
+          Tranquillement, sur la durée.
         </KTitle>
-        <KLead t={t} s={{ margin: "0 auto 48px", textAlign: "center", maxWidth: 520 }}>
+        <KLead t={t} s={{ margin: "0 auto 48px", textAlign: "center", maxWidth: 540 }}>
           {note}
         </KLead>
         {dual ? (
@@ -359,33 +370,32 @@ function slideRemplissage({ from, to = "~100 %", note, dual }) {
               <div key={i} style={{ textAlign: "center" }}>
                 <div style={{ ...kb, fontSize: 13, color: t.m, marginBottom: 12 }}>{x.l}</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 14, justifyContent: "center" }}>
-                  <span style={{ ...kd, fontSize: 48, fontWeight: 700, color: t.c, letterSpacing: "-0.04em" }}>{x.v}</span>
+                  <span style={{ ...kd, fontSize: 48, fontWeight: 650, color: t.c, letterSpacing: "-0.04em" }}>{x.v}</span>
                   <span style={{ ...kb, fontSize: 24, color: t.a }}>→</span>
-                  <span style={{ ...kd, fontSize: 48, fontWeight: 700, color: t.a, letterSpacing: "-0.04em" }}>{to}</span>
+                  <span style={{ ...kd, fontSize: 48, fontWeight: 650, color: t.a, letterSpacing: "-0.04em" }}>{to}</span>
                 </div>
               </div>
             ))}
           </div>
         ) : (
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "center", gap: 28, marginBottom: 36 }}>
-            <span style={{ ...kd, fontSize: 96, fontWeight: 700, color: t.c, letterSpacing: "-0.05em", lineHeight: 1 }}>{from}</span>
+            <span style={{ ...kd, fontSize: 96, fontWeight: 650, color: t.c, letterSpacing: "-0.05em", lineHeight: 1 }}>{from}</span>
             <span style={{ ...kb, fontSize: 40, color: t.a, fontWeight: 500 }}>→</span>
-            <span style={{ ...kd, fontSize: 96, fontWeight: 700, color: t.a, letterSpacing: "-0.05em", lineHeight: 1 }}>{to}</span>
+            <span style={{ ...kd, fontSize: 96, fontWeight: 650, color: t.a, letterSpacing: "-0.05em", lineHeight: 1 }}>{to}</span>
           </div>
         )}
-        <div style={{ ...kb, fontSize: 15, color: t.m }}>Objectif long terme — un partenaire quand ça a du sens. Pas plus.</div>
+        <div style={{ ...kb, fontSize: 15, color: t.m }}>Objectif long terme. Un partenaire quand ça a du sens — pas plus.</div>
       </div>
     ),
   };
 }
 
-/** Wireframe fond Grand JD + DA Keynote */
 function buildGrandJd({ FarLogo, pu }) {
   return [
     slideOpen({
       name: "Le Grand JD",
       photo: "/grandjd/jd-portrait.jpg",
-      line: "On veut bosser avec toi. Apporter des marques qui ont une vraie place dans tes formats — sans te rajouter de bruit.",
+      line: "On aimerait bosser avec toi. Trouver des marques qui ont vraiment leur place dans tes formats — sans te rajouter du bruit.",
       FarLogo,
       pu,
     }),
@@ -393,48 +403,48 @@ function buildGrandJd({ FarLogo, pu }) {
     slideManifesto(),
     slidePourquoi({
       title: "Tu fais du long qui compte.",
-      lead: "Reportage, urbex, paranormal, rencontres. Un récit que les marques peuvent défendre — pas du reach jetable.",
+      lead: "Reportage, urbex, paranormal, rencontres. Les marques peuvent s'y accrocher pour de vrai — pas juste pour du reach.",
       stats: [
         { v: "4,2M", l: "abonnés YouTube" },
-        { v: "17 ans", l: "de création" },
+        { v: "17 ans", l: "que tu fais ça" },
         { v: "~28 %", l: "de remplissage aujourd'hui" },
       ],
       points: [
-        { t: "Formats", d: "Documentaire, enquête — une surface premium." },
-        { t: "Territoire", d: "Lisible. Rare. Brand-safe." },
+        { t: "Formats", d: "Du docu, de l'enquête. Du contenu qui tient." },
+        { t: "Territoire", d: "Claire, rare, rassurant pour une marque." },
         { t: "Potentiel", d: "Beaucoup de vidéos sortent encore sans partenaire." },
       ],
     }),
     slideRemplissage({
       from: "~28 %",
-      note: "Trop de bonnes vidéos partent sans marque. L'idée : se rapprocher de 100 % — un sponsor par vidéo, quand c'est juste.",
+      note: "Trop de bonnes vidéos partent à vide. L'idée : se rapprocher de 100 %, un sponsor par vidéo, quand c'est juste.",
     }),
     {
       title: "Preuve",
       r: (t) => (
         <div style={{ maxWidth: 920 }}>
-          <KEyebrow t={t}>Ce qu&apos;on aurait fait</KEyebrow>
+          <KEyebrow t={t}>Pour te montrer comment on lit</KEyebrow>
           <KTitle t={t} s={{ fontSize: 36, marginBottom: 12, maxWidth: 700 }}>
             Trois vidéos fortes. Zéro marque.
           </KTitle>
           <KLead t={t} s={{ marginBottom: 40, maxWidth: 540 }}>
-            Pas un catalogue. Juste trois angles qu&apos;on aurait défendus.
+            Pas un catalogue. Juste trois angles qu&apos;on aurait poussés.
           </KLead>
           {[
             {
               v: "58 jours pour filmer un animal que personne ne voit",
               c: "Optique & capture",
-              d: "Basse lumière, longue focale. Sony, Canon, Fujifilm…",
+              d: "Basse lumière, longue focale. Genre Sony, Canon, Fujifilm…",
             },
             {
               v: "L'épidémie la plus étrange de France",
               c: "Santé digitale",
-              d: "Symptômes flous, accès au soin. Qare, Doctolib, Alan…",
+              d: "Symptômes flous, accès au soin. Genre Qare, Doctolib, Alan…",
             },
             {
               v: "Le lac aux squelettes",
               c: "4x4 & mobilité",
-              d: "Terrain hostile, accès extrême. Land Rover, Jeep, Toyota…",
+              d: "Terrain hostile, accès extrême. Genre Land Rover, Jeep, Toyota…",
             },
           ].map((x, i) => (
             <div
@@ -449,10 +459,10 @@ function buildGrandJd({ FarLogo, pu }) {
                 alignItems: "start",
               }}
             >
-              <div style={{ ...kd, fontSize: 16, fontWeight: 700, color: t.a }}>{String(i + 1).padStart(2, "0")}</div>
+              <div style={{ ...kd, fontSize: 16, fontWeight: 650, color: t.a }}>{String(i + 1).padStart(2, "0")}</div>
               <div>
                 <div style={{ ...kb, fontSize: 16, fontWeight: 600, color: t.c, lineHeight: 1.35, marginBottom: 6 }}>{x.v}</div>
-                <div style={{ ...kd, fontSize: 18, fontWeight: 700, color: t.a }}>{x.c}</div>
+                <div style={{ ...kd, fontSize: 18, fontWeight: 650, color: t.a }}>{x.c}</div>
               </div>
               <div style={{ ...kb, fontSize: 15, color: t.m, lineHeight: 1.45 }}>{x.d}</div>
             </div>
@@ -471,29 +481,29 @@ function buildBouseuh({ FarLogo, pu }) {
     slideOpen({
       name: "Le Bouseuh",
       photo: "/lebouseuh.png",
-      line: "Audience, Lockd, podcast. On veut t'aider à monétiser ce que tu as déjà construit — proprement.",
+      line: "Audience, Lockd, podcast. On veut t'aider à mieux monétiser ce que tu as déjà — proprement, sans te saturer.",
       FarLogo,
       pu,
     }),
     slideFar({ FarLogo }),
     slideManifesto(),
     slidePourquoi({
-      title: "Tu n'es pas qu'une audience.",
-      lead: "Tu as Lockd, un podcast, des collabs longues. Un vrai écosystème — rare à ce niveau.",
+      title: "T'es pas qu'une audience.",
+      lead: "T'as Lockd, un podcast, des collabs qui durent. Un vrai setup — rare à ton niveau.",
       stats: [
         { v: "4,61M", l: "YouTube" },
         { v: "2,1M", l: "Twitch" },
         { v: "Samsung", l: "ambassadeur FR" },
       ],
       points: [
-        { t: "Actifs", d: "Lockd et le podcast : du tien, déjà structuré." },
-        { t: "Preuve", d: "Tu sais tenir une association dans la durée." },
-        { t: "Potentiel", d: "Des surfaces encore sous-exploitées commercialement." },
+        { t: "Actifs", d: "Lockd + podcast : du tien, déjà structuré." },
+        { t: "Preuve", d: "Tu sais tenir une collab dans la durée." },
+        { t: "Potentiel", d: "Y a encore de la place à remplir, sans forcer." },
       ],
     }),
     slideRemplissage({
       from: "~28 %",
-      note: "Même logique que pour un format fort : trop de trous entre les deals. On vise 100 % sur le long terme — sans saturer ton univers.",
+      note: "Trop de trous entre les deals. On vise 100 % sur le long terme — sans pourrir ton univers.",
     }),
     {
       title: "Vision",
@@ -503,13 +513,13 @@ function buildBouseuh({ FarLogo, pu }) {
           <KTitle t={t} s={{ fontSize: 40, marginBottom: 40 }}>
             Quatre surfaces.
             <br />
-            Quatre partenaires justes.
+            Quatre bons partenaires.
           </KTitle>
           {[
-            { t: "Lockd", d: "Un partenaire structurant pour ton commerce." },
+            { t: "Lockd", d: "Un partenaire solide pour ton commerce." },
             { t: "Podcast", d: "Un sponsor de saison — ou d'année." },
             { t: "Complément", d: "Un territoire qu'on ouvre avec toi." },
-            { t: "Chaque format", d: "Un partenaire cohérent. Pas de volume pour le volume." },
+            { t: "Chaque format", d: "Un partenaire cohérent. Pas du volume pour le volume." },
           ].map((x, i) => (
             <div
               key={i}
@@ -523,8 +533,8 @@ function buildBouseuh({ FarLogo, pu }) {
                 alignItems: "baseline",
               }}
             >
-              <div style={{ ...kd, fontSize: 20, fontWeight: 700, color: t.a }}>{x.t}</div>
-              <div style={{ ...kb, fontSize: 17, color: t.m, lineHeight: 1.4 }}>{x.d}</div>
+              <div style={{ ...kd, fontSize: 20, fontWeight: 650, color: t.a }}>{x.t}</div>
+              <div style={{ ...kb, fontSize: 17, color: t.m, lineHeight: 1.45 }}>{x.d}</div>
             </div>
           ))}
         </div>
@@ -541,24 +551,24 @@ function buildUnchained({ FarLogo, pu }) {
     slideOpen({
       name: "Unchained",
       photo: "/unchained/portrait.jpg",
-      line: "Deux chaînes, un rythme fou, des produits à ton nom. On veut transformer ce volume en collabs qui tiennent.",
+      line: "Deux chaînes, un rythme de ouf, des produits à ton nom. On veut transformer ce volume en collabs qui tiennent.",
       FarLogo,
       pu,
     }),
     slideFar({ FarLogo }),
     slideManifesto(),
     slidePourquoi({
-      title: "Tu es déjà une machine.",
-      lead: "Depuis 2017, tu as fait passer le gaming en divertissement grand public. Multi-chaînes, multi-formats — un écosystème rare.",
+      title: "T'es déjà une machine.",
+      lead: "Depuis 2017, t'as fait passer le gaming en divertissement grand public. Multi-chaînes, multi-formats — rare.",
       stats: [
         { v: "+15M", l: "abonnés cumulés" },
         { v: "~7,3M", l: "chaîne gaming" },
         { v: "~6,2M", l: "chaîne principale" },
       ],
       points: [
-        { t: "Volume", d: "Un rythme de publication qui devient un actif." },
-        { t: "Preuve produit", d: "Tryhard, LaFrenchTacos — ta communauté suit." },
-        { t: "Potentiel", d: "La chaîne principale est encore très ouverte." },
+        { t: "Volume", d: "Tu sors tellement que ça devient un vrai levier." },
+        { t: "Preuve produit", d: "Tryhard, LaFrenchTacos — ta com' suit." },
+        { t: "Potentiel", d: "La chaîne principale est encore bien ouverte." },
       ],
     }),
     slideRemplissage({
@@ -566,7 +576,7 @@ function buildUnchained({ FarLogo, pu }) {
         { l: "Chaîne principale", v: "~25 %" },
         { l: "Chaîne gaming", v: "~70 %" },
       ],
-      note: "Combler les trous entre tes gros formats — avec les bons partenaires, sur le long terme.",
+      note: "Combler les trous entre tes gros formats — avec les bons partenaires, sur la durée.",
     }),
     {
       title: "Catégories",
@@ -577,7 +587,7 @@ function buildUnchained({ FarLogo, pu }) {
             Des catégories qui collent à tes formats.
           </KTitle>
           <KLead t={t} s={{ marginBottom: 40, maxWidth: 520 }}>
-            Pas six cartes. Six pistes — à activer sans saturer ton audience.
+            Six pistes. Pas plus. À activer sans saturer ton audience.
           </KLead>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, borderTop: `1px solid ${t.brd}` }}>
             {[
@@ -597,7 +607,7 @@ function buildUnchained({ FarLogo, pu }) {
                   paddingLeft: i % 2 === 1 ? 28 : 0,
                 }}
               >
-                <div style={{ ...kd, fontSize: 20, fontWeight: 700, color: t.c, marginBottom: 6 }}>{x.c}</div>
+                <div style={{ ...kd, fontSize: 20, fontWeight: 650, color: t.c, marginBottom: 6 }}>{x.c}</div>
                 <div style={{ ...kb, fontSize: 15, color: t.m }}>{x.d}</div>
               </div>
             ))}
