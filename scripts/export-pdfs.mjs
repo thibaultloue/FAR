@@ -16,6 +16,7 @@ const PORT = 4183;
 
 const DECKS = [
   { id: "farposition", file: "FAR_Positionnement.pdf" },
+  { id: "farposition2", file: "FAR_Positionnement_V2.pdf" },
   { id: "farmarques", file: "FAR_Marques.pdf" },
   { id: "farroster", file: "FAR_Agence_Roster.pdf" },
   { id: "cyrilmp4", file: "CYRILmp4.pdf" },
@@ -28,7 +29,7 @@ const DECKS = [
   { id: "fastgoodcuisine", file: "Le_combat_des_chefs.pdf" },
   { id: "fgcdeliveroo", file: "Deliveroo_FastGoodCuisine.pdf" },
   { id: "grandjd", file: "Le_Grand_JD.pdf" },
-];
+].filter((d) => process.argv.length < 3 || process.argv.slice(2).includes(d.id));
 
 function pingOnce(host, port) {
   return new Promise((resolve, reject) => {
