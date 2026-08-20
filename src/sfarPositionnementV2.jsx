@@ -767,17 +767,17 @@ export function createSFarPositionnementV2(P) {
               {
                 w: "Pour le créateur",
                 h: "Il garde la main.",
-                d: "Rien n'est signé sans son accord. Chaque sollicitation est qualifiée en amont.",
+                d: "Rien n'est signé sans son accord et rien n'est imposé. Chaque sollicitation est qualifiée en amont.",
               },
               {
                 w: "Pour la marque",
                 h: "La meilleure intégration possible.",
-                d: "On cherche, avec la marque, où elle s'inscrit le mieux dans le contenu, et comment, pour que le partenariat serve les deux. Un partenariat bien placé est mieux accepté, mieux regardé et plus performant. Une intégration plaquée coûte toujours plus qu'elle ne rapporte.",
+                d: "On cherche, avec la marque, où elle s'inscrit le mieux dans le contenu, et comment, pour que le partenariat serve les deux. Un partenariat bien placé est mieux accepté, mieux regardé et plus performant.",
               },
               {
                 w: "Pour le calendrier",
                 h: "Le bon ratio.",
-                d: "Trouver le bon ratio entre les marques premium et marques digital friendly, les intégrations et les dédiées, en fonction des besoins et envies des créateurs.",
+                d: "Trouver le bon ratio entre les marques premium et marques digital friendly, les intégrations et les dédiées, en fonction des besoins et envies du créateur.",
               },
             ].map((o) => (
               <M key={o.w} variants={fu(14)} style={{ padding: "18px 20px", borderRadius: 16, background: t.card, border: `1px solid ${t.brd}` }}>
