@@ -674,7 +674,7 @@ export function createSFarPositionnementV2(P) {
               {
                 k: "Temps",
                 n: "1",
-                u: "seul interlocuteur",
+                u: "équipe dédiée",
                 h: "Le moins de temps possible pris",
                 d: "On absorbe tout ce qui est chronophage (prospection, négociation, contrats). Le créateur garde son temps pour créer.",
               },
@@ -716,16 +716,13 @@ export function createSFarPositionnementV2(P) {
               </div>
             </div>
           </M>
-          <M {...MV()} variants={stg(0.08)} style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
-            <AdvCard t={t} title="Des tarifs défendus, jamais bradés">
+          <M variants={fu(8)}>
+            <Th t={t} s={{ marginTop: 4, padding: "18px 22px", fontSize: 14.5, lineHeight: 1.5, borderRadius: 18, borderLeft: `5px solid ${t.a}` }}>
+              <span style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.025em", display: "block", marginBottom: 8, color: t.thT }}>
+                Des tarifs défendus, jamais bradés
+              </span>
               Le pricing se construit sur la valeur réelle du créateur, et la position est tenue jusqu&apos;au bout de la négociation.
-            </AdvCard>
-            <AdvCard t={t} title="Une grille qui évolue">
-              Pas de contrat unique : la rémunération se réajuste quand l&apos;activité change de palier.
-            </AdvCard>
-            <AdvCard t={t} title="Payé en temps et en heure">
-              On suit la facturation et on relance les retards de paiement. Le créateur ne court après personne.
-            </AdvCard>
+            </Th>
           </M>
         </M>
       ),
@@ -820,8 +817,8 @@ export function createSFarPositionnementV2(P) {
             <AdvCard t={t} title="On gère l'administratif">
               Contrats, facturation, conformité, relances de paiement. Plus personne ne court derrière les process.
             </AdvCard>
-            <AdvCard t={t} title="Un seul interlocuteur">
-              Pas de chaîne de comptes ni de brief à répéter. Une personne qui connaît le dossier et qui répond vite.
+            <AdvCard t={t} title="Une équipe dédiée">
+              Pas de chaîne de comptes ni de brief à répéter. Une équipe qui connaît le dossier et qui répond vite.
             </AdvCard>
             <AdvCard t={t} title="Des décisions en quelques minutes">
               Chaque opportunité arrive qualifiée, chiffrée et argumentée. Le créateur tranche, on exécute.
@@ -874,7 +871,7 @@ export function createSFarPositionnementV2(P) {
                 },
                 {
                   k: "Un allié, pas une couche de plus",
-                  d: "Un interlocuteur unique qui épaule sur la structure, le commercial et les projets, en prenant le moins de temps possible.",
+                  d: "Une équipe dédiée qui épaule sur la structure, le commercial et les projets, en prenant le moins de temps possible.",
                 },
               ].map((e, i) => (
                 <M
