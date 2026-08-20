@@ -252,26 +252,26 @@ export function createSFarPositionnementV2(P) {
     {
       index: 1,
       beam: 1,
-      title: "Protéger la création",
+      title: "Garantir la croissance",
       blocks: [
         {
-          t: "Sa ligne, ses règles",
-          d: "Le ton, le rythme, les formats, les limites : c'est le créateur qui les pose. FAR travaille avec, et les fait respecter en face.",
+          t: "Partenariats long terme",
+          d: "Ambassades, récurrence, relations marques sur 6-12 mois : des revenus prévisibles plutôt que simplement des one-shots.",
         },
         {
-          t: "Un filtre sur les sollicitations",
-          d: "Tout ce qui arrive est qualifié, pour ne plus perdre de temps sur les mauvaises pistes.",
+          t: "Des actifs qui lui appartiennent",
+          d: "Marque, podcast, format récurrent, événement : monétiser ce que le créateur possède déjà et qu'il garde.",
         },
         {
-          t: "Des marques qui ont une raison d'être là",
-          d: "Une marque entre parce qu'elle a du sens, jamais parce qu'elle a mis le budget.",
+          t: "Opérations premium",
+          d: "Co-brandings et activations à forte valeur, au-delà du post sponsorisé, quand l'audience le justifie.",
         },
         {
-          t: "Des catégories protégées",
-          d: "On sanctuarise les associations sensibles et on évite les conflits de marques qui abîmeraient la crédibilité.",
+          t: "Remplissage intelligent",
+          d: "Tendre vers 1 partenaire par contenu, en structurant calendrier et catégories. C'est le premier levier de revenus.",
         },
       ],
-      footer: "Défendre la ligne et la valeur du créateur, sans jamais intervenir dessus.",
+      footer: "Plus de revenus, sans jamais dénaturer ce qui existe.",
     },
     {
       index: 2,
@@ -300,26 +300,26 @@ export function createSFarPositionnementV2(P) {
     {
       index: 3,
       beam: 3,
-      title: "Garantir la croissance",
+      title: "Protéger la création",
       blocks: [
         {
-          t: "Partenariats long terme",
-          d: "Ambassades, récurrence, relations marques sur 6-12 mois : des revenus prévisibles plutôt que simplement des one-shots.",
+          t: "Sa ligne, ses règles",
+          d: "Le ton, le rythme, les formats, les limites : c'est le créateur qui les pose. FAR travaille avec, et les fait respecter en face.",
         },
         {
-          t: "Des actifs qui lui appartiennent",
-          d: "Marque, podcast, format récurrent, événement : monétiser ce que le créateur possède déjà et qu'il garde.",
+          t: "Un filtre sur les sollicitations",
+          d: "Tout ce qui arrive est qualifié, pour ne plus perdre de temps sur les mauvaises pistes.",
         },
         {
-          t: "Opérations premium",
-          d: "Co-brandings et activations à forte valeur, au-delà du post sponsorisé, quand l'audience le justifie.",
+          t: "Des marques qui ont une raison d'être là",
+          d: "Une marque entre parce qu'elle a du sens, jamais parce qu'elle a mis le budget.",
         },
         {
-          t: "Remplissage intelligent",
-          d: "Tendre vers 1 partenaire par contenu, en structurant calendrier et catégories. C'est le premier levier de revenus.",
+          t: "Des catégories protégées",
+          d: "On sanctuarise les associations sensibles et on évite les conflits de marques qui abîmeraient la crédibilité.",
         },
       ],
-      footer: "Plus de revenus, sans jamais dénaturer ce qui existe.",
+      footer: "Défendre la ligne et la valeur du créateur, sans jamais intervenir dessus.",
     },
   ];
 
@@ -638,7 +638,7 @@ export function createSFarPositionnementV2(P) {
           <SlideHead t={t} tag="MODÈLE FAR" title="3 faisceaux pour faire grandir un créateur." titleS={{ fontSize: 32 }} />
           <M variants={fu(8)}>
             <Sh t={t} s={{ fontSize: 16, lineHeight: 1.55, marginBottom: 4, maxWidth: 880 }}>
-              Protéger la création, solidifier la structure, garantir la croissance.
+              Garantir la croissance, solidifier la structure, protéger la création.
             </Sh>
           </M>
           <FarModelOverview t={t} />
@@ -646,9 +646,9 @@ export function createSFarPositionnementV2(P) {
       ),
     },
 
-    { title: "Protéger la création", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[0]} /> },
+    { title: "Garantir la croissance", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[0]} /> },
     { title: "Solidifier la structure", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[1]} /> },
-    { title: "Garantir la croissance", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[2]} /> },
+    { title: "Protéger la création", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[2]} /> },
 
     {
       title: "Ce que le créateur y gagne",
