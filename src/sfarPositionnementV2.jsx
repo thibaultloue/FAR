@@ -721,7 +721,7 @@ export function createSFarPositionnementV2(P) {
               <span style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.025em", display: "block", marginBottom: 8, color: t.thT }}>
                 Des tarifs défendus, jamais bradés
               </span>
-              Le pricing se construit sur la valeur réelle du créateur, et la position est tenue jusqu&apos;au bout de la négociation.
+              Chaque opération est pensée et négociée spécifiquement en fonction de la nature de l&apos;opération.
             </Th>
           </M>
         </M>
