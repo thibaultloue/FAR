@@ -3127,7 +3127,7 @@ const SFarPositionnement = createSFarPositionnement({
   Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
 });
 
-const SFarPositionnement2 = createSFarPositionnementV2({
+const SFarPositionnement2Base = createSFarPositionnementV2({
   Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
 });
 
@@ -3138,6 +3138,25 @@ const SFarMarques = createSFarMarques({
 const SFarRoster = createSFarRoster({
   Tg, Hl, Sh, FarLogo, se, sa, mo, pu,
 });
+
+/** Annexes Positionnement V2 = slides talents 5→12 du deck Agence & Roster. */
+const SFarPositionnement2Annexes = {
+  title: "Annexes",
+  r: (t) => (
+    <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
+      <div style={{ ...mo, fontSize: 16, fontWeight: 700, letterSpacing: 5, color: t.a, marginBottom: 16 }}>ANNEXES</div>
+      <Hl t={t} s={{ fontSize: 44, textAlign: "center", maxWidth: 800, margin: "0 auto 24px" }}>Nos créateurs</Hl>
+      <div style={{ width: 80, height: 3, background: t.a, borderRadius: 2, margin: "0 auto" }} />
+    </div>
+  ),
+};
+
+const SFarPositionnement2 = [
+  ...SFarPositionnement2Base.slice(0, -1),
+  SFarPositionnement2Annexes,
+  ...SFarRoster.slice(4, 12),
+  SFarPositionnement2Base[SFarPositionnement2Base.length - 1],
+];
 
 const SFGCMarmiton = createSFGCMarmiton({
   Tg, Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu,
@@ -3157,7 +3176,7 @@ function normalizeDeckId(raw) {
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  12 slides",tag:"POSITIONNEMENT",card:"dark"},
-  farposition2:{l:"FAR · Positionnement V2",s:"Le partenaire du créateur  -  13 slides",tag:"POSITIONNEMENT",card:"dark"},
+  farposition2:{l:"FAR · Positionnement V2",s:"Le partenaire du créateur  -  22 slides",tag:"POSITIONNEMENT",card:"dark"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},

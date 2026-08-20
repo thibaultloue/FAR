@@ -280,12 +280,12 @@ export function createSFarRoster(P) {
           </Sh>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14 }}>
             {[
-              { n: "FastGoodCuisine", img: "/fgc.webp", da: CREATOR_DA.fgc, st: [["YouTube", "8,4M"], ["TikTok", "2,4M"], ["Instagram", "2,3M"]] },
-              { n: "CYRILmp4", img: "/cyrilmp4.webp", da: CREATOR_DA.mp4, st: [["YouTube", "5,22M"], ["YouTube Studio", "1,11M"], ["Instagram", "1,3M"]] },
-              { n: "Le Routin", img: "/leroutin.webp", da: CREATOR_DA.routin, st: [["YouTube", "578k"], ["TikTok", "336,1k"], ["Instagram", "187k"]] },
-              { n: "Toinelag", img: "/toinelag.webp", da: CREATOR_DA.toinelag, st: [["YouTube", "1,9M"], ["YT Gaming", "735k"], ["YT Plus", "317k"], ["Instagram", "17,1k"]] },
-              { n: "Teeqzy", img: "/teeqzy.webp", da: CREATOR_DA.teeqzy, st: [["YouTube", "2,01M"], ["TikTok", "110k"]] },
-              { n: "Bek1ng", img: "/bek1ng.webp", da: CREATOR_DA.bek1ng, st: [["Twitch", "210k"], ["TikTok", "473,8k"]] },
+              { n: "FastGoodCuisine", img: "/fgc.webp", da: CREATOR_DA.fgc, st: [["YouTube", "8,8M"], ["TikTok", "2,6M"], ["Instagram", "2,4M"]] },
+              { n: "CYRILmp4", img: "/cyrilmp4.webp", da: CREATOR_DA.mp4, st: [["YouTube", "5,23M"], ["YouTube Studio", "1,13M"], ["Instagram", "1,4M"]] },
+              { n: "Le Routin", img: "/leroutin.webp", da: CREATOR_DA.routin, st: [["YouTube", "601k"], ["TikTok", "359k"], ["Instagram", "187k"]] },
+              { n: "Toinelag", img: "/toinelag.webp", da: CREATOR_DA.toinelag, st: [["YouTube", "1,95M"], ["YT Gaming", "850k"], ["YT Plus", "349k"], ["Instagram", "23k"]] },
+              { n: "Teeqzy", img: "/teeqzy.webp", da: CREATOR_DA.teeqzy, st: [["YouTube", "2,02M"], ["TikTok", "110k"]] },
+              { n: "Bek1ng", img: "/bek1ng.webp", da: CREATOR_DA.bek1ng, st: [["Twitch", "224k"], ["TikTok", "494k"]] },
             ].map((c, i) => (
               <div key={i} style={{ display: "flex", gap: 14, padding: "16px 18px", borderRadius: 16, background: c.da.bg, color: "#fff", boxShadow: "0 6px 24px rgba(0,0,0,.16)", alignItems: "center" }}>
                 <img src={pu(c.img)} alt={c.n} style={{ width: 68, height: 68, borderRadius: "50%", objectFit: "cover", flexShrink: 0, border: `2.5px solid ${c.da.acc}` }} />
@@ -316,9 +316,9 @@ export function createSFarRoster(P) {
           chips={["Food", "Divertissement", "Formats courts"]}
           desc="FastGoodCuisine, c'est le cocktail explosif entre food, fun et format court ! Avec son énergie débordante, ce créateur ultra-gourmand régale une large communauté grâce à des vidéos créatives mêlant cuisine rapide, humour croustillant et concepts décalés. Sa recette ? Populariser la bouffe accessible et inventive tout en amusant sa communauté avec un ton unique et sans prise de tête."
           stats={[
-            { p: "YOUTUBE", v: "8,4M abonnés", extra: ["Moyenne de vues (1 an) : 2,4M · Shorts : 2,7M"] },
-            { p: "TIKTOK", v: "2,4M abonnés", extra: ["Moyenne de vues : 1,2M"] },
-            { p: "INSTAGRAM", v: "2,3M abonnés", extra: ["Moyenne de vues Reels : 650k"] },
+            { p: "YOUTUBE", v: "8,8M abonnés", extra: ["Moyenne de vues : 2,7M · Shorts : 3,9M"] },
+            { p: "TIKTOK", v: "2,6M abonnés", extra: ["Moyenne de vues : 1,2M"] },
+            { p: "INSTAGRAM", v: "2,4M abonnés", extra: ["Moyenne de vues Reels : 650k"] },
           ]}
           videos={[
             { img: "/havas/fgc-thumb1.jpg", tag: "Dégustation", title: "On Mange 30 Fast-Foods avec Valouzz (Mauvaise Idée)" },
@@ -345,8 +345,8 @@ export function createSFarRoster(P) {
           chips={["Exploration", "Voyages", "Docu / vlog"]}
           desc="Cyril propose sur sa chaîne des contenus très diversifiés mélangeant exploration, voyages, divertissement et gaming. Passionné et engagé, Cyril partage ses passions avec sa communauté depuis bientôt 15 ans."
           stats={[
-            { p: "YOUTUBE", v: "5,22M abonnés", extra: ["Moyenne de vues : 972K"] },
-            { p: "INSTAGRAM", v: "1,3M abonnés", extra: ["Moyenne de vues Reels : 600k"] },
+            { p: "YOUTUBE", v: "5,23M abonnés", extra: ["Moyenne de vues : 1,2M"] },
+            { p: "INSTAGRAM", v: "1,4M abonnés", extra: ["Moyenne de vues Reels : 600k"] },
           ]}
           videos={[
             { img: "/havas/mp4-thumb1.jpg", tag: "Docu / vlog", title: "100H dans un lac radioactif créé par une bombe nucléaire !" },
@@ -373,7 +373,7 @@ export function createSFarRoster(P) {
           chips={["Gaming", "Tests", "Découvertes"]}
           desc="Avec près de 15 ans de passion partagée, Cyril vous embarque dans un univers 100 % jeux vidéo : tests, découvertes, défis et fun au rendez-vous. Expert et passionné, il partage ses coups de cœur et ses aventures gaming avec sa communauté."
           stats={[
-            { p: "YOUTUBE", v: "1,11M abonnés", extra: ["Moyenne de vues : 350k"] },
+            { p: "YOUTUBE", v: "1,13M abonnés", extra: ["Moyenne de vues : 390k"] },
           ]}
           videos={[
             { img: "/havas/studio-thumb1.jpg", tag: "Gaming", title: "J'explore les jeux abandonnés de notre enfance !" },
@@ -399,8 +399,8 @@ export function createSFarRoster(P) {
           chips={["Construction", "Défis", "Divertissement"]}
           desc="Youtubeur divertissement aux multiples facettes, Toinelag anime une communauté engagée autour de vidéos funs et originales : défis, humour et gaming. Son but ? Divertir et surprendre son audience à chaque vidéo !"
           stats={[
-            { p: "YOUTUBE", v: "1,9M abonnés", extra: ["Moyenne de vues : 1,5M"] },
-            { p: "INSTAGRAM", v: "17,1k abonnés", extra: ["Moyenne de vues Story : 10k"] },
+            { p: "YOUTUBE", v: "1,95M abonnés", extra: ["Moyenne de vues : 1,6M"] },
+            { p: "INSTAGRAM", v: "23k abonnés", extra: ["Moyenne de vues Story : 10k"] },
           ]}
           videos={[
             { img: "/havas/toinelag-thumb1.jpg", tag: "Construction", title: "Je Construis une Pièce Secrète dans un Trampoline Park" },
@@ -426,8 +426,8 @@ export function createSFarRoster(P) {
           chips={["Gaming", "Brainrot", "Défis"]}
           desc="Les chaînes secondaires de Toinelag prolongent son univers : gaming, formats courts et concepts brainrot qui cartonnent auprès d'une audience jeune. Des moyennes de vues supérieures au million sur des formats ultra-viraux."
           stats={[
-            { p: "YOUTUBE GAMING", v: "735k abonnés", extra: ["Moyenne de vues : 2,2M"] },
-            { p: "YOUTUBE PLUS", v: "317k abonnés", extra: ["Moyenne de vues : 2,6M"] },
+            { p: "YOUTUBE GAMING", v: "850k abonnés", extra: ["Moyenne de vues : 2,0M"] },
+            { p: "YOUTUBE PLUS", v: "349k abonnés", extra: ["Moyenne de vues : 3,0M"] },
           ]}
           videos={[
             { img: "/havas/tgaming-thumb1.jpg", tag: "Brainrot", title: "On mange des Brainrot dans la vraie vie" },
@@ -453,8 +453,8 @@ export function createSFarRoster(P) {
           chips={["Street food", "Tests", "Bonne bouffe"]}
           desc="Le Routin explore la food du quotidien avec un regard curieux et accessible : street food, nouveautés de supermarché, tests et bonnes adresses. Un ton simple et authentique qui fédère une communauté fidèle autour de la bonne bouffe, sans chichis."
           stats={[
-            { p: "YOUTUBE", v: "578k abonnés", extra: ["Moyenne de vues : 224,6k"] },
-            { p: "TIKTOK", v: "336,1k abonnés", extra: ["Moyenne de vues : 268k"] },
+            { p: "YOUTUBE", v: "601k abonnés", extra: ["Moyenne de vues : 500k"] },
+            { p: "TIKTOK", v: "359k abonnés", extra: ["Moyenne de vues : 268k"] },
             { p: "INSTAGRAM", v: "187k abonnés", extra: ["Moyenne de vues Reels : 216k · Story : 45k"] },
           ]}
           videos={[
@@ -482,8 +482,8 @@ export function createSFarRoster(P) {
           chips={["Call of Duty", "Live Twitch", "TikTok viral"]}
           desc="Référence de Call of Duty Warzone grâce à ses vidéos virales sur TikTok explosives, il cumule les spectateurs en réalisant des actions de grande classe tous les jours sur Twitch."
           stats={[
-            { p: "TWITCH", v: "210k abonnés", extra: ["Moyenne de vues : 15k · Average viewers : 600"] },
-            { p: "TIKTOK", v: "473,8k abonnés", extra: ["Moyenne de vues : 160k"] },
+            { p: "TWITCH", v: "224k abonnés", extra: ["Average viewers : 480"] },
+            { p: "TIKTOK", v: "494k abonnés", extra: ["Moyenne de vues : 160k"] },
           ]}
           videos={[
             { img: "/havas/bek1ng-thumb1.jpg", tag: "Performance en live", title: "Ce streamer Italien et sa team vont regretter ce qu'ils m'ont fait" },
@@ -505,7 +505,7 @@ export function createSFarRoster(P) {
           chips={["Fortnite", "Vidéo quotidienne", "Compétitif"]}
           desc="L'un des meilleurs joueurs du monde de Fortnite s'est reconverti en créateur de contenu considéré comme une référence de ce jeu depuis 10 ans. Avec une vidéo quotidienne, ses spectateurs ont un rendez-vous régulier immanquable."
           stats={[
-            { p: "YOUTUBE", v: "2,01M abonnés", extra: ["Moyenne de vues : 90k"] },
+            { p: "YOUTUBE", v: "2,02M abonnés", extra: ["Moyenne de vues : 270k"] },
             { p: "TIKTOK", v: "110k abonnés", extra: ["Moyenne de vues : 150k"] },
           ]}
           videos={[
