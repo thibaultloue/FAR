@@ -373,104 +373,6 @@ function slideMerci({ FarLogo }) {
   };
 }
 
-function buildGrandJd({ FarLogo, pu }) {
-  return [
-    slideOpen({
-      name: "Le Grand JD",
-      photo: "/grandjd/jd-portrait.jpg",
-      line: "On aimerait bosser avec toi. Trouver des marques qui ont vraiment leur place dans tes formats — sans te rajouter du bruit.",
-      FarLogo,
-      pu,
-    }),
-    slideFar({ FarLogo }),
-    slideManifesto({ FarLogo }),
-    slidePourquoi({
-      title: "Tu fais du long qui compte.",
-      lead: "Reportage, urbex, paranormal, rencontres. Les marques peuvent s'y accrocher pour de vrai — pas juste pour du reach.",
-      stats: [
-        { v: "4,2M", l: "abonnés YouTube" },
-        { v: "17 ans", l: "que tu fais ça" },
-        { v: "~28 %", l: "remplissage auj." },
-      ],
-      points: [
-        { t: "Formats", d: "Du docu, de l'enquête. Du contenu qui tient." },
-        { t: "Territoire", d: "Claire, rare, rassurant pour une marque." },
-        { t: "Potentiel", d: "Beaucoup de vidéos sortent encore sans partenaire." },
-      ],
-      photo: "/grandjd/jd-portrait-2.jpg",
-      axes: [
-        { t: "Reportages & docs", img: "/grandjd/axe-1-reportage.png" },
-        { t: "Paranormal / Urbex", img: "/grandjd/axe-2-urbex.png" },
-        { t: "Rencontres", img: "/grandjd/axe-3-rencontres.png" },
-      ],
-      FarLogo,
-      pu,
-    }),
-    slideRemplissage({
-      from: "~28 %",
-      note: "Trop de bonnes vidéos partent à vide. L'idée : se rapprocher de 100 %, un sponsor par vidéo, quand c'est juste.",
-    }),
-    {
-      title: "Preuve",
-      r: (t) => (
-        <div style={{ width: "100%" }}>
-          <KEyebrow t={t}>Pour te montrer comment on lit</KEyebrow>
-          <div style={{ ...kd, fontSize: 36, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.12, color: t.c, marginBottom: 10, maxWidth: 780 }}>
-            Trois vidéos fortes. Zéro marque.
-          </div>
-          <div style={{ ...kb, fontSize: 17, color: t.m, marginBottom: 28, maxWidth: 560 }}>
-            Pas un catalogue. Juste trois angles qu&apos;on aurait poussés.
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "48px 1.25fr 1fr", gap: 20, paddingBottom: 12, borderBottom: `1px solid ${t.brd}` }}>
-            <div />
-            <div style={{ ...kb, fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: t.d }}>VIDÉO · CATÉGORIE</div>
-            <div style={{ ...kb, fontSize: 11, fontWeight: 700, letterSpacing: 1.2, color: t.d }}>ANGLE</div>
-          </div>
-          {[
-            {
-              v: "58 jours pour filmer un animal que personne ne voit",
-              c: "Optique & capture",
-              d: "Basse lumière, longue focale. Genre Sony, Canon, Fujifilm…",
-            },
-            {
-              v: "L'épidémie la plus étrange de France",
-              c: "Santé digitale",
-              d: "Symptômes flous, accès au soin. Genre Qare, Doctolib, Alan…",
-            },
-            {
-              v: "Le lac aux squelettes",
-              c: "4x4 & mobilité",
-              d: "Terrain hostile, accès extrême. Genre Land Rover, Jeep, Toyota…",
-            },
-          ].map((x, i) => (
-            <div
-              key={i}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "48px 1.25fr 1fr",
-                gap: 20,
-                padding: "22px 0",
-                borderBottom: `1px solid ${t.brd}`,
-                alignItems: "start",
-              }}
-            >
-              <div style={{ ...kd, fontSize: 18, fontWeight: 700, color: t.a }}>{String(i + 1).padStart(2, "0")}</div>
-              <div>
-                <div style={{ ...kb, fontSize: 16, fontWeight: 600, color: t.c, lineHeight: 1.35, marginBottom: 8 }}>{x.v}</div>
-                <div style={{ ...kd, fontSize: 20, fontWeight: 700, color: t.a }}>{x.c}</div>
-              </div>
-              <div style={{ ...kb, fontSize: 15, color: t.m, lineHeight: 1.5, paddingTop: 2 }}>{x.d}</div>
-            </div>
-          ))}
-        </div>
-      ),
-    },
-    slideCadre(),
-    slideDeal(),
-    slideMerci({ FarLogo }),
-  ];
-}
-
 function buildBouseuh({ FarLogo, pu }) {
   return [
     slideOpen({
@@ -648,7 +550,6 @@ function buildUnchained({ FarLogo, pu }) {
 
 export function createPitchCreatorDecks({ FarLogo, pu }) {
   return {
-    SGrandJd: buildGrandJd({ FarLogo, pu }),
     SBouseuh: buildBouseuh({ FarLogo, pu }),
     SUnchained: buildUnchained({ FarLogo, pu }),
   };

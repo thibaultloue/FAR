@@ -26,4 +26,5 @@ dist-ssr
 
 # PDF générés en local (scripts/export-pdfs.mjs)
 exports/*.pdf
+exports/*.png
 exports/screenshots/
