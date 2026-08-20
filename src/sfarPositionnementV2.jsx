@@ -772,12 +772,12 @@ export function createSFarPositionnementV2(P) {
               {
                 w: "Pour la marque",
                 h: "La meilleure intégration possible.",
-                d: "On cherche, avec la marque, où elle s'inscrit le mieux dans le contenu - pour que le partenariat serve les deux.",
+                d: "On cherche, avec la marque, où elle s'inscrit le mieux dans le contenu, et comment, pour que le partenariat serve les deux. Un partenariat bien placé est mieux accepté, mieux regardé et plus performant. Une intégration plaquée coûte toujours plus qu'elle ne rapporte.",
               },
               {
-                w: "Pour la communauté",
-                h: "Le lien se renforce.",
-                d: "Un partenariat bien placé est mieux accepté, mieux regardé et plus performant. Une intégration plaquée coûte toujours plus qu'elle ne rapporte.",
+                w: "Pour le calendrier",
+                h: "Le bon ratio.",
+                d: "Trouver le bon ratio entre les marques premium et marques digital friendly, les intégrations et les dédiées, en fonction des besoins et envies des créateurs.",
               },
             ].map((o) => (
               <M key={o.w} variants={fu(14)} style={{ padding: "18px 20px", borderRadius: 16, background: t.card, border: `1px solid ${t.brd}` }}>
@@ -790,11 +790,6 @@ export function createSFarPositionnementV2(P) {
                 <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.48 }}>{o.d}</div>
               </M>
             ))}
-          </M>
-          <M variants={fu(8)}>
-            <Th t={t} s={{ marginTop: 14, padding: "16px 22px", fontSize: 14.5, lineHeight: 1.5, borderRadius: 18, borderLeft: `5px solid ${t.a}` }}>
-              Seule entorse : une opportunité vectrice de développement significatif de CA.
-            </Th>
           </M>
         </M>
       ),
