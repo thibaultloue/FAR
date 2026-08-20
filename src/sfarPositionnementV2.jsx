@@ -675,7 +675,7 @@ export function createSFarPositionnementV2(P) {
                 k: "Temps",
                 n: "1",
                 u: "équipe dédiée",
-                h: "Le moins de temps possible pris",
+                h: "Plus de temps pour créer",
                 d: "On absorbe tout ce qui est chronophage (prospection, négociation, contrats). Le créateur garde son temps pour créer.",
               },
             ].map((o) => (
@@ -799,7 +799,7 @@ export function createSFarPositionnementV2(P) {
       title: "Le temps du créateur",
       r: (t) => (
         <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="LE TEMPS" title="On prend le moins de temps possible." titleS={{ fontSize: 34 }} />
+          <SlideHead t={t} tag="LE TEMPS" title="On libère du temps pour créer." titleS={{ fontSize: 34 }} />
           <M variants={fu(8)} style={{ marginBottom: 20 }}>
             <Sh t={t} s={{ fontSize: 15.5, lineHeight: 1.55, margin: 0, maxWidth: 900 }}>
               Un allié au quotidien, pas une couche d&apos;organisation en plus.
@@ -813,7 +813,7 @@ export function createSFarPositionnementV2(P) {
               Contrats, facturation, conformité, relances de paiement. Plus personne ne court derrière les process.
             </AdvCard>
             <AdvCard t={t} title="Une équipe dédiée">
-              Pas de chaîne de comptes ni de brief à répéter. Une équipe qui connaît le dossier et qui répond vite.
+              Jamais de battement : toute l&apos;équipe connaît le dossier et peut en prendre le relais opérationnel.
             </AdvCard>
             <AdvCard t={t} title="Des décisions en quelques minutes">
               Chaque opportunité arrive qualifiée, chiffrée et argumentée. Le créateur tranche, on exécute.
@@ -850,7 +850,7 @@ export function createSFarPositionnementV2(P) {
               {[
                 {
                   k: "Une liberté garantie",
-                  d: "Le créateur garde sa voix, son style et ses choix. Transparence totale sur chaque partenariat, aucun engagement commercial imposé.",
+                  d: "Aucun engagement commercial imposé.",
                 },
                 {
                   k: "Une création intouchable",
@@ -861,11 +861,11 @@ export function createSFarPositionnementV2(P) {
                   d: "Un contrat basé sur la confiance, qui peut s'arrêter à tout moment sans préavis. Aucun engagement qui enferme.",
                 },
                 {
-                  k: "Une rémunération juste & évolutive",
-                  d: "Pas de grille unique : la rémunération évolue selon l'accompagnement réel, le chiffre d'affaires et les besoins.",
+                  k: "Une rémunération juste et transparente",
+                  d: "Un taux unique, fixe et contractualisé. Pas de marge cachée, tous les contrats sont à disposition.",
                 },
                 {
-                  k: "Un allié, pas une couche de plus",
+                  k: "Un allié au quotidien",
                   d: "Une équipe dédiée qui épaule sur la structure, le commercial et les projets, en prenant le moins de temps possible.",
                 },
               ].map((e, i) => (
