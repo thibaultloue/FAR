@@ -1,13 +1,17 @@
 /** Le Grand JD — version initiale (DA sombre cinématographique, pré-Keynote). */
+import jdPortraitUrl from "./assets/grandjd/jd-portrait.jpg";
+
 export function createSGrandJd(P) {
-  const { FarLogo, FarBeams, pu, se, sa, mo, Tg, Hl, Sh, POS_PROSPECT_INSERT = [] } = P;
+  const { FarLogo, FarBeams, pu, se, sa, mo, Tg, Hl, Sh } = P;
   return [
 
 {title:"Présentation",
-r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
-  <div style={{flex:3}}>
+r:t=>{
+  const src=jdPortraitUrl;
+  return <div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
+  <div style={{flex:3,minWidth:0}}>
     <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:22}}>
-      <img src={pu("/grandjd/jd-portrait.jpg")} alt="Le Grand JD" style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:`2px solid ${t.a}`,flexShrink:0}}/>
+      <img src={src} alt="Le Grand JD" style={{width:56,height:56,borderRadius:"50%",objectFit:"cover",border:`2px solid ${t.a}`,flexShrink:0}}/>
       <div style={{width:1,height:32,background:t.brd}}/>
       <FarLogo size={68} variant={t.lv}/>
       <FarBeams w={96} fill={t.a} style={{marginLeft:4}}/>
@@ -15,7 +19,7 @@ r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
     <div style={{...mo,fontSize:12,fontWeight:700,letterSpacing:2.5,color:t.a,marginBottom:14}}>PROSPECTION · APPORT D'AFFAIRES</div>
     <div style={{...se,fontSize:48,fontWeight:800,lineHeight:1.05,marginBottom:14,color:t.c,whiteSpace:"nowrap"}}>Le Grand JD{"\u00A0"}×{"\u00A0"}FAR</div>
     <div style={{width:60,height:3,background:t.a,borderRadius:2,marginBottom:20}}/>
-    <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.45,marginBottom:22,maxWidth:580,whiteSpace:"nowrap"}}>Une force de frappe commerciale pour faire grandir ton univers et tes revenus.</div>
+    <div style={{...sa,fontSize:17,color:t.m,lineHeight:1.45,marginBottom:22,maxWidth:580,whiteSpace:"nowrap"}}>Une force de frappe commerciale pour valoriser ton univers et tes revenus.</div>
     <div style={{display:"flex",flexDirection:"column",gap:14}}>
       {[
         {t:"Multiplier tes opportunités",d:"Une équipe dédiée, sans te rajouter de charge."},
@@ -25,16 +29,17 @@ r:t=><div style={{display:"flex",gap:44,alignItems:"center",minHeight:"62vh"}}>
       ].map((o,i)=><div key={i} style={{display:"flex",gap:12,alignItems:"flex-start"}}><div style={{width:7,height:7,borderRadius:4,background:t.a,flexShrink:0,marginTop:8}}/><div><div style={{...sa,fontSize:15.5,fontWeight:700,color:t.c,lineHeight:1.25,whiteSpace:"nowrap"}}>{o.t}</div><div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginTop:2,whiteSpace:"nowrap"}}>{o.d}</div></div></div>)}
     </div>
   </div>
-  <div style={{flex:2,borderRadius:20,overflow:"hidden",boxShadow:"0 18px 50px rgba(0,0,0,.45)",border:`1px solid ${t.brd}`}}>
-    <img src={pu("/grandjd/jd-portrait.jpg")} alt="Le Grand JD" style={{width:"100%",height:440,objectFit:"cover",display:"block",objectPosition:"center top"}}/>
+  <div style={{flex:"0 0 420px",width:420,height:440,borderRadius:20,overflow:"hidden",boxShadow:"0 18px 50px rgba(0,0,0,.45)",border:`1px solid ${t.brd}`,flexShrink:0,backgroundColor:"#1a1f24",backgroundImage:`url(${JSON.stringify(src)})`,backgroundSize:"cover",backgroundPosition:"center top",backgroundRepeat:"no-repeat"}}>
+    <img src={src} alt="Le Grand JD" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",objectPosition:"center top"}}/>
   </div>
-</div>},
+</div>;
+}},
 
 {title:"L'agence",
 r:t=><div>
   <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:12}}><FarLogo size={48} variant={t.lv}/><div style={{width:1,height:26,background:t.brd}}/><div style={{...mo,fontSize:12,fontWeight:600,letterSpacing:3,color:t.d}}>L'AGENCE</div><div style={{flex:1}}/><FarBeams w={90} fill={t.a}/></div>
-  <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.12,marginBottom:8,whiteSpace:"nowrap"}}>Faire grandir les univers créateurs.</div>
-  <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginBottom:12,whiteSpace:"nowrap"}}>Chez FAR, un créateur ne se résume pas à son audience{"\u00A0"}: c'est un univers. Notre mission{"\u00A0"}: le faire grandir juste.</div>
+  <div style={{...se,fontSize:30,fontWeight:800,lineHeight:1.12,marginBottom:8,whiteSpace:"nowrap"}}>Valoriser les univers créateurs.</div>
+  <div style={{...sa,fontSize:14,color:t.m,lineHeight:1.4,marginBottom:12,whiteSpace:"nowrap"}}>Chez FAR, un créateur ne se résume pas à son audience{"\u00A0"}: c'est un univers. Notre mission{"\u00A0"}: le valoriser juste.</div>
   <div style={{display:"flex",gap:10,marginBottom:14}}>{[
     {v:"Roster",l:"à taille humaine"},
     {v:"10\u00A0ans",l:"d'expérience marques & créateurs"},
@@ -43,9 +48,9 @@ r:t=><div>
   ].map((s,i)=><div key={i} style={{flex:1,padding:"11px 10px",borderRadius:10,background:t.card,border:`1px solid ${t.brd}`,textAlign:"center"}}><div style={{...se,fontSize:20,fontWeight:800,color:t.a}}>{s.v}</div><div style={{...sa,fontSize:11.5,color:t.m,marginTop:3,whiteSpace:"nowrap"}}>{s.l}</div></div>)}</div>
   <div style={{display:"flex",gap:0,borderRadius:14,overflow:"hidden",border:`1px solid ${t.brd}`}}>{[
     {
-      t:"Protéger la création",
-      hook:"Défendre l'ADN de l'univers.",
-      pts:["Ligne éditoriale & territoire","Intégrations marques crédibles","Arbitrage des opportunités","Protection des catégories"],
+      t:"Garantir la croissance",
+      hook:"Ouvrir sans dénaturer.",
+      pts:["Partenariats long terme","Actifs propriétaires","Opérations premium","Remplissage intelligent"],
     },
     {
       t:"Solidifier la structure",
@@ -53,9 +58,9 @@ r:t=><div>
       pts:["Priorisation & calendrier","Data & visibilité business","Cadre admin, juridique, fiscal","Process & outils"],
     },
     {
-      t:"Garantir la croissance",
-      hook:"Ouvrir sans dénaturer.",
-      pts:["Partenariats long terme","Actifs propriétaires","Opérations premium","Remplissage 100\u00A0% intelligent"],
+      t:"Laisser la création intacte",
+      hook:"Défendre l'ADN de l'univers.",
+      pts:["Ligne éditoriale & territoire","Intégrations marques crédibles","Arbitrage des opportunités","Protection des catégories"],
     },
   ].map((item,i)=><div key={i} style={{flex:1,padding:"14px 16px",borderRight:i<2?`1px solid ${t.brd}`:"none",background:i%2===0?t.card:"transparent"}}>
     <div style={{marginBottom:8}}><FarBeams w={52} fill={t.a} active={i+1} dimOpacity={0.22}/></div>
@@ -119,8 +124,6 @@ r:t=>{
     </div>
   );
 }},
-
-...POS_PROSPECT_INSERT,
 
 {title:"Pourquoi toi",
 r:t=><div style={{display:"flex",gap:28,alignItems:"stretch"}}>
@@ -293,6 +296,9 @@ r:t=><div>
 </div>},
 
 {title:"Merci",
-r:(t,back)=><div style={{textAlign:"center",padding:"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:40}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:52,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:16}}>Merci.</div><div style={{...sa,fontSize:17,color:t.c2,lineHeight:1.6,maxWidth:520,marginBottom:8}}>Qui veut aller loin, vient ici.</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"28px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:36,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>},
+r:(t,back)=>{
+  const pdf=Boolean(globalThis.__FAR_PDF_EXPORT);
+  return <div style={{textAlign:"center",padding:pdf?"0":"80px 0",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><div style={{marginBottom:40}}><FarLogo size={100} variant={t.lv}/></div><div style={{...se,fontSize:52,fontWeight:800,letterSpacing:"-0.02em",lineHeight:1.1,marginBottom:16}}>Merci.</div><div style={{...sa,fontSize:17,color:t.c2,lineHeight:1.6,maxWidth:520,marginBottom:8}}>Qui veut aller loin, vient ici.</div><div style={{width:60,height:3,background:t.a,borderRadius:2,margin:"28px auto 0"}}/>{back&&<button onClick={back} style={{marginTop:36,background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"12px 32px",borderRadius:10,border:"none",cursor:"pointer"}}>← Retour à l'accueil</button>}</div>;
+}},
 ];
 }

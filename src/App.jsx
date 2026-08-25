@@ -533,6 +533,9 @@ let _lp=null;
 const _farLogoByVariant = {};
 const FarLogo = ({size=80,variant="yellow"}) => {
   const[s,setS]=useState(_farLogoByVariant[variant]||_lp);
+  // Ratio réel du PNG (évite height:auto → déformation html2canvas).
+  const FAR_LOGO_RATIO = 436 / 192;
+  const h = Math.round(size / FAR_LOGO_RATIO);
   useEffect(()=>{
     if(_farLogoByVariant[variant]){setS(_farLogoByVariant[variant]);return;}
     const img=new Image();
@@ -556,8 +559,28 @@ const FarLogo = ({size=80,variant="yellow"}) => {
     };
     img.src=pu("/far-logo.png");
   },[variant]);
-  if(!s)return<div style={{width:size,height:size*.35}}/>;
-  return<img src={s} alt="FAR" style={{width:size,height:"auto",display:"block"}}/>;
+  if(!s)return<div style={{width:size,height:h,flexShrink:0}}/>;
+  // Conteneur ratio verrouillé : html2canvas déforme les <img> sous transform:scale.
+  return (
+    <div style={{ width: size, height: h, flexShrink: 0, overflow: "hidden", lineHeight: 0, position: "relative" }}>
+      <img
+        src={s}
+        alt="FAR"
+        width={size}
+        height={h}
+        draggable={false}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: size,
+          height: h,
+          maxWidth: "none",
+          maxHeight: "none",
+          display: "block",
+        }}
+      />
+    </div>
+  );
 };
 
 // ─── DECK MOTIFS ──────────────────────────────────────────────────────────────
@@ -566,6 +589,7 @@ const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "farposition
 const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
 /** Deck positionnement : V1 historique + V2 (créateur au centre) partagent le même gabarit. */
 const isFarPositionDeck = (deck) => deck === "farposition" || deck === "farposition2";
+const isGrandJdDeck = (deck) => deck === "grandjd" || deck === "grandjd2";
 
 const DeckMotif = ({deck}) => {
   if(deckUsesT1Hatch(deck)) return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
@@ -1339,11 +1363,65 @@ r:(t,back)=><div>
 // ═══════════════════════════════════════════════════════════════════════════════
 // O'TACOS × PEPE CHICKEN  -  LTO FOOD / DRIVE TO STORE  -  11 SLIDES
 // ═══════════════════════════════════════════════════════════════════════════════
-/** Trois faisceaux du logo FAR (signature graphique). active = 1|2|3 pour n’en souligner qu’un. */
-const FarBeams = ({ w = 130, h, fill = "#000", active = null, dimOpacity = 0.2, style }) => {
-  const ratio = 382 / 100;
-  const _w = w;
-  const _h = h ?? Math.round(_w / ratio);
+/** Trois faisceaux du logo FAR (signature graphique). active = 1|2|3 pour n’en souligner qu’un.
+ * Ratio viewBox 382×100 STRICT — jamais de hauteur forcée (sinon déformation).
+ * En PDF : bitmap (html2canvas déforme les SVG polygon). */
+const FAR_BEAMS_VB_W = 382;
+const FAR_BEAMS_VB_H = 100;
+const FAR_BEAMS_PATHS = [
+  [0, 12, 372, 4, 382, 10, 372, 18, 0, 14],
+  [0, 49, 372, 40, 382, 46, 372, 54, 0, 51],
+  [0, 87, 372, 77, 382, 83, 372, 92, 0, 89],
+];
+const farBeamsCache = new Map();
+function farBeamsToDataUrl(w, h, fill, active, dimOpacity) {
+  const key = `${w}|${h}|${fill}|${active}|${dimOpacity}`;
+  if (farBeamsCache.has(key)) return farBeamsCache.get(key);
+  const scale = 3;
+  const cv = document.createElement("canvas");
+  cv.width = Math.max(1, Math.round(w * scale));
+  cv.height = Math.max(1, Math.round(h * scale));
+  const ctx = cv.getContext("2d");
+  ctx.scale(cv.width / FAR_BEAMS_VB_W, cv.height / FAR_BEAMS_VB_H);
+  FAR_BEAMS_PATHS.forEach((pts, i) => {
+    ctx.beginPath();
+    ctx.moveTo(pts[0], pts[1]);
+    for (let p = 2; p < pts.length; p += 2) ctx.lineTo(pts[p], pts[p + 1]);
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.globalAlpha = active == null || active === i + 1 ? 1 : Math.max(dimOpacity, 0.5);
+    ctx.fill();
+  });
+  const url = cv.toDataURL("image/png");
+  farBeamsCache.set(key, url);
+  return url;
+}
+const FarBeams = ({ w = 130, fill = "#000", active = null, dimOpacity = 0.2, style }) => {
+  const _w = Math.round(w);
+  const _h = Math.round(_w / (FAR_BEAMS_VB_W / FAR_BEAMS_VB_H));
+  const box = {
+    flexShrink: 0,
+    display: "block",
+    overflow: "visible",
+    width: _w,
+    height: _h,
+    maxWidth: _w,
+    maxHeight: _h,
+    ...style,
+  };
+  if (typeof document !== "undefined" && globalThis.__FAR_PDF_EXPORT) {
+    return (
+      <img
+        src={farBeamsToDataUrl(_w, _h, fill, active, dimOpacity)}
+        width={_w}
+        height={_h}
+        alt=""
+        draggable={false}
+        style={box}
+        aria-hidden
+      />
+    );
+  }
   const paths = [
     "0,12 372,4 382,10 372,18 0,14",
     "0,49 372,40 382,46 372,54 0,51",
@@ -1353,23 +1431,23 @@ const FarBeams = ({ w = 130, h, fill = "#000", active = null, dimOpacity = 0.2, 
     <svg
       width={_w}
       height={_h}
-      viewBox="0 0 382 100"
+      viewBox={`0 0 ${FAR_BEAMS_VB_W} ${FAR_BEAMS_VB_H}`}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
-      style={{ flexShrink: 0, display: "block", overflow: "visible", ...style }}
+      style={box}
       aria-hidden
     >
       {paths.map((pts, i) => (
-        <polygon key={i} points={pts} fill={fill} opacity={active == null || active === i + 1 ? 1 : dimOpacity} />
+        <polygon key={i} points={pts} fill={fill} opacity={active == null || active === i + 1 ? 1 : Math.max(dimOpacity, 0.5)} />
       ))}
     </svg>
   );
 };
-const TitleBars = ({ w = 130, h, style }) => <FarBeams w={w} h={h} fill="#000" style={style} />;
+const TitleBars = ({ w = 130, style }) => <FarBeams w={w} fill="#000" style={style} />;
 const FarHeader = ({t}) => (
   <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:20}}>
     <FarLogo size={50} variant={t.logoVariant||"black"}/>
-    <TitleBars w={110} h={28}/>
+    <TitleBars w={110}/>
   </div>
 );
 const SocialIcon = ({k,size=16}) => {
@@ -1411,7 +1489,7 @@ const RoadmapTable = ({n,cols,t,labelW=160,iconSize=24,fmtFs=11,thFs=10.5,thMin=
   return <div>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:dense?8:14,gap:14}}>
       <div style={{display:"flex",alignItems:"center",gap:14}}>
-        <TitleBars w={dense?84:92} h={dense?22:24}/>
+        <TitleBars w={dense?84:92}/>
         <div style={{...se,fontSize:dense?27:30,fontWeight:900,color:t.c,letterSpacing:0.5}}>ROADMAP · DISPOSITIF {n}</div>
       </div>
       <div style={{display:"flex",alignItems:"center",gap:10}}>
@@ -1710,7 +1788,7 @@ r:t=>{const offers=[
 r:t=><div style={{minHeight:"72vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center"}}>
   <div style={{display:"flex",alignItems:"center",gap:18,marginBottom:40}}>
     <FarLogo size={48} variant="black"/>
-    <TitleBars w={120} h={32}/>
+    <TitleBars w={120}/>
   </div>
   <div style={{background:t.c2,color:t.bg,padding:"28px 88px",...se,fontSize:120,fontWeight:900,letterSpacing:-3,lineHeight:1,boxShadow:t.cS,borderRadius:10}}>MERCI.</div>
 </div>},
@@ -3166,7 +3244,16 @@ const SFarRoster = createSFarRoster({
 const SFarPositionnement2Annexes = {
   title: "Annexes",
   r: (t) => (
-    <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "60vh" }}>
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        ...(globalThis.__FAR_PDF_EXPORT ? {} : { minHeight: "60vh" }),
+      }}
+    >
       <div style={{ ...mo, fontSize: 16, fontWeight: 700, letterSpacing: 5, color: t.a, marginBottom: 16 }}>ANNEXES</div>
       <Hl t={t} s={{ fontSize: 44, textAlign: "center", maxWidth: 800, margin: "0 auto 24px" }}>Nos créateurs</Hl>
       <div style={{ width: 80, height: 3, background: t.a, borderRadius: 2, margin: "0 auto" }} />
@@ -3204,8 +3291,8 @@ const META = {
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
-  grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 12 slides",tag:"PROSPECTION",card:"grandjd"},
-  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 12 slides",tag:"PROSPECTION",card:"grandjd2"},
+  grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 10 slides",tag:"PROSPECTION",card:"grandjd"},
+  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 15 slides",tag:"PROSPECTION",card:"grandjd2"},
   bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 9 slides",tag:"PROSPECTION",card:"bouseuh"},
   unchained:{l:"Unchained × FAR",s:"Prospection créateur · multi-chaînes & produits · 9 slides",tag:"PROSPECTION",card:"unchained"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -3239,7 +3326,8 @@ const PDF_PAGE_W_MM = 338.67;
 const PDF_PAGE_H_MM = 190.5;
 
 function pdfRenderSize(deckId) {
-  if (deckUsesT1Hatch(deckId)) return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
+  // Même canvas 1920×1080 que le positionnement / T1 pour un fill homogène.
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
   const w = PDF_RENDER_W;
   return { w, h: Math.round((w * 9) / 16) };
 }
@@ -3272,17 +3360,18 @@ function pdfGetT1HatchTileUrl() {
 
 function pdfWrapPadding(deckId) {
   if (deckId === "otacospepe") return "14px 26px 8px";
-  if (deckUsesT1Hatch(deckId)) return "60px 100px 52px";
+  // T1 / Grand JD @ 1920 : mêmes proportions que White Desert.
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) return "22px 44px 0px";
   return "14px 28px 0px";
 }
 
 function pdfRenderSettleMs(deckId) {
-  return isFarPositionDeck(deckId) ? 800 : deckUsesT1Hatch(deckId) ? 650 : 520;
+  return isFarPositionDeck(deckId) || isGrandJdDeck(deckId) ? 800 : deckUsesT1Hatch(deckId) ? 650 : 520;
 }
 
 function pdfInnerStyle(deckId) {
-  if (deckUsesT1Hatch(deckId)) {
-    return "width:100%;max-width:none;display:flex;align-items:center;justify-content:center;";
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) {
+    return "width:100%;max-width:none;box-sizing:border-box;";
   }
   return "width:100%;max-width:1580px;";
 }
@@ -3449,63 +3538,162 @@ function pdfUnfreezeMotion() {
   document.querySelector("[data-pdf-motion]")?.remove();
 }
 
-function pdfFitOptsForSlide(deckId, slideIndex, slideCount = 0) {
-  const opts = {};
+/** Slides profil créateur (Agence & Roster + annexes Positionnement V2). */
+const PDF_CREATOR_SLIDE_TITLES = new Set([
+  "FastGoodCuisine",
+  "CYRILmp4",
+  "CYRILstudio",
+  "Toinelag",
+  "Toinelag Gaming / +",
+  "Le Routin",
+  "Bek1ng",
+  "Teeqzy",
+]);
+
+function pdfIsCreatorProfileSlide(title) {
+  return PDF_CREATOR_SLIDE_TITLES.has(title);
+}
+
+/**
+ * Référence White Desert : contenu contraint (~1176px utiles) puis scale uniforme
+ * pour remplir ~96 % de la page, sans déformation. Tous les decks passent par là.
+ */
+function pdfFitOptsForSlide(deckId, slideIndex, slideCount = 0, slideTitle = "") {
   const isCover = slideIndex === 0;
   const isLast = slideCount > 0 && slideIndex === slideCount - 1;
-  if (isFarPositionDeck(deckId)) {
-    // Même logique proportionnelle que les pitch decks (White Desert, PONANT…) :
-    // contenu contraint en largeur (maxWidth par slide dans l'export) puis agrandi.
-    opts.minScale = 0.88;
-    opts.targetFill = isCover ? 0.98 : 0.96;
-    opts.useContentWidth = true;
-    if (isCover) opts.maxScale = 1.42;
-    else if (slideIndex === 1 || isLast) opts.maxScale = 1.6; // manifesto / closing (texte centré)
-    else opts.maxScale = 1.4;
-  } else if (deckId === "otacospepe") opts.minScale = 0.82;
-  else if (deckId === "farmarques") {
+  const isTextSlide = isCover || slideIndex === 1 || isLast || slideTitle === "Annexes";
+  // Réf. White Desert : contenu contraint puis scale uniforme → ~96 % de la page utile.
+  // maxScale doit permettre d'atteindre targetFill en largeur (sinon bandes vides).
+  const opts = {
+    minScale: 0.88,
+    maxScale: isCover ? 1.42 : isTextSlide ? 1.5 : 1.34,
+    targetFill: isCover ? 0.98 : 0.96,
+    useContentWidth: true,
+  };
+  if (deckId === "otacospepe") opts.minScale = 0.82;
+  if (deckId === "farmarques") {
     opts.minScale = 0.9;
-    opts.maxScale = 2.0;
     opts.targetFill = 0.99;
-    opts.useContentWidth = true;
-    if (slideIndex === 1) opts.maxScale = 2.3;
-    if (slideIndex === 2 || slideIndex === 3 || slideIndex === 4) opts.maxScale = 2.3;
-    if (isCover || slideIndex === 6) opts.maxScale = isCover ? 2.1 : 1.85;
-  } else if (deckId === "farroster") {
-    // Aligné sur les pitch decks (White Desert…) : contenu contraint en largeur
-    // (voir maxWidth par slide dans l'export), puis agrandi pour remplir la page.
-    opts.minScale = 0.88;
-    opts.targetFill = isCover ? 0.98 : 0.96;
-    opts.useContentWidth = true;
-    if (isCover) opts.maxScale = 1.42;
-    else if (slideIndex === 1 || isLast) opts.maxScale = 1.6; // manifesto / merci (texte centré)
-    else if (slideIndex === 2) opts.maxScale = 1.4; // l'agence (texte + schéma)
-    else if (slideIndex === 3) opts.maxScale = 1.5; // mosaïque roster (contenu peu haut)
-    else opts.maxScale = 1.34;
-  } else if (deckUsesT1Hatch(deckId)) {
-    opts.minScale = 0.88;
-    opts.maxScale = isCover ? 1.42 : 1.22;
-    opts.targetFill = isCover ? 0.98 : 0.96;
-    opts.useContentWidth = true;
-  } else {
-    // Profil pitch (référence PONANT) : remplissage proportionnel, sans déformation.
-    opts.minScale = 0.88;
+    if (slideIndex === 1 || slideIndex === 2 || slideIndex === 3 || slideIndex === 4) opts.maxScale = 2.3;
+    else if (isCover) opts.maxScale = 2.1;
+    else if (slideIndex === 6) opts.maxScale = 1.85;
+    else opts.maxScale = 2.0;
+  }
+  // Positionnement FAR — colonne fixe (homogène, réf. WD), upscale jusqu'à ~98 %.
+  // Cover / Manifesto / Annexes / Fermeture : scale plus bas (sinon trop gros).
+  if (isFarPositionDeck(deckId)) {
+    opts.minScale = 0.9;
+    opts.targetFill = 0.98;
+    const sparse =
+      isCover ||
+      isLast ||
+      slideTitle === "Annexes" ||
+      slideTitle === "Fermeture" ||
+      slideTitle === "Manifesto";
+    if (sparse) {
+      opts.useContentWidth = true;
+      opts.fillColumn = false;
+      if (slideTitle === "Manifesto") {
+        opts.maxScale = 1.52;
+        opts.targetFill = 0.92;
+      } else if (slideTitle === "Annexes" || slideTitle === "Fermeture") {
+        opts.maxScale = 1.85;
+        opts.targetFill = 0.88;
+      } else {
+        opts.maxScale = 1.42; // cover
+        opts.targetFill = 0.88;
+      }
+    } else {
+      opts.useContentWidth = false;
+      opts.fillColumn = true;
+      opts.maxScale = pdfIsCreatorProfileSlide(slideTitle) ? 1.55 : 2.0;
+    }
+    return opts;
+  }
+  // Grand JD — même pipeline fill que le positionnement (colonne fixe + sparse).
+  if (isGrandJdDeck(deckId)) {
+    opts.minScale = 0.9;
+    opts.targetFill = 0.98;
+    const isPhotoSlide =
+      slideTitle === "Merci" ||
+      slideTitle.startsWith("Intercalaire");
+    // Présentation (cover) = contenu dense créateur × FAR, pas sparse photo.
+    const sparse = isLast || slideTitle === "Manifesto" || slideTitle === "Merci";
+    if (isPhotoSlide) {
+      // Slides photo : colonne large + scale doux (texte/overlay PDF-safe).
+      opts.useContentWidth = false;
+      opts.fillColumn = true;
+      opts.maxScale = 1.28;
+      opts.targetFill = 0.98;
+    } else if (sparse && !isPhotoSlide) {
+      opts.useContentWidth = true;
+      opts.fillColumn = false;
+      if (slideTitle === "Manifesto") {
+        opts.maxScale = 1.52;
+        opts.targetFill = 0.92;
+      } else {
+        opts.maxScale = 1.42;
+        opts.targetFill = 0.88;
+      }
+    } else {
+      opts.useContentWidth = false;
+      opts.fillColumn = true;
+      opts.maxScale = 2.0;
+    }
+    return opts;
+  }
+  if (pdfIsCreatorProfileSlide(slideTitle)) opts.maxScale = 1.34;
+  if (deckUsesT1Hatch(deckId) && deckId !== "farmarques") opts.fillColumn = true;
+  if (!deckUsesT1Hatch(deckId) && deckId !== "otacospepe" && deckId !== "farmarques") {
     opts.maxScale = isCover ? 1.42 : 1.3;
-    opts.targetFill = isCover ? 0.98 : 0.96;
-    if (isCover) opts.useContentWidth = true;
+    opts.useContentWidth = Boolean(isCover);
   }
   return opts;
 }
 
-function pdfApplyScaledContent(content, scale, neededH, neededW) {
-  content.style.transform = `scale(${scale})`;
-  content.style.transformOrigin = "top center";
-  content.style.marginBottom = `${neededH * (scale - 1)}px`;
-  if (neededW > 0 && scale < 1) {
+function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
+  const isCover = slideIndex === 0;
+  const isLast = slideCount > 0 && slideIndex === slideCount - 1;
+  if (deckId === "farmarques" && slideIndex >= 1 && slideIndex <= 5) {
+    return { 1: 1280, 2: 1240, 3: 1340, 4: 1320, 5: 1540 }[slideIndex] ?? 1280;
+  }
+  if (pdfIsCreatorProfileSlide(slideTitle)) return 1300;
+  if (deckId === "farroster") {
+    if (isCover || slideIndex === 1 || isLast) return 1000;
+    if (slideIndex === 2) return 1180;
+    if (slideIndex === 3) return 1120;
+    return 1300;
+  }
+  if (isFarPositionDeck(deckId)) {
+    if (isCover || slideIndex === 1 || isLast || slideTitle === "Annexes") return 1000;
+    return 1176;
+  }
+  if (isGrandJdDeck(deckId)) {
+    if (slideTitle === "Merci" || slideTitle.startsWith("Intercalaire")) return 1760;
+    if (slideTitle === "Manifesto") return 1000;
+    return 1176;
+  }
+  if (deckUsesT1Hatch(deckId)) {
+    if (isCover || slideIndex === 1 || isLast || slideTitle === "Annexes") return 1000;
+    return 1176;
+  }
+  return null;
+}
+
+function pdfApplyScaledContent(content, scale, neededH, neededW, origin = "top center") {
+  content.style.zoom = "";
+  // Verrouille la largeur mesurée avant scale (sinon width:100% ≠ neededW).
+  if (neededW > 0) {
+    content.style.width = `${neededW}px`;
+    content.style.maxWidth = `${neededW}px`;
     content.style.marginLeft = "auto";
     content.style.marginRight = "auto";
-    content.style.maxWidth = `${neededW}px`;
+    content.style.boxSizing = "border-box";
   }
+  content.style.transform = `scale(${scale})`;
+  content.style.transformOrigin = origin || "top center";
+  content.style.marginBottom = `${neededH * (scale - 1)}px`;
+  content.style.marginTop = "";
 }
 
 function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
@@ -3526,14 +3714,57 @@ function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
   content.style.marginBottom = "";
   content.style.marginLeft = "";
   content.style.marginRight = "";
+  content.style.marginTop = "";
   content.style.maxWidth = "";
+  content.style.zoom = "";
   inner.style.transform = "";
 
-  const neededH = Math.max(inner.scrollHeight, content.scrollHeight, content.offsetHeight);
-  // useContentWidth : ignore la largeur 100% du conteneur (sinon le contenu étroit ne peut jamais s'agrandir).
-  const neededW = opts.useContentWidth
-    ? Math.max(content.scrollWidth, content.offsetWidth)
-    : Math.max(inner.scrollWidth, content.scrollWidth, content.offsetWidth);
+  if (opts.fillColumn) {
+    content.style.width = "100%";
+    content.style.maxWidth = "100%";
+    content.style.boxSizing = "border-box";
+  }
+
+  let neededH;
+  let neededW;
+  if (opts.useContentWidth && !opts.fillColumn) {
+    // Mesure intrinsèque (réf. White Desert) : ignore width:100% et minHeight qui bloquent l'upscale.
+    const prevW = content.style.width;
+    const prevMW = content.style.maxWidth;
+    const prevAS = content.style.alignSelf;
+    const prevMH = content.style.minHeight;
+    const cleared = [];
+    const clearMinHeights = (root) => {
+      [root, ...root.querySelectorAll("*")].forEach((node) => {
+        if (node.style.minHeight) {
+          cleared.push([node, node.style.minHeight]);
+          node.style.minHeight = "";
+        }
+      });
+    };
+    clearMinHeights(content);
+    content.style.width = "fit-content";
+    content.style.maxWidth = "100%";
+    content.style.alignSelf = "center";
+    content.style.minHeight = "";
+    void content.offsetWidth;
+    neededH = Math.max(content.scrollHeight, content.offsetHeight);
+    neededW = Math.max(content.scrollWidth, content.offsetWidth);
+    content.style.width = prevW;
+    content.style.maxWidth = prevMW;
+    content.style.alignSelf = prevAS;
+    content.style.minHeight = prevMH;
+    cleared.forEach(([node, v]) => {
+      node.style.minHeight = v;
+    });
+  } else {
+    neededH = opts.fillColumn
+      ? Math.max(content.scrollHeight, content.offsetHeight)
+      : Math.max(inner.scrollHeight, content.scrollHeight, content.offsetHeight);
+    neededW = opts.useContentWidth
+      ? Math.max(content.scrollWidth, content.offsetWidth)
+      : Math.max(inner.scrollWidth, content.scrollWidth, content.offsetWidth);
+  }
   if (!neededH) return;
 
   const fitScale = Math.min(availableW / neededW, availableH / neededH);
@@ -3553,7 +3784,7 @@ function pdfFitInnerToSlide(inner, slideArea, opts = {}) {
     return;
   }
 
-  pdfApplyScaledContent(content, scale, neededH, neededW);
+  pdfApplyScaledContent(content, scale, neededH, neededW, "top center");
   if (opts.distributeSlack && scale >= 0.97) pdfDistributeRootSlack(inner, slideArea);
 }
 
@@ -3779,6 +4010,10 @@ function ActCard({a,nav}){
 // ─── PRESENTATION ─────────────────────────────────────────────────────────────
 function Pres({id,onBack,onNav}) {
   const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
+  // Évite un flag PDF coincé qui casserait le rendu live (img masqués).
+  useEffect(() => {
+    globalThis.__FAR_PDF_EXPORT = false;
+  }, [id]);
   const setCur = useCallback(v=>{setCurRaw(prev=>{
     const next=typeof v==="function"?v(prev):v;
     const u=new URL(window.location.href);
@@ -3885,25 +4120,10 @@ function Pres({id,onBack,onNav}) {
         slideArea.style.cssText = pdfSlideAreaStyle(id);
         inner = document.createElement("div");
         inner.style.cssText = pdfInnerStyle(id);
-        // farmarques : slides de contenu (1..5) — largeur cible par slide pour remplir l'espace.
-        if (id === "farmarques" && i >= 1 && i <= 5) {
-          const farmarquesMw = { 1: 1280, 2: 1240, 3: 1340, 4: 1320, 5: 1540 };
-          inner.style.maxWidth = `${farmarquesMw[i] ?? 1280}px`;
-          inner.style.marginLeft = "auto";
-          inner.style.marginRight = "auto";
-        }
-        // farroster / farposition : largeur cible par slide (texte centré vs contenu
-        // dense) pour que le contenu puisse être agrandi et remplir la page comme
-        // les pitch decks (White Desert : layout ~1176px puis remplissage ~96 %).
-        if (id === "farroster") {
-          const isTextSlide = i === 0 || i === 1 || i === n - 1;
-          inner.style.maxWidth = isTextSlide ? "1000px" : i === 2 ? "1180px" : i === 3 ? "1120px" : "1300px";
-          inner.style.marginLeft = "auto";
-          inner.style.marginRight = "auto";
-        }
-        if (isFarPositionDeck(id) && i > 0) {
-          const isTextSlide = i === 1 || i === n - 1;
-          inner.style.maxWidth = isTextSlide ? "1000px" : "1240px";
+        const slideTitle = slides[i]?.title || "";
+        const mw = pdfSlideMaxWidth(id, i, n, slideTitle);
+        if (mw) {
+          inner.style.maxWidth = `${mw}px`;
           inner.style.marginLeft = "auto";
           inner.style.marginRight = "auto";
         }
@@ -3924,13 +4144,14 @@ function Pres({id,onBack,onNav}) {
         pdfFreezeMotion(container);
         pdfFlattenVisibleTree(inner);
         pdfForceVisible(inner);
-        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i, n));
+        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i, n, slideTitle));
+        const overlayPhotos = usePhotoOverlay && (!isFarPositionDeck(id) || pdfIsCreatorProfileSlide(slideTitle));
         const directImages = useVectorBg
           ? pdfCollectAndHideLargeImages(inner, container)
-          : usePhotoOverlay && !isFarPositionDeck(id)
+          : overlayPhotos
             ? pdfCollectAndHideLargeImages(inner, container, { patterns: null, minPx: 28 })
             : [];
-        if (!usePhotoOverlay || isFarPositionDeck(id)) pdfReplaceObjectFitImages(inner);
+        if (!overlayPhotos) pdfReplaceObjectFitImages(inner);
         const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
         const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
         await new Promise((resolve) => requestAnimationFrame(resolve));

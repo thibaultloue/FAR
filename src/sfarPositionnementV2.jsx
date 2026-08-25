@@ -179,74 +179,37 @@ export function createSFarPositionnementV2(P) {
 
   const FAR_BEAM_STYLES = {
     1: {
-      grid: { columns: "1fr 1fr", gap: 16 },
-      decor: { w: 240, opacity: 0.1, top: -16, right: 0 },
-      headerMarginBottom: 8,
-      titleWrap: (t) => ({ borderLeft: `6px solid ${t.a}`, paddingLeft: 18, marginBottom: 4 }),
-      block: (t) => ({ borderRadius: 18, border: `1px solid ${t.brd}`, borderLeft: `5px solid ${t.a}`, padding: "18px 20px" }),
-      indexColor: (t) => t.thT,
-      indexWrap: (t) => ({
-        minWidth: 36,
-        padding: "6px 10px",
-        borderRadius: 999,
-        background: t.a,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }),
-      footer: (t) => ({ borderRadius: 18, borderLeft: `5px solid ${t.a}` }),
-    },
-    2: {
       grid: { columns: "1fr 1fr", gap: 14 },
-      decor: { w: 180, opacity: 0.08, top: 40, right: 24 },
-      headerAlign: "center",
-      headerMarginBottom: 6,
-      titleWrap: (t) => ({ borderLeft: `6px solid ${t.a}`, paddingLeft: 18, marginBottom: 4 }),
+      decor: { w: 200, opacity: 0.1, top: -12, right: 0 },
+      headerMarginBottom: 14,
+      titleWrap: (t) => ({ borderLeft: `5px solid ${t.a}`, paddingLeft: 16, marginBottom: 4 }),
       block: (t) => ({
-        padding: "16px 18px",
+        borderRadius: 14,
+        border: `1px solid ${t.brd}`,
         borderLeft: `4px solid ${t.a}`,
-        border: `1px solid ${t.brd}`,
-        borderRadius: 4,
+        padding: "18px 20px",
         background: "#fff",
         color: t.c,
+        minHeight: 168,
       }),
-      indexColor: (t) => t.a,
-      indexWrap: (t) => ({
-        display: "inline-flex",
-        marginBottom: 8,
-        padding: "2px 8px",
-        border: `1.5px solid ${t.a}`,
-        borderRadius: 2,
-        background: "transparent",
-      }),
-      footer: (t) => ({ borderRadius: 4, borderLeft: `4px solid ${t.a}` }),
-    },
-    3: {
-      grid: { columns: "1fr 1fr", gap: 14 },
-      decor: { w: 260, opacity: 0.12, top: -20, right: -8 },
-      headerAlign: "center",
-      titleWrap: (t) => ({ borderLeft: `6px solid ${t.a}`, paddingLeft: 18, marginBottom: 4 }),
-      block: (t, i, th) => ({
-        borderRadius: 4,
-        border: `1px solid ${t.brd}`,
-        borderTop: `3px solid ${th?.blockAccent || t.a}`,
-        padding: "16px 18px",
-        background: "#fff",
-        color: t.c,
-      }),
-      indexColor: (t) => t.thT,
-      indexWrap: (t) => ({
-        minWidth: 36,
-        padding: "6px 10px",
-        borderRadius: 6,
-        background: t.a,
+      indexColor: () => "#1A1A1A",
+      indexWrap: () => ({
+        minWidth: 48,
+        height: 32,
+        padding: "0 12px",
+        borderRadius: 8,
+        background: "#FFAA00",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: 12,
+        flexShrink: 0,
       }),
-      footer: (t, th) => ({ borderRadius: "8px 16px 16px 16px", borderTop: `3px solid ${th?.blockAccent || t.a}` }),
+      footer: (t) => ({ borderRadius: 14, borderLeft: `4px solid ${t.a}` }),
     },
   };
+  FAR_BEAM_STYLES[2] = { ...FAR_BEAM_STYLES[1] };
+  FAR_BEAM_STYLES[3] = { ...FAR_BEAM_STYLES[1] };
 
   const FAR_LEGS = [
     {
@@ -300,7 +263,7 @@ export function createSFarPositionnementV2(P) {
     {
       index: 3,
       beam: 3,
-      title: "Protéger la création",
+      title: "Laisser la création intacte",
       blocks: [
         {
           t: "Sa ligne, ses règles",
@@ -319,7 +282,7 @@ export function createSFarPositionnementV2(P) {
           d: "On sanctuarise les associations sensibles et on évite les conflits de marques qui abîmeraient la crédibilité.",
         },
       ],
-      footer: "Défendre la ligne et la valeur du créateur, sans jamais intervenir dessus.",
+      footer: "FAR n'écrit pas, ne valide pas et n'encadre pas. On ne touche jamais à la création.",
     },
   ];
 
@@ -329,7 +292,7 @@ export function createSFarPositionnementV2(P) {
       <span style={{ ...sa, fontSize: 14, color: t.d, lineHeight: 1 }} aria-hidden>
         →
       </span>
-      <FarBeams w={44} h={14} fill={t.a} active={leg.beam} dimOpacity={0.2} />
+      <FarBeams w={52} fill={t.a} />
       <span style={{ ...mo, fontSize: 10.5, fontWeight: 700, letterSpacing: 1.8, color: t.a, textTransform: "uppercase" }}>
         Faisceau {String(leg.index).padStart(2, "0")}/03 · {leg.title}
       </span>
@@ -342,57 +305,94 @@ export function createSFarPositionnementV2(P) {
       variants={stg(0.08)}
       style={{ display: "grid", gridTemplateColumns: beamStyle.grid.columns, gap: beamStyle.grid.gap }}
     >
-      {leg.blocks.map((block, i) => (
-        <M
-          key={block.t}
-          variants={fu(12)}
-          style={{ background: t.card, color: t.cardT, ...beamStyle.block(t, i, theme) }}
-        >
-          <div style={{ ...beamStyle.indexWrap(t, theme), marginBottom: 10 }}>
-            <span style={{ ...mo, fontSize: 10.5, fontWeight: 700, letterSpacing: 0.5, color: beamStyle.indexColor(t, theme) }}>
-              {String(i + 1).padStart(2, "0")}
-            </span>
+      {leg.blocks.map((block, i) => {
+        const num = String(i + 1).padStart(2, "0");
+        const badge = isPdf() ? (
+          <img
+            src={(() => {
+              const key = `idx-${num}`;
+              if (!globalThis.__FAR_IDX_CACHE) globalThis.__FAR_IDX_CACHE = {};
+              if (globalThis.__FAR_IDX_CACHE[key]) return globalThis.__FAR_IDX_CACHE[key];
+              const cv = document.createElement("canvas");
+              const s = 3;
+              cv.width = 56 * s;
+              cv.height = 36 * s;
+              const ctx = cv.getContext("2d");
+              ctx.scale(s, s);
+              ctx.fillStyle = "#FFAA00";
+              ctx.beginPath();
+              const r = 8;
+              ctx.moveTo(r, 0);
+              ctx.arcTo(56, 0, 56, 36, r);
+              ctx.arcTo(56, 36, 0, 36, r);
+              ctx.arcTo(0, 36, 0, 0, r);
+              ctx.arcTo(0, 0, 56, 0, r);
+              ctx.closePath();
+              ctx.fill();
+              ctx.fillStyle = "#1A1A1A";
+              ctx.font = "800 16px Arial, Helvetica, sans-serif";
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+              ctx.fillText(num, 28, 19);
+              const url = cv.toDataURL("image/png");
+              globalThis.__FAR_IDX_CACHE[key] = url;
+              return url;
+            })()}
+            width={56}
+            height={36}
+            alt={num}
+            draggable={false}
+            style={{ display: "block", width: 56, height: 36, marginBottom: 12, flexShrink: 0 }}
+          />
+        ) : (
+          <div style={{ ...beamStyle.indexWrap(t, theme), ...mo, fontSize: 15, fontWeight: 800, letterSpacing: 0.4, color: "#1A1A1A", lineHeight: 1 }}>
+            {num}
           </div>
-          <div style={{ ...se, fontSize: leg.beam === 2 ? 15.5 : 16.5, fontWeight: 700, letterSpacing: "-0.02em", color: t.c, marginBottom: 8, lineHeight: 1.25 }}>
-            {block.t}
-          </div>
-          <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.52, letterSpacing: "-0.006em" }}>{block.d}</div>
-        </M>
-      ))}
+        );
+        return (
+          <M
+            key={block.t}
+            variants={fu(12)}
+            style={{ background: t.card, color: t.cardT, ...beamStyle.block(t, i, theme) }}
+          >
+            {badge}
+            <div style={{ ...se, fontSize: 16.5, fontWeight: 700, letterSpacing: "-0.02em", color: t.c, marginBottom: 8, lineHeight: 1.25 }}>
+              {block.t}
+            </div>
+            <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.52, letterSpacing: "-0.006em" }}>{block.d}</div>
+          </M>
+        );
+      })}
     </M>
   );
 
   const FarBeamLegSlide = ({ t, leg }) => {
     const beamStyle = FAR_BEAM_STYLES[leg.beam];
     const theme = FAR_BEAM_THEMES[leg.beam];
-    const decor = beamStyle.decor;
 
     return (
       <M {...MV()} variants={stg(0.05)} style={{ width: "100%", position: "relative" }}>
         {theme.slideWash && (
           <div style={{ position: "absolute", inset: 0, background: theme.slideWash, pointerEvents: "none", zIndex: 0 }} />
         )}
-        <div style={{ position: "absolute", right: decor.right ?? 0, top: decor.top ?? -12, opacity: decor.opacity, pointerEvents: "none", zIndex: 0 }}>
-          <FarBeams w={decor.w} fill={t.a} active={leg.beam} dimOpacity={0.14} />
-        </div>
         <div style={{ position: "relative", zIndex: 1 }}>
           <FarModelBreadcrumb t={t} leg={leg} />
           <M
             variants={fu(10)}
             style={{
               display: "flex",
-              alignItems: beamStyle.headerAlign || "flex-start",
-              gap: 18,
+              alignItems: "flex-start",
+              gap: 16,
               marginBottom: beamStyle.headerMarginBottom ?? 14,
             }}
           >
             <FarBeamSymbol
               beam={leg.beam}
-              size={44}
+              size={40}
               stroke={t.a}
               accent={theme.symbolAccent}
               opacity={theme.symbolOpacity}
-              style={{ flexShrink: 0 }}
+              style={{ flexShrink: 0, marginTop: 4 }}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <M variants={fu(8)} style={beamStyle.titleWrap(t, theme)}>
@@ -459,26 +459,25 @@ export function createSFarPositionnementV2(P) {
   };
 
   const FarModelOverview = ({ t }) => (
-    <M {...MV()} variants={stg(0.08)} style={{ marginTop: 8 }}>
+    <M {...MV()} variants={stg(0.08)} style={{ marginTop: 8, width: "100%" }}>
       <div
         style={{
-          display: "flex",
-          gap: 36,
+          display: "grid",
+          gridTemplateColumns: "220px 1fr",
+          gap: 40,
           alignItems: "center",
-          flexWrap: "wrap",
-          padding: "24px 28px",
+          padding: "36px 40px",
           borderRadius: 16,
           background: t.card,
           border: `1px solid ${t.brd}`,
         }}
       >
-        <M variants={fu(10)} style={{ flex: "0 0 auto", textAlign: "center" }}>
-          <FarLogo size={92} variant={t.lv} />
-          <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
-            <FarBeams w={128} fill={t.a} />
+        <M variants={fu(10)} style={{ textAlign: "center" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <FarLogo size={150} variant={t.lv} />
           </div>
         </M>
-        <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: 14 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 24, justifyContent: "center" }}>
           {FAR_LEGS.map((leg, i) => (
             <M
               key={leg.index}
@@ -486,14 +485,14 @@ export function createSFarPositionnementV2(P) {
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
-              style={{ display: "flex", alignItems: "center", gap: 18 }}
+              style={{ display: "flex", alignItems: "center", gap: 20 }}
             >
-              <FarBeams w={80} h={24} fill={t.a} active={leg.beam} dimOpacity={0.16} />
-              <div>
-                <div style={{ ...mo, fontSize: 10.5, fontWeight: 700, letterSpacing: 1.4, color: t.a, marginBottom: 4, textTransform: "uppercase" }}>
+              <FarBeams w={96} fill={t.a} />
+              <div style={{ minWidth: 0 }}>
+                <div style={{ ...mo, fontSize: 12, fontWeight: 700, letterSpacing: 1.4, color: t.a, marginBottom: 5, textTransform: "uppercase" }}>
                   Faisceau {String(leg.index).padStart(2, "0")}
                 </div>
-                <div style={{ ...se, fontSize: 18, fontWeight: 700, letterSpacing: "-0.025em", color: t.c, lineHeight: 1.2 }}>{leg.title}</div>
+                <div style={{ ...se, fontSize: 24, fontWeight: 700, letterSpacing: "-0.025em", color: t.c, lineHeight: 1.2 }}>{leg.title}</div>
               </div>
             </M>
           ))}
@@ -535,7 +534,7 @@ export function createSFarPositionnementV2(P) {
           </M>
           <M {...MA({ opacity: 0, y: 16 }, { opacity: 1, y: 0 }, { transition: { delay: 0.15, duration: 0.55 } })}>
             <Hl t={t} s={{ fontSize: 48, maxWidth: 900, margin: "0 auto 16px", textAlign: "center" }}>
-              L&apos;agence qui fait grandir les créateurs.
+              L&apos;agence qui défend la valeur des créateurs.
             </Hl>
           </M>
           <M {...MA({ opacity: 0 }, { opacity: 1 }, { transition: { delay: 0.28, duration: 0.5 } })}>
@@ -634,11 +633,11 @@ export function createSFarPositionnementV2(P) {
     {
       title: "Modèle FAR",
       r: (t) => (
-        <M {...MV()} variants={stg(0.06)}>
-          <SlideHead t={t} tag="MODÈLE FAR" title="3 faisceaux pour faire grandir un créateur." titleS={{ fontSize: 32 }} />
+        <M {...MV()} variants={stg(0.06)} style={{ width: "100%" }}>
+          <SlideHead t={t} tag="MODÈLE FAR" title="3 faisceaux pour défendre et développer un créateur." titleS={{ fontSize: 32 }} />
           <M variants={fu(8)}>
             <Sh t={t} s={{ fontSize: 16, lineHeight: 1.55, marginBottom: 4, maxWidth: 880 }}>
-              Garantir la croissance, solidifier la structure, protéger la création.
+              Garantir la croissance, solidifier la structure, laisser la création intacte.
             </Sh>
           </M>
           <FarModelOverview t={t} />
@@ -648,14 +647,14 @@ export function createSFarPositionnementV2(P) {
 
     { title: "Garantir la croissance", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[0]} /> },
     { title: "Solidifier la structure", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[1]} /> },
-    { title: "Protéger la création", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[2]} /> },
+    { title: "Laisser la création intacte", r: (t) => <FarBeamLegSlide t={t} leg={FAR_LEGS[2]} /> },
 
     {
       title: "Ce que le créateur y gagne",
       r: (t) => (
-        <M {...MV()} variants={stg(0.06)}>
+        <M {...MV()} variants={stg(0.06)} style={{ width: "100%" }}>
           <SlideHead t={t} tag="POURQUOI NOUS REJOINDRE" title="Ce que le créateur y gagne." titleS={{ fontSize: 34 }} />
-          <M {...MV()} variants={stg(0.08)} style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 8 }}>
+          <M {...MV()} variants={stg(0.08)} style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 8, alignItems: "stretch" }}>
             {[
               {
                 k: "Rémunération",
@@ -682,13 +681,24 @@ export function createSFarPositionnementV2(P) {
               <M
                 key={o.k}
                 variants={fu(12)}
-                style={{ padding: "20px 22px", borderRadius: 16, background: t.card, border: `1px solid ${t.brd}`, borderTop: `4px solid ${t.a}` }}
+                style={{
+                  padding: "20px 22px",
+                  borderRadius: 16,
+                  background: t.card,
+                  border: `1px solid ${t.brd}`,
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  overflow: "hidden",
+                  minHeight: 280,
+                }}
               >
-                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.8, color: t.d, marginBottom: 12, textTransform: "uppercase" }}>{o.k}</div>
-                <div style={{ ...se, fontSize: 42, fontWeight: 700, letterSpacing: "-0.045em", color: t.a, lineHeight: 1 }}>{o.n}</div>
-                <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.d, margin: "8px 0 14px", textTransform: "uppercase" }}>{o.u}</div>
-                <div style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.025em", color: t.c, marginBottom: 8, lineHeight: 1.24 }}>{o.h}</div>
-                <div style={{ ...sa, fontSize: 13.5, color: t.m, lineHeight: 1.5, letterSpacing: "-0.006em" }}>{o.d}</div>
+                <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: t.a }} />
+                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.8, color: t.d, marginBottom: 12, textTransform: "uppercase", minHeight: 14 }}>{o.k}</div>
+                <div style={{ ...se, fontSize: 42, fontWeight: 700, letterSpacing: "-0.045em", color: t.a, lineHeight: 1, minHeight: 42 }}>{o.n}</div>
+                <div style={{ ...mo, fontSize: 10, fontWeight: 600, letterSpacing: 1.2, color: t.d, margin: "8px 0 14px", textTransform: "uppercase", minHeight: 14 }}>{o.u}</div>
+                <div style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.025em", color: t.c, marginBottom: 8, lineHeight: 1.24, minHeight: 42 }}>{o.h}</div>
+                <div style={{ ...sa, fontSize: 13.5, color: t.m, lineHeight: 1.5, letterSpacing: "-0.006em", marginTop: "auto" }}>{o.d}</div>
               </M>
             ))}
           </M>
@@ -699,26 +709,36 @@ export function createSFarPositionnementV2(P) {
     {
       title: "Rémunération",
       r: (t) => (
-        <M {...MV()} variants={stg(0.06)}>
+        <M {...MV()} variants={stg(0.06)} style={{ width: "100%" }}>
           <SlideHead t={t} tag="RÉMUNÉRATION" title="La valeur reste du côté du créateur." titleS={{ fontSize: 34 }} />
-          <M variants={fs} style={{ padding: "22px 24px", borderRadius: 16, border: `2px solid ${t.a}`, background: `${t.a}10`, marginBottom: 16, marginTop: 8 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 28, flexWrap: "wrap" }}>
-              <div style={{ flex: "0 0 auto" }}>
-                <div style={{ ...se, fontSize: 64, fontWeight: 700, letterSpacing: "-0.05em", color: t.a, lineHeight: 0.95 }}>15 %</div>
-                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.8, color: t.d, marginTop: 8, textTransform: "uppercase" }}>
-                  de commission
-                </div>
+          <M
+            variants={fs}
+            style={{
+              display: "grid",
+              gridTemplateColumns: "240px 1fr",
+              gap: 36,
+              alignItems: "center",
+              padding: "32px 40px",
+              borderRadius: 16,
+              border: `2px solid ${t.a}`,
+              background: "#fff",
+              marginBottom: 16,
+              marginTop: 8,
+            }}
+          >
+            <div>
+              <div style={{ ...se, fontSize: 72, fontWeight: 800, letterSpacing: "-0.05em", color: t.a, lineHeight: 0.92 }}>15 %</div>
+              <div style={{ ...mo, fontSize: 13, fontWeight: 700, letterSpacing: 1.6, color: t.c, marginTop: 10, textTransform: "uppercase", opacity: 0.55 }}>
+                de commission
               </div>
-              <div style={{ flex: "1 1 320px" }}>
-                <div style={{ ...se, fontSize: 22, fontWeight: 700, letterSpacing: "-0.028em", color: t.c, lineHeight: 1.2 }}>
-                  Le taux le plus bas du marché.
-                </div>
-              </div>
+            </div>
+            <div style={{ ...se, fontSize: 26, fontWeight: 700, letterSpacing: "-0.028em", color: t.c, lineHeight: 1.25 }}>
+              Le taux le plus bas du marché.
             </div>
           </M>
           <M variants={fu(8)}>
-            <Th t={t} s={{ marginTop: 4, padding: "18px 22px", fontSize: 14.5, lineHeight: 1.5, borderRadius: 18, borderLeft: `5px solid ${t.a}` }}>
-              <span style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.025em", display: "block", marginBottom: 8, color: t.thT }}>
+            <Th t={t} s={{ marginTop: 4, padding: "22px 28px", fontSize: 15.5, lineHeight: 1.55, borderRadius: 16, borderLeft: `5px solid ${t.a}` }}>
+              <span style={{ ...se, fontSize: 19, fontWeight: 700, letterSpacing: "-0.025em", display: "block", marginBottom: 8, color: t.thT }}>
                 Des tarifs défendus, jamais bradés
               </span>
               Chaque opération est pensée et négociée spécifiquement en fonction de la nature de l&apos;opération.
@@ -895,7 +915,18 @@ export function createSFarPositionnementV2(P) {
     {
       title: "Fermeture",
       r: (t, back) => (
-        <div style={{ textAlign: "center", padding: "48px 0", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", minHeight: 420 }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: "48px 0",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            ...(globalThis.__FAR_PDF_EXPORT ? {} : { minHeight: 420 }),
+          }}
+        >
           <M
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
