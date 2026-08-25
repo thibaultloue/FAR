@@ -1475,10 +1475,10 @@ export function createSGrandJdV2(P) {
     {
       title: "Simulation",
       r: (t) => {
-        // 27 vidéos · 35 k€ / vidéo remplie
-        // n-1 : 33% → 9 remplies → 315 k€
-        // n   : 66% → 18 remplies → 630 k€ brut · FAR 15% = 95 k€ · net 536 k€
-        // gain sec : +221 k€
+        // 27 vidéos · 27,5 k€ / vidéo remplie (moyenne 25–30 k€)
+        // n-1 : 33% → 9 remplies → 247,5 k€
+        // n   : 66% → 18 remplies → 495 k€ brut · FAR 15% = 74 k€ · net 421 k€
+        // gain sec : +173 k€
         const col = (label, rows, accent) => (
           <div
             style={{
@@ -1516,7 +1516,7 @@ export function createSGrandJdV2(P) {
               Un gain sec, sans produire plus.
             </Title>
             <Lead t={t} s={{ fontSize: 15, maxWidth: "100%", marginBottom: 22 }}>
-              Même volume de vidéos. Moins de charge commerciale. Hypothèses : 27 vidéos · 35 k€ de CA moyen par vidéo remplie · commission FAR 15 %.
+              Même volume de vidéos. Moins de charge commerciale. Hypothèses : 27 vidéos · ~27,5 k€ de CA moyen par vidéo remplie (fourchette 25–30 k€) · commission FAR 15 %.
             </Lead>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 40px 1fr", gap: 0, alignItems: "stretch", marginBottom: 18 }}>
@@ -1524,7 +1524,7 @@ export function createSGrandJdV2(P) {
                 { k: "Vidéos", v: "27" },
                 { k: "Remplissage", v: "33 %" },
                 { k: "Vidéos remplies", v: "9" },
-                { k: "CA créateur", v: "315 k€", big: true },
+                { k: "CA créateur", v: "248 k€", big: true },
               ])}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ ...se, fontSize: 28, fontWeight: 700, color: t.a, lineHeight: 1 }}>→</div>
@@ -1535,9 +1535,9 @@ export function createSGrandJdV2(P) {
                   { k: "Vidéos", v: "27" },
                   { k: "Remplissage", v: "66 %", accent: true },
                   { k: "Vidéos remplies", v: "18" },
-                  { k: "CA brut", v: "630 k€" },
-                  { k: "Commission FAR (15 %)", v: "95 k€" },
-                  { k: "CA net créateur", v: "536 k€", big: true, accent: true },
+                  { k: "CA brut", v: "495 k€" },
+                  { k: "Commission FAR (15 %)", v: "74 k€" },
+                  { k: "CA net créateur", v: "421 k€", big: true, accent: true },
                 ],
                 true,
               )}
@@ -1563,7 +1563,7 @@ export function createSGrandJdV2(P) {
                 <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.6, color: "rgba(255,255,255,.55)", textTransform: "uppercase", marginBottom: 6 }}>
                   Gain sec année n
                 </div>
-                <div style={{ ...se, fontSize: 36, fontWeight: 700, letterSpacing: "-0.04em", color: "#7FE3CE", lineHeight: 1 }}>+221 k€</div>
+                <div style={{ ...se, fontSize: 36, fontWeight: 700, letterSpacing: "-0.04em", color: "#7FE3CE", lineHeight: 1 }}>+173 k€</div>
               </div>
             </div>
           </div>
