@@ -3292,7 +3292,7 @@ const META = {
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 10 slides",tag:"PROSPECTION",card:"grandjd"},
-  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 15 slides",tag:"PROSPECTION",card:"grandjd2"},
+  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 16 slides",tag:"PROSPECTION",card:"grandjd2"},
   bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 9 slides",tag:"PROSPECTION",card:"bouseuh"},
   unchained:{l:"Unchained × FAR",s:"Prospection créateur · multi-chaînes & produits · 9 slides",tag:"PROSPECTION",card:"unchained"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -3671,6 +3671,7 @@ function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
   if (isGrandJdDeck(deckId)) {
     if (slideTitle === "Merci" || slideTitle.startsWith("Intercalaire")) return 1760;
     if (slideTitle === "Manifesto") return 1000;
+    if (slideTitle === "Process") return 1320;
     return 1176;
   }
   if (deckUsesT1Hatch(deckId)) {

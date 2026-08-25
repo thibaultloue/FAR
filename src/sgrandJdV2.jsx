@@ -1661,6 +1661,244 @@ export function createSGrandJdV2(P) {
     },
 
     {
+      title: "Process",
+      r: (t) => {
+        const W = 1200;
+        const H = 520;
+        const topY = 168;
+        const botY = 340;
+        const railX0 = 36;
+        const railX1 = 1040;
+        const ink = t.c;
+        const T = { def: 90, disc: 300, aj: 470, int: 680, pub: 860 };
+        const B = {
+          prosp: 90,
+          pres: 185,
+          nego: 275,
+          offre: 365,
+          contrat: 470,
+          brief: 580,
+          valid: 700,
+          fact: 810,
+          suivi: 900,
+          bilan: 980,
+          rel: 1055,
+        };
+        const topPts = Object.values(T);
+        const botPts = Object.values(B);
+        const zig = (pts) => pts.map((p) => `${p[0]},${p[1]}`).join(" ");
+
+        return (
+          <div style={{ width: "100%" }}>
+            <Title t={t} s={{ fontSize: 28, letterSpacing: "-0.03em", textTransform: "uppercase", marginBottom: 6, maxWidth: "100%", lineHeight: 1.12 }}>
+              Notre objectif, minimiser la sollicitation des équipes du Grand JD
+            </Title>
+            <Lead t={t} s={{ fontSize: 14, maxWidth: 900, marginBottom: 14 }}>
+              FAR porte le commercial de bout en bout. Toi, tu restes sur la création, aux seuls moments qui comptent.
+            </Lead>
+
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                maxWidth: W,
+                aspectRatio: `${W} / ${H}`,
+                borderRadius: 18,
+                background: "#FFFFFF",
+                border: `1px solid ${t.brd}`,
+                boxShadow: t.cS,
+                overflow: "hidden",
+                boxSizing: "border-box",
+              }}
+            >
+              <svg
+                viewBox={`0 0 ${W} ${H}`}
+                width="100%"
+                height="100%"
+                style={{ position: "absolute", inset: 0, display: "block" }}
+                aria-hidden
+              >
+                <defs>
+                  <marker id="gjArr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                    <path d="M0 0 L8 4 L0 8 Z" fill={ink} />
+                  </marker>
+                  <marker id="gjArrStart" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto-start-reverse">
+                    <path d="M0 0 L8 4 L0 8 Z" fill={ink} />
+                  </marker>
+                </defs>
+
+                {/* Rails */}
+                <line x1={railX0} y1={topY} x2={railX1} y2={topY} stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
+                <line x1={railX0} y1={botY} x2={railX1} y2={botY} stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
+
+                {/* Définition → Prospection */}
+                <line
+                  x1={T.def}
+                  y1={topY + 6}
+                  x2={B.prosp}
+                  y2={botY - 8}
+                  stroke={ink}
+                  strokeWidth="1.5"
+                  strokeDasharray="5 4"
+                  markerEnd="url(#gjArr)"
+                />
+
+                {/* Discussion ↔ Offre (appel) */}
+                <line
+                  x1={T.disc}
+                  y1={topY + 6}
+                  x2={B.offre}
+                  y2={botY - 8}
+                  stroke={ink}
+                  strokeWidth="2.25"
+                  markerStart="url(#gjArrStart)"
+                  markerEnd="url(#gjArr)"
+                />
+
+                {/* Offre → Ajustement → Contrat */}
+                <polyline
+                  points={zig([
+                    [B.offre + 10, botY - 6],
+                    [T.aj, topY + 6],
+                    [B.contrat, botY - 8],
+                  ])}
+                  fill="none"
+                  stroke={ink}
+                  strokeWidth="1.5"
+                  strokeDasharray="5 4"
+                  markerEnd="url(#gjArr)"
+                />
+
+                {/* Brief → Intégration → Validation → Publication */}
+                <polyline
+                  points={zig([
+                    [B.brief, botY - 6],
+                    [T.int, topY + 6],
+                    [B.valid, botY - 6],
+                    [T.pub, topY + 6],
+                  ])}
+                  fill="none"
+                  stroke={ink}
+                  strokeWidth="1.5"
+                  strokeDasharray="5 4"
+                  markerEnd="url(#gjArr)"
+                />
+
+                {topPts.map((x) => (
+                  <circle key={`t${x}`} cx={x} cy={topY} r="4.5" fill={ink} />
+                ))}
+                {botPts.map((x) => (
+                  <circle key={`b${x}`} cx={x} cy={botY} r="4.5" fill={ink} />
+                ))}
+              </svg>
+
+              {/* Labels scaled to same box */}
+              <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+                <div style={{ position: "relative", width: "100%", height: "100%", containerType: "size" }}>
+                  {/* Use % based on W/H */}
+                  {[
+                    { x: T.def, y: topY, a: "bottom", w: 128, t: "Définition des contenus" },
+                    { x: T.disc, y: topY, a: "bottom", w: 150, t: <>Discussion du projet<br />(call de 15 min)</> },
+                    { x: T.aj, y: topY, a: "bottom", w: 100, t: "Ajustement" },
+                    { x: T.int, y: topY, a: "bottom", w: 140, t: "Intégration dans le contenu" },
+                    { x: T.pub, y: topY, a: "bottom", w: 100, t: "Publication" },
+                    { x: B.prosp, y: botY, a: "top", w: 100, t: "Prospection" },
+                    { x: B.pres, y: botY, a: "top", w: 120, t: "Présentation des marques" },
+                    { x: B.nego, y: botY, a: "top", w: 100, t: "Négociation" },
+                    { x: B.offre, y: botY, a: "top", w: 100, t: "Offre initiale" },
+                    { x: B.contrat, y: botY, a: "top", w: 80, t: "Contrat" },
+                    { x: B.brief, y: botY, a: "top", w: 100, t: "Brief + script" },
+                    { x: B.valid, y: botY, a: "top", w: 140, t: "Validation client + modifications" },
+                    { x: B.fact, y: botY, a: "top", w: 70, t: "Facture" },
+                    { x: B.suivi, y: botY, a: "top", w: 110, t: "Suivi performance" },
+                    { x: B.bilan, y: botY, a: "top", w: 60, t: "Bilan" },
+                    { x: B.rel, y: botY, a: "top", w: 100, t: "Relation client" },
+                  ].map((l, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        position: "absolute",
+                        left: `${(l.x / W) * 100}%`,
+                        top: `${(l.y / H) * 100}%`,
+                        width: l.w,
+                        transform: l.a === "bottom" ? "translate(-50%, calc(-100% - 10px))" : "translate(-50%, 10px)",
+                        textAlign: "center",
+                        ...mo,
+                        fontSize: 11,
+                        fontWeight: 600,
+                        letterSpacing: 0.1,
+                        color: ink,
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {l.t}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* JD */}
+              <div
+                style={{
+                  position: "absolute",
+                  right: "2.2%",
+                  top: `${(topY / H) * 100}%`,
+                  transform: "translateY(-50%)",
+                  width: 54,
+                  height: 54,
+                  borderRadius: 10,
+                  overflow: "hidden",
+                  border: `2px solid ${t.a}`,
+                  background: "#e8e6e2",
+                  boxShadow: "0 4px 14px rgba(18,22,26,.12)",
+                }}
+              >
+                <img src={jdPortraitUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+              </div>
+
+              {/* FAR */}
+              <div
+                style={{
+                  position: "absolute",
+                  right: "2.2%",
+                  top: `${(botY / H) * 100}%`,
+                  transform: "translateY(-50%)",
+                  width: 54,
+                  height: 54,
+                  borderRadius: 10,
+                  background: ink,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <FarLogo size={32} variant="white" />
+              </div>
+
+              {/* Légende */}
+              <div style={{ position: "absolute", left: 22, bottom: 16, display: "flex", flexDirection: "column", gap: 7 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <svg width="34" height="10" viewBox="0 0 34 10" aria-hidden>
+                    <line x1="1" y1="5" x2="26" y2="5" stroke={ink} strokeWidth="1.5" strokeDasharray="3 2.5" />
+                    <path d="M26 2 L33 5 L26 8 Z" fill={ink} />
+                  </svg>
+                  <span style={{ ...mo, fontSize: 11, fontWeight: 600, color: t.m }}>Document ou message</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <svg width="34" height="10" viewBox="0 0 34 10" aria-hidden>
+                    <line x1="1" y1="5" x2="26" y2="5" stroke={ink} strokeWidth="2.2" />
+                    <path d="M26 2 L33 5 L26 8 Z" fill={ink} />
+                  </svg>
+                  <span style={{ ...mo, fontSize: 11, fontWeight: 600, color: t.m }}>Appel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
+
+    {
       title: "Merci",
       r: (t, back) => {
         const pdf = Boolean(globalThis.__FAR_PDF_EXPORT);
