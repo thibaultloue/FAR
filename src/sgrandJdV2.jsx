@@ -1533,11 +1533,11 @@ export function createSGrandJdV2(P) {
                 "Année n · avec FAR",
                 [
                   { k: "Vidéos", v: "27" },
-                  { k: "Remplissage", v: "66 %", accent: true },
-                  { k: "Vidéos remplies", v: "18" },
+                  { k: "Remplissage", v: "66 %  ·  +100 %", accent: true },
+                  { k: "Vidéos remplies", v: "18  ·  +100 %" },
                   { k: "CA brut", v: "495 k€" },
                   { k: "Commission FAR (15 %)", v: "74 k€" },
-                  { k: "CA net créateur", v: "421 k€", big: true, accent: true },
+                  { k: "CA net créateur", v: "421 k€  ·  +70 %", big: true, accent: true },
                 ],
                 true,
               )}
@@ -1563,7 +1563,10 @@ export function createSGrandJdV2(P) {
                 <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.6, color: "rgba(255,255,255,.55)", textTransform: "uppercase", marginBottom: 6 }}>
                   Gain sec année n
                 </div>
-                <div style={{ ...se, fontSize: 36, fontWeight: 700, letterSpacing: "-0.04em", color: "#7FE3CE", lineHeight: 1 }}>+173 k€</div>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "flex-end", gap: 14 }}>
+                  <div style={{ ...se, fontSize: 36, fontWeight: 700, letterSpacing: "-0.04em", color: "#7FE3CE", lineHeight: 1 }}>+173 k€</div>
+                  <div style={{ ...se, fontSize: 22, fontWeight: 700, letterSpacing: "-0.03em", color: "rgba(127,227,206,.85)", lineHeight: 1 }}>+70 %</div>
+                </div>
               </div>
             </div>
           </div>
