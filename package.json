@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "export-pdfs": "npm run build && node scripts/export-pdfs.mjs"
+    "export-pdfs": "npm run build && node scripts/export-pdfs.mjs",
+    "export-live": "npm run build && node scripts/export-live.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.36.0",

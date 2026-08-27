@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef, Children, createElement } from "react";
+import { flushSync } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -454,6 +455,10 @@ const FC = `@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grot
 html{-webkit-text-size-adjust:100%;}
 @keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}
 .far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}
+html[data-far-live-export="1"],html[data-far-live-export="1"] body,html[data-far-live-export="1"] #root{overflow:hidden!important;height:100%!important;width:100%!important;margin:0!important;}
+html[data-far-live-export="1"] .far-chrome{display:none!important;}
+html[data-far-live-export="1"] .far-slide-stage{overflow:hidden!important;flex:1!important;height:100%!important;}
+html[data-far-live-export="1"] .far-slide-wrap{height:100%!important;min-height:100%!important;overflow:hidden!important;}
 @media(max-width:1024px){
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}
@@ -3292,7 +3297,7 @@ const META = {
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 10 slides",tag:"PROSPECTION",card:"grandjd"},
-  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 16 slides",tag:"PROSPECTION",card:"grandjd2"},
+  grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 17 slides",tag:"PROSPECTION",card:"grandjd2"},
   bouseuh:{l:"Le Bouseuh × FAR",s:"Prospection créateur · actifs propriétaires · 9 slides",tag:"PROSPECTION",card:"bouseuh"},
   unchained:{l:"Unchained × FAR",s:"Prospection créateur · multi-chaînes & produits · 9 slides",tag:"PROSPECTION",card:"unchained"},
   shopify:{l:"Activation Shopify",s:"Shopify × Le Bouseuh × Lockd  -  « L'envers du drop »",tag:"ACTIVATION",card:"shopify"},
@@ -3316,6 +3321,27 @@ const META = {
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
 };
+
+function deckExportFileStem(id) {
+  const label = META[id]?.l || id;
+  return label
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[Øø]/g, "O")
+    .replace(/[×]/g, "x")
+    .replace(/[^A-Za-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .replace(/_+/g, "_");
+}
+
+if (typeof window !== "undefined") {
+  window.__FAR_DECK_CATALOG = Object.keys(ALL).map((id) => ({
+    id,
+    label: META[id]?.l || id,
+    file: deckExportFileStem(id),
+    slides: ALL[id].length,
+  }));
+}
 
 /** Export PDF : rendu hors écran (identique pour tous les decks). */
 const PDF_RENDER_W = 1232;
@@ -3670,8 +3696,7 @@ function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
   }
   if (isGrandJdDeck(deckId)) {
     if (slideTitle === "Merci" || slideTitle.startsWith("Intercalaire")) return 1760;
-    if (slideTitle === "Manifesto") return 1000;
-    if (slideTitle === "Process") return 1320;
+    if (slideTitle === "Manifesto" || slideTitle === "Next steps" || slideTitle === "Tes besoins") return 1000;
     return 1176;
   }
   if (deckUsesT1Hatch(deckId)) {
@@ -4009,7 +4034,8 @@ function ActCard({a,nav}){
 }
 
 // ─── PRESENTATION ─────────────────────────────────────────────────────────────
-function Pres({id,onBack,onNav}) {
+function Pres({id,onBack,onNav,shareKey,locked}) {
+  const hashBase = shareKey || id;
   const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
   // Évite un flag PDF coincé qui casserait le rendu live (img masqués).
   useEffect(() => {
@@ -4018,29 +4044,35 @@ function Pres({id,onBack,onNav}) {
   const setCur = useCallback(v=>{setCurRaw(prev=>{
     const next=typeof v==="function"?v(prev):v;
     const u=new URL(window.location.href);
-    u.hash=`#${id}/${next}`;
+    u.hash=`#${hashBase}/${next}`;
     // Remplace l'entrée courante : les slides ne polluent pas l'historique
     // (sinon « ← Retour » / back navigateur rejoue les slides au lieu du dossier).
     window.history.replaceState(null,"",u.toString());
     return next;
-  });},[id]);
+  });},[hashBase]);
   // Deep-link / hash externe (Playwright, lien partagé) : sync slide sans remount du deck.
   useEffect(()=>{
     const onHash=()=>{
       const h=window.location.hash.replace(/^#/,"");
       const [raw,s]=h.split("/");
-      const d=normalizeDeckId(raw)||raw;
-      if(d!==id) return;
+      if(shareKey){
+        if(raw!==shareKey) return;
+      }else{
+        const d=normalizeDeckId(raw)||raw;
+        if(d!==id) return;
+      }
       const max=(ALL[id]?.length||1)-1;
       const next=Math.min(Math.max(parseInt(s,10)||0,0),max);
       setCurRaw(prev=>prev===next?prev:next);
     };
     window.addEventListener("hashchange",onHash);
     return()=>window.removeEventListener("hashchange",onHash);
-  },[id]);
+  },[id,shareKey]);
   const [notes,setNotes] = useState(false);
   const [nav,setNav] = useState(false);
   const [pdfing,setPdfing] = useState(false);
+  const [pdfStep,setPdfStep] = useState("");
+  const presRootRef = useRef(null);
   const t = TM[id];
   const slides = ALL[id];
   const n = slides.length;
@@ -4067,211 +4099,94 @@ function Pres({id,onBack,onNav}) {
   };
 
   const exportPDF = async () => {
-    setPdfing(true);
+    if (pdfing) return;
     const saved = cur;
+    flushSync(() => {
+      setNav(false);
+      setNotes(false);
+      setPdfing(true);
+      setPdfStep("1 / " + n);
+    });
+    const toast = document.createElement("div");
+    toast.setAttribute("data-far-pdf-toast", "1");
+    toast.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:99999;background:#1A1A1A;color:#fff;font:600 13px/1.3 system-ui,sans-serif;padding:10px 20px;border-radius:8px;pointer-events:none;";
+    toast.textContent = `Export 1 / ${n}…`;
+    document.body.appendChild(toast);
+    document.documentElement.setAttribute("data-far-live-export", "1");
     try {
       await document.fonts?.ready?.catch(() => {});
-    } catch {
-      /* ignore */
-    }
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      await new Promise((r) => setTimeout(r, 200));
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: [PDF_PAGE_W_MM, PDF_PAGE_H_MM],
+        compress: true,
+      });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const bg = t.bg || "#ffffff";
 
-    const { w: renderW, h: renderH } = pdfRenderSize(id);
-    const useVectorBg = id === "otacospepe";
-    const usePhotoOverlay = deckUsesT1Hatch(id);
-    // Résolution de sortie homogène entre decks : les decks T1 rendent à 1920px
-    // (2× → 3840px), les autres à 1232px (3× → 3696px, référence White Desert).
-    const captureScale = useVectorBg ? 3 : usePhotoOverlay ? 2 : PDF_CAPTURE_SCALE;
-    // Fond de page : encodage adaptatif par page — PNG (fidèle et léger sur les
-    // aplats/texte) vs JPEG 0.92 (léger sur les photos) ; on garde le plus petit.
-    // Les decks à fond vectoriel restent en PNG (alpha nécessaire).
-    const losslessPdf = useVectorBg;
-    const bgRgb = pdfHexToRgb(t.bg);
-    const settleMs = pdfRenderSettleMs(id);
-
-    const pdf = new jsPDF({
-      orientation: "landscape",
-      unit: "mm",
-      format: [PDF_PAGE_W_MM, PDF_PAGE_H_MM],
-      compress: true,
-    });
-    const pageW = pdf.internal.pageSize.getWidth();
-    const pageH = pdf.internal.pageSize.getHeight();
-
-    const container = document.createElement("div");
-    container.setAttribute("data-pdf-capture", "1");
-    const containerBg = useVectorBg ? "transparent" : t.bg;
-    container.style.cssText = `position:fixed;left:-24000px;top:0;opacity:1;pointer-events:none;width:${renderW}px;height:${renderH}px;overflow:hidden;z-index:-1;isolation:isolate;background:${containerBg};color:${t.c};font-family:${sa.fontFamily};color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
-    document.body.appendChild(container);
-
-    const rdom = await import("react-dom/client");
-
-    globalThis.__FAR_PDF_EXPORT = true;
-    try {
       for (let i = 0; i < n; i++) {
-        container.innerHTML = "";
-
-        let inner;
-        let slideArea;
-        const wrap = document.createElement("div");
-        const pdfPad = pdfWrapPadding(id);
-        const wrapBg = useVectorBg ? "transparent" : t.bg;
-        wrap.style.cssText = `box-sizing:border-box;width:100%;height:100%;display:flex;flex-direction:column;padding:${pdfPad};background:${wrapBg};color:${t.c};font-family:${sa.fontFamily};overflow:hidden;color-scheme:only light;-webkit-print-color-adjust:exact;print-color-adjust:exact;position:relative;`;
-        pdfAppendDeckMotif(wrap, id, t.bg);
-        slideArea = document.createElement("div");
-        slideArea.style.cssText = pdfSlideAreaStyle(id);
-        inner = document.createElement("div");
-        inner.style.cssText = pdfInnerStyle(id);
-        const slideTitle = slides[i]?.title || "";
-        const mw = pdfSlideMaxWidth(id, i, n, slideTitle);
-        if (mw) {
-          inner.style.maxWidth = `${mw}px`;
-          inner.style.marginLeft = "auto";
-          inner.style.marginRight = "auto";
-        }
-        slideArea.appendChild(inner);
-        wrap.appendChild(slideArea);
-        container.appendChild(wrap);
-
-        const tempRoot = rdom.createRoot(inner);
-        await new Promise((resolve) => {
-          tempRoot.render(slides[i].r(t, null));
-          setTimeout(resolve, settleMs);
-        });
-        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-        await new Promise((resolve) => setTimeout(resolve, 280));
-
-        pdfConvertVhVwToPx(inner, renderW, renderH);
-        await pdfWaitForImages(inner);
-        pdfFreezeMotion(container);
-        pdfFlattenVisibleTree(inner);
-        pdfForceVisible(inner);
-        pdfFitInnerToSlide(inner, slideArea, pdfFitOptsForSlide(id, i, n, slideTitle));
-        const overlayPhotos = usePhotoOverlay && (!isFarPositionDeck(id) || pdfIsCreatorProfileSlide(slideTitle));
-        const directImages = useVectorBg
-          ? pdfCollectAndHideLargeImages(inner, container)
-          : overlayPhotos
-            ? pdfCollectAndHideLargeImages(inner, container, { patterns: null, minPx: 28 })
-            : [];
-        if (!overlayPhotos) pdfReplaceObjectFitImages(inner);
-        const blurRestore = useVectorBg ? pdfReplaceBlurForCapture(inner) : [];
-        const solidBgs = useVectorBg ? pdfCollectAndStripSolidBgs(inner, container) : [];
-        await new Promise((resolve) => requestAnimationFrame(resolve));
-
-        const canvas = await html2canvas(container, {
-          scale: captureScale,
-          useCORS: true,
-          allowTaint: false,
-          backgroundColor: useVectorBg ? null : t.bg,
-          width: renderW,
-          height: renderH,
-          logging: false,
-          imageTimeout: 20000,
-          onclone: (_doc, node) => {
-            pdfForceVisible(node);
-          },
-        });
-
-        if (useVectorBg) {
-          pdfRestoreSolidBgs(solidBgs);
-          pdfRestoreBlur(blurRestore);
-        }
-        if (directImages.length) pdfRestoreLargeImages(directImages);
-        pdfUnfreezeMotion();
-
-        if (useVectorBg) {
-          const ctx = canvas.getContext("2d");
-          const id2 = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          const d = id2.data;
-          for (let p = 0; p < d.length; p += 4) {
-            if (d[p + 3] === 0) {
-              d[p] = 0;
-              d[p + 1] = 0;
-              d[p + 2] = 0;
-            }
-          }
-          ctx.putImageData(id2, 0, 0);
-        }
-
-        let imgData;
-        let imgType;
-        if (losslessPdf) {
-          imgData = canvas.toDataURL("image/png");
-          imgType = "PNG";
-        } else {
-          const asPng = canvas.toDataURL("image/png");
-          const asJpg = canvas.toDataURL("image/jpeg", 0.92);
-          if (asJpg.length < asPng.length) {
-            imgData = asJpg;
-            imgType = "JPEG";
-          } else {
-            imgData = asPng;
-            imgType = "PNG";
-          }
-        }
+        const label = `${i + 1} / ${n}`;
+        setPdfStep(label);
+        toast.textContent = `Export ${label}…`;
+        flushSync(() => setCur(i));
+        await new Promise((r) => setTimeout(r, 520));
+        const stage = presRootRef.current?.querySelector(".far-slide-stage") || presRootRef.current;
+        if (!stage) throw new Error("Slide introuvable");
+        stage.setAttribute("data-pdf-capture", "1");
+        pdfFreezeMotion(stage);
+        const canvas = await Promise.race([
+          html2canvas(stage, {
+            scale: Math.min(2, 3840 / Math.max(stage.offsetWidth || 1, 1)),
+            useCORS: true,
+            allowTaint: false,
+            backgroundColor: bg,
+            logging: false,
+            imageTimeout: 4000,
+            ignoreElements: (el) => el.classList?.contains("far-chrome") || el.hasAttribute?.("data-far-pdf-toast"),
+          }),
+          new Promise((_, rej) => setTimeout(() => rej(new Error("timeout slide " + (i + 1))), 20000)),
+        ]);
+        const wide = document.createElement("canvas");
+        wide.width = 3840;
+        wide.height = 2160;
+        const ctx = wide.getContext("2d");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, wide.width, wide.height);
+        const fit = Math.min(wide.width / canvas.width, wide.height / canvas.height);
+        const dw = canvas.width * fit;
+        const dh = canvas.height * fit;
+        ctx.drawImage(canvas, (wide.width - dw) / 2, (wide.height - dh) / 2, dw, dh);
+        const img = wide.toDataURL("image/jpeg", 0.92);
         if (i > 0) pdf.addPage();
-        if (useVectorBg) {
-          pdf.setFillColor(bgRgb[0], bgRgb[1], bgRgb[2]);
-          pdf.rect(0, 0, pageW, pageH, "F");
-          const sx = pageW / renderW;
-          const sy = pageH / renderH;
-          for (const s of solidBgs) {
-            pdf.setFillColor(s.rgb[0], s.rgb[1], s.rgb[2]);
-            const rxMm = Math.min(s.br * sx, (s.w * sx) / 2);
-            const ryMm = Math.min(s.br * sy, (s.h * sy) / 2);
-            if (rxMm > 0.1) {
-              pdf.roundedRect(s.x * sx, s.y * sy, s.w * sx, s.h * sy, rxMm, ryMm, "F");
-            } else {
-              pdf.rect(s.x * sx, s.y * sy, s.w * sx, s.h * sy, "F");
-            }
-          }
-        }
-        const compression = imgType === "PNG" ? "SLOW" : "NONE";
-        const logicalW = canvas.width / captureScale;
-        const logicalH = canvas.height / captureScale;
-        pdf.addImage(imgData, imgType, 0, 0, pageW, pageH, undefined, compression);
-        if (directImages.length) {
-          const sx = pageW / renderW;
-          const sy = pageH / renderH;
-          for (const im of directImages) {
-            const prepped = await pdfPrepImageForRect(im.src, im.w, im.h, im.br, im.objectFit, 3);
-            if (!prepped) continue;
-            const dx = im.x * sx;
-            const dy = im.y * sy;
-            const dw = im.w * sx;
-            const dh = im.h * sy;
-            // Coins arrondis découpés vectoriellement (permet le JPEG sans alpha).
-            const hasClip = im.br > 0.5;
-            if (hasClip) {
-              pdf.saveGraphicsState();
-              const rx = Math.min(im.br * sx, dw / 2);
-              const ry = Math.min(im.br * sy, dh / 2);
-              pdf.roundedRect(dx, dy, dw, dh, rx, ry, null);
-              pdf.clip();
-              pdf.discardPath();
-            }
-            pdf.addImage(prepped.dataUrl, prepped.type, dx, dy, dw, dh, undefined, "FAST");
-            if (hasClip) pdf.restoreGraphicsState();
-          }
-        }
-        tempRoot.unmount();
+        pdf.addImage(img, "JPEG", 0, 0, pageW, pageH, undefined, "FAST");
+        stage.removeAttribute("data-pdf-capture");
+        pdfUnfreezeMotion();
       }
+      toast.textContent = "Enregistrement…";
+      pdf.save(`${META[id].l.replace(/\s/g, "_")}.pdf`);
+    } catch (err) {
+      console.error("export PDF", err);
+      window.alert("L'export PDF a échoué. Réessaie, ou utilise npm run export-pdfs.");
     } finally {
-      globalThis.__FAR_PDF_EXPORT = false;
+      toast.remove();
+      document.documentElement.removeAttribute("data-far-live-export");
       pdfUnfreezeMotion();
-      document.body.removeChild(container);
+      presRootRef.current?.querySelector(".far-slide-stage")?.removeAttribute("data-pdf-capture");
+      setCur(saved);
+      setPdfing(false);
+      setPdfStep("");
     }
-
-    pdf.save(`${META[id].l.replace(/\s/g, "_")}.pdf`);
-    setCur(saved);
-    setPdfing(false);
   };
 
   const hk = useCallback(e=>{
     if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" "){e.preventDefault();setCur(c=>Math.min(c+1,n-1));setNotes(false);}
     else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();setCur(c=>Math.max(c-1,0));setNotes(false);}
-    else if(e.key==="Escape")onBack();
+    else if(e.key==="Escape"){ if(!locked && onBack) onBack(); }
     else if(e.key==="n")setNotes(x=>!x);
-  },[n,onBack]);
+  },[n,onBack,locked]);
 
   useEffect(()=>{window.addEventListener("keydown",hk);return()=>window.removeEventListener("keydown",hk)},[hk]);
 
@@ -4289,13 +4204,15 @@ function Pres({id,onBack,onNav}) {
   },[cur]);
 
   return (
-    <div style={{position:"fixed",inset:0,zIndex:100,display:"flex",flexDirection:"column",background:t.bg,color:t.c,...sa}}>
+    <div ref={presRootRef} style={{position:"fixed",inset:0,zIndex:100,display:"flex",flexDirection:"column",background:t.bg,color:t.c,...sa}}>
       <style>{FC}{"\n* { -webkit-user-select: text !important; user-select: text !important; }"}</style>
       <DeckMotif deck={id}/>
-      <div className="far-header" style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 36px",flexShrink:0,position:"relative",zIndex:12}}>
+      <div className="far-header far-chrome" style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 36px",flexShrink:0,position:"relative",zIndex:12}}>
         <div style={{display:"flex",alignItems:"center",gap:18,flexWrap:"wrap",minWidth:0}}>
-          <button onClick={onBack} style={{background:"none",border:`1px solid ${t.brd}`,color:t.c,...sa,fontSize:13,padding:"7px 18px",borderRadius:8,cursor:"pointer",opacity:.4,flexShrink:0}}>← Retour</button>
-          <div className="far-logo-hover" style={{flexShrink:0}} onClick={onBack}><FarLogo size={52} variant={t.lv}/></div>
+          {!locked && onBack && (
+            <button onClick={onBack} style={{background:"none",border:`1px solid ${t.brd}`,color:t.c,...sa,fontSize:13,padding:"7px 18px",borderRadius:8,cursor:"pointer",opacity:.4,flexShrink:0}}>← Retour</button>
+          )}
+          <div className="far-logo-hover" style={{flexShrink:0,cursor:locked?"default":"pointer"}} onClick={locked?undefined:onBack}><FarLogo size={52} variant={t.lv}/></div>
           <span style={{...sa,fontSize:14,fontWeight:600,opacity:.4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{META[id].l}</span>
           <span style={{...mo,fontSize:13,opacity:.2,flexShrink:0}}>{String(cur+1).padStart(2,"0")} / {String(n).padStart(2,"0")}</span>
         </div>
@@ -4303,28 +4220,28 @@ function Pres({id,onBack,onNav}) {
           <motion.div animate={{width:`${(cur+1)/n*100}%`}} transition={{type:"spring",stiffness:200,damping:25}} style={{height:"100%",background:t.barF,borderRadius:2}}/>
         </motion.div>
       </div>
-      <AnimatePresence>{nav&&<motion.div className="far-nav-sidebar" initial={{x:-280,opacity:0}} animate={{x:0,opacity:1}} exit={{x:-280,opacity:0}} transition={{type:"spring",stiffness:300,damping:30}} style={{position:"fixed",top:0,left:0,bottom:0,width:260,background:t.bg,borderRight:`1px solid ${t.brd}`,zIndex:10,display:"flex",flexDirection:"column",paddingTop:64}}>
+      <AnimatePresence>{nav&&<motion.div className="far-nav-sidebar far-chrome" initial={{x:-280,opacity:0}} animate={{x:0,opacity:1}} exit={{x:-280,opacity:0}} transition={{type:"spring",stiffness:300,damping:30}} style={{position:"fixed",top:0,left:0,bottom:0,width:260,background:t.bg,borderRight:`1px solid ${t.brd}`,zIndex:10,display:"flex",flexDirection:"column",paddingTop:64}}>
         <div style={{padding:"16px 16px 12px",borderBottom:`1px solid ${t.brd}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,opacity:.3}}>SLIDES</div><button onClick={()=>setNav(false)} style={{background:"none",border:"none",color:t.c,fontSize:18,cursor:"pointer",opacity:.4,padding:"2px 6px",lineHeight:1}}>✕</button></div>
         <div style={{flex:1,overflowY:"auto",padding:"8px 0"}}>{slides.map((sl,i)=><button key={i} onClick={()=>{setCur(i);setNotes(false);}} style={{display:"flex",alignItems:"center",gap:12,width:"100%",padding:"10px 16px",border:"none",background:i===cur?t.a+"18":"transparent",cursor:"pointer",textAlign:"left",borderLeft:i===cur?`3px solid ${t.a}`:"3px solid transparent",transition:"all .15s"}}>
           <span style={{...mo,fontSize:11,fontWeight:700,color:i===cur?t.a:t.c,opacity:i===cur?1:.3,minWidth:22}}>{String(i+1).padStart(2,"0")}</span>
           <span style={{...sa,fontSize:13,color:i===cur?t.c:t.m,fontWeight:i===cur?600:400,lineHeight:1.3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{sl.title}</span>
         </button>)}</div>
       </motion.div>}</AnimatePresence>
-      <div ref={slideRef} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
+      <div ref={slideRef} className="far-slide-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:isGrandJdDeck(id)?"hidden":"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
         <AnimatePresence mode="wait">
-          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":"40px 36px 110px",WebkitUserSelect:"text",userSelect:"text"}}>
+          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",height:isGrandJdDeck(id)?"100%":undefined,minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":isGrandJdDeck(id)?"28px 44px 72px":"40px 36px 110px",boxSizing:"border-box",overflow:isGrandJdDeck(id)?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:1580,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:isGrandJdDeck(id)?1176:1580,maxHeight:isGrandJdDeck(id)?"100%":undefined,overflow:isGrandJdDeck(id)?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:isGrandJdDeck(id)?14:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
           </motion.div>
         </AnimatePresence>
       </div>
-      <button className="far-btn-slides" onClick={()=>setNav(true)} style={{position:"fixed",bottom:24,left:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",opacity:nav?0:1,pointerEvents:nav?"none":"auto",transition:"opacity .2s"}}>☰ Slides</button>
-      <div className="far-btn-nav" style={{position:"fixed",bottom:24,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:20}}>
+      <button className="far-btn-slides far-chrome" onClick={()=>setNav(true)} style={{position:"fixed",bottom:24,left:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",opacity:nav?0:1,pointerEvents:nav?"none":"auto",transition:"opacity .2s"}}>☰ Slides</button>
+      <div className="far-btn-nav far-chrome" style={{position:"fixed",bottom:24,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:20}}>
         <button onClick={()=>{setCur(c=>Math.max(c-1,0));setNotes(false);}} disabled={cur===0} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"10px 26px",borderRadius:8,cursor:cur===0?"not-allowed":"pointer",opacity:cur===0?.2:1,border:"none"}}>←</button>
         <button onClick={()=>{setCur(c=>Math.min(c+1,n-1));setNotes(false);}} disabled={cur===n-1} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"10px 26px",borderRadius:8,cursor:cur===n-1?"not-allowed":"pointer",opacity:cur===n-1?.2:1,border:"none"}}>→</button>
       </div>
-      <button className="far-btn-pdf" onClick={exportPDF} disabled={pdfing} style={{position:"fixed",bottom:24,right:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:pdfing?"wait":"pointer",opacity:pdfing?.5:1,transition:"opacity .2s"}}>{pdfing?"Export en cours…":"↓ PDF"}</button>
-      {s.note&&<button onClick={()=>setNotes(x=>!x)} style={{position:"fixed",bottom:24,right:120,zIndex:30,background:notes?t.cardAlt:"none",border:`1px solid ${t.brd}`,color:t.c,...mo,fontSize:11,fontWeight:600,padding:"10px 16px",borderRadius:8,cursor:"pointer",opacity:notes?.9:.3}}>📝 Web note</button>}
+      <button className="far-btn-pdf far-chrome" onClick={exportPDF} disabled={pdfing} style={{position:"fixed",bottom:24,right:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:pdfing?"wait":"pointer",opacity:pdfing?.5:1,transition:"opacity .2s"}}>{pdfing?`Export ${pdfStep}…`:"↓ PDF"}</button>
+      {s.note&&<button className="far-chrome" onClick={()=>setNotes(x=>!x)} style={{position:"fixed",bottom:24,right:120,zIndex:30,background:notes?t.cardAlt:"none",border:`1px solid ${t.brd}`,color:t.c,...mo,fontSize:11,fontWeight:600,padding:"10px 16px",borderRadius:8,cursor:"pointer",opacity:notes?.9:.3}}>📝 Web note</button>}
       <AnimatePresence>{notes&&s.note&&<motion.div initial={{opacity:0,scale:.96,y:8}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.96,y:8}} transition={{duration:.2}} style={{position:"fixed",bottom:70,right:24,width:500,maxHeight:440,borderRadius:16,padding:32,zIndex:30,overflowY:"auto",background:t.note,color:t.noteT}}><div style={{...mo,fontSize:11,letterSpacing:2,textTransform:"uppercase",opacity:.3,marginBottom:16}}>WEB NOTE  -  SLIDE {cur+1}</div><p style={{...sa,fontSize:15,lineHeight:1.85,opacity:.85}}>{s.note}</p></motion.div>}</AnimatePresence>
     </div>
   );
@@ -4904,6 +4821,17 @@ const LaPorteLogo = ({size=120,color="#fff"}) => <svg viewBox="0 0 87 40" fill={
 
 // ─── PASSWORD GATE ───────────────────────────────────────────────────────────
 const PASS_HASH = "thibault";
+
+/** Liens partage isolés : password dédié, pas d'accès home / autres decks. */
+const SHARE_LINKS = {
+  jd: {
+    deckId: "grandjd2",
+    password: "legrandjd",
+    title: "Le Grand JD × FAR",
+    authKey: "far_share_jd",
+  },
+};
+
 function Gate({children}){
   const [ok,setOk] = useState(()=>sessionStorage.getItem("far_auth")==="1");
   const [v,setV] = useState("");
@@ -4924,11 +4852,108 @@ function Gate({children}){
   </div>;
 }
 
+function ShareGate({ shareKey, children }) {
+  const link = SHARE_LINKS[shareKey];
+  const [ok, setOk] = useState(() => Boolean(link && sessionStorage.getItem(link.authKey) === "1"));
+  const [v, setV] = useState("");
+  const [err, setErr] = useState(false);
+  const [focused, setFocused] = useState(false);
+
+  if (!link) return null;
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (v === link.password) {
+      sessionStorage.setItem(link.authKey, "1");
+      setOk(true);
+    } else {
+      setErr(true);
+      setTimeout(() => setErr(false), 1500);
+    }
+  };
+
+  if (ok) return children;
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F1F0EC", padding: 20 }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');`}</style>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 400, width: "100%" }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 28 }}>
+          <FarLogo size={64} variant="black" />
+        </div>
+        <div style={{ ...se, fontSize: 22, fontWeight: 700, color: "#12161A", letterSpacing: "-0.03em", textAlign: "center", marginBottom: 8 }}>
+          {link.title}
+        </div>
+        <div style={{ ...sa, fontSize: 14, color: "rgba(18,22,26,.45)", textAlign: "center", marginBottom: 28 }}>
+          Accès présentation
+        </div>
+        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%" }}>
+          <input
+            value={v}
+            onChange={(e) => setV(e.target.value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            type="password"
+            placeholder={focused ? "" : "Mot de passe"}
+            autoComplete="current-password"
+            style={{
+              ...sa,
+              fontSize: 16,
+              padding: "14px 20px",
+              borderRadius: 10,
+              border: `1px solid ${err ? "#e53935" : "rgba(18,22,26,.12)"}`,
+              background: "#FFFFFF",
+              color: "#12161A",
+              outline: "none",
+              textAlign: "center",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              ...mo,
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: 2,
+              padding: "14px 32px",
+              borderRadius: 10,
+              border: "none",
+              background: "#0E8C74",
+              color: "#FFFFFF",
+              cursor: "pointer",
+            }}
+          >
+            ACCÉDER
+          </button>
+        </form>
+        {err && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ ...sa, fontSize: 13, color: "#e53935", marginTop: 12 }}>
+            Mot de passe incorrect
+          </motion.div>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── APP ──────────────────────────────────────────────────────────────────────
 function parseHash() {
   const h = window.location.hash.replace(/^#/, "");
   if (!h) return { view: "home" };
   const [raw, s] = h.split("/");
+  if (SHARE_LINKS[raw]) {
+    const slide = parseInt(s, 10);
+    return {
+      view: "share",
+      shareKey: raw,
+      d: SHARE_LINKS[raw].deckId,
+      s: Number.isFinite(slide) && slide >= 0 ? slide : 0,
+    };
+  }
   if (raw === "folder" && s && HOME_FOLDER_IDS.has(s)) return { view: "folder", folderId: s };
   if (raw === "archive") return { view: "archive" };
   const d = normalizeDeckId(raw);
@@ -4947,7 +4972,7 @@ export default function App() {
       const next = parseHash();
       if (next.view === "home" && window.location.hash.replace(/^#/, "")) {
         const raw = window.location.hash.replace(/^#/, "").split("/")[0];
-        if (raw && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
+        if (raw && !SHARE_LINKS[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
           const u = new URL(window.location.href);
           u.hash = "";
           window.history.replaceState(null, "", u.pathname + u.search);
@@ -4955,10 +4980,23 @@ export default function App() {
       }
       if (next.view === "deck" && next.d) {
         const h = window.location.hash.replace(/^#/, "");
-        const [raw, sPart] = h.split("/");
-        if (next.d !== raw) {
+        const [raw] = h.split("/");
+        if (next.d !== raw && !SHARE_LINKS[raw]) {
           const u = new URL(window.location.href);
           u.hash = `#${next.d}/${next.s}`;
+          window.history.replaceState(null, "", u.toString());
+        }
+      }
+      if (next.view === "share" && next.shareKey) {
+        const h = window.location.hash.replace(/^#/, "");
+        const [raw, sPart] = h.split("/");
+        if (raw !== next.shareKey) {
+          const u = new URL(window.location.href);
+          u.hash = `#${next.shareKey}/${next.s}`;
+          window.history.replaceState(null, "", u.toString());
+        } else if (sPart === undefined) {
+          const u = new URL(window.location.href);
+          u.hash = `#${next.shareKey}/0`;
           window.history.replaceState(null, "", u.toString());
         }
       }
@@ -4981,6 +5019,21 @@ export default function App() {
     if (window.history.length > 1) window.history.back();
     else window.location.hash = "";
   }, [route.view, route.d]);
+
+  if (route.view === "share" && route.shareKey && route.d) {
+    return (
+      <ShareGate shareKey={route.shareKey}>
+        <Pres
+          key={`share-${route.shareKey}`}
+          id={route.d}
+          shareKey={route.shareKey}
+          locked
+          onBack={undefined}
+          onNav={() => {}}
+        />
+      </ShareGate>
+    );
+  }
 
   return (
     <Gate>

@@ -6,6 +6,7 @@ import jdPortraitUrl from "./assets/grandjd/jd-portrait.jpg";
 import emmaThumbUrl from "./assets/grandjd/emma/thumb.jpg";
 import emmaIntegrationUrl from "./assets/grandjd/emma/integration.jpg";
 import toinelagUbiThumbUrl from "./assets/grandjd/toinelag-ubi/thumb.jpg";
+import cyrilAdopteThumbUrl from "./assets/grandjd/cyril-adopte/thumb.jpg";
 import ex58JoursUrl from "./assets/grandjd/exemples/58-jours.jpg";
 import exEpidemieUrl from "./assets/grandjd/exemples/epidemie.jpg";
 import exSquelettesUrl from "./assets/grandjd/exemples/squelettes.jpg";
@@ -113,27 +114,6 @@ export function createSGrandJdV2(P) {
     );
   };
 
-  const NEEDS = [
-    {
-      n: "01",
-      k: "Chiffre d'affaires",
-      t: "Développer ton chiffre d'affaires.",
-      d: "Sans produire plus, ni changer ce que tu fais déjà très bien.",
-    },
-    {
-      n: "02",
-      k: "Remplissage",
-      t: "Optimiser ton remplissage, intelligemment.",
-      d: "Tendre vers un partenaire par contenu, uniquement quand c'est justifié.",
-    },
-    {
-      n: "03",
-      k: "Partenaires",
-      t: "Trouver des partenaires qui te ressemblent.",
-      d: "Des marques qui ont une raison d'être dans tes formats, et dans ton calendrier.",
-    },
-  ];
-
   const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
   const manifestoBlocks = [
     { k: "verse", t: "C'est une voix." },
@@ -187,10 +167,9 @@ export function createSGrandJdV2(P) {
               gap: 40,
               alignItems: "stretch",
               width: "100%",
-              minHeight: "62vh",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: "100%", padding: "8px 0" }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "8px 0" }}>
               <div
                 style={{
                   display: "inline-flex",
@@ -247,7 +226,8 @@ export function createSGrandJdV2(P) {
                 position: "relative",
                 borderRadius: 28,
                 overflow: "hidden",
-                minHeight: 480,
+                aspectRatio: "3 / 4",
+                maxHeight: 560,
                 backgroundColor: "#1a1f24",
                 boxShadow: "0 24px 60px rgba(18,22,26,.14)",
               }}
@@ -280,64 +260,6 @@ export function createSGrandJdV2(P) {
     },
 
     {
-      title: "FAR en bref",
-      r: (t) => (
-        <div style={{ width: "100%" }}>
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 40, marginBottom: 28, flexWrap: "wrap" }}>
-            <div style={{ maxWidth: 760 }}>
-              <Eyebrow t={t}>L&apos;agence</Eyebrow>
-              <Title t={t} s={{ fontSize: 42 }}>
-                L&apos;agence qui valorise les créateurs.
-              </Title>
-              <Lead t={t} s={{ maxWidth: 640 }}>
-                Construire les revenus, libérer du temps, défendre la valeur. Un roster à taille humaine : peu de créateurs, beaucoup de temps pour chacun.
-              </Lead>
-            </div>
-            <div style={{ textAlign: "center", flexShrink: 0 }}>
-              <FarLogo size={78} variant={t.lv} />
-              <div style={{ marginTop: 12, display: "flex", justifyContent: "center" }}>
-                <FarBeams w={112} fill={t.a} />
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 20 }}>
-            {[
-              { i: 1, t: "Garantir la croissance", d: "Partenariats longs, actifs propriétaires, remplissage intelligent. Plus de revenus, même univers." },
-              { i: 2, t: "Solidifier la structure", d: "Contrats, facturation, calendrier, data business : on absorbe tout ce qui est chronophage." },
-              { i: 3, t: "Laisser la création intacte", d: "Ta ligne, tes règles. On filtre les sollicitations et on refuse ce qui abîmerait ton récit." },
-            ].map((leg) => (
-              <Card key={leg.i} t={t} s={{ borderTop: `4px solid ${t.a}` }}>
-                <div style={{ marginBottom: 12 }}>
-                  <FarBeams w={58} h={18} fill={t.a} active={leg.i} dimOpacity={0.18} />
-                </div>
-                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.6, color: t.a, marginBottom: 8, textTransform: "uppercase" }}>
-                  Faisceau {String(leg.i).padStart(2, "0")}
-                </div>
-                <div style={{ ...se, fontSize: 20, fontWeight: 700, letterSpacing: "-0.028em", color: t.c, marginBottom: 8, lineHeight: 1.2 }}>{leg.t}</div>
-                <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.52 }}>{leg.d}</div>
-              </Card>
-            ))}
-          </div>
-
-          <div style={{ display: "flex", gap: 12 }}>
-            {[
-              { v: "10 ans", l: "d'expérience marques & créateurs" },
-              { v: "+50", l: "marques accompagnées" },
-              { v: "+100", l: "campagnes réalisées" },
-              { v: "5", l: "créateurs accompagnés" },
-            ].map((s) => (
-              <div key={s.l} style={{ flex: 1, padding: "14px 16px", borderRadius: 14, background: t.cardAlt, textAlign: "center" }}>
-                <div style={{ ...se, fontSize: 26, fontWeight: 700, letterSpacing: "-0.035em", color: t.a, lineHeight: 1 }}>{s.v}</div>
-                <div style={{ ...sa, fontSize: 12, color: t.m, marginTop: 6, lineHeight: 1.35 }}>{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ),
-    },
-
-    {
       title: "Manifesto",
       r: (t) => (
         <div
@@ -348,7 +270,7 @@ export function createSGrandJdV2(P) {
             justifyContent: "center",
             textAlign: "center",
             width: "100%",
-            minHeight: "58vh",
+            minHeight: 0,
           }}
         >
           <div style={{ ...mo, fontSize: 12.5, fontWeight: 600, letterSpacing: 2.4, textTransform: "uppercase", color: t.d, marginBottom: 10 }}>
@@ -368,25 +290,68 @@ export function createSGrandJdV2(P) {
 
     {
       title: "Tes besoins",
-      r: (t) => (
-        <div style={{ width: "100%" }}>
-          <Title t={t} s={{ fontSize: 42, marginBottom: 28 }}>
-            Partons de ce dont tu as besoin.
-          </Title>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, alignItems: "stretch" }}>
-            {NEEDS.map((need) => (
-              <Card key={need.n} t={t} s={{ borderTop: `4px solid ${t.a}`, padding: "22px 22px 24px", height: "100%", boxSizing: "border-box" }}>
-                <div style={{ ...se, fontSize: 15, fontWeight: 700, letterSpacing: "-0.03em", color: t.a, lineHeight: 1, marginBottom: 14 }}>{need.n}</div>
-                <div style={{ ...se, fontSize: 22, fontWeight: 700, letterSpacing: "-0.028em", color: t.c, marginBottom: 10, lineHeight: 1.22 }}>
-                  {need.t}
+      r: (t) => {
+        const rows = [
+          {
+            n: "01",
+            t: "Développer ton CA",
+            d: "En optimisant le remplissage. Tendre vers un partenaire par contenu, quand c'est pertinent, ou que le deal est intéressant.",
+          },
+          {
+            n: "02",
+            t: "Préserver ton image",
+            d: "Des marques qui ont une raison d'être dans tes formats, et dans ton calendrier.",
+          },
+          {
+            n: "03",
+            t: "Préserver ton temps",
+            d: "Une équipe dédiée, tout le temps disponible pour toi, et des process optimisés.",
+          },
+        ];
+        return (
+          <div style={{ width: "100%" }}>
+            <Title t={t} s={{ fontSize: 32, marginBottom: 28, maxWidth: 820 }}>
+              Les priorités qui nous semblent pertinentes pour toi
+            </Title>
+            <div>
+              {rows.map((x, i) => (
+                <div
+                  key={x.n}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "100px 1fr",
+                    gap: 28,
+                    alignItems: "center",
+                    padding: "20px 0",
+                    borderTop: i === 0 ? `1px solid ${t.brd}` : "none",
+                    borderBottom: `1px solid ${t.brd}`,
+                  }}
+                >
+                  <div
+                    style={{
+                      ...se,
+                      fontSize: 52,
+                      fontWeight: 700,
+                      letterSpacing: "-0.07em",
+                      lineHeight: 0.9,
+                      color: "transparent",
+                      WebkitTextStroke: `1.5px ${t.a}`,
+                    }}
+                  >
+                    {x.n}
+                  </div>
+                  <div>
+                    <div style={{ ...se, fontSize: 26, fontWeight: 700, letterSpacing: "-0.038em", color: t.c, lineHeight: 1.12, marginBottom: 6 }}>
+                      {x.t}
+                    </div>
+                    <div style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.45, maxWidth: 640 }}>{x.d}</div>
+                  </div>
                 </div>
-                <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.5 }}>{need.d}</div>
-              </Card>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
 
     {
@@ -518,142 +483,10 @@ export function createSGrandJdV2(P) {
     },
 
     {
-      title: "Remplissage · la preuve",
-      r: (t) => {
-        const rows = [
-          {
-            name: "CYRILmp4",
-            img: "/cyrilmp4.webp",
-            from: null,
-            to: 100,
-            label: "~100 %",
-            note: "Calendrier complet, un partenaire par contenu, catégories protégées.",
-          },
-          {
-            name: "Toinelag",
-            img: "/toinelag.webp",
-            from: 33,
-            to: 66,
-            label: "33 % → 66 %",
-            note: "Remplissage doublé en un an, sans changer sa ligne éditoriale.",
-          },
-          {
-            name: "Le Grand JD",
-            img: jdPortraitUrl,
-            from: 28,
-            to: 66,
-            label: "~28 % → objectif 66 % année 1",
-            note: "Le potentiel le plus ouvert du roster : la majorité de tes vidéos partent encore sans partenaire.",
-            target: true,
-          },
-        ];
-        return (
-          <div style={{ width: "100%" }}>
-            <Eyebrow t={t}>Remplissage · preuves</Eyebrow>
-            <Title t={t} s={{ fontSize: 42 }}>
-              Ce qu&apos;on sait faire, chiffres à l&apos;appui.
-            </Title>
-            <Lead t={t} s={{ maxWidth: 780, marginBottom: 18 }}>
-              Part des contenus qui sortent avec un partenaire. Même méthode, 3 univers différents.
-            </Lead>
-            <div style={{ display: "flex", gap: 22, alignItems: "center", marginBottom: 18 }}>
-              {[
-                { c: t.a, l: "Point de départ" },
-                { c: "rgba(14,140,116,.34)", l: "Gagné avec FAR" },
-                { c: "repeating-linear-gradient(115deg, rgba(14,140,116,.3) 0 7px, rgba(14,140,116,.1) 7px 14px)", l: "Objectif" },
-              ].map((x) => (
-                <div key={x.l} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ width: 22, height: 10, borderRadius: 5, background: x.c, display: "block" }} />
-                  <span style={{ ...mo, fontSize: 10.5, fontWeight: 600, letterSpacing: 1.2, color: t.d, textTransform: "uppercase" }}>{x.l}</span>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {rows.map((row) => (
-                <Card
-                  key={row.name}
-                  t={t}
-                  s={{
-                    padding: "20px 24px",
-                    border: row.target ? `2px solid ${t.a}` : `1px solid ${t.brd}`,
-                    background: row.target ? t.cardAlt : t.card,
-                  }}
-                >
-                  <div style={{ display: "grid", gridTemplateColumns: "210px 1fr 200px", gap: 24, alignItems: "center" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <img
-                        src={/\/assets\//.test(row.img) ? row.img : pu(row.img)}
-                        alt={row.name}
-                        style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", flexShrink: 0, border: `2px solid ${t.a}` }}
-                      />
-                      <div>
-                        <div style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.026em", color: t.c, lineHeight: 1.2 }}>{row.name}</div>
-                        {row.target && (
-                          <div style={{ ...mo, fontSize: 9.5, fontWeight: 700, letterSpacing: 1.4, color: t.a, marginTop: 4, textTransform: "uppercase" }}>
-                            Toi, demain
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <FillBar t={t} from={row.from} to={row.to} target={row.target} />
-                      <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.45, marginTop: 10 }}>{row.note}</div>
-                    </div>
-                    <div style={{ textAlign: "right" }}>
-                      <div style={{ ...se, fontSize: 24, fontWeight: 700, letterSpacing: "-0.035em", color: row.target ? t.a : t.c, lineHeight: 1.1 }}>
-                        {row.label}
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-            <div
-              style={{
-                marginTop: 18,
-                padding: "16px 24px",
-                borderRadius: 16,
-                background: t.th,
-                color: t.thT,
-                ...sa,
-                fontSize: 15,
-                lineHeight: 1.5,
-                borderLeft: `5px solid ${t.a}`,
-              }}
-            >
-              Chaque point de remplissage gagné est du CA net, sur des vidéos que tu produis déjà.
-            </div>
-          </div>
-        );
-      },
-    },
-
-    {
       title: "Cas concret · Emma",
       r: (t) => {
         const fgcAvatar = pu("/fgc.webp");
         const yt = { fontFamily: "Roboto, Arial, Helvetica, sans-serif" };
-        const NeutralAvatar = ({ color }) => (
-          <div
-            aria-hidden
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: "50%",
-              background: color,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              overflow: "hidden",
-            }}
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <circle cx="12" cy="8.2" r="3.4" fill="rgba(255,255,255,.92)" />
-              <path d="M5.2 19.2c.6-3.4 3.2-5.2 6.8-5.2s6.2 1.8 6.8 5.2" fill="rgba(255,255,255,.92)" />
-            </svg>
-          </div>
-        );
         const comments = [
           {
             color: "#6B8FCE",
@@ -677,16 +510,16 @@ export function createSGrandJdV2(P) {
         return (
           <div style={{ width: "100%" }}>
             <Eyebrow t={t}>Cas concret · FastGoodCuisine</Eyebrow>
-            <Title t={t} s={{ fontSize: 38, marginBottom: 10 }}>
+            <Title t={t} s={{ fontSize: 32, marginBottom: 6 }}>
               Emma, intégrée nativement sans casser le concept
             </Title>
-            <Lead t={t} s={{ maxWidth: "100%", marginBottom: 18 }}>
-              Remplir intelligemment, c&apos;est ça : Emma n&apos;avait rien à faire dans un test resto sur le papier. L&apos;angle (le lit comme véhicule McDo) la rend légitime, et l&apos;audience en parle seule en commentaire.
+            <Lead t={t} s={{ maxWidth: "100%", marginBottom: 10, fontSize: 14, whiteSpace: "nowrap" }}>
+              Emma n&apos;avait rien à faire dans un test resto sur le papier. L&apos;angle (le lit comme véhicule McDo) la rend légitime, et l&apos;audience en parle seule en commentaire.
             </Lead>
 
-            <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.92fr) minmax(0,1.08fr)", gap: 20, alignItems: "stretch" }}>
-              {/* Gauche : carte étirée haut/bas, miniature reste 16:9 */}
-              <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.92fr) minmax(0,1.08fr)", gap: 16, alignItems: "start" }}>
+              {/* Gauche : carte YouTube */}
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 <div
                   style={{
                     ...mo,
@@ -703,7 +536,6 @@ export function createSGrandJdV2(P) {
                 </div>
                 <div
                   style={{
-                    flex: 1,
                     display: "flex",
                     flexDirection: "column",
                     background: "#FFFFFF",
@@ -711,7 +543,6 @@ export function createSGrandJdV2(P) {
                     overflow: "hidden",
                     border: "1px solid rgba(0,0,0,.08)",
                     boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06)",
-                    minHeight: 0,
                   }}
                 >
                   <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", flexShrink: 0, background: "#0F0F0F" }}>
@@ -721,7 +552,7 @@ export function createSGrandJdV2(P) {
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-                      <svg width="68" height="48" viewBox="0 0 68 48" aria-hidden>
+                      <svg width="56" height="40" viewBox="0 0 68 48" aria-hidden>
                         <path
                           d="M66.52 7.74a8.53 8.53 0 0 0-6-6.04C55.25.18 34 0 34 0S12.75.18 7.48 1.7a8.53 8.53 0 0 0-6 6.04C0 13.04 0 24 0 24s0 10.96 1.48 16.26a8.53 8.53 0 0 0 6 6.04C12.75 47.82 34 48 34 48s21.25-.18 26.52-1.7a8.53 8.53 0 0 0 6-6.04C68 34.96 68 24 68 24s0-10.96-1.48-16.26z"
                           fill="#FF0000"
@@ -730,36 +561,27 @@ export function createSGrandJdV2(P) {
                       </svg>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      flex: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      padding: "12px 14px 14px",
-                      gap: 10,
-                      minHeight: 0,
-                    }}
-                  >
-                    <div style={{ ...yt, fontSize: 15, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25, letterSpacing: "-0.01em" }}>
+                  <div style={{ display: "flex", flexDirection: "column", padding: "10px 12px 12px", gap: 8 }}>
+                    <div style={{ ...yt, fontSize: 14, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25, letterSpacing: "-0.01em" }}>
                       J&apos;ai Testé Les Limites De 10 Restaurants !
                     </div>
 
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                         <img
                           src={fgcAvatar}
                           alt=""
-                          style={{ width: 34, height: 34, borderRadius: "50%", objectFit: "cover", flexShrink: 0, display: "block" }}
+                          style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover", flexShrink: 0, display: "block" }}
                         />
                         <div style={{ minWidth: 0 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                            <span style={{ ...yt, fontSize: 12.5, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>FastGoodCuisine</span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden>
+                            <span style={{ ...yt, fontSize: 12, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>FastGoodCuisine</span>
+                            <svg width="11" height="11" viewBox="0 0 24 24" aria-hidden>
                               <circle cx="12" cy="12" r="10" fill="#606060" />
                               <path d="M10.2 15.4 7.1 12.3l1.2-1.2 1.9 1.9 4.5-4.5 1.2 1.2-5.7 5.7z" fill="#fff" />
                             </svg>
                           </div>
-                          <div style={{ ...yt, fontSize: 11, color: "#606060", lineHeight: 1.2 }}>8,77 M d&apos;abonnés</div>
+                          <div style={{ ...yt, fontSize: 10.5, color: "#606060", lineHeight: 1.2 }}>8,77 M d&apos;abonnés</div>
                         </div>
                         <div
                           style={{
@@ -768,9 +590,9 @@ export function createSGrandJdV2(P) {
                             flexShrink: 0,
                             background: "#0F0F0F",
                             color: "#fff",
-                            fontSize: 11.5,
+                            fontSize: 11,
                             fontWeight: 600,
-                            padding: "7px 12px",
+                            padding: "6px 10px",
                             borderRadius: 999,
                             lineHeight: 1,
                           }}
@@ -779,76 +601,36 @@ export function createSGrandJdV2(P) {
                         </div>
                       </div>
 
-                      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-                        {[
-                          { label: "127 k", icon: "like" },
-                          { label: "Partager", icon: "share" },
-                          { label: "Enregistrer", icon: "save" },
-                        ].map((b) => (
-                          <div
-                            key={b.label}
-                            style={{
-                              ...yt,
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 5,
-                              background: "#F2F2F2",
-                              borderRadius: 999,
-                              padding: "6px 10px",
-                              fontSize: 11.5,
-                              fontWeight: 500,
-                              color: "#0F0F0F",
-                              lineHeight: 1,
-                            }}
-                          >
-                            {b.icon === "like" && (
-                              <>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                                  <path d="M18.77 11h-4.05l.58-3.59.03-.32c0-.41-.17-.8-.44-1.06L14.09 5.5 9.41 10.18A1.5 1.5 0 0 0 9 11.23V18a1.5 1.5 0 0 0 1.5 1.5h6.28a2 2 0 0 0 1.87-1.31l2.26-5.29A1.75 1.75 0 0 0 18.77 11zM5.5 19.5A1.5 1.5 0 0 0 7 18v-6.5A1.5 1.5 0 0 0 5.5 10h-1A1.5 1.5 0 0 0 3 11.5V18a1.5 1.5 0 0 0 1.5 1.5h1z" />
-                                </svg>
-                                <span>{b.label}</span>
-                                <span style={{ width: 1, height: 12, background: "rgba(0,0,0,.15)", margin: "0 2px" }} />
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                                  <path d="M5.23 13h4.05l-.58 3.59-.03.32c0 .41.17.8.44 1.06l.8.81 4.68-4.68A1.5 1.5 0 0 0 15 12.77V6A1.5 1.5 0 0 0 13.5 4.5H7.22a2 2 0 0 0-1.87 1.31L3.09 11.1A1.75 1.75 0 0 0 5.23 13zM18.5 4.5A1.5 1.5 0 0 0 17 6v6.5a1.5 1.5 0 0 0 1.5 1.5h1A1.5 1.5 0 0 0 21 12.5V6A1.5 1.5 0 0 0 19.5 4.5h-1z" />
-                                </svg>
-                              </>
-                            )}
-                            {b.icon === "share" && (
-                              <>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                                  <path d="M15 5.63 20.66 12 15 18.37V14h-1c-3.96 0-7.14 1-9.75 3.09 1.84-4.07 5.11-6.4 9.89-7.1L15 9.86V5.63M14 3v6C6.22 10.13 3.11 15.33 2 21c2.78-3.97 6.44-6 12-6v6l8-9-8-9z" />
-                                </svg>
-                                <span>{b.label}</span>
-                              </>
-                            )}
-                            {b.icon === "save" && (
-                              <>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                                  <path d="M18 4H6a2 2 0 0 0-2 2v15.38l8-3.05 8 3.05V6a2 2 0 0 0-2-2zm0 14.43-6-2.29-6 2.29V6h12v12.43z" />
-                                </svg>
-                                <span>{b.label}</span>
-                              </>
-                            )}
-                          </div>
-                        ))}
+                      <div
+                        style={{
+                          ...yt,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 5,
+                          background: "#F2F2F2",
+                          borderRadius: 999,
+                          padding: "5px 9px",
+                          fontSize: 11,
+                          fontWeight: 500,
+                          color: "#0F0F0F",
+                          lineHeight: 1,
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                          <path d="M18.77 11h-4.05l.58-3.59.03-.32c0-.41-.17-.8-.44-1.06L14.09 5.5 9.41 10.18A1.5 1.5 0 0 0 9 11.23V18a1.5 1.5 0 0 0 1.5 1.5h6.28a2 2 0 0 0 1.87-1.31l2.26-5.29A1.75 1.75 0 0 0 18.77 11zM5.5 19.5A1.5 1.5 0 0 0 7 18v-6.5A1.5 1.5 0 0 0 5.5 10h-1A1.5 1.5 0 0 0 3 11.5V18a1.5 1.5 0 0 0 1.5 1.5h1z" />
+                        </svg>
+                        <span>127 k</span>
                       </div>
                     </div>
 
-                    <div
-                      style={{
-                        flex: 1,
-                        background: "#F2F2F2",
-                        borderRadius: 12,
-                        padding: "10px 12px",
-                        minHeight: 0,
-                      }}
-                    >
-                      <div style={{ ...yt, fontSize: 12, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.3, marginBottom: 4 }}>
+                    <div style={{ background: "#F2F2F2", borderRadius: 10, padding: "8px 10px" }}>
+                      <div style={{ ...yt, fontSize: 11.5, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25, marginBottom: 2 }}>
                         6,8 M de vues · il y a 1 mois
                       </div>
-                      <div style={{ ...yt, fontSize: 11.5, color: "#0F0F0F", lineHeight: 1.45 }}>
-                        Profitez des Soldes d&apos;été Emma jusqu&apos;au 28 juillet avec jusqu&apos;à -50% sur le site + 10% supplémentaires sur les produits en promo avec le code FASTGOOD :{" "}
-                        <span style={{ color: "#065FD4" }}>http://emma.fr/?utm_source=youtube…</span>{" "}
+                      <div style={{ ...yt, fontSize: 11, color: "#0F0F0F", lineHeight: 1.35 }}>
+                        Soldes Emma jusqu&apos;à -50% + 10% avec le code FASTGOOD.{" "}
+                        <span style={{ color: "#065FD4" }}>emma.fr…</span>{" "}
                         <span style={{ fontWeight: 700 }}>…afficher plus</span>
                       </div>
                     </div>
@@ -856,9 +638,9 @@ export function createSGrandJdV2(P) {
                 </div>
               </div>
 
-              {/* Droite : plan + bullets en haut, commentaires en dessous */}
-              <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(0,0.9fr)", gap: 14, marginBottom: 14, alignItems: "center" }}>
+              {/* Droite : plan + commentaires remontés */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1.15fr) minmax(0,0.95fr)", gap: 12, alignItems: "center" }}>
                   <div>
                     <div
                       style={{
@@ -878,7 +660,7 @@ export function createSGrandJdV2(P) {
                       style={{
                         width: "100%",
                         aspectRatio: "16/9",
-                        borderRadius: 12,
+                        borderRadius: 10,
                         overflow: "hidden",
                       }}
                     >
@@ -888,50 +670,48 @@ export function createSGrandJdV2(P) {
                         style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
                       />
                     </div>
-                    <div style={{ ...sa, fontSize: 12, fontStyle: "italic", color: t.m, lineHeight: 1.4, marginTop: 6 }}>
-                      FastGoodCuisine se rend au Mc Drive avec une voiture-matelas EMMA
+                    <div style={{ ...sa, fontSize: 11.5, fontStyle: "italic", color: t.m, lineHeight: 1.3, marginTop: 4 }}>
+                      Mc Drive en voiture-matelas EMMA
                     </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 12, paddingTop: 18 }}>
+                  <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 8, paddingTop: 12 }}>
                     {[
                       { t: "L'angle", d: "Le lit devient le véhicule de l'expérience McDo." },
                       { t: "Le format", d: "Intégration longue, écrite avec le créateur." },
                       { t: "Le résultat", d: "L'audience reprend le produit en commentaire." },
                     ].map((x) => (
-                      <div key={x.t} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                      <div key={x.t} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
                         <div
                           style={{
                             width: 6,
                             height: 6,
                             borderRadius: "50%",
                             background: t.a,
-                            marginTop: 7,
+                            marginTop: 6,
                             flexShrink: 0,
                           }}
                         />
                         <div>
-                          <div style={{ ...sa, fontSize: 13.5, fontWeight: 700, color: t.c, lineHeight: 1.25, marginBottom: 2 }}>{x.t}</div>
-                          <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.4 }}>{x.d}</div>
+                          <div style={{ ...sa, fontSize: 12.5, fontWeight: 700, color: t.c, lineHeight: 1.2, marginBottom: 1 }}>{x.t}</div>
+                          <div style={{ ...sa, fontSize: 12, color: t.m, lineHeight: 1.3 }}>{x.d}</div>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.8, color: t.d, marginBottom: 4, textTransform: "uppercase" }}>
+                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.8, color: t.d, textTransform: "uppercase" }}>
                   Ce qu&apos;en dit l&apos;audience
                 </div>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 0,
-                    borderRadius: 14,
+                    borderRadius: 12,
                     border: `1px solid ${t.brd}`,
                     background: t.card,
                     overflow: "hidden",
                     boxShadow: t.cS,
-                    marginTop: "auto",
                   }}
                 >
                   {comments.map((c, i) => (
@@ -939,25 +719,37 @@ export function createSGrandJdV2(P) {
                       key={c.user}
                       style={{
                         display: "grid",
-                        gridTemplateColumns: "36px minmax(0,1fr)",
-                        columnGap: 10,
+                        gridTemplateColumns: "28px minmax(0,1fr)",
+                        columnGap: 8,
                         alignItems: "start",
-                        padding: "11px 14px",
+                        padding: "8px 12px",
                         borderBottom: i < comments.length - 1 ? `1px solid ${t.brd}` : "none",
                       }}
                     >
-                      <NeutralAvatar color={c.color} />
-                      <div style={{ minWidth: 0, paddingTop: 1 }}>
-                        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 3, flexWrap: "wrap" }}>
-                          <span style={{ ...sa, fontSize: 12.5, fontWeight: 700, color: t.c, lineHeight: 1.2 }}>{c.user}</span>
-                          <span style={{ ...sa, fontSize: 11.5, color: t.d, lineHeight: 1.2 }}>{c.when}</span>
+                      <div
+                        aria-hidden
+                        style={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: "50%",
+                          background: c.color,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="8.2" r="3.4" fill="rgba(255,255,255,.92)" />
+                          <path d="M5.2 19.2c.6-3.4 3.2-5.2 6.8-5.2s6.2 1.8 6.8 5.2" fill="rgba(255,255,255,.92)" />
+                        </svg>
+                      </div>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 1, flexWrap: "wrap" }}>
+                          <span style={{ ...sa, fontSize: 11.5, fontWeight: 700, color: t.c, lineHeight: 1.2 }}>{c.user}</span>
+                          <span style={{ ...sa, fontSize: 11, color: t.d, lineHeight: 1.2 }}>{c.when}</span>
                         </div>
-                        <div style={{ ...sa, fontSize: 13, color: t.c, lineHeight: 1.35, marginBottom: 6 }}>{c.text}</div>
-                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                          <span style={{ ...sa, fontSize: 11, color: t.d, lineHeight: 1 }}>👍</span>
-                          <span style={{ ...sa, fontSize: 11, color: t.d, lineHeight: 1 }}>👎</span>
-                          <span style={{ ...sa, fontSize: 11.5, fontWeight: 600, color: t.c, lineHeight: 1 }}>Répondre</span>
-                        </div>
+                        <div style={{ ...sa, fontSize: 12.5, color: t.c, lineHeight: 1.3 }}>{c.text}</div>
                       </div>
                     </div>
                   ))}
@@ -1165,49 +957,371 @@ export function createSGrandJdV2(P) {
 
     {
       title: "Cas concret · Opération premium",
-      r: (t) => (
-        <div style={{ width: "100%" }}>
-          <Eyebrow t={t}>Cas concret · Opération premium</Eyebrow>
-          <Title t={t} s={{ fontSize: 38, marginBottom: 10 }}>
-            Exemple à venir
-          </Title>
-          <Lead t={t} s={{ maxWidth: 720, marginBottom: 28 }}>
-            Co-branding, expérience ou opération spéciale : un cas à forte valeur, au-delà de l&apos;intégration et de la dédiée.
-          </Lead>
-          <div
-            style={{
-              borderRadius: 20,
-              border: `1.5px dashed ${t.brd}`,
-              background: t.cardAlt,
-              minHeight: 420,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "48px 40px",
-              boxSizing: "border-box",
-              textAlign: "center",
-            }}
-          >
+      r: (t) => {
+        const cyrilAvatar = pu("/cyrilmp4.webp");
+        const yt = { fontFamily: "Roboto, Arial, Helvetica, sans-serif" };
+        return (
+          <div style={{ width: "100%" }}>
+            <Eyebrow t={t}>Cas concret · Opération premium · CYRILmp4 × Adopte</Eyebrow>
+            <Title t={t} s={{ fontSize: 36, marginBottom: 10 }}>
+              Une expérience brand, portée par deux créateurs.
+            </Title>
+            <Lead t={t} s={{ maxWidth: "100%", marginBottom: 18 }}>
+              Adopte × Cyril, avec toi en guest : un concept date / restos de stars, bien au-delà d&apos;une intégration classique.
+            </Lead>
+
+            <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.95fr) minmax(0,1.05fr)", gap: 20, alignItems: "stretch" }}>
+              <div style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+                <div
+                  style={{
+                    ...mo,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: 1.8,
+                    color: t.d,
+                    marginBottom: 4,
+                    textTransform: "uppercase",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Exemple d&apos;opération premium
+                </div>
+                <div
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    background: "#FFFFFF",
+                    borderRadius: 12,
+                    overflow: "hidden",
+                    border: "1px solid rgba(0,0,0,.08)",
+                    boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06)",
+                    minHeight: 0,
+                  }}
+                >
+                  <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", flexShrink: 0, background: "#0F0F0F" }}>
+                    <img
+                      src={cyrilAdopteThumbUrl}
+                      alt="La vérité sur les restaurants de Stars (ft. LE GRAND JD)"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    />
+                    <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
+                      <svg width="68" height="48" viewBox="0 0 68 48" aria-hidden>
+                        <path
+                          d="M66.52 7.74a8.53 8.53 0 0 0-6-6.04C55.25.18 34 0 34 0S12.75.18 7.48 1.7a8.53 8.53 0 0 0-6 6.04C0 13.04 0 24 0 24s0 10.96 1.48 16.26a8.53 8.53 0 0 0 6 6.04C12.75 47.82 34 48 34 48s21.25-.18 26.52-1.7a8.53 8.53 0 0 0 6-6.04C68 34.96 68 24 68 24s0-10.96-1.48-16.26z"
+                          fill="#FF0000"
+                        />
+                        <path d="M45 24 27 14v20z" fill="#fff" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "12px 14px 14px", gap: 10, minHeight: 0 }}>
+                    <div style={{ ...yt, fontSize: 15, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25, letterSpacing: "-0.01em" }}>
+                      La vérité sur les restaurants de Stars (ft. LE GRAND JD)
+                    </div>
+
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+                        <img
+                          src={cyrilAvatar}
+                          alt=""
+                          style={{ width: 34, height: 34, borderRadius: "50%", objectFit: "cover", flexShrink: 0, display: "block" }}
+                        />
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                            <span style={{ ...yt, fontSize: 12.5, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>CYRILmp4</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden>
+                              <circle cx="12" cy="12" r="10" fill="#606060" />
+                              <path d="M10.2 15.4 7.1 12.3l1.2-1.2 1.9 1.9 4.5-4.5 1.2 1.2-5.7 5.7z" fill="#fff" />
+                            </svg>
+                          </div>
+                          <div style={{ ...yt, fontSize: 11, color: "#606060", lineHeight: 1.2 }}>5 M d&apos;abonnés</div>
+                        </div>
+                        <div
+                          style={{
+                            ...yt,
+                            marginLeft: 4,
+                            flexShrink: 0,
+                            background: "#0F0F0F",
+                            color: "#fff",
+                            fontSize: 11.5,
+                            fontWeight: 600,
+                            padding: "7px 12px",
+                            borderRadius: 999,
+                            lineHeight: 1,
+                          }}
+                        >
+                          S&apos;abonner
+                        </div>
+                      </div>
+
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                        <div
+                          style={{
+                            ...yt,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 5,
+                            background: "#F2F2F2",
+                            borderRadius: 999,
+                            padding: "6px 10px",
+                            fontSize: 11.5,
+                            fontWeight: 500,
+                            color: "#0F0F0F",
+                            lineHeight: 1,
+                          }}
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                            <path d="M18.77 11h-4.05l.58-3.59.03-.32c0-.41-.17-.8-.44-1.06L14.09 5.5 9.41 10.18A1.5 1.5 0 0 0 9 11.23V18a1.5 1.5 0 0 0 1.5 1.5h6.28a2 2 0 0 0 1.87-1.31l2.26-5.29A1.75 1.75 0 0 0 18.77 11zM5.5 19.5A1.5 1.5 0 0 0 7 18v-6.5A1.5 1.5 0 0 0 5.5 10h-1A1.5 1.5 0 0 0 3 11.5V18a1.5 1.5 0 0 0 1.5 1.5h1z" />
+                          </svg>
+                          <span>30 k</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ flex: 1, background: "#F2F2F2", borderRadius: 12, padding: "10px 12px", minHeight: 0 }}>
+                      <div style={{ ...yt, fontSize: 12, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.3, marginBottom: 4 }}>
+                        905 k de vues · Collaboration commerciale Adopte
+                      </div>
+                      <div style={{ ...yt, fontSize: 11.5, color: "#0F0F0F", lineHeight: 1.45 }}>
+                        Je teste et découvre ce que cachent les restos de célébrités. Pour rencontrer de belles personnes sur Adopte : code CYRILMP4. ft. LE GRAND JD.{" "}
+                        <span style={{ fontWeight: 700 }}>…afficher plus</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100%" }}>
+                <div
+                  style={{
+                    ...mo,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: 1.8,
+                    color: t.d,
+                    marginBottom: 0,
+                    textTransform: "uppercase",
+                    lineHeight: 1.3,
+                  }}
+                >
+                  Pourquoi ça marche
+                </div>
+
+                {[
+                  {
+                    t: "L'angle",
+                    d: "Un date en restos de stars : expérience réelle, conversation, découverte. Adopte s'inscrit dans le récit, pas en overlay.",
+                  },
+                  {
+                    t: "Le format",
+                    d: "Opération premium : concept brand + guest créateur. Tu incarnes l'expérience avec Cyril, la marque porte le CTA.",
+                  },
+                  {
+                    t: "Le résultat",
+                    d: "905 k de vues, collab commerciale claire, code promo Adopte. Preuve qu'un format expérience tient pour une marque et pour toi.",
+                  },
+                ].map((x) => (
+                  <Card key={x.t} t={t} s={{ padding: "18px 20px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                    <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                      <div
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: t.a,
+                          marginTop: 8,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <div>
+                        <div style={{ ...sa, fontSize: 15, fontWeight: 700, color: t.c, lineHeight: 1.25, marginBottom: 4 }}>{x.t}</div>
+                        <div style={{ ...sa, fontSize: 14, color: t.m, lineHeight: 1.45 }}>{x.d}</div>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
+
+    {
+      title: "Remplissage · la preuve",
+      r: (t) => {
+        const rows = [
+          {
+            name: "CYRILmp4",
+            img: "/cyrilmp4.webp",
+            from: null,
+            to: 100,
+            label: "~100 %",
+            note: "Marques 100 % sélectionnées par Cyril lui-même.",
+          },
+          {
+            name: "FastGoodCuisine",
+            img: "/fgc.webp",
+            from: 0,
+            to: 66,
+            label: "0 % → 66 %",
+            note: "Année 1 : de 0 à 66 %. Non représentatif : il souhaite conserver certaines vidéos sans partenaire.",
+          },
+          {
+            name: "Toinelag",
+            img: "/toinelag.webp",
+            from: 33,
+            to: 66,
+            label: "33 % → 66 %",
+            note: "Remplissage doublé en un an, sans changer sa ligne éditoriale.",
+          },
+          {
+            name: "Le Grand JD",
+            img: jdPortraitUrl,
+            from: 28,
+            to: 66,
+            label: "~28 % → objectif 66 % année 1",
+            note: "Le potentiel le plus ouvert du roster : la majorité de tes vidéos partent encore sans partenaire.",
+            target: true,
+          },
+        ];
+        return (
+          <div style={{ width: "100%" }}>
+            <Eyebrow t={t}>Remplissage · preuves</Eyebrow>
+            <Title t={t} s={{ fontSize: 36, marginBottom: 8 }}>
+              Ce qu&apos;on sait faire, chiffres à l&apos;appui.
+            </Title>
+            <Lead t={t} s={{ maxWidth: 780, marginBottom: 12 }}>
+              Part des contenus qui sortent avec un partenaire. Même méthode, 4 univers différents.
+            </Lead>
+            <div style={{ display: "flex", gap: 22, alignItems: "center", marginBottom: 12 }}>
+              {[
+                { c: t.a, l: "Point de départ" },
+                { c: "rgba(14,140,116,.34)", l: "Gagné avec FAR" },
+                { c: "repeating-linear-gradient(115deg, rgba(14,140,116,.3) 0 7px, rgba(14,140,116,.1) 7px 14px)", l: "Objectif" },
+              ].map((x) => (
+                <div key={x.l} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ width: 22, height: 10, borderRadius: 5, background: x.c, display: "block" }} />
+                  <span style={{ ...mo, fontSize: 10.5, fontWeight: 600, letterSpacing: 1.2, color: t.d, textTransform: "uppercase" }}>{x.l}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {rows.map((row) => (
+                <Card
+                  key={row.name}
+                  t={t}
+                  s={{
+                    padding: "14px 20px",
+                    border: row.target ? `2px solid ${t.a}` : `1px solid ${t.brd}`,
+                    background: row.target ? t.cardAlt : t.card,
+                  }}
+                >
+                  <div style={{ display: "grid", gridTemplateColumns: "210px 1fr 200px", gap: 24, alignItems: "center" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                      <img
+                        src={/\/assets\//.test(row.img) ? row.img : pu(row.img)}
+                        alt={row.name}
+                        style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", flexShrink: 0, border: `2px solid ${t.a}` }}
+                      />
+                      <div>
+                        <div style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.026em", color: t.c, lineHeight: 1.2 }}>{row.name}</div>
+                        {row.target && (
+                          <div style={{ ...mo, fontSize: 9.5, fontWeight: 700, letterSpacing: 1.4, color: t.a, marginTop: 4, textTransform: "uppercase" }}>
+                            Toi, demain
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <FillBar t={t} from={row.from} to={row.to} target={row.target} />
+                      <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.45, marginTop: 10 }}>{row.note}</div>
+                    </div>
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ ...se, fontSize: 24, fontWeight: 700, letterSpacing: "-0.035em", color: row.target ? t.a : t.c, lineHeight: 1.1 }}>
+                        {row.label}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
             <div
               style={{
-                ...mo,
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: 2,
-                color: t.a,
-                textTransform: "uppercase",
-                marginBottom: 14,
+                marginTop: 12,
+                padding: "12px 20px",
+                borderRadius: 14,
+                background: t.th,
+                color: t.thT,
+                ...sa,
+                fontSize: 14,
+                lineHeight: 1.45,
+                borderLeft: `5px solid ${t.a}`,
               }}
             >
-              Placeholder
+              Chaque point de remplissage gagné est du CA net, sur des vidéos que tu produis déjà.
             </div>
-            <div style={{ ...se, fontSize: 28, fontWeight: 700, letterSpacing: "-0.03em", color: t.c, lineHeight: 1.2, marginBottom: 12 }}>
-              Opération premium · cas à compléter
-            </div>
-            <div style={{ ...sa, fontSize: 15, color: t.m, lineHeight: 1.5, maxWidth: 480 }}>
-              Visuel, marque et angle à brancher ici.
-            </div>
+          </div>
+        );
+      },
+    },
+
+    {
+      title: "Notre méthode",
+      r: (t) => (
+        <div style={{ width: "100%" }}>
+          <Title t={t} s={{ fontSize: 38, marginBottom: 10 }}>
+            Notre méthode qui nous permet de développer.
+          </Title>
+          <Lead t={t} s={{ maxWidth: 720, marginBottom: 28 }}>
+            Simple, lisible, et calée sur ta façon de travailler.
+          </Lead>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              {
+                n: "01",
+                t: "Calendrier éditorial clair",
+                d: "Posé suffisamment en amont pour placer les bonnes marques au bon moment, sans précipitation.",
+              },
+              {
+                n: "02",
+                t: "Points hebdo ou bi-mensuels",
+                d: "Selon tes préférences. On passe les encours, on tranche, on avance.",
+              },
+              {
+                n: "03",
+                t: "Concepts brand et créateur friendly",
+                d: "On va chercher des opérations premium de façon proactive. Possibilité de se rétracter quand on veut.",
+              },
+              {
+                n: "04",
+                t: "Brainstorm des intégrations",
+                d: "On peut imaginer ensemble les différentes intégrations à effectuer, avant d'aller voir les marques.",
+              },
+              {
+                n: "05",
+                t: "Ways of working sur-mesure",
+                d: "On s'adapte à toi : rythme, outils, niveau d'implication. Pas un process figé.",
+              },
+            ].map((x) => (
+              <Card
+                key={x.n}
+                t={t}
+                s={{
+                  padding: "16px 22px",
+                  display: "grid",
+                  gridTemplateColumns: "56px 240px 1fr",
+                  gap: 16,
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ ...se, fontSize: 22, fontWeight: 700, letterSpacing: "-0.04em", color: t.a, lineHeight: 1 }}>{x.n}</div>
+                <div style={{ ...se, fontSize: 17, fontWeight: 700, letterSpacing: "-0.026em", color: t.c, lineHeight: 1.25 }}>{x.t}</div>
+                <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.5 }}>{x.d}</div>
+              </Card>
+            ))}
           </div>
         </div>
       ),
@@ -1219,7 +1333,7 @@ export function createSGrandJdV2(P) {
         const yt = { fontFamily: "Roboto, Arial, Helvetica, sans-serif" };
         const YtPlay = () => (
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-            <svg width="52" height="36" viewBox="0 0 68 48" aria-hidden>
+            <svg width="44" height="30" viewBox="0 0 68 48" aria-hidden>
               <path
                 d="M66.52 7.74a8.53 8.53 0 0 0-6-6.04C55.25.18 34 0 34 0S12.75.18 7.48 1.7a8.53 8.53 0 0 0-6 6.04C0 13.04 0 24 0 24s0 10.96 1.48 16.26a8.53 8.53 0 0 0 6 6.04C12.75 47.82 34 48 34 48s21.25-.18 26.52-1.7a8.53 8.53 0 0 0 6-6.04C68 34.96 68 24 68 24s0-10.96-1.48-16.26z"
                 fill="#FF0000"
@@ -1228,7 +1342,7 @@ export function createSGrandJdV2(P) {
             </svg>
           </div>
         );
-        const rows = [
+        const premium = [
           {
             thumb: ex58JoursUrl,
             v: "58 JOURS POUR FILMER UN ANIMAL QUE PERSONNE NE VOIT",
@@ -1238,6 +1352,7 @@ export function createSGrandJdV2(P) {
             brand: "Optique & capture",
             angle: "Rendre visible l'invisible",
             d: "Patience, basse lumière, longue focale. Ex. Sony, Canon, Fujifilm.",
+            yt: ["Rhinoshield", "Shopify"],
           },
           {
             thumb: exEpidemieUrl,
@@ -1248,6 +1363,7 @@ export function createSGrandJdV2(P) {
             brand: "Santé digitale",
             angle: "Comprendre ce qu'on ne comprend pas",
             d: "Symptômes flous, accès au soin, diagnostic. Ex. Qare, Doctolib, Alan.",
+            yt: ["Holy", "Odoo"],
           },
           {
             thumb: exSquelettesUrl,
@@ -1258,25 +1374,28 @@ export function createSGrandJdV2(P) {
             brand: "4x4 & mobilité",
             angle: "L'expédition avant le mystère",
             d: "Accès extrême, altitude, terrain hostile. Ex. Land Rover, Jeep, Toyota.",
+            yt: ["Revolut", "Trade Republic"],
           },
         ];
         return (
           <div style={{ width: "100%" }}>
-            <Title t={t} s={{ fontSize: 34, marginBottom: 18 }}>
+            <Title t={t} s={{ fontSize: 28, marginBottom: 4 }}>
               3 intégrations qu&apos;on aurait imaginées.
             </Title>
+            <Lead t={t} s={{ fontSize: 13, maxWidth: 820, marginBottom: 10 }}>
+              Pour chaque vidéo : 2 pistes. Premium envisagée, ou YouTube-friendly.
+            </Lead>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 16, alignItems: "stretch" }}>
-              {rows.map((x) => (
-                <div key={x.v} style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
-                  {/* Bloc YouTube */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 12, alignItems: "stretch" }}>
+              {premium.map((x) => (
+                <div key={x.v} style={{ display: "flex", flexDirection: "column" }}>
                   <div
                     style={{
                       background: "#FFFFFF",
-                      borderRadius: 12,
+                      borderRadius: 10,
                       overflow: "hidden",
                       border: "1px solid rgba(0,0,0,.08)",
-                      boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06)",
+                      boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.05)",
                       flexShrink: 0,
                     }}
                   >
@@ -1284,17 +1403,17 @@ export function createSGrandJdV2(P) {
                       <img src={x.thumb} alt={x.v} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                       <YtPlay />
                     </div>
-                    <div style={{ padding: "10px 12px 12px" }}>
+                    <div style={{ padding: "6px 8px 8px" }}>
                       <div
                         style={{
                           ...yt,
-                          fontSize: 13,
+                          fontSize: 11,
                           fontWeight: 700,
                           color: "#0F0F0F",
-                          lineHeight: 1.3,
+                          lineHeight: 1.25,
                           letterSpacing: "-0.01em",
-                          marginBottom: 8,
-                          minHeight: 34,
+                          marginBottom: 4,
+                          height: 28,
                           display: "-webkit-box",
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
@@ -1303,21 +1422,15 @@ export function createSGrandJdV2(P) {
                       >
                         {x.v}
                       </div>
-                      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                         <img
                           src={jdPortraitUrl}
                           alt=""
-                          style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block" }}
+                          style={{ width: 20, height: 20, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block" }}
                         />
                         <div style={{ minWidth: 0, flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                            <span style={{ ...yt, fontSize: 12, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>LE GRAND JD</span>
-                            <svg width="11" height="11" viewBox="0 0 24 24" aria-hidden>
-                              <circle cx="12" cy="12" r="10" fill="#606060" />
-                              <path d="M10.2 15.4 7.1 12.3l1.2-1.2 1.9 1.9 4.5-4.5 1.2 1.2-5.7 5.7z" fill="#fff" />
-                            </svg>
-                          </div>
-                          <div style={{ ...yt, fontSize: 11, color: "#606060", lineHeight: 1.25 }}>
+                          <div style={{ ...yt, fontSize: 10, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.15 }}>LE GRAND JD</div>
+                          <div style={{ ...yt, fontSize: 9, color: "#606060", lineHeight: 1.2 }}>
                             {x.views} · {x.when}
                           </div>
                         </div>
@@ -1327,8 +1440,8 @@ export function createSGrandJdV2(P) {
                             flexShrink: 0,
                             background: "#F2F2F2",
                             borderRadius: 999,
-                            padding: "5px 8px",
-                            fontSize: 11,
+                            padding: "3px 6px",
+                            fontSize: 9,
                             fontWeight: 500,
                             color: "#0F0F0F",
                             lineHeight: 1,
@@ -1340,46 +1453,83 @@ export function createSGrandJdV2(P) {
                     </div>
                   </div>
 
-                  {/* Flèche de lien */}
-                  <div
-                    aria-hidden
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "8px 0",
-                      color: t.a,
-                      flexShrink: 0,
-                    }}
-                  >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <div aria-hidden style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "4px 0", color: t.a, flexShrink: 0 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M12 4v14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
                       <path d="M6.5 14.5 12 20l5.5-5.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
 
-                  {/* Bloc intégration imaginée */}
-                  <Card
-                    t={t}
-                    s={{
-                      padding: "14px 14px 16px",
-                      borderTop: `3px solid ${t.a}`,
-                      flex: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      boxSizing: "border-box",
-                      minHeight: 0,
-                    }}
-                  >
-                    <div style={{ ...mo, fontSize: 9, fontWeight: 700, letterSpacing: 1.3, color: t.a, textTransform: "uppercase", marginBottom: 8 }}>
-                      Intégration imaginée
+                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                    <div
+                      style={{
+                        padding: "8px 10px 10px",
+                        borderRadius: 10,
+                        background: t.cardAlt,
+                        border: `1px solid ${t.a}`,
+                        boxSizing: "border-box",
+                      }}
+                    >
+                      <div style={{ ...mo, fontSize: 8, fontWeight: 700, letterSpacing: 1.1, color: t.a, textTransform: "uppercase", marginBottom: 4 }}>
+                        Marques premium envisagées
+                      </div>
+                      <div style={{ ...se, fontSize: 13, fontWeight: 700, letterSpacing: "-0.03em", color: t.c, lineHeight: 1.15, marginBottom: 2 }}>
+                        {x.brand}
+                      </div>
+                      <div style={{ ...sa, fontSize: 11, fontWeight: 600, color: t.c, lineHeight: 1.25, marginBottom: 2 }}>{x.angle}</div>
+                      <div style={{ ...sa, fontSize: 11, color: t.m, lineHeight: 1.3 }}>{x.d}</div>
                     </div>
-                    <div style={{ ...se, fontSize: 16, fontWeight: 700, letterSpacing: "-0.03em", color: t.c, lineHeight: 1.2, marginBottom: 4 }}>
-                      {x.brand}
+
+                    <div
+                      style={{
+                        ...mo,
+                        fontSize: 9,
+                        fontWeight: 700,
+                        letterSpacing: 1.2,
+                        color: t.d,
+                        textTransform: "uppercase",
+                        textAlign: "center",
+                        lineHeight: 1,
+                      }}
+                    >
+                      ou
                     </div>
-                    <div style={{ ...sa, fontSize: 13, fontWeight: 600, color: t.c, lineHeight: 1.3, marginBottom: 6 }}>{x.angle}</div>
-                    <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.4 }}>{x.d}</div>
-                  </Card>
+
+                    <div
+                      style={{
+                        padding: "8px 10px 10px",
+                        borderRadius: 10,
+                        background: t.card,
+                        border: `1px solid ${t.brd}`,
+                        boxSizing: "border-box",
+                      }}
+                    >
+                      <div style={{ ...mo, fontSize: 8, fontWeight: 700, letterSpacing: 1.1, color: t.d, textTransform: "uppercase", marginBottom: 6 }}>
+                        Marques YouTube-friendly
+                      </div>
+                      <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                        {x.yt.map((b) => (
+                          <span
+                            key={b}
+                            style={{
+                              ...se,
+                              fontSize: 11,
+                              fontWeight: 700,
+                              letterSpacing: "-0.02em",
+                              color: t.c,
+                              padding: "5px 8px",
+                              borderRadius: 7,
+                              background: t.cardAlt,
+                              border: `1px solid ${t.brd}`,
+                              lineHeight: 1,
+                            }}
+                          >
+                            {b}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1423,8 +1573,8 @@ export function createSGrandJdV2(P) {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, height: "100%", minHeight: "100%" }}>
               {[
-                { t: "Zéro deal, zéro frais", d: "Aucun forfait, aucun minimum. On ne gagne que si tu gagnes." },
-                { t: "Exclusivité commerciale, liberté créative", d: "On porte ton business en exclusivité. Ta ligne édito et tes formats restent entièrement les tiens." },
+                { t: "0 deal, 0 frais", d: "Aucun engagement. Tu pars quand tu le souhaites." },
+                { t: "Exclusivité ou non-exclusivité", d: "Aucune obligation. On souhaite trouver la meilleure formule pour s'inscrire avec toi sur le long terme." },
                 { t: "Aucun bradage", d: "On défend ton pricing, y compris sous pression de close." },
               ].map((x) => (
                 <Card
@@ -1686,7 +1836,39 @@ export function createSGrandJdV2(P) {
         };
         const topPts = Object.values(T);
         const botPts = Object.values(B);
-        const zig = (pts) => pts.map((p) => `${p[0]},${p[1]}`).join(" ");
+        const shorten = (x1, y1, x2, y2, pad = 11) => {
+          const dx = x2 - x1;
+          const dy = y2 - y1;
+          const len = Math.hypot(dx, dy) || 1;
+          return [x1 + (dx / len) * pad, y1 + (dy / len) * pad, x2 - (dx / len) * pad, y2 - (dy / len) * pad];
+        };
+        const headPath = (x1, y1, x2, y2, s = 9) => {
+          const a = Math.atan2(y2 - y1, x2 - x1);
+          const p1x = x2 - s * Math.cos(a - 0.5);
+          const p1y = y2 - s * Math.sin(a - 0.5);
+          const p2x = x2 - s * Math.cos(a + 0.5);
+          const p2y = y2 - s * Math.sin(a + 0.5);
+          return `M${x2} ${y2} L${p1x} ${p1y} L${p2x} ${p2y} Z`;
+        };
+        const Arrow = ({ x1, y1, x2, y2, dashed, both }) => {
+          const [sx, sy, ex, ey] = shorten(x1, y1, x2, y2);
+          return (
+            <g>
+              <line
+                x1={sx}
+                y1={sy}
+                x2={ex}
+                y2={ey}
+                stroke={t.a}
+                strokeWidth={dashed ? 1.8 : 2.4}
+                strokeDasharray={dashed ? "6 5" : undefined}
+                strokeLinecap="round"
+              />
+              <path d={headPath(sx, sy, ex, ey)} fill={t.a} />
+              {both && <path d={headPath(ex, ey, sx, sy)} fill={t.a} />}
+            </g>
+          );
+        };
 
         return (
           <div style={{ width: "100%" }}>
@@ -1718,77 +1900,23 @@ export function createSGrandJdV2(P) {
                 style={{ position: "absolute", inset: 0, display: "block" }}
                 aria-hidden
               >
-                <defs>
-                  <marker id="gjArr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-                    <path d="M0 0 L8 4 L0 8 Z" fill={ink} />
-                  </marker>
-                  <marker id="gjArrStart" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto-start-reverse">
-                    <path d="M0 0 L8 4 L0 8 Z" fill={ink} />
-                  </marker>
-                </defs>
-
                 {/* Rails */}
                 <line x1={railX0} y1={topY} x2={railX1} y2={topY} stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
                 <line x1={railX0} y1={botY} x2={railX1} y2={botY} stroke={ink} strokeWidth="2.5" strokeLinecap="round" />
 
-                {/* Définition → Prospection */}
-                <line
-                  x1={T.def}
-                  y1={topY + 6}
-                  x2={B.prosp}
-                  y2={botY - 8}
-                  stroke={ink}
-                  strokeWidth="1.5"
-                  strokeDasharray="5 4"
-                  markerEnd="url(#gjArr)"
-                />
-
-                {/* Discussion ↔ Offre (appel) */}
-                <line
-                  x1={T.disc}
-                  y1={topY + 6}
-                  x2={B.offre}
-                  y2={botY - 8}
-                  stroke={ink}
-                  strokeWidth="2.25"
-                  markerStart="url(#gjArrStart)"
-                  markerEnd="url(#gjArr)"
-                />
-
-                {/* Offre → Ajustement → Contrat */}
-                <polyline
-                  points={zig([
-                    [B.offre + 10, botY - 6],
-                    [T.aj, topY + 6],
-                    [B.contrat, botY - 8],
-                  ])}
-                  fill="none"
-                  stroke={ink}
-                  strokeWidth="1.5"
-                  strokeDasharray="5 4"
-                  markerEnd="url(#gjArr)"
-                />
-
-                {/* Brief → Intégration → Validation → Publication */}
-                <polyline
-                  points={zig([
-                    [B.brief, botY - 6],
-                    [T.int, topY + 6],
-                    [B.valid, botY - 6],
-                    [T.pub, topY + 6],
-                  ])}
-                  fill="none"
-                  stroke={ink}
-                  strokeWidth="1.5"
-                  strokeDasharray="5 4"
-                  markerEnd="url(#gjArr)"
-                />
+                <Arrow x1={T.def} y1={topY} x2={B.prosp} y2={botY} dashed />
+                <Arrow x1={T.disc} y1={topY} x2={B.offre} y2={botY} both />
+                <Arrow x1={B.offre} y1={botY} x2={T.aj} y2={topY} dashed />
+                <Arrow x1={T.aj} y1={topY} x2={B.contrat} y2={botY} dashed />
+                <Arrow x1={B.brief} y1={botY} x2={T.int} y2={topY} dashed />
+                <Arrow x1={T.int} y1={topY} x2={B.valid} y2={botY} dashed />
+                <Arrow x1={B.valid} y1={botY} x2={T.pub} y2={topY} dashed />
 
                 {topPts.map((x) => (
-                  <circle key={`t${x}`} cx={x} cy={topY} r="4.5" fill={ink} />
+                  <circle key={`t${x}`} cx={x} cy={topY} r="5" fill={ink} />
                 ))}
                 {botPts.map((x) => (
-                  <circle key={`b${x}`} cx={x} cy={botY} r="4.5" fill={ink} />
+                  <circle key={`b${x}`} cx={x} cy={botY} r="5" fill={ink} />
                 ))}
               </svg>
 
@@ -1879,15 +2007,15 @@ export function createSGrandJdV2(P) {
               <div style={{ position: "absolute", left: 22, bottom: 16, display: "flex", flexDirection: "column", gap: 7 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <svg width="34" height="10" viewBox="0 0 34 10" aria-hidden>
-                    <line x1="1" y1="5" x2="26" y2="5" stroke={ink} strokeWidth="1.5" strokeDasharray="3 2.5" />
-                    <path d="M26 2 L33 5 L26 8 Z" fill={ink} />
+                    <line x1="1" y1="5" x2="24" y2="5" stroke={t.a} strokeWidth="1.8" strokeDasharray="4 3" strokeLinecap="round" />
+                    <path d="M24 2 L33 5 L24 8 Z" fill={t.a} />
                   </svg>
                   <span style={{ ...mo, fontSize: 11, fontWeight: 600, color: t.m }}>Document ou message</span>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <svg width="34" height="10" viewBox="0 0 34 10" aria-hidden>
-                    <line x1="1" y1="5" x2="26" y2="5" stroke={ink} strokeWidth="2.2" />
-                    <path d="M26 2 L33 5 L26 8 Z" fill={ink} />
+                    <line x1="1" y1="5" x2="24" y2="5" stroke={t.a} strokeWidth="2.4" strokeLinecap="round" />
+                    <path d="M24 2 L33 5 L24 8 Z" fill={t.a} />
                   </svg>
                   <span style={{ ...mo, fontSize: 11, fontWeight: 600, color: t.m }}>Appel</span>
                 </div>
@@ -1896,6 +2024,79 @@ export function createSGrandJdV2(P) {
           </div>
         );
       },
+    },
+
+    {
+      title: "Next steps",
+      r: (t) => (
+        <div style={{ width: "100%" }}>
+          <Title t={t} s={{ fontSize: 40, marginBottom: 48 }}>
+            Next steps
+          </Title>
+          <div style={{ position: "relative", width: "100%", paddingTop: 8 }}>
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                left: "8%",
+                right: "8%",
+                top: 22,
+                height: 2,
+                background: t.a,
+                opacity: 0.35,
+              }}
+            />
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0, alignItems: "start" }}>
+              {[
+                {
+                  n: "01",
+                  t: "Call de cadrage",
+                  d: "Priorités, territoires de marques, rythme de travail. 30 minutes.",
+                },
+                {
+                  n: "02",
+                  t: "Choix du cadre",
+                  d: "Exclusivité ou non-exclusivité. Conditions écrites, sans obligation de durée.",
+                },
+                {
+                  n: "03",
+                  t: "Kick-off opérationnel",
+                  d: "Calendrier éditorial, premiers points, premières pistes de remplissage.",
+                },
+              ].map((x) => (
+                <div key={x.n} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "0 18px" }}>
+                  <div
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: "50%",
+                      background: t.a,
+                      color: "#FFFFFF",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      ...se,
+                      fontSize: 15,
+                      fontWeight: 700,
+                      letterSpacing: "-0.03em",
+                      marginBottom: 18,
+                      boxShadow: "0 0 0 8px #F1F0EC",
+                      position: "relative",
+                      zIndex: 1,
+                    }}
+                  >
+                    {x.n}
+                  </div>
+                  <div style={{ ...se, fontSize: 20, fontWeight: 700, letterSpacing: "-0.028em", color: t.c, marginBottom: 10, lineHeight: 1.22 }}>
+                    {x.t}
+                  </div>
+                  <div style={{ ...sa, fontSize: 14.5, color: t.m, lineHeight: 1.5, maxWidth: 280 }}>{x.d}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ),
     },
 
     {
@@ -1945,6 +2146,7 @@ export function createSGrandJdV2(P) {
           </div>
         );
       },
-    },
+    }
+
   ];
 }
