@@ -189,21 +189,21 @@ r:t=>{
       v:"58 jours pour filmer un animal que personne ne voit",
       brand:"Optique & capture",
       angle:"Rendre visible l'invisible",
-      d:"Patience, basse lumière, longue focale. Ex. Sony, Canon, Fujifilm.",
+      d:"Moment clé : « à l'œil nu, on ne voit rien ». Cut sur l'optique qui révèle l'animal. La marque = l'outil du récit. Ex. Sony, Canon, Fujifilm.",
     },
     {
       n:"02",
       v:"L'épidémie la plus étrange de France",
       brand:"Santé digitale",
-      angle:"Comprendre ce qu'on ne comprend pas",
-      d:"Symptômes flous, accès au soin, diagnostic. Ex. Qare, Doctolib, Alan.",
+      angle:"Sortir du flou médical",
+      d:"Symptômes flous, aucune réponse claire : la téléconsultation / l'assurance comme premier réflexe pour être entendu. Ex. Qare, Doctolib, Alan.",
     },
     {
       n:"03",
       v:"Le lac aux squelettes",
       brand:"4x4 & mobilité",
       angle:"L'expédition avant le mystère",
-      d:"Accès extrême, altitude, terrain hostile. Ex. Land Rover, Jeep, Toyota.",
+      d:"Ouvrir sur la route (altitude, pistes) : le véhicule rend le lieu atteignable, puis le récit bascule sur le lac. Ex. Land Rover, Jeep, Toyota.",
     },
   ];
   return(

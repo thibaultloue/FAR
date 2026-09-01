@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { createSFarPositionnement, createPosProspectInsertSlides } from "./sfarPositionnement.jsx";
 import { createSFarPositionnementV2 } from "./sfarPositionnementV2.jsx";
+import { createSFarPositionnementV3 } from "./sfarPositionnementV3.jsx";
 import { createPitchCreatorDecks } from "./pitchCreators.jsx";
 import { createSGrandJd } from "./sgrandJd.jsx";
 import { createSGrandJdV2 } from "./sgrandJdV2.jsx";
@@ -126,6 +127,43 @@ const TGrandJd2 = {
   th2:"rgba(14,140,116,.08)", th2T:"#12161A",
   ex:"#0E8C74", exT:"#FFFFFF", no:"#FFFFFF", noT:"#12161A", noBrd:"rgba(18,22,26,.1)",
   section:"#0E8C74", sectionT:"#FFFFFF", cR:18, cS:"0 2px 24px rgba(18,22,26,.06)", lv:"black",
+};
+
+/** Positionnement V3 : papier chaud type Grand JD, accent jaune FAR, encre noire. */
+const TFarPos3 = {
+  bg: "#F1F0EC",
+  c: "#12161A",
+  c2: "#FFFFFF",
+  m: "rgba(18,22,26,.6)",
+  d: "rgba(18,22,26,.34)",
+  a: "#FFAA00",
+  a2: "#12161A",
+  card: "#FFFFFF",
+  cardT: "#12161A",
+  cardAlt: "rgba(255,170,0,.12)",
+  pill: "rgba(255,170,0,.14)",
+  pillA: "rgba(255,170,0,.24)",
+  brd: "rgba(18,22,26,.1)",
+  bar: "rgba(18,22,26,.09)",
+  barF: "#FFAA00",
+  nav: "#12161A",
+  navT: "#F1F0EC",
+  note: "#12161A",
+  noteT: "#F1F0EC",
+  th: "#12161A",
+  thT: "#FFAA00",
+  th2: "rgba(255,170,0,.1)",
+  th2T: "#12161A",
+  ex: "#FFAA00",
+  exT: "#12161A",
+  no: "#FFFFFF",
+  noT: "#12161A",
+  noBrd: "rgba(18,22,26,.1)",
+  section: "#FFAA00",
+  sectionT: "#12161A",
+  cR: 18,
+  cS: "0 2px 24px rgba(18,22,26,.06)",
+  lv: "black",
 };
 
 const TBouseuh = {
@@ -447,7 +485,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farposition2:T1, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farposition2:T1, farposition3:TFarPos3, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500;600&family=Karla:ital,wght@0,400..700;1,400..700&display=swap');
@@ -591,9 +629,11 @@ const FarLogo = ({size=80,variant="yellow"}) => {
 /** Fond T1 (jaune + hachures) : présentation + export PDF doivent utiliser la même liste. */
 const DECKS_T1_HATCH = new Set(["case1", "stratcom", "farposition", "farposition2", "farmarques", "fgcmarmiton", "profil", "farroster"]);
 const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
-/** Deck positionnement : V1 historique + V2 (créateur au centre) partagent le même gabarit. */
-const isFarPositionDeck = (deck) => deck === "farposition" || deck === "farposition2";
+/** Deck positionnement : V1 / V2 partagent le gabarit T1. V3 = papier type Grand JD. */
+const isFarPositionDeck = (deck) => deck === "farposition" || deck === "farposition2" || deck === "farposition3";
 const isGrandJdDeck = (deck) => deck === "grandjd" || deck === "grandjd2";
+/** Cadre live 16:9 papier (pas de scroll) : Grand JD + Positionnement V3. */
+const usesPaperFrame = (deck) => isGrandJdDeck(deck) || deck === "farposition3";
 
 const DeckMotif = ({deck}) => {
   if(deckUsesT1Hatch(deck)) return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
@@ -617,6 +657,7 @@ const SV={
   case1:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition2:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  farposition3:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farmarques:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farroster:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
@@ -3236,6 +3277,10 @@ const SFarPositionnement2Base = createSFarPositionnementV2({
   Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
 });
 
+const SFarPositionnement3Base = createSFarPositionnementV3({
+  Tg, Hl, Sh, Th, FarLogo, FarBeams, se, sa, mo, fi, sv, pu,
+});
+
 const SFarMarques = createSFarMarques({
   Tg, Hl, Sh, Th, FarLogo, se, sa, mo, fi, sv, pu,
 });
@@ -3244,7 +3289,7 @@ const SFarRoster = createSFarRoster({
   Tg, Hl, Sh, FarLogo, se, sa, mo, pu,
 });
 
-/** Annexes Positionnement V2 = slides talents 5→12 du deck Agence & Roster. */
+/** Annexes Positionnement V2/V3 = slides talents 5→12 du deck Agence & Roster. */
 const SFarPositionnement2Annexes = {
   title: "Annexes",
   r: (t) => (
@@ -3272,6 +3317,13 @@ const SFarPositionnement2 = [
   SFarPositionnement2Base[SFarPositionnement2Base.length - 1],
 ];
 
+const SFarPositionnement3 = [
+  ...SFarPositionnement3Base.slice(0, -1),
+  SFarPositionnement2Annexes,
+  ...SFarRoster.slice(4, 12),
+  SFarPositionnement3Base[SFarPositionnement3Base.length - 1],
+];
+
 const SFGCMarmiton = createSFGCMarmiton({
   Tg, Hl, Sh, Th, Wc, FarLogo, se, sa, mo, pu,
 });
@@ -3279,18 +3331,23 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farposition3:SFarPositionnement3, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+/** Decks accessibles uniquement via lien partagé (#clé/mdp), pas depuis l'accueil. */
+const SHARE_ONLY_DECKS = new Set(["farposition3"]);
+
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
 const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", grandjd2: "grandjd2", legrandjdv2: "grandjd2", jdv2: "grandjd2", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", positionnement2: "farposition2", positionnementv2: "farposition2", farpositionv2: "farposition2", farposition2: "farposition2", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
+  if (SHARE_ONLY_DECKS.has(id)) return null;
   return ALL[id] ? id : null;
 }
 const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  12 slides",tag:"POSITIONNEMENT",card:"dark"},
   farposition2:{l:"FAR · Positionnement V2",s:"Le partenaire du créateur  -  22 slides",tag:"POSITIONNEMENT",card:"dark"},
+  farposition3:{l:"FAR · Positionnement V3",s:"L'agence qui construit autour des créateurs  -  19 slides",tag:"POSITIONNEMENT",card:"farpos3"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
@@ -3352,7 +3409,7 @@ const PDF_PAGE_H_MM = 190.5;
 
 function pdfRenderSize(deckId) {
   // Même canvas 1920×1080 que le positionnement / T1 pour un fill homogène.
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
   const w = PDF_RENDER_W;
   return { w, h: Math.round((w * 9) / 16) };
 }
@@ -3386,7 +3443,7 @@ function pdfGetT1HatchTileUrl() {
 function pdfWrapPadding(deckId) {
   if (deckId === "otacospepe") return "14px 26px 8px";
   // T1 / Grand JD @ 1920 : mêmes proportions que White Desert.
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) return "22px 44px 0px";
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") return "22px 44px 0px";
   return "14px 28px 0px";
 }
 
@@ -3395,7 +3452,7 @@ function pdfRenderSettleMs(deckId) {
 }
 
 function pdfInnerStyle(deckId) {
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId)) {
+  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") {
     return "width:100%;max-width:none;box-sizing:border-box;";
   }
   return "width:100%;max-width:1580px;";
@@ -3612,11 +3669,16 @@ function pdfFitOptsForSlide(deckId, slideIndex, slideCount = 0, slideTitle = "")
     opts.minScale = 0.9;
     opts.targetFill = 0.98;
     const sparse =
-      isCover ||
-      isLast ||
-      slideTitle === "Annexes" ||
-      slideTitle === "Fermeture" ||
-      slideTitle === "Manifesto";
+      deckId === "farposition3"
+        ? isLast ||
+          slideTitle === "Annexes" ||
+          slideTitle === "Fermeture" ||
+          slideTitle === "Manifesto"
+        : isCover ||
+          isLast ||
+          slideTitle === "Annexes" ||
+          slideTitle === "Fermeture" ||
+          slideTitle === "Manifesto";
     if (sparse) {
       opts.useContentWidth = true;
       opts.fillColumn = false;
@@ -3692,6 +3754,10 @@ function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
     return 1300;
   }
   if (isFarPositionDeck(deckId)) {
+    if (deckId === "farposition3") {
+      if (slideTitle === "Annexes" || isLast || slideTitle === "Manifesto") return 1000;
+      return 1320;
+    }
     if (isCover || slideIndex === 1 || isLast || slideTitle === "Annexes") return 1000;
     return 1176;
   }
@@ -4035,6 +4101,19 @@ function ActCard({a,nav}){
 }
 
 // ─── PRESENTATION ─────────────────────────────────────────────────────────────
+function slideCommentsStorageKey(id, shareKey) {
+  return `far_slide_comments_${shareKey || id}`;
+}
+
+function loadSlideComments(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
 function Pres({id,onBack,onNav,shareKey,locked}) {
   const hashBase = shareKey || id;
   const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
@@ -4072,6 +4151,21 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
   const [notes,setNotes] = useState(false);
   const [nav,setNav] = useState(false);
   const [pdfing,setPdfing] = useState(false);
+  const shareLink = shareKey ? SHARE_LINKS[shareKey] : null;
+  const enableComments = Boolean(shareLink?.comments);
+  const commentsStorageKey = enableComments ? slideCommentsStorageKey(id, shareKey) : null;
+  const [commentsMap, setCommentsMap] = useState(() => (commentsStorageKey ? loadSlideComments(commentsStorageKey) : {}));
+  const setCommentForSlide = useCallback(
+    (slideIdx, text) => {
+      if (!commentsStorageKey) return;
+      setCommentsMap((prev) => {
+        const next = { ...prev, [slideIdx]: text };
+        localStorage.setItem(commentsStorageKey, JSON.stringify(next));
+        return next;
+      });
+    },
+    [commentsStorageKey],
+  );
   const t = TM[id];
   const slides = ALL[id];
   const n = slides.length;
@@ -4322,6 +4416,8 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
     return ()=>{clearTimeout(t2);clearTimeout(t3);};
   },[cur]);
 
+  const paperFrame = usesPaperFrame(id);
+
   return (
     <div style={{position:"fixed",inset:0,zIndex:100,display:"flex",flexDirection:"column",background:t.bg,color:t.c,...sa}}>
       <style>{FC}{"\n* { -webkit-user-select: text !important; user-select: text !important; }"}</style>
@@ -4343,16 +4439,65 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
         <div style={{padding:"16px 16px 12px",borderBottom:`1px solid ${t.brd}`,display:"flex",alignItems:"center",justifyContent:"space-between"}}><div style={{...mo,fontSize:11,fontWeight:700,letterSpacing:2,opacity:.3}}>SLIDES</div><button onClick={()=>setNav(false)} style={{background:"none",border:"none",color:t.c,fontSize:18,cursor:"pointer",opacity:.4,padding:"2px 6px",lineHeight:1}}>✕</button></div>
         <div style={{flex:1,overflowY:"auto",padding:"8px 0"}}>{slides.map((sl,i)=><button key={i} onClick={()=>{setCur(i);setNotes(false);}} style={{display:"flex",alignItems:"center",gap:12,width:"100%",padding:"10px 16px",border:"none",background:i===cur?t.a+"18":"transparent",cursor:"pointer",textAlign:"left",borderLeft:i===cur?`3px solid ${t.a}`:"3px solid transparent",transition:"all .15s"}}>
           <span style={{...mo,fontSize:11,fontWeight:700,color:i===cur?t.a:t.c,opacity:i===cur?1:.3,minWidth:22}}>{String(i+1).padStart(2,"0")}</span>
-          <span style={{...sa,fontSize:13,color:i===cur?t.c:t.m,fontWeight:i===cur?600:400,lineHeight:1.3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{sl.title}</span>
+          <span style={{...sa,fontSize:13,color:i===cur?t.c:t.m,fontWeight:i===cur?600:400,lineHeight:1.3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",flex:1}}>{sl.title}</span>
+          {enableComments && commentsMap[i]?.trim() ? (
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: t.a, flexShrink: 0, opacity: 0.85 }} aria-hidden />
+          ) : null}
         </button>)}</div>
       </motion.div>}</AnimatePresence>
-      <div ref={slideRef} className="far-slide-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:isGrandJdDeck(id)?"hidden":"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
+      <div ref={slideRef} className="far-slide-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:paperFrame&&!enableComments?"hidden":"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text",...(enableComments?{display:"flex",flexDirection:"column",minHeight:0}:{})}}>
         <AnimatePresence mode="wait">
-          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",height:isGrandJdDeck(id)?"100%":undefined,minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":isGrandJdDeck(id)?"28px 44px 72px":"40px 36px 110px",boxSizing:"border-box",overflow:isGrandJdDeck(id)?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text"}}>
+          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",height:paperFrame&&!enableComments?"100%":undefined,flex:enableComments?1:undefined,minHeight:enableComments?0:undefined,display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":paperFrame?enableComments?"16px 40px 12px":"24px 40px 56px":"40px 36px 110px",boxSizing:"border-box",overflow:paperFrame&&!enableComments?"hidden":enableComments?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:isGrandJdDeck(id)?1176:1580,maxHeight:isGrandJdDeck(id)?"100%":undefined,overflow:isGrandJdDeck(id)?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:isGrandJdDeck(id)?14:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>}</div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:paperFrame?1320:1580,maxHeight:paperFrame?"100%":undefined,overflow:paperFrame?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{!enableComments?<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:paperFrame?12:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>:null}</div>
           </motion.div>
         </AnimatePresence>
+        {enableComments ? (
+          <div
+            className="far-chrome"
+            style={{
+              flexShrink: 0,
+              borderTop: `1px solid ${t.brd}`,
+              background: t.card,
+              padding: "12px 40px 14px",
+              boxSizing: "border-box",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 8 }}>
+              <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 1.8, textTransform: "uppercase", color: t.d }}>
+                Commentaires · slide {String(cur + 1).padStart(2, "0")}
+              </div>
+              <div style={{ ...sa, fontSize: 12, color: t.m, opacity: 0.7, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {s.title}
+              </div>
+            </div>
+            <textarea
+              value={commentsMap[cur] || ""}
+              onChange={(e) => setCommentForSlide(cur, e.target.value)}
+              placeholder="Vos notes sur cette slide…"
+              rows={3}
+              style={{
+                ...sa,
+                width: "100%",
+                boxSizing: "border-box",
+                resize: "vertical",
+                minHeight: 72,
+                maxHeight: 160,
+                padding: "12px 14px",
+                borderRadius: 10,
+                border: `1px solid ${t.brd}`,
+                background: "#FFFFFF",
+                color: t.c,
+                fontSize: 14,
+                lineHeight: 1.45,
+                outline: "none",
+              }}
+            />
+            <div style={{ ...sa, fontSize: 11, color: t.m, opacity: 0.45, marginTop: 8, textAlign: "center", letterSpacing: 1 }}>
+              {pdfFooterLabel(id)}
+            </div>
+          </div>
+        ) : null}
       </div>
       <button className="far-btn-slides far-chrome" onClick={()=>setNav(true)} style={{position:"fixed",bottom:24,left:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",opacity:nav?0:1,pointerEvents:nav?"none":"auto",transition:"opacity .2s"}}>☰ Slides</button>
       <div className="far-btn-nav far-chrome" style={{position:"fixed",bottom:24,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:20}}>
@@ -4401,6 +4546,7 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
 const HOME_CARD_VIS = {
   farposition: { logo: "far" },
   farposition2: { logo: "far" },
+  farposition3: { logo: "far" },
   farmarques: { logo: "far" },
   stratcom: { logo: "far" },
   farroster: { logo: "far" },
@@ -4723,6 +4869,7 @@ function Home({ onOpen }) {
     light: { bg: W, c: B, tBg: "rgba(26,26,26,.06)", tC: B, brd: `1px solid rgba(0,0,0,.08)` },
     grandjd: { bg: "#121417", c: "#F1F4F3", tBg: "rgba(79,207,184,.18)", tC: "#4FCFB8" },
     grandjd2: { bg: "#F1F0EC", c: "#12161A", tBg: "rgba(14,140,116,.14)", tC: "#0E8C74" },
+    farpos3: { bg: "#F1F0EC", c: "#12161A", tBg: "rgba(255,170,0,.2)", tC: "#C47A00" },
     bouseuh: { bg: "#0D0F12", c: "#F3F5F4", tBg: "rgba(198,242,78,.18)", tC: "#C6F24E" },
     unchained: { bg: "#0E0A16", c: "#F3F0FA", tBg: "rgba(177,76,255,.2)", tC: "#B14CFF" },
     shopify: { bg: "#81B840", c: "#1a2e05", tBg: "rgba(0,0,0,.1)", tC: "#1a2e05" },
@@ -4949,6 +5096,14 @@ const SHARE_LINKS = {
     title: "Le Grand JD × FAR",
     authKey: "far_share_jd",
   },
+  positionnement3: {
+    deckId: "farposition3",
+    password: "far2026",
+    title: "FAR · Positionnement V3",
+    authKey: "far_share_pos3",
+    comments: true,
+    accent: "#FFAA00",
+  },
 };
 
 function Gate({children}){
@@ -5041,8 +5196,8 @@ function ShareGate({ shareKey, children }) {
               padding: "14px 32px",
               borderRadius: 10,
               border: "none",
-              background: "#0E8C74",
-              color: "#FFFFFF",
+              background: link.accent || "#0E8C74",
+              color: link.accent ? "#12161A" : "#FFFFFF",
               cursor: "pointer",
             }}
           >

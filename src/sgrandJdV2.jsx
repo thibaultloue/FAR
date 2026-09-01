@@ -1349,10 +1349,17 @@ export function createSGrandJdV2(P) {
             views: "1,5 M de vues",
             when: "il y a 5 mois",
             likes: "114 k",
-            brand: "Optique & capture",
-            angle: "Rendre visible l'invisible",
-            d: "Patience, basse lumière, longue focale. Ex. Sony, Canon, Fujifilm.",
-            yt: ["Rhinoshield", "Shopify"],
+            brand: "Sony · Canon · Fujifilm",
+            angle: "L'optique comme révélateur",
+            beats: [
+              { k: "Moment", t: "Quand tu dis que l'animal est invisible à l'œil nu (basse lumière / longue focale)." },
+              { k: "Forme", t: "Segment 20–30 s mid-roll : plan sur le boîtier / l'objectif, puis retour image animal via l'optique." },
+              { k: "Ligne", t: "« Ce que tu ne vois pas, cet objectif le capture. » La marque prolonge l'attente, elle ne la casse pas." },
+            ],
+            yt: [
+              { n: "Rhinoshield", tip: "Ouverture camp : coque / protection objectif après 58 j de poussière, froid, chutes." },
+              { n: "Decathlon", tip: "Séquence packing : tente, couches, lampe - le matos qui permet de tenir le siège." },
+            ],
           },
           {
             thumb: exEpidemieUrl,
@@ -1360,10 +1367,17 @@ export function createSGrandJdV2(P) {
             views: "505 k de vues",
             when: "il y a 10 mois",
             likes: "25 k",
-            brand: "Santé digitale",
-            angle: "Comprendre ce qu'on ne comprend pas",
-            d: "Symptômes flous, accès au soin, diagnostic. Ex. Qare, Doctolib, Alan.",
-            yt: ["Holy", "Odoo"],
+            brand: "Qare · Doctolib · Alan",
+            angle: "Le premier réflexe face au flou",
+            beats: [
+              { k: "Moment", t: "Après les témoignages : symptômes bizarres, médecins perplexes, personne n'a la réponse." },
+              { k: "Forme", t: "Séquence téléphone / app : tu montres le parcours (prise de RDV ou téléconsultation) comme enquêteur, pas comme vendeur." },
+              { k: "Ligne", t: "« Quand le système est opaque, le premier pas c'est d'être entendu. » La marque = accès au soin, pas un logo santé collé." },
+            ],
+            yt: [
+              { n: "Holy", tip: "En route entre deux interviews : « tenir le rythme d'une enquête qui ne s'arrête jamais »." },
+              { n: "NordVPN", tip: "Avant de fouiller forums / archives en ligne : protéger recherches et sources." },
+            ],
           },
           {
             thumb: exSquelettesUrl,
@@ -1371,49 +1385,56 @@ export function createSGrandJdV2(P) {
             views: "1,2 M de vues",
             when: "il y a 10 mois",
             likes: "53 k",
-            brand: "4x4 & mobilité",
-            angle: "L'expédition avant le mystère",
-            d: "Accès extrême, altitude, terrain hostile. Ex. Land Rover, Jeep, Toyota.",
-            yt: ["Revolut", "Trade Republic"],
+            brand: "Land Rover · Jeep · Toyota",
+            angle: "Le véhicule ouvre le récit",
+            beats: [
+              { k: "Moment", t: "Les 2–3 premières minutes : route, altitude, pistes, accès que la plupart des voitures n'atteignent pas." },
+              { k: "Forme", t: "Cold open embarqué (dash + extérieur), sans pitch produit. Le 4x4 est le moyen d'arriver au lac, pas le sujet." },
+              { k: "Ligne", t: "« Pour filmer ça, il fallait d'abord y arriver. » Puis cut sur le lac : le mystère prend le relais." },
+            ],
+            yt: [
+              { n: "GoPro", tip: "Fixation casque / barre : plans embarqués dans les passages les plus hostiles." },
+              { n: "Revolut", tip: "Checkpoint frontière / cash local : payer hors grille sans galérer." },
+            ],
           },
         ];
         return (
           <div style={{ width: "100%" }}>
-            <Title t={t} s={{ fontSize: 28, marginBottom: 4 }}>
+            <Title t={t} s={{ fontSize: 24, marginBottom: 2 }}>
               3 intégrations qu&apos;on aurait imaginées.
             </Title>
-            <Lead t={t} s={{ fontSize: 13, maxWidth: 820, marginBottom: 10 }}>
-              Pour chaque vidéo : 2 pistes. Premium envisagée, ou YouTube-friendly.
+            <Lead t={t} s={{ fontSize: 12, maxWidth: 980, marginBottom: 8 }}>
+              Pas une catégorie de marques : un moment précis dans la vidéo, une forme d&apos;intégration, une ligne.
             </Lead>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 12, alignItems: "stretch" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 10, alignItems: "stretch" }}>
               {premium.map((x) => (
-                <div key={x.v} style={{ display: "flex", flexDirection: "column" }}>
+                <div key={x.v} style={{ display: "flex", flexDirection: "column", minHeight: 0 }}>
                   <div
                     style={{
                       background: "#FFFFFF",
-                      borderRadius: 10,
+                      borderRadius: 8,
                       overflow: "hidden",
                       border: "1px solid rgba(0,0,0,.08)",
-                      boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 4px 12px rgba(0,0,0,.05)",
+                      boxShadow: "0 1px 2px rgba(0,0,0,.04)",
                       flexShrink: 0,
                     }}
                   >
-                    <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#0F0F0F" }}>
+                    <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#0F0F0F", maxHeight: 118 }}>
                       <img src={x.thumb} alt={x.v} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
                       <YtPlay />
                     </div>
-                    <div style={{ padding: "6px 8px 8px" }}>
+                    <div style={{ padding: "5px 7px 6px" }}>
                       <div
                         style={{
                           ...yt,
-                          fontSize: 11,
+                          fontSize: 10,
                           fontWeight: 700,
                           color: "#0F0F0F",
-                          lineHeight: 1.25,
+                          lineHeight: 1.2,
                           letterSpacing: "-0.01em",
-                          marginBottom: 4,
-                          height: 28,
+                          marginBottom: 3,
+                          height: 24,
                           display: "-webkit-box",
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: "vertical",
@@ -1422,15 +1443,15 @@ export function createSGrandJdV2(P) {
                       >
                         {x.v}
                       </div>
-                      <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                      <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
                         <img
                           src={jdPortraitUrl}
                           alt=""
-                          style={{ width: 20, height: 20, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block" }}
+                          style={{ width: 16, height: 16, borderRadius: "50%", objectFit: "cover", objectPosition: "center top", flexShrink: 0, display: "block" }}
                         />
                         <div style={{ minWidth: 0, flex: 1 }}>
-                          <div style={{ ...yt, fontSize: 10, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.15 }}>LE GRAND JD</div>
-                          <div style={{ ...yt, fontSize: 9, color: "#606060", lineHeight: 1.2 }}>
+                          <div style={{ ...yt, fontSize: 9, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.1 }}>LE GRAND JD</div>
+                          <div style={{ ...yt, fontSize: 8, color: "#606060", lineHeight: 1.15 }}>
                             {x.views} · {x.when}
                           </div>
                         </div>
@@ -1440,8 +1461,8 @@ export function createSGrandJdV2(P) {
                             flexShrink: 0,
                             background: "#F2F2F2",
                             borderRadius: 999,
-                            padding: "3px 6px",
-                            fontSize: 9,
+                            padding: "2px 5px",
+                            fontSize: 8,
                             fontWeight: 500,
                             color: "#0F0F0F",
                             lineHeight: 1,
@@ -1453,39 +1474,49 @@ export function createSGrandJdV2(P) {
                     </div>
                   </div>
 
-                  <div aria-hidden style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "4px 0", color: t.a, flexShrink: 0 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <div aria-hidden style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "3px 0", color: t.a, flexShrink: 0 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
                       <path d="M12 4v14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
                       <path d="M6.5 14.5 12 20l5.5-5.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4, flex: 1, minHeight: 0 }}>
                     <div
                       style={{
-                        padding: "8px 10px 10px",
-                        borderRadius: 10,
+                        padding: "7px 9px 8px",
+                        borderRadius: 8,
                         background: t.cardAlt,
                         border: `1px solid ${t.a}`,
                         boxSizing: "border-box",
+                        flex: 1,
                       }}
                     >
-                      <div style={{ ...mo, fontSize: 8, fontWeight: 700, letterSpacing: 1.1, color: t.a, textTransform: "uppercase", marginBottom: 4 }}>
-                        Marques premium envisagées
+                      <div style={{ ...mo, fontSize: 7.5, fontWeight: 700, letterSpacing: 1, color: t.a, textTransform: "uppercase", marginBottom: 3 }}>
+                        Intégration premium
                       </div>
-                      <div style={{ ...se, fontSize: 13, fontWeight: 700, letterSpacing: "-0.03em", color: t.c, lineHeight: 1.15, marginBottom: 2 }}>
+                      <div style={{ ...se, fontSize: 12, fontWeight: 700, letterSpacing: "-0.03em", color: t.c, lineHeight: 1.15, marginBottom: 1 }}>
                         {x.brand}
                       </div>
-                      <div style={{ ...sa, fontSize: 11, fontWeight: 600, color: t.c, lineHeight: 1.25, marginBottom: 2 }}>{x.angle}</div>
-                      <div style={{ ...sa, fontSize: 11, color: t.m, lineHeight: 1.3 }}>{x.d}</div>
+                      <div style={{ ...sa, fontSize: 10.5, fontWeight: 600, color: t.c, lineHeight: 1.2, marginBottom: 5 }}>{x.angle}</div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                        {x.beats.map((b) => (
+                          <div key={b.k} style={{ display: "grid", gridTemplateColumns: "48px 1fr", gap: 6, alignItems: "start" }}>
+                            <span style={{ ...mo, fontSize: 8, fontWeight: 700, letterSpacing: 0.8, color: t.a, textTransform: "uppercase", lineHeight: 1.3, paddingTop: 1 }}>
+                              {b.k}
+                            </span>
+                            <span style={{ ...sa, fontSize: 10, color: t.m, lineHeight: 1.3 }}>{b.t}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div
                       style={{
                         ...mo,
-                        fontSize: 9,
+                        fontSize: 8,
                         fontWeight: 700,
-                        letterSpacing: 1.2,
+                        letterSpacing: 1.1,
                         color: t.d,
                         textTransform: "uppercase",
                         textAlign: "center",
@@ -1497,35 +1528,24 @@ export function createSGrandJdV2(P) {
 
                     <div
                       style={{
-                        padding: "8px 10px 10px",
-                        borderRadius: 10,
+                        padding: "7px 9px 8px",
+                        borderRadius: 8,
                         background: t.card,
                         border: `1px solid ${t.brd}`,
                         boxSizing: "border-box",
                       }}
                     >
-                      <div style={{ ...mo, fontSize: 8, fontWeight: 700, letterSpacing: 1.1, color: t.d, textTransform: "uppercase", marginBottom: 6 }}>
-                        Marques YouTube-friendly
+                      <div style={{ ...mo, fontSize: 7.5, fontWeight: 700, letterSpacing: 1, color: t.d, textTransform: "uppercase", marginBottom: 5 }}>
+                        YouTube-friendly
                       </div>
-                      <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
                         {x.yt.map((b) => (
-                          <span
-                            key={b}
-                            style={{
-                              ...se,
-                              fontSize: 11,
-                              fontWeight: 700,
-                              letterSpacing: "-0.02em",
-                              color: t.c,
-                              padding: "5px 8px",
-                              borderRadius: 7,
-                              background: t.cardAlt,
-                              border: `1px solid ${t.brd}`,
-                              lineHeight: 1,
-                            }}
-                          >
-                            {b}
-                          </span>
+                          <div key={b.n} style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                            <span style={{ ...se, fontSize: 10.5, fontWeight: 700, letterSpacing: "-0.02em", color: t.c, lineHeight: 1.15 }}>
+                              {b.n}
+                            </span>
+                            <span style={{ ...sa, fontSize: 9.5, color: t.m, lineHeight: 1.25 }}>{b.tip}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
