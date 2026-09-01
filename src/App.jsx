@@ -5088,6 +5088,15 @@ const LaPorteLogo = ({size=120,color="#fff"}) => <svg viewBox="0 0 87 40" fill={
 // ─── PASSWORD GATE ───────────────────────────────────────────────────────────
 const PASS_HASH = "thibault";
 
+const FAR_POS3_SHARE = {
+  deckId: "farposition3",
+  password: "far2026",
+  title: "FAR · Positionnement V3",
+  authKey: "far_share_pos3",
+  comments: true,
+  accent: "#FFAA00",
+};
+
 /** Liens partage isolés : password dédié, pas d'accès home / autres decks. */
 const SHARE_LINKS = {
   jd: {
@@ -5096,14 +5105,14 @@ const SHARE_LINKS = {
     title: "Le Grand JD × FAR",
     authKey: "far_share_jd",
   },
-  positionnement3: {
-    deckId: "farposition3",
-    password: "far2026",
-    title: "FAR · Positionnement V3",
-    authKey: "far_share_pos3",
-    comments: true,
-    accent: "#FFAA00",
-  },
+  positionnement3: FAR_POS3_SHARE,
+};
+
+/** Anciens hash (#farposition3, etc.) → lien partagé canonique. */
+const SHARE_LINK_ALIASES = {
+  farposition3: "positionnement3",
+  positionnementv3: "positionnement3",
+  farpositionv3: "positionnement3",
 };
 
 function Gate({children}){
@@ -5218,16 +5227,18 @@ function ShareGate({ shareKey, children }) {
 function parseHash() {
   const h = window.location.hash.replace(/^#/, "");
   if (!h) return { view: "home" };
-  const [raw, s] = h.split("/");
-  if (SHARE_LINKS[raw]) {
+  const [rawPart, s] = h.split("/");
+  const shareKey = SHARE_LINKS[rawPart] ? rawPart : SHARE_LINK_ALIASES[rawPart];
+  if (shareKey && SHARE_LINKS[shareKey]) {
     const slide = parseInt(s, 10);
     return {
       view: "share",
-      shareKey: raw,
-      d: SHARE_LINKS[raw].deckId,
+      shareKey,
+      d: SHARE_LINKS[shareKey].deckId,
       s: Number.isFinite(slide) && slide >= 0 ? slide : 0,
     };
   }
+  const raw = rawPart;
   if (raw === "folder" && s && HOME_FOLDER_IDS.has(s)) return { view: "folder", folderId: s };
   if (raw === "archive") return { view: "archive" };
   const d = normalizeDeckId(raw);
@@ -5246,7 +5257,7 @@ export default function App() {
       const next = parseHash();
       if (next.view === "home" && window.location.hash.replace(/^#/, "")) {
         const raw = window.location.hash.replace(/^#/, "").split("/")[0];
-        if (raw && !SHARE_LINKS[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
+        if (raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
           const u = new URL(window.location.href);
           u.hash = "";
           window.history.replaceState(null, "", u.pathname + u.search);
@@ -5255,7 +5266,7 @@ export default function App() {
       if (next.view === "deck" && next.d) {
         const h = window.location.hash.replace(/^#/, "");
         const [raw] = h.split("/");
-        if (next.d !== raw && !SHARE_LINKS[raw]) {
+        if (next.d !== raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw]) {
           const u = new URL(window.location.href);
           u.hash = `#${next.d}/${next.s}`;
           window.history.replaceState(null, "", u.toString());
