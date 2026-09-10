@@ -71,10 +71,11 @@ async function authAndCatalog(page, base) {
   return catalog;
 }
 
-async function prepSlide(page) {
-  await page.evaluate(() => {
+async function prepSlide(page, deckId) {
+  await page.evaluate((id) => {
     document.documentElement.setAttribute("data-far-live-export", "1");
-  });
+    if (id) document.documentElement.setAttribute("data-far-deck", id);
+  }, deckId);
   await page.evaluate(() => document.fonts?.ready?.catch(() => {}));
   await page.evaluate(async () => {
     const imgs = [...document.images];
@@ -120,7 +121,32 @@ async function writePdf(images, outPath) {
   pdf.save(outPath);
 }
 
+async function injectWorkshopNotes(page, notes) {
+  await page.evaluate((data) => {
+    for (const [k, v] of Object.entries(data)) {
+      localStorage.setItem(k, v);
+    }
+  }, notes);
+}
+
+function loadWorkshopNotesFile(outRoot, deckFile) {
+  const p = path.join(outRoot, "workshop", `${deckFile}_notes.json`);
+  if (!fs.existsSync(p)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch {
+    console.warn("  notes invalides", p);
+    return null;
+  }
+}
+
 async function captureDeck(page, base, deck, outRoot) {
+  const notes = loadWorkshopNotesFile(outRoot, deck.file);
+  if (notes && Object.keys(notes).length) {
+    await page.goto(`${base}/`, { waitUntil: "domcontentloaded", timeout: 120000 });
+    await injectWorkshopNotes(page, notes);
+    console.log("  notes", Object.keys(notes).length, "champs");
+  }
   await page.goto(`${base}/#${deck.id}/0`, { waitUntil: "domcontentloaded", timeout: 120000 });
   await page.waitForSelector(".far-slide-inner", { timeout: 60000 });
   await page.waitForTimeout(600);
@@ -141,7 +167,13 @@ async function captureDeck(page, base, deck, outRoot) {
     await page.goto(`${base}/#${deck.id}/${i}`, { waitUntil: "domcontentloaded", timeout: 120000 });
     await page.waitForSelector(".far-slide-inner", { timeout: 30000 });
     await page.waitForTimeout(550);
-    await prepSlide(page);
+    await page.evaluate(() => {
+      document.querySelectorAll("textarea[data-ws-key]").forEach((el) => {
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+    });
+    await page.waitForTimeout(120);
+    await prepSlide(page, deck.id);
     const dest = path.join(slidesDir, `${String(i + 1).padStart(2, "0")}.png`);
     await page.screenshot({
       path: dest,

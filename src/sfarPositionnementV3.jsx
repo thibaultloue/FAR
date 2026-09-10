@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 /**
  * Deck positionnement V3 — DA papier type Grand JD, accent jaune FAR + encre noire.
  * Posture : la valeur des créateurs, rendue. Le fond (revenus, intérêts, rythme) se déploie dans le deck.
- * Faisceaux : 3 DA distinctes — liste ledger / plan 2×2 / split charte 15 %.
+ * Faisceaux : liste ledger (01) / plan 2×2 (02 & 03).
  */
 export function createSFarPositionnementV3(P) {
-  const { FarLogo, pu } = P;
+  const { FarLogo, FarBeams, pu } = P;
 
   const isPdf = () => Boolean(globalThis.__FAR_PDF_EXPORT);
   const vis = { opacity: 1, y: 0, x: 0, scale: 1 };
@@ -139,7 +139,7 @@ export function createSFarPositionnementV3(P) {
         },
         {
           t: "Valoriser, puis ouvrir",
-          d: "Défendre chaque prise de parole à sa juste hauteur. Puis développer produits, formats, activités autour du talent.",
+          d: "Défendre chaque prise de parole à sa juste hauteur. Puis, s'il le souhaite, l'accompagner sur les activités autour de son talent.",
         },
       ],
       lead: "Faire grandir ce qu'ils ont construit, sans le dénaturer.",
@@ -165,7 +165,7 @@ export function createSFarPositionnementV3(P) {
         },
         {
           t: "Au-delà du commercial",
-          d: "Produits, concepts, nouvelles activités. Une vision qui dépasse le deal du mois.",
+          d: "S'il le souhaite, un accompagnement sur les activités autour du talent : produits, concepts, nouveaux projets.",
         },
       ],
       footer: "Rendre l'activité solide, en chargeant le créateur le moins possible.",
@@ -176,8 +176,8 @@ export function createSFarPositionnementV3(P) {
       title: "Défendre leurs intérêts",
       blocks: [
         {
-          t: "15 %, et c'est tout",
-          d: "Une commission compétitive, pour leur laisser davantage sur chaque opération. Un taux unique, pas de marge cachée.",
+          t: "Modèle compétitif",
+          d: "15 % de commission, un taux unique. Pour leur laisser davantage sur chaque opération, sans marge cachée.",
         },
         {
           t: "Sans engagement",
@@ -264,8 +264,8 @@ export function createSFarPositionnementV3(P) {
     </M>
   );
 
-  /** 02 Autour : plan 2×2, grille architecte. */
-  const BeamAutour = ({ t, leg }) => (
+  /** 02 & 03 : plan 2×2, grille architecte. */
+  const BeamAutour = ({ t, leg, planLabel = "Plan · 02" }) => (
     <M
       {...MV()}
       variants={stg(0.05)}
@@ -291,7 +291,7 @@ export function createSFarPositionnementV3(P) {
           </Hl>
         </div>
         <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 2.4, textTransform: "uppercase", color: "#FFAA00", paddingBottom: 4 }}>
-          Plan · 02
+          {planLabel}
         </div>
       </div>
       {leg.lead ? (
@@ -330,99 +330,9 @@ export function createSFarPositionnementV3(P) {
     </M>
   );
 
-  /** 03 Intérêts : split 15 % + liste, fond pointillé. */
-  const BeamInterets = ({ t, leg }) => (
-    <M
-      {...MV()}
-      variants={stg(0.05)}
-      style={{
-        width: "100%",
-        background: "#FFFFFF",
-        color: "#12161A",
-        borderRadius: 0,
-        border: "1px solid #12161A",
-        boxSizing: "border-box",
-        display: "grid",
-        gridTemplateColumns: "200px 1fr",
-        alignItems: "stretch",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          background: "#FFAA00",
-          color: "#12161A",
-          padding: "26px 22px 22px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          borderRight: "1px solid #12161A",
-        }}
-      >
-        <div>
-          <BeamEyebrow leg={leg} color="#12161A" />
-          <div style={{ ...se, fontSize: 58, fontWeight: 800, letterSpacing: "-0.07em", color: "#12161A", lineHeight: 0.85 }}>15%</div>
-          <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 1.6, textTransform: "uppercase", color: "rgba(18,22,26,.55)", marginTop: 10 }}>
-            et c&apos;est tout
-          </div>
-        </div>
-        <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "#12161A" }}>Charte · 03</div>
-      </div>
-      <div
-        style={{
-          padding: "26px 30px 22px",
-          display: "flex",
-          flexDirection: "column",
-          backgroundImage: "radial-gradient(rgba(18,22,26,.1) 1.1px, transparent 1.2px)",
-          backgroundSize: "14px 14px",
-        }}
-      >
-        <Hl t={t} s={{ fontSize: 28, marginBottom: 8, lineHeight: 1.06, color: "#12161A" }}>
-          {leg.title}
-        </Hl>
-        {leg.lead ? (
-          <Sh t={t} s={{ fontSize: 14.5, lineHeight: 1.45, margin: "0 0 12px", maxWidth: 720, color: "rgba(18,22,26,.62)" }}>
-            {leg.lead}
-          </Sh>
-        ) : null}
-        <div style={{ display: "flex", flexDirection: "column", borderTop: "1px solid #12161A", flex: 1 }}>
-          {leg.blocks.map((block, i) => (
-            <M
-              key={block.t}
-              variants={fu(8)}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "36px 1fr",
-                gap: 12,
-                padding: "11px 0",
-                borderBottom: "1px solid rgba(18,22,26,.14)",
-              }}
-            >
-              <div style={{ ...se, fontSize: 13, fontWeight: 800, color: "#FFAA00", letterSpacing: "-0.02em", paddingTop: 2 }}>
-                {String(i + 1).padStart(2, "0")}
-              </div>
-              <div>
-                <div style={{ ...se, fontSize: 15.5, fontWeight: 700, letterSpacing: "-0.025em", color: "#12161A", marginBottom: 3, lineHeight: 1.2 }}>
-                  {block.t}
-                </div>
-                <div style={{ ...sa, fontSize: 13.5, color: "rgba(18,22,26,.6)", lineHeight: 1.4 }}>{block.d}</div>
-              </div>
-            </M>
-          ))}
-        </div>
-        <div style={{ marginTop: "auto", paddingTop: 12, borderTop: "3px solid #12161A" }}>
-          <div style={{ ...se, fontSize: 14.5, fontWeight: 700, letterSpacing: "-0.02em", color: "#12161A", lineHeight: 1.35 }}>
-            {leg.footer}
-          </div>
-        </div>
-      </div>
-    </M>
-  );
-
   const FarBeamLegSlide = ({ t, leg }) => {
     if (leg.beam === 1) return <BeamRevenus t={t} leg={leg} />;
-    if (leg.beam === 2) return <BeamAutour t={t} leg={leg} />;
-    return <BeamInterets t={t} leg={leg} />;
+    return <BeamAutour t={t} leg={leg} planLabel={leg.beam === 2 ? "Plan · 02" : "Charte · 03"} />;
   };
 
   const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
@@ -439,8 +349,7 @@ export function createSFarPositionnementV3(P) {
     { k: "body", t: "Des partenariats pertinents, bien négociés, intégrés naturellement." },
     { k: "body", t: "Un accompagnement calé sur leurs ambitions, sans alourdir le quotidien." },
     { k: "body", t: "Un modèle transparent, sans engagement, volontairement compétitif." },
-    { k: "mission", t: "Notre rôle n'est pas de leur demander de s'adapter à une agence." },
-    { k: "pillar", t: "C'est de construire autour d'eux." },
+    { k: "mission", t: "On construit autour d'eux, sans leur demander de s'adapter à une agence." },
     { k: "tagline", t: "Qui veut aller loin, vient ici." },
   ];
 
@@ -465,88 +374,43 @@ export function createSFarPositionnementV3(P) {
     }
   };
 
-  const FarModelOverview = ({ t }) => {
-    const cards = [
-      {
-        n: "01",
-        title: FAR_LEGS[0].title,
-        items: FAR_LEGS[0].blocks.slice(0, 3).map((b) => b.t),
-        note: "Leur valeur, reconnue et rendue.",
-        accent: "bar",
-      },
-      {
-        n: "02",
-        title: FAR_LEGS[1].title,
-        items: FAR_LEGS[1].blocks.slice(0, 3).map((b) => b.t),
-        note: "Un cadre autour d'eux, pas l'inverse.",
-        accent: "rule",
-      },
-      {
-        n: "03",
-        title: FAR_LEGS[2].title,
-        items: FAR_LEGS[2].blocks.slice(0, 3).map((b) => b.t),
-        note: "15 %, et c'est tout.",
-        accent: "pct",
-      },
-    ];
-
-    return (
-      <M {...MV()} variants={stg(0.08)} style={{ marginTop: 8, width: "100%" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-          {cards.map((card) => (
-            <M
-              key={card.n}
-              variants={fu(12)}
-              style={{
-                background: "#FFFFFF",
-                border: "1px solid #12161A",
-                borderLeft: card.accent === "bar" ? "6px solid #FFAA00" : "1px solid #12161A",
-                padding: "22px 22px 20px",
-                display: "flex",
-                flexDirection: "column",
-                minHeight: 280,
-                boxSizing: "border-box",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 14 }}>
-                <div style={{ ...mo, fontSize: 12, fontWeight: 800, letterSpacing: 1.6, color: "#FFAA00" }}>{card.n}</div>
-                {card.accent === "pct" ? (
-                  <div style={{ ...se, fontSize: 18, fontWeight: 800, letterSpacing: "-0.04em", color: "#12161A" }}>15%</div>
-                ) : null}
-              </div>
-              <div style={{ ...se, fontSize: 20, fontWeight: 700, letterSpacing: "-0.03em", color: "#12161A", lineHeight: 1.2, marginBottom: 18 }}>
-                {card.title}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1 }}>
-                {card.items.map((item, i) => (
-                  <div key={item} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                    <span style={{ ...mo, fontSize: 11, fontWeight: 700, color: "rgba(18,22,26,.35)", minWidth: 16, lineHeight: 1.4 }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span style={{ ...sa, fontSize: 14, color: "rgba(18,22,26,.72)", lineHeight: 1.35 }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div
-                style={{
-                  marginTop: 18,
-                  paddingTop: 14,
-                  borderTop: card.accent === "rule" ? "3px solid #FFAA00" : "1px solid rgba(18,22,26,.14)",
-                }}
-              >
-                <div style={{ ...sa, fontSize: 13, color: "rgba(18,22,26,.65)", lineHeight: 1.35 }}>{card.note}</div>
-              </div>
-            </M>
-          ))}
-        </div>
-        <M variants={fu(8)} style={{ marginTop: 20, maxWidth: 880, marginLeft: "auto", marginRight: "auto" }}>
-          <Sh t={t} s={{ fontSize: 15, lineHeight: 1.5, margin: 0, textAlign: "center" }}>
-            Un créateur a besoin d&apos;être développé, épaulé et défendu, sans jamais lui demander de s&apos;adapter à une agence.
-          </Sh>
-        </M>
-      </M>
-    );
-  };
+  const FarModelOverview = ({ t }) => (
+    <M {...MV()} variants={stg(0.08)} style={{ marginTop: 8, width: "100%" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          border: "1px solid #12161A",
+          background: "#FFFFFF",
+        }}
+      >
+        {FAR_LEGS.map((leg, i) => (
+          <M
+            key={leg.index}
+            variants={fu(12)}
+            style={{
+              padding: "24px 26px 22px",
+              borderRight: i < FAR_LEGS.length - 1 ? "1px solid #12161A" : "none",
+              display: "flex",
+              flexDirection: "column",
+              minHeight: 160,
+              boxSizing: "border-box",
+            }}
+          >
+            <div style={{ marginBottom: 16 }}>
+              <FarBeams w={72} fill="#FFAA00" active={leg.beam} dimOpacity={0.22} />
+            </div>
+            <div style={{ ...mo, fontSize: 11, fontWeight: 800, letterSpacing: 2, color: "#FFAA00", marginBottom: 10 }}>
+              {String(leg.index).padStart(2, "0")}
+            </div>
+            <div style={{ ...se, fontSize: 20, fontWeight: 700, letterSpacing: "-0.03em", color: "#12161A", lineHeight: 1.2 }}>
+              {leg.title}
+            </div>
+          </M>
+        ))}
+      </div>
+    </M>
+  );
 
   return [
     {
@@ -584,12 +448,9 @@ export function createSFarPositionnementV3(P) {
             <div style={{ ...mo, fontSize: 12, fontWeight: 600, letterSpacing: 2.4, textTransform: "uppercase", color: t.d, marginBottom: 18 }}>
               Positionnement
             </div>
-            <Hl t={t} s={{ fontSize: 42, marginBottom: 14, lineHeight: 1.06, maxWidth: 720 }}>
+            <Hl t={t} s={{ fontSize: 42, marginBottom: 22, lineHeight: 1.06, maxWidth: 720 }}>
               L&apos;agence qui construit autour des créateurs.
             </Hl>
-            <Sh t={t} s={{ maxWidth: 640, margin: "0 0 18px", fontSize: 20, lineHeight: 1.45, color: t.c, fontWeight: 500 }}>
-              Développer leur valeur. La leur rendre. Défendre leurs intérêts.
-            </Sh>
             <div style={{ width: 64, height: 5, background: "#FFAA00", marginBottom: 22 }} />
             <div style={{ ...mo, fontSize: 12, fontWeight: 500, color: t.d, letterSpacing: 1.4 }}>
               10 ans d&apos;expérience · +50 marques · +100 campagnes
@@ -753,7 +614,7 @@ export function createSFarPositionnementV3(P) {
                   d: "Aucun engagement commercial imposé. On reste parce que ça marche, pas parce qu'un contrat enferme.",
                 },
                 {
-                  k: "Un filtre, pas du bruit",
+                  k: "Prioriser l'essentiel",
                   d: "Seuls les dossiers qui méritent une décision remontent. Moins de sollicitations, plus de partenaires justes.",
                 },
                 {

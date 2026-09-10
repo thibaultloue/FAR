@@ -11,6 +11,10 @@ import { createSGrandJdV2 } from "./sgrandJdV2.jsx";
 import { createSFarMarques } from "./sfarMarques.jsx";
 import { createSFarRoster } from "./sfarRoster.jsx";
 import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
+import { createSSponsors2027 } from "./sSponsors2027.jsx";
+import { createSSponsors2027Fgc } from "./sSponsors2027Fgc.jsx";
+import { createSFGCPicard } from "./sFgcPicard.jsx";
+import { StudioReader, getStudioDeck } from "./studio/index.js";
 
 /** Chemins publics (GitHub Pages projet → BASE_URL `/FAR/`). */
 const pu = (path) => {
@@ -166,6 +170,80 @@ const TFarPos3 = {
   lv: "black",
 };
 
+/** Atelier sponsors 2027 : papier workshop, encre, jaune FAR. */
+const TSponsors2027 = {
+  bg: "#F3F1EC",
+  c: "#12161A",
+  c2: "#FFFFFF",
+  m: "rgba(18,22,26,.58)",
+  d: "rgba(18,22,26,.34)",
+  a: "#FFAA00",
+  a2: "#12161A",
+  card: "#FFFFFF",
+  cardT: "#12161A",
+  cardAlt: "rgba(255,170,0,.12)",
+  pill: "rgba(255,170,0,.14)",
+  pillA: "rgba(255,170,0,.24)",
+  brd: "rgba(18,22,26,.1)",
+  bar: "rgba(18,22,26,.09)",
+  barF: "#FFAA00",
+  nav: "#12161A",
+  navT: "#F3F1EC",
+  note: "#12161A",
+  noteT: "#F3F1EC",
+  th: "#12161A",
+  thT: "#FFAA00",
+  th2: "rgba(255,170,0,.1)",
+  th2T: "#12161A",
+  ex: "#FFAA00",
+  exT: "#12161A",
+  no: "#FFFFFF",
+  noT: "#12161A",
+  noBrd: "rgba(18,22,26,.1)",
+  section: "#FFAA00",
+  sectionT: "#12161A",
+  cR: 12,
+  cS: "0 2px 24px rgba(18,22,26,.06)",
+  lv: "black",
+};
+
+/** Atelier FGC 2027 : papier workshop, rouge / teal FGC. */
+const TSponsors2027Fgc = {
+  bg: "#FFF2F5",
+  c: "#1C1410",
+  c2: "#FFFFFF",
+  m: "rgba(28,20,16,.58)",
+  d: "rgba(28,20,16,.34)",
+  a: "#E01F2A",
+  a2: "#0F6B58",
+  card: "#FFFFFF",
+  cardT: "#1C1410",
+  cardAlt: "rgba(224,31,42,.1)",
+  pill: "rgba(224,31,42,.12)",
+  pillA: "rgba(15,107,88,.16)",
+  brd: "rgba(28,20,16,.1)",
+  bar: "rgba(28,20,16,.08)",
+  barF: "#E01F2A",
+  nav: "#1C1410",
+  navT: "#FFF2F5",
+  note: "#1C1410",
+  noteT: "#FFF2F5",
+  th: "#E01F2A",
+  thT: "#FFFCF7",
+  th2: "rgba(15,107,88,.1)",
+  th2T: "#1C1410",
+  ex: "#E01F2A",
+  exT: "#FFFCF7",
+  no: "#FFFFFF",
+  noT: "#1C1410",
+  noBrd: "rgba(28,20,16,.1)",
+  section: "#0F6B58",
+  sectionT: "#FFFCF7",
+  cR: 12,
+  cS: "0 2px 24px rgba(28,20,16,.06)",
+  lv: "black",
+};
+
 const TBouseuh = {
   bg:"#0D0F12", c:"#F3F5F4", c2:"#C6F24E", m:"rgba(243,245,244,.58)", d:"rgba(243,245,244,.28)",
   a:"#C6F24E", a2:"#F3F5F4",
@@ -231,6 +309,17 @@ const TFGC = {
   cR:14,
   cS:"0 2px 26px rgba(28,20,16,.07)",
   lv:"black",
+};
+
+/** Picard × FGC : bleu enseigne, blanc froid, rouge signal. */
+const TFGCPicard = {
+  bg:"#F4F7FB", c:"#112845", c2:"#174783", m:"rgba(17,40,69,.62)", d:"rgba(17,40,69,.28)",
+  a:"#E22B33", a2:"#174783", card:"#FFFFFF", cardT:"#112845", cardAlt:"#F4F7FB",
+  pill:"rgba(23,71,131,.08)", pillA:"rgba(226,43,51,.12)", brd:"rgba(17,40,69,.14)",
+  bar:"rgba(17,40,69,.1)", barF:"#E22B33", nav:"#112845", navT:"#FFFFFF",
+  note:"#112845", noteT:"#FFFFFF", th:"#174783", thT:"#FFFFFF", th2:"#F4F7FB", th2T:"#112845",
+  ex:"#E22B33", exT:"#FFFFFF", no:"#F4F7FB", noT:"#112845", noBrd:"rgba(17,40,69,.14)",
+  section:"#174783", sectionT:"#FFFFFF", cR:0, cS:"none", lv:"black",
 };
 
 /** Thème deck [MARQUE] × FastGoodCuisine : clair (même AD que FGC), accents orange & violet. */
@@ -485,7 +574,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farposition2:T1, farposition3:TFarPos3, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farposition2:T1, farposition3:TFarPos3, sponsors2027:TSponsors2027, sponsors2027fgc:TSponsors2027Fgc, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcpicard:TFGCPicard, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500;600&family=Karla:ital,wght@0,400..700;1,400..700&display=swap');
@@ -495,7 +584,7 @@ html{-webkit-text-size-adjust:100%;}
 html[data-far-live-export="1"],html[data-far-live-export="1"] body,html[data-far-live-export="1"] #root{overflow:hidden!important;height:100%!important;width:100%!important;margin:0!important;}
 html[data-far-live-export="1"] .far-chrome{display:none!important;}
 html[data-far-live-export="1"] .far-slide-stage{overflow:hidden!important;flex:1!important;height:100%!important;}
-html[data-far-live-export="1"] .far-slide-wrap{height:100%!important;min-height:100%!important;overflow:hidden!important;}
+html[data-far-live-export="1"] .far-slide-wrap{height:100%!important;min-height:100%!important;overflow:hidden!important;padding:28px 40px 28px!important;box-sizing:border-box!important;}
 @media(max-width:1024px){
   .far-home{padding:32px 28px !important;}
   .far-home h1{font-size:36px !important;}
@@ -633,7 +722,7 @@ const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
 const isFarPositionDeck = (deck) => deck === "farposition" || deck === "farposition2" || deck === "farposition3";
 const isGrandJdDeck = (deck) => deck === "grandjd" || deck === "grandjd2";
 /** Cadre live 16:9 papier (pas de scroll) : Grand JD + Positionnement V3. */
-const usesPaperFrame = (deck) => isGrandJdDeck(deck) || deck === "farposition3";
+const usesPaperFrame = (deck) => isGrandJdDeck(deck) || deck === "farposition3" || deck === "sponsors2027" || deck === "sponsors2027fgc";
 
 const DeckMotif = ({deck}) => {
   if(deckUsesT1Hatch(deck)) return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
@@ -641,11 +730,14 @@ const DeckMotif = ({deck}) => {
   if(deck==="shopify") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm3" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="rgba(0,0,0,.03)"/></pattern></defs><rect fill="url(#dm3)" width="100%" height="100%"/></svg>;
   if(deck==="rode") return <div style={{position:"absolute",bottom:0,left:0,right:0,height:80,display:"flex",alignItems:"flex-end",gap:3,padding:"0 60px",opacity:.04,pointerEvents:"none"}}>{[...Array(50)].map((_,i)=><div key={i} style={{flex:1,height:`${20+Math.sin(i*.7)*25+Math.cos(i*1.3)*15}%`,background:"#fff",borderRadius:"2px 2px 0 0"}}/>)}</div>;
   if(deck==="fastgoodcuisine") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}} aria-hidden><defs><pattern id="dmfgc" width="48" height="48" patternUnits="userSpaceOnUse"><circle cx="9" cy="11" r="1.35" fill="rgba(235,165,180,.22)"/><circle cx="32" cy="19" r="1" fill="rgba(224,31,42,.1)"/><circle cx="24" cy="38" r="1.15" fill="rgba(15,107,88,.1)"/><circle cx="41" cy="8" r="0.85" fill="rgba(255,145,40,.14)"/><circle cx="18" cy="28" r="0.7" fill="rgba(232,140,155,.16)"/></pattern></defs><rect fill="#FFF2F5" width="100%" height="100%"/><rect fill="url(#dmfgc)" width="100%" height="100%"/></svg>;
+  if(deck==="fgcpicard") return <div style={{position:"absolute",inset:0,background:"#F4F7FB",pointerEvents:"none"}}/>;
   if(deck==="fgcmarque") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",zIndex:0}} aria-hidden><defs><pattern id="dmfgcx" width="44" height="44" patternUnits="userSpaceOnUse"><circle cx="10" cy="12" r="1.2" fill="rgba(255,107,53,.16)"/><circle cx="30" cy="22" r="0.95" fill="rgba(107,93,201,.14)"/><circle cx="22" cy="36" r="1.05" fill="rgba(255,145,40,.12)"/></pattern></defs><rect fill="#FFF4F7" width="100%" height="100%"/><rect fill="url(#dmfgcx)" width="100%" height="100%"/></svg>;
   if(deck==="toinelag") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(26)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+11)%100}%`,top:`${(i*51+9)%100}%`,width:3+(i%4),height:3+(i%4),borderRadius:"50%",background:i%3===0?"rgba(30,116,232,.14)":"rgba(255,255,255,.55)"}}/>)}</div>;
   if(deck==="cyrilmp4") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(20)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*37+13)%100}%`,top:`${(i*53+7)%100}%`,width:3+(i%3)*2,height:3+(i%3)*2,borderRadius:"50%",background:"rgba(255,176,0,.035)"}}/>)}</div>;
   if(deck==="garmin") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(22)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*41+9)%100}%`,top:`${(i*47+15)%100}%`,width:1+(i%4)*2,height:24+(i%5)*18,transform:`rotate(${(i*23)%70-35}deg)`,borderRadius:999,background:i%3===0?"rgba(0,169,224,.12)":"rgba(255,255,255,.035)"}}/>)}</div>;
   if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,7,19,.14)":i%3===1?"rgba(255,122,1,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
+  if(deck==="sponsors2027") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} aria-hidden><defs><pattern id="dmws27" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="0.75" fill="rgba(18,22,26,.045)"/></pattern></defs><rect fill="url(#dmws27)" width="100%" height="100%"/></svg>;
+  if(deck==="sponsors2027fgc") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} aria-hidden><defs><pattern id="dmws27fgc" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="0.75" fill="rgba(224,31,42,.06)"/><circle cx="18" cy="20" r="0.65" fill="rgba(15,107,88,.05)"/></pattern></defs><rect fill="url(#dmws27fgc)" width="100%" height="100%"/></svg>;
   return null;
 };
 
@@ -658,6 +750,8 @@ const SV={
   farposition:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition2:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farposition3:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  sponsors2027:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  sponsors2027fgc:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farmarques:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farroster:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
@@ -671,6 +765,7 @@ const SV={
   rode:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.6,ease:"easeInOut"}},
   fastgoodcuisine:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
   fgcmarque:{i:{opacity:0,y:36},a:{opacity:1,y:0},e:{opacity:0,y:-28},t:{type:"spring",stiffness:260,damping:26}},
+  fgcpicard:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.22,ease:"easeInOut"}},
   toinelag:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   toinelagplaydoh:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
   toinelagikea:{i:{opacity:0,y:32},a:{opacity:1,y:0},e:{opacity:0,y:-26},t:{type:"spring",stiffness:260,damping:26}},
@@ -3289,6 +3384,16 @@ const SFarRoster = createSFarRoster({
   Tg, Hl, Sh, FarLogo, se, sa, mo, pu,
 });
 
+const SSponsors2027 = createSSponsors2027({
+  FarLogo, FarBeams, pu,
+});
+
+const SSponsors2027Fgc = createSSponsors2027Fgc({
+  FarLogo, pu,
+});
+
+const SFGCPicard = createSFGCPicard({ pu });
+
 /** Annexes Positionnement V2/V3 = slides talents 5→12 du deck Agence & Roster. */
 const SFarPositionnement2Annexes = {
   title: "Annexes",
@@ -3331,12 +3436,12 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farposition3:SFarPositionnement3, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farposition3:SFarPositionnement3, sponsors2027:SSponsors2027, sponsors2027fgc:SSponsors2027Fgc, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcpicard:SFGCPicard, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Decks accessibles uniquement via lien partagé (#clé/mdp), pas depuis l'accueil. */
 const SHARE_ONLY_DECKS = new Set(["farposition3"]);
 
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", grandjd2: "grandjd2", legrandjdv2: "grandjd2", jdv2: "grandjd2", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", positionnement2: "farposition2", positionnementv2: "farposition2", farpositionv2: "farposition2", farposition2: "farposition2", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom" };
+const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", grandjd2: "grandjd2", legrandjdv2: "grandjd2", jdv2: "grandjd2", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", positionnement2: "farposition2", positionnementv2: "farposition2", farpositionv2: "farposition2", farposition2: "farposition2", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom", sponsors2027: "sponsors2027", brainstorm: "sponsors2027", cyril2027: "sponsors2027", sponsors2027fgc: "sponsors2027fgc", fgc2027: "sponsors2027fgc", brainstormfgc: "sponsors2027fgc", picard: "fgcpicard", picardfgc: "fgcpicard", fgcpicard: "fgcpicard" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -3349,6 +3454,8 @@ const META = {
   farposition2:{l:"FAR · Positionnement V2",s:"Le partenaire du créateur  -  22 slides",tag:"POSITIONNEMENT",card:"dark"},
   farposition3:{l:"FAR · Positionnement V3",s:"L'agence qui construit autour des créateurs  -  19 slides",tag:"POSITIONNEMENT",card:"farpos3"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
+  sponsors2027:{l:"FAR · CYRIL 2027",s:"mp4 & studio  ·  atelier interne  ·  8 slides",tag:"ATELIER",card:"sponsors2027"},
+  sponsors2027fgc:{l:"FAR · FGC 2027",s:"YouTube · verticaux · Pop's & Pepe  ·  atelier interne  ·  9 slides",tag:"ATELIER",card:"sponsors2027fgc"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
@@ -3360,6 +3467,7 @@ const META = {
   rode:{l:"Activation RØDE",s:"RØDE × Le Bouseuh Podcast  -  « Hors du setup »",tag:"ACTIVATION",card:"rode"},
   fastgoodcuisine:{l:"Le combat des chefs",s:"Partenaire exclusif · long format YouTube · 50 chefs, jury, finale",tag:"OPÉRATION",card:"fgc"},
   fgcmarque:{l:"[MARQUE] × FastGoodCuisine",s:"Média, divertissement, Pepe Chicken & Pop's",tag:"ACTIVATION",card:"fgcmarque"},
+  fgcpicard:{l:"Picard × FastGoodCuisine",s:"Produit · distribution Picard + Pepe · amplification · 6 slides",tag:"COLLABORATION",card:"fgc"},
   fgcdeliveroo:{l:"Deliveroo × FastGoodCuisine",s:"Pitch idée · « Termine le Burger Géant, gagne 10 000€ » · 9 slides",tag:"PITCH IDÉE",card:"fgcdeliveroo"},
   fgcmarmiton:{l:"Marmiton × FastGoodCuisine",s:"Brief créatif FAR · texte intégral du document · 8 slides",tag:"BRIEF CRÉATIF",card:"dark"},
   otacospepe:{l:"O'Tacos × Pepe Chicken",s:"LTO food · offre croisée · drive to store",tag:"COLLABORATION",card:"otacospepe"},
@@ -3407,9 +3515,13 @@ const PDF_CAPTURE_SCALE = 3;
 const PDF_PAGE_W_MM = 338.67;
 const PDF_PAGE_H_MM = 190.5;
 
+function isPaperExportDeck(deckId) {
+  return isGrandJdDeck(deckId) || deckId === "farposition3" || deckId === "sponsors2027" || deckId === "sponsors2027fgc";
+}
+
 function pdfRenderSize(deckId) {
   // Même canvas 1920×1080 que le positionnement / T1 pour un fill homogène.
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
+  if (deckUsesT1Hatch(deckId) || isPaperExportDeck(deckId)) return { w: PDF_RENDER_W_T1, h: PDF_RENDER_H_T1 };
   const w = PDF_RENDER_W;
   return { w, h: Math.round((w * 9) / 16) };
 }
@@ -3443,7 +3555,7 @@ function pdfGetT1HatchTileUrl() {
 function pdfWrapPadding(deckId) {
   if (deckId === "otacospepe") return "14px 26px 8px";
   // T1 / Grand JD @ 1920 : mêmes proportions que White Desert.
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") return "22px 44px 0px";
+  if (deckUsesT1Hatch(deckId) || isPaperExportDeck(deckId)) return "22px 44px 0px";
   return "14px 28px 0px";
 }
 
@@ -3452,7 +3564,7 @@ function pdfRenderSettleMs(deckId) {
 }
 
 function pdfInnerStyle(deckId) {
-  if (deckUsesT1Hatch(deckId) || isGrandJdDeck(deckId) || deckId === "farposition3") {
+  if (deckUsesT1Hatch(deckId) || isPaperExportDeck(deckId)) {
     return "width:100%;max-width:none;box-sizing:border-box;";
   }
   return "width:100%;max-width:1580px;";
@@ -3761,6 +3873,7 @@ function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
     if (isCover || slideIndex === 1 || isLast || slideTitle === "Annexes") return 1000;
     return 1176;
   }
+  if (deckId === "sponsors2027" || deckId === "sponsors2027fgc") return 1320;
   if (isGrandJdDeck(deckId)) {
     if (slideTitle === "Merci" || slideTitle.startsWith("Intercalaire")) return 1760;
     if (slideTitle === "Manifesto" || slideTitle === "Next steps" || slideTitle === "Tes besoins") return 1000;
@@ -4114,6 +4227,49 @@ function loadSlideComments(key) {
   }
 }
 
+const WORKSHOP_STORES = {
+  sponsors2027: { prefix: "far_ws_sponsors2027_v7", file: "FAR_CYRIL_2027" },
+  sponsors2027fgc: { prefix: "far_ws_sponsors2027_fgc_v1", file: "FAR_FGC_2027" },
+};
+
+function flushWorkshopFields() {
+  document.querySelectorAll("[data-ws-key]").forEach((el) => {
+    try {
+      localStorage.setItem(el.dataset.wsKey, el.value ?? "");
+    } catch {
+      /* ignore */
+    }
+  });
+}
+
+function collectWorkshopNotes(deckId) {
+  const cfg = WORKSHOP_STORES[deckId];
+  if (!cfg) return null;
+  const notes = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k?.startsWith(`${cfg.prefix}_`)) notes[k] = localStorage.getItem(k) ?? "";
+    }
+  } catch {
+    return null;
+  }
+  return notes;
+}
+
+function downloadWorkshopNotes(deckId) {
+  const cfg = WORKSHOP_STORES[deckId];
+  const notes = collectWorkshopNotes(deckId);
+  if (!cfg || !notes) return;
+  const blob = new Blob([JSON.stringify(notes, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${cfg.file}_notes.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function Pres({id,onBack,onNav,shareKey,locked}) {
   const hashBase = shareKey || id;
   const [cur,setCurRaw] = useState(()=>{const h=window.location.hash.replace(/^#/,"");if(!h)return 0;const[,s]=h.split("/");return parseInt(s)||0;});
@@ -4155,16 +4311,42 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
   const enableComments = Boolean(shareLink?.comments);
   const commentsStorageKey = enableComments ? slideCommentsStorageKey(id, shareKey) : null;
   const [commentsMap, setCommentsMap] = useState(() => (commentsStorageKey ? loadSlideComments(commentsStorageKey) : {}));
-  const setCommentForSlide = useCallback(
-    (slideIdx, text) => {
+  const [commentsOpen, setCommentsOpen] = useState(false);
+  const [commentDraft, setCommentDraft] = useState("");
+  const [commentSent, setCommentSent] = useState(false);
+  const commentRef = useRef(null);
+
+  useEffect(() => {
+    if (!enableComments) return;
+    setCommentDraft(commentsMap[cur] || "");
+    setCommentsOpen(false);
+    setCommentSent(false);
+  }, [cur, enableComments]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!commentsOpen) return;
+    const onDoc = (e) => {
+      if (commentRef.current && !commentRef.current.contains(e.target)) setCommentsOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, [commentsOpen]);
+
+  const submitComment = useCallback(
+    (e) => {
+      e?.preventDefault?.();
       if (!commentsStorageKey) return;
+      const text = commentDraft.trim();
+      if (!text) return;
       setCommentsMap((prev) => {
-        const next = { ...prev, [slideIdx]: text };
+        const next = { ...prev, [cur]: text };
         localStorage.setItem(commentsStorageKey, JSON.stringify(next));
         return next;
       });
+      setCommentSent(true);
+      window.setTimeout(() => setCommentSent(false), 2200);
     },
-    [commentsStorageKey],
+    [commentDraft, cur, commentsStorageKey],
   );
   const t = TM[id];
   const slides = ALL[id];
@@ -4197,6 +4379,10 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
     const saved = cur;
     let container = null;
     try {
+      if (WORKSHOP_STORES[id]) {
+        flushWorkshopFields();
+        downloadWorkshopNotes(id);
+      }
       try {
         await document.fonts?.ready?.catch(() => {});
       } catch {
@@ -4395,10 +4581,13 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
   };
 
   const hk = useCallback(e=>{
+    const el = e.target;
+    const tag = el?.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el?.isContentEditable) return;
     if(e.key==="ArrowRight"||e.key==="ArrowDown"||e.key===" "){e.preventDefault();setCur(c=>Math.min(c+1,n-1));setNotes(false);}
     else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();setCur(c=>Math.max(c-1,0));setNotes(false);}
     else if(e.key==="Escape"){ if(!locked && onBack) onBack(); }
-    else if(e.key==="n")setNotes(x=>!x);
+    else if(e.key==="n"||e.key==="N")setNotes(x=>!x);
   },[n,onBack,locked]);
 
   useEffect(()=>{window.addEventListener("keydown",hk);return()=>window.removeEventListener("keydown",hk)},[hk]);
@@ -4445,59 +4634,13 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
           ) : null}
         </button>)}</div>
       </motion.div>}</AnimatePresence>
-      <div ref={slideRef} className="far-slide-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:paperFrame&&!enableComments?"hidden":"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text",...(enableComments?{display:"flex",flexDirection:"column",minHeight:0}:{})}}>
+      <div ref={slideRef} className="far-slide-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} style={{flex:1,overflowY:paperFrame?"hidden":"auto",position:"relative",zIndex:1,WebkitUserSelect:"text",userSelect:"text"}}>
         <AnimatePresence mode="wait">
-          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",height:paperFrame&&!enableComments?"100%":undefined,flex:enableComments?1:undefined,minHeight:enableComments?0:undefined,display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":paperFrame?enableComments?"16px 40px 12px":"24px 40px 56px":"40px 36px 110px",boxSizing:"border-box",overflow:paperFrame&&!enableComments?"hidden":enableComments?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text"}}>
+          <motion.div key={cur} initial={SV[id].i} animate={SV[id].a} exit={SV[id].e} transition={SV[id].t} className="far-slide-wrap" style={{position:"relative",height:paperFrame?"100%":undefined,minHeight:"100%",display:"flex",alignItems:"center",justifyContent:"center",padding:id==="farroster"?"22px 36px 86px":paperFrame?"24px 40px 56px":"40px 36px 110px",boxSizing:"border-box",overflow:paperFrame?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text"}}>
             <AxesProgress slideNo={cur+1}/>
-            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:paperFrame?1320:1580,maxHeight:paperFrame?"100%":undefined,overflow:paperFrame?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}{!enableComments?<div style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:paperFrame?12:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div>:null}</div>
+            <div onPointerDownCapture={e=>e.stopPropagation()} onMouseDownCapture={e=>e.stopPropagation()} className="far-slide-inner" style={{width:"100%",maxWidth:paperFrame?1320:id==="fgcpicard"?1760:1580,maxHeight:paperFrame?"100%":undefined,overflow:paperFrame?"hidden":undefined,WebkitUserSelect:"text",userSelect:"text",cursor:"text"}}>{s.r(t,onBack,onNav)}<div className="far-pdf-footer" style={{...sa,fontSize:12,color:t.m,opacity:.25,textAlign:"center",marginTop:id==="farroster"?16:id==="fgcpicard"?18:paperFrame?12:48,letterSpacing:1}}>{pdfFooterLabel(id)}</div></div>
           </motion.div>
         </AnimatePresence>
-        {enableComments ? (
-          <div
-            className="far-chrome"
-            style={{
-              flexShrink: 0,
-              borderTop: `1px solid ${t.brd}`,
-              background: t.card,
-              padding: "12px 40px 14px",
-              boxSizing: "border-box",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, marginBottom: 8 }}>
-              <div style={{ ...mo, fontSize: 11, fontWeight: 700, letterSpacing: 1.8, textTransform: "uppercase", color: t.d }}>
-                Commentaires · slide {String(cur + 1).padStart(2, "0")}
-              </div>
-              <div style={{ ...sa, fontSize: 12, color: t.m, opacity: 0.7, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {s.title}
-              </div>
-            </div>
-            <textarea
-              value={commentsMap[cur] || ""}
-              onChange={(e) => setCommentForSlide(cur, e.target.value)}
-              placeholder="Vos notes sur cette slide…"
-              rows={3}
-              style={{
-                ...sa,
-                width: "100%",
-                boxSizing: "border-box",
-                resize: "vertical",
-                minHeight: 72,
-                maxHeight: 160,
-                padding: "12px 14px",
-                borderRadius: 10,
-                border: `1px solid ${t.brd}`,
-                background: "#FFFFFF",
-                color: t.c,
-                fontSize: 14,
-                lineHeight: 1.45,
-                outline: "none",
-              }}
-            />
-            <div style={{ ...sa, fontSize: 11, color: t.m, opacity: 0.45, marginTop: 8, textAlign: "center", letterSpacing: 1 }}>
-              {pdfFooterLabel(id)}
-            </div>
-          </div>
-        ) : null}
       </div>
       <button className="far-btn-slides far-chrome" onClick={()=>setNav(true)} style={{position:"fixed",bottom:24,left:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",opacity:nav?0:1,pointerEvents:nav?"none":"auto",transition:"opacity .2s"}}>☰ Slides</button>
       <div className="far-btn-nav far-chrome" style={{position:"fixed",bottom:24,left:"50%",transform:"translateX(-50%)",display:"flex",gap:8,zIndex:20}}>
@@ -4505,6 +4648,138 @@ function Pres({id,onBack,onNav,shareKey,locked}) {
         <button onClick={()=>{setCur(c=>Math.min(c+1,n-1));setNotes(false);}} disabled={cur===n-1} style={{background:t.nav,color:t.navT,...sa,fontSize:14,fontWeight:600,padding:"10px 26px",borderRadius:8,cursor:cur===n-1?"not-allowed":"pointer",opacity:cur===n-1?.2:1,border:"none"}}>→</button>
       </div>
       <button className="far-btn-pdf far-chrome" onClick={exportPDF} disabled={pdfing} style={{position:"fixed",bottom:24,right:24,zIndex:20,display:"flex",alignItems:"center",gap:8,background:t.nav,color:t.navT,...sa,fontSize:13,fontWeight:600,padding:"10px 20px",borderRadius:8,border:"none",cursor:pdfing?"wait":"pointer",opacity:pdfing?.5:1,transition:"opacity .2s"}}>{pdfing?"Export en cours…":"↓ PDF"}</button>
+      {WORKSHOP_STORES[id] ? (
+        <button
+          className="far-btn-notes far-chrome"
+          onClick={() => {
+            flushWorkshopFields();
+            downloadWorkshopNotes(id);
+          }}
+          style={{
+            position: "fixed",
+            bottom: 72,
+            right: 24,
+            zIndex: 20,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            background: t.nav,
+            color: t.navT,
+            ...sa,
+            fontSize: 13,
+            fontWeight: 600,
+            padding: "10px 20px",
+            borderRadius: 8,
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          ↓ Notes
+        </button>
+      ) : null}
+      {enableComments ? (
+        <div ref={commentRef} className="far-chrome" style={{ position: "fixed", bottom: 76, right: 24, zIndex: 25, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+          <AnimatePresence>
+            {commentsOpen ? (
+              <motion.form
+                key="comment-panel"
+                initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                transition={{ duration: 0.18 }}
+                onSubmit={submitComment}
+                style={{
+                  width: 300,
+                  padding: "12px 14px",
+                  borderRadius: 12,
+                  background: "rgba(255,255,255,.94)",
+                  border: `1px solid ${t.brd}`,
+                  boxShadow: "0 8px 32px rgba(18,22,26,.12)",
+                  backdropFilter: "blur(10px)",
+                  boxSizing: "border-box",
+                }}
+              >
+                <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.6, textTransform: "uppercase", color: t.d, marginBottom: 8 }}>
+                  Slide {String(cur + 1).padStart(2, "0")}
+                </div>
+                <textarea
+                  value={commentDraft}
+                  onChange={(e) => setCommentDraft(e.target.value)}
+                  placeholder="Votre commentaire…"
+                  rows={3}
+                  autoFocus
+                  style={{
+                    ...sa,
+                    width: "100%",
+                    boxSizing: "border-box",
+                    resize: "none",
+                    minHeight: 68,
+                    padding: "10px 12px",
+                    borderRadius: 8,
+                    border: `1px solid ${t.brd}`,
+                    background: "#FFFFFF",
+                    color: t.c,
+                    fontSize: 13,
+                    lineHeight: 1.45,
+                    outline: "none",
+                  }}
+                />
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginTop: 10 }}>
+                  <span style={{ ...sa, fontSize: 11, color: commentSent ? t.a : t.m, opacity: commentSent ? 1 : 0.45 }}>
+                    {commentSent ? "Envoyé" : "Enregistré localement"}
+                  </span>
+                  <button
+                    type="submit"
+                    disabled={!commentDraft.trim()}
+                    style={{
+                      ...mo,
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: 1.2,
+                      textTransform: "uppercase",
+                      padding: "8px 14px",
+                      borderRadius: 8,
+                      border: "none",
+                      background: commentDraft.trim() ? t.a : `${t.a}55`,
+                      color: "#12161A",
+                      cursor: commentDraft.trim() ? "pointer" : "not-allowed",
+                    }}
+                  >
+                    Envoyer
+                  </button>
+                </div>
+              </motion.form>
+            ) : null}
+          </AnimatePresence>
+          <button
+            type="button"
+            onClick={() => setCommentsOpen((o) => !o)}
+            aria-expanded={commentsOpen}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 7,
+              background: commentsOpen ? "rgba(255,255,255,.92)" : "rgba(255,255,255,.72)",
+              border: `1px solid ${t.brd}`,
+              color: t.c,
+              ...sa,
+              fontSize: 12,
+              fontWeight: 600,
+              padding: "8px 14px",
+              borderRadius: 999,
+              cursor: "pointer",
+              boxShadow: "0 4px 18px rgba(18,22,26,.08)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <span style={{ fontSize: 13, opacity: 0.7, lineHeight: 1 }} aria-hidden>💬</span>
+            Commentaire
+            {commentsMap[cur]?.trim() ? (
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: t.a, flexShrink: 0 }} aria-hidden />
+            ) : null}
+          </button>
+        </div>
+      ) : null}
       {s.note&&<button className="far-chrome" onClick={()=>setNotes(x=>!x)} style={{position:"fixed",bottom:24,right:120,zIndex:30,background:notes?t.cardAlt:"none",border:`1px solid ${t.brd}`,color:t.c,...mo,fontSize:11,fontWeight:600,padding:"10px 16px",borderRadius:8,cursor:"pointer",opacity:notes?.9:.3}}>📝 Web note</button>}
       <AnimatePresence>{notes&&s.note&&<motion.div initial={{opacity:0,scale:.96,y:8}} animate={{opacity:1,scale:1,y:0}} exit={{opacity:0,scale:.96,y:8}} transition={{duration:.2}} style={{position:"fixed",bottom:70,right:24,width:500,maxHeight:440,borderRadius:16,padding:32,zIndex:30,overflowY:"auto",background:t.note,color:t.noteT}}><div style={{...mo,fontSize:11,letterSpacing:2,textTransform:"uppercase",opacity:.3,marginBottom:16}}>WEB NOTE  -  SLIDE {cur+1}</div><p style={{...sa,fontSize:15,lineHeight:1.85,opacity:.85}}>{s.note}</p></motion.div>}</AnimatePresence>
     </div>
@@ -4550,6 +4825,8 @@ const HOME_CARD_VIS = {
   farmarques: { logo: "far" },
   stratcom: { logo: "far" },
   farroster: { logo: "far" },
+  sponsors2027: { img: "/cyrilmp4.webp", imgW: 80, imgType: "photo" },
+  sponsors2027fgc: { img: "/fgc.webp", imgW: 72, imgType: "photo" },
   case1: { logo: "far" },
   case2: { img: "/lebouseuh.png", imgW: 100, imgType: "photo" },
   grandjd: { logo: "far" },
@@ -4587,7 +4864,7 @@ const HOME_FOLDERS = [
     accent: "#FFAA00",
     text: "#F8F6F1",
     showFarMark: true,
-    decks: ["farposition2", "farposition", "farmarques", "stratcom", "farroster"],
+    decks: ["sponsors2027", "sponsors2027fgc", "farposition2", "farposition", "farmarques", "stratcom", "farroster"],
   },
   {
     id: "cyril",
@@ -4870,6 +5147,8 @@ function Home({ onOpen }) {
     grandjd: { bg: "#121417", c: "#F1F4F3", tBg: "rgba(79,207,184,.18)", tC: "#4FCFB8" },
     grandjd2: { bg: "#F1F0EC", c: "#12161A", tBg: "rgba(14,140,116,.14)", tC: "#0E8C74" },
     farpos3: { bg: "#F1F0EC", c: "#12161A", tBg: "rgba(255,170,0,.2)", tC: "#C47A00" },
+    sponsors2027: { bg: "#12161A", c: "#F3F1EC", tBg: "rgba(255,170,0,.22)", tC: "#FFAA00" },
+    sponsors2027fgc: { bg: "#FFF2F5", c: "#1C1410", tBg: "rgba(224,31,42,.14)", tC: "#E01F2A" },
     bouseuh: { bg: "#0D0F12", c: "#F3F5F4", tBg: "rgba(198,242,78,.18)", tC: "#C6F24E" },
     unchained: { bg: "#0E0A16", c: "#F3F0FA", tBg: "rgba(177,76,255,.2)", tC: "#B14CFF" },
     shopify: { bg: "#81B840", c: "#1a2e05", tBg: "rgba(0,0,0,.1)", tC: "#1a2e05" },
@@ -5036,6 +5315,25 @@ function Home({ onOpen }) {
         ) : (
           <motion.div key="folders" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
             <h1 style={{ ...se, fontSize: 54, lineHeight: 1.05, marginBottom: 40 }}>_decks & cooking</h1>
+            {import.meta.env.DEV ? (
+              <button
+                type="button"
+                onClick={() => { window.location.hash = "studiogallery/cover"; }}
+                style={{
+                  ...sa,
+                  margin: "-24px 0 28px",
+                  background: "none",
+                  border: "1px solid rgba(26,26,26,.14)",
+                  borderRadius: 8,
+                  padding: "8px 14px",
+                  fontSize: 13,
+                  cursor: "pointer",
+                  opacity: 0.55,
+                }}
+              >
+                Galerie FAR Studio (dev)
+              </button>
+            ) : null}
             <div
               className="far-folder-grid"
               style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 22, maxWidth: 1155 }}
@@ -5120,14 +5418,47 @@ function Gate({children}){
   const [v,setV] = useState("");
   const [err,setErr] = useState(false);
   const [focused,setFocused] = useState(false);
+  const [lockAutofill,setLockAutofill] = useState(true);
   const submit = e=>{e.preventDefault();if(v===PASS_HASH){sessionStorage.setItem("far_auth","1");setOk(true);}else{setErr(true);setTimeout(()=>setErr(false),1500);}};
   if(ok) return children;
   return <div style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"#FFAA00",padding:20}}>
-    <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');@keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}.far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}`}</style>
+    <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');@keyframes _vibrate{0%{transform:translate(0)}15%{transform:translate(-1px,.5px) rotate(-.5deg)}30%{transform:translate(1px,-.5px) rotate(.5deg)}45%{transform:translate(-.5px,1px) rotate(-.3deg)}60%{transform:translate(.5px,-1px) rotate(.3deg)}75%{transform:translate(-1px,.5px) rotate(-.5deg)}90%{transform:translate(.5px,-.5px) rotate(.3deg)}100%{transform:translate(0)}}.far-logo-hover{cursor:pointer;}.far-logo-hover:hover{animation:_vibrate .25s ease-in-out;}.far-gate-access{-webkit-text-security:disc;text-security:disc;}`}</style>
     <motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} style={{display:"flex",flexDirection:"column",alignItems:"center",maxWidth:400,width:"100%"}}>
       <div className="far-logo-hover" onClick={()=>window.location.reload()} style={{display:"flex",alignItems:"center",gap:16,marginBottom:40,cursor:"pointer"}}><FarLogo size={80} variant="black"/><div style={{width:1,height:32,background:"rgba(0,0,0,.25)"}}/><span style={{...se,fontSize:22,fontWeight:700,color:"#1A1A1A"}}>THIBAULT LOUÉ</span></div>
-      <form onSubmit={submit} style={{display:"flex",flexDirection:"column",gap:16,width:"100%"}}>
-        <input value={v} onChange={e=>setV(e.target.value)} onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)} type="password" placeholder={focused?"":"Mot de passe"} style={{...sa,fontSize:16,padding:"14px 20px",borderRadius:10,border:`1px solid ${err?"#e53935":"rgba(0,0,0,.15)"}`,background:"rgba(0,0,0,.08)",color:"#1A1A1A",outline:"none",textAlign:"center",transition:"border .3s"}}/>
+      <form
+        onSubmit={submit}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        data-form-type="other"
+        style={{display:"flex",flexDirection:"column",gap:16,width:"100%"}}
+      >
+        {/* Honeypot : détourne les managers d'autofill / wallet */}
+        <input type="text" name="username" autoComplete="username" tabIndex={-1} aria-hidden="true" style={{position:"absolute",left:-9999,width:1,height:1,opacity:0}} />
+        <input
+          className="far-gate-access"
+          value={v}
+          onChange={e=>setV(e.target.value)}
+          onFocus={()=>{setFocused(true);setLockAutofill(false);}}
+          onBlur={()=>setFocused(false)}
+          type="text"
+          inputMode="text"
+          name="far-deck-access"
+          id="far-deck-access"
+          placeholder={focused?"":"Mot de passe"}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="none"
+          spellCheck={false}
+          readOnly={lockAutofill}
+          data-1p-ignore="true"
+          data-lpignore="true"
+          data-bwignore="true"
+          data-form-type="other"
+          data-enable-grammarly="false"
+          style={{...sa,fontSize:16,padding:"14px 20px",borderRadius:10,border:`1px solid ${err?"#e53935":"rgba(0,0,0,.15)"}`,background:"rgba(0,0,0,.08)",color:"#1A1A1A",outline:"none",textAlign:"center",transition:"border .3s"}}
+        />
         <button type="submit" style={{...mo,fontSize:13,fontWeight:700,letterSpacing:2,padding:"14px 32px",borderRadius:10,border:"none",background:"#1A1A1A",color:"#FFAA00",cursor:"pointer"}}>ACCÉDER</button>
       </form>
       {err&&<motion.div initial={{opacity:0}} animate={{opacity:1}} style={{...sa,fontSize:13,color:"#e53935",marginTop:12}}>Mot de passe incorrect</motion.div>}
@@ -5141,6 +5472,7 @@ function ShareGate({ shareKey, children }) {
   const [v, setV] = useState("");
   const [err, setErr] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [lockAutofill, setLockAutofill] = useState(true);
 
   if (!link) return null;
 
@@ -5159,7 +5491,7 @@ function ShareGate({ shareKey, children }) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F1F0EC", padding: 20 }}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');`}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');.far-gate-access{-webkit-text-security:disc;text-security:disc;}`}</style>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -5174,15 +5506,40 @@ function ShareGate({ shareKey, children }) {
         <div style={{ ...sa, fontSize: 14, color: "rgba(18,22,26,.45)", textAlign: "center", marginBottom: 28 }}>
           Accès présentation
         </div>
-        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%" }}>
+        <form
+          onSubmit={submit}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          data-form-type="other"
+          style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%" }}
+        >
+          <input type="text" name="username" autoComplete="username" tabIndex={-1} aria-hidden="true" style={{ position: "absolute", left: -9999, width: 1, height: 1, opacity: 0 }} />
           <input
+            className="far-gate-access"
             value={v}
             onChange={(e) => setV(e.target.value)}
-            onFocus={() => setFocused(true)}
+            onFocus={() => {
+              setFocused(true);
+              setLockAutofill(false);
+            }}
             onBlur={() => setFocused(false)}
-            type="password"
+            type="text"
+            inputMode="text"
+            name="far-share-access"
+            id="far-share-access"
             placeholder={focused ? "" : "Mot de passe"}
-            autoComplete="current-password"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="none"
+            spellCheck={false}
+            readOnly={lockAutofill}
+            data-1p-ignore="true"
+            data-lpignore="true"
+            data-bwignore="true"
+            data-form-type="other"
+            data-enable-grammarly="false"
             style={{
               ...sa,
               fontSize: 16,
@@ -5239,6 +5596,9 @@ function parseHash() {
     };
   }
   const raw = rawPart;
+  if (getStudioDeck(raw)) {
+    return { view: "studio", d: raw, s: s || getStudioDeck(raw).slides[0].id };
+  }
   if (raw === "folder" && s && HOME_FOLDER_IDS.has(s)) return { view: "folder", folderId: s };
   if (raw === "archive") return { view: "archive" };
   const d = normalizeDeckId(raw);
@@ -5257,7 +5617,7 @@ export default function App() {
       const next = parseHash();
       if (next.view === "home" && window.location.hash.replace(/^#/, "")) {
         const raw = window.location.hash.replace(/^#/, "").split("/")[0];
-        if (raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive") {
+        if (raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive" && !getStudioDeck(raw)) {
           const u = new URL(window.location.href);
           u.hash = "";
           window.history.replaceState(null, "", u.pathname + u.search);
@@ -5297,6 +5657,10 @@ export default function App() {
   }, []);
 
   const goBack = useCallback(() => {
+    if (route.view === "studio") {
+      window.location.hash = "";
+      return;
+    }
     if (route.view === "deck" && route.d) {
       window.location.hash = DECK_BACK_HASH[route.d] || "";
       return;
@@ -5322,7 +5686,9 @@ export default function App() {
 
   return (
     <Gate>
-      {route.view === "deck" && route.d ? (
+      {route.view === "studio" && route.d && getStudioDeck(route.d) ? (
+        <StudioReader key={route.d} deck={getStudioDeck(route.d)} onBack={goBack} />
+      ) : route.view === "deck" && route.d ? (
         <Pres key={route.d} id={route.d} onBack={goBack} onNav={navDeck} />
       ) : (
         <Home key={`${route.view}-${route.folderId || ""}`} onOpen={navDeck} />

@@ -35,4 +35,15 @@ export default [
       ],
     },
   },
+  {
+    files: ['src/studio/**/*.{js,jsx}'],
+    rules: {
+      'react/prop-types': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    files: ['src/studio/assert.js'],
+    languageOptions: { globals: { ...globals.node } },
+  },
 ]
