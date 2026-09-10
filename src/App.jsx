@@ -14,7 +14,7 @@ import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
 import { createSSponsors2027 } from "./sSponsors2027.jsx";
 import { createSSponsors2027Fgc } from "./sSponsors2027Fgc.jsx";
 import { createSFGCPicard } from "./sFgcPicard.jsx";
-import { StudioReader, getStudioDeck } from "./studio/index.js";
+import { StudioReader, getStudioDeck, listStudioDecks, resolveStudioDeckId } from "./studio/index.js";
 
 /** Chemins publics (GitHub Pages projet → BASE_URL `/FAR/`). */
 const pu = (path) => {
@@ -3481,6 +3481,7 @@ const META = {
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
   belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Idea pitch · « 24 hours on the world's highest luxury train » · 7 slides",tag:"IDEA PITCH",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
+  "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Présentation partenariat  ·  prenez part à la prochaine aventure  ·  11 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
@@ -3499,12 +3500,24 @@ function deckExportFileStem(id) {
 }
 
 if (typeof window !== "undefined") {
-  window.__FAR_DECK_CATALOG = Object.keys(ALL).map((id) => ({
-    id,
-    label: META[id]?.l || id,
-    file: deckExportFileStem(id),
-    slides: ALL[id].length,
-  }));
+  const studioCatalog = listStudioDecks()
+    .filter((d) => d.id !== "studiogallery")
+    .map((d) => ({
+      id: d.id,
+      label: META[d.id]?.l || d.title,
+      file: d.exportName || deckExportFileStem(d.id),
+      slides: d.slides.length,
+      engine: "studio",
+    }));
+  window.__FAR_DECK_CATALOG = [
+    ...Object.keys(ALL).map((id) => ({
+      id,
+      label: META[id]?.l || id,
+      file: deckExportFileStem(id),
+      slides: ALL[id].length,
+    })),
+    ...studioCatalog,
+  ];
 }
 
 /** Export PDF : rendu hors écran (identique pour tous les decks). */
@@ -4804,7 +4817,7 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
           <span style={{...mo,fontSize:10,fontWeight:600,letterSpacing:2,padding:"5px 12px",borderRadius:5,background:st.tBg,color:st.tC,marginBottom:18,display:"inline-block"}}>{d.tag}</span>
           <h3 style={{...sa,fontSize:24,fontWeight:700,marginBottom:8}}>{d.l}</h3>
           <p style={{...sa,fontSize:14,opacity:.55,lineHeight:1.5,marginBottom:18}}>{d.s}</p>
-          <div style={{...mo,fontSize:11,opacity:.3}}>{ALL[id].length} slides</div>
+          <div style={{...mo,fontSize:11,opacity:.3}}>{ALL[id]?.length || getStudioDeck(id)?.slides?.length || "—"} slides</div>
         </div>
         <div style={{flexShrink:0}}>{children}</div>
       </div>
@@ -4850,6 +4863,7 @@ const HOME_CARD_VIS = {
   orientexpress: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   belmond: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   cyrilmp4: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  "cyril-mp4-banques": { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   garmin: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   edf: { img: "/edf-logo.png", imgW: 96, filter: "brightness(0) invert(1)" },
 };
@@ -4876,7 +4890,7 @@ const HOME_FOLDERS = [
     text: "#F4EFE6",
     photo: "/cyrilmp4.png",
     photoRound: true,
-    decks: ["cyrilslip", "cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
+    decks: ["cyril-mp4-banques", "cyrilslip", "cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
   },
   {
     id: "fgc",
@@ -5165,6 +5179,7 @@ function Home({ onOpen }) {
     orientexpress: { bg: "#12100E", c: "#F3EDE3", tBg: "rgba(196,160,82,.2)", tC: "#C4A052" },
     belmond: { bg: "#241A16", c: "#F5F0E8", tBg: "rgba(201,164,91,.2)", tC: "#C9A45B" },
     edf: { bg: "#07152B", c: "#F7FAFF", tBg: "rgba(254,80,0,.22)", tC: "#FE5000" },
+    cyrilbanques: { bg: "#0A1628", c: "#F4EFE6", tBg: "rgba(201,162,75,.2)", tC: "#C9A24B" },
     slip: { bg: "#F7F2EB", c: "#0B1F3A", tBg: "rgba(227,6,19,.14)", tC: "#E30613" },
   };
 
@@ -5596,8 +5611,9 @@ function parseHash() {
     };
   }
   const raw = rawPart;
-  if (getStudioDeck(raw)) {
-    return { view: "studio", d: raw, s: s || getStudioDeck(raw).slides[0].id };
+  const studioId = resolveStudioDeckId(raw);
+  if (studioId) {
+    return { view: "studio", d: studioId, s: s || getStudioDeck(studioId).slides[0].id };
   }
   if (raw === "folder" && s && HOME_FOLDER_IDS.has(s)) return { view: "folder", folderId: s };
   if (raw === "archive") return { view: "archive" };
@@ -5617,7 +5633,7 @@ export default function App() {
       const next = parseHash();
       if (next.view === "home" && window.location.hash.replace(/^#/, "")) {
         const raw = window.location.hash.replace(/^#/, "").split("/")[0];
-        if (raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive" && !getStudioDeck(raw)) {
+        if (raw && !SHARE_LINKS[raw] && !SHARE_LINK_ALIASES[raw] && !normalizeDeckId(raw) && raw !== "folder" && raw !== "archive" && !resolveStudioDeckId(raw)) {
           const u = new URL(window.location.href);
           u.hash = "";
           window.history.replaceState(null, "", u.pathname + u.search);
@@ -5658,7 +5674,7 @@ export default function App() {
 
   const goBack = useCallback(() => {
     if (route.view === "studio") {
-      window.location.hash = "";
+      window.location.hash = DECK_BACK_HASH[route.d] || "";
       return;
     }
     if (route.view === "deck" && route.d) {

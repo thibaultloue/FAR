@@ -43,7 +43,7 @@ export default [
     },
   },
   {
-    files: ['src/studio/assert.js'],
+    files: ['src/studio/assert.js', 'src/studio/decks/**/*.js'],
     languageOptions: { globals: { ...globals.node } },
   },
 ]

@@ -151,9 +151,9 @@ async function captureDeck(page, base, deck, outRoot) {
   await page.waitForSelector(".far-slide-inner", { timeout: 60000 });
   await page.waitForTimeout(600);
 
-  const n =
+      const n =
     (await page.evaluate(() => {
-      const header = document.querySelector(".far-header");
+      const header = document.querySelector(".far-header, .far-studio-caption");
       const m = (header?.innerText || "").match(/(\d+)\s*\/\s*(\d+)/);
       return m ? parseInt(m[2], 10) : 0;
     })) || deck.slides;

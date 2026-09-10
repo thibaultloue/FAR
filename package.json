@@ -11,7 +11,8 @@
     "export-pdfs": "npm run build && node scripts/export-pdfs.mjs",
     "export-live": "npm run build && node scripts/export-live.mjs",
     "test:studio": "node src/studio/assert.js",
-    "capture-studio": "node scripts/capture-studio-gallery.mjs"
+    "capture-studio": "node scripts/capture-studio-gallery.mjs",
+    "capture-cyril-banques": "node scripts/capture-cyril-banques.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.36.0",

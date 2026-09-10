@@ -129,7 +129,18 @@ export function StudioReader({ deck, onBack, locked }) {
   };
 
   return (
-    <div className="far-studio" data-theme={theme.id} data-engine="far-studio-v1">
+    <div
+      className="far-studio"
+      data-theme={theme.id}
+      data-engine="far-studio-v1"
+      style={{
+        "--fs-accent": theme.accent,
+        "--fs-accent-soft": `color-mix(in srgb, ${theme.accent} 18%, transparent)`,
+        "--fs-page": theme.page,
+        "--fs-slide": theme.slide,
+        "--fs-ink": theme.ink,
+      }}
+    >
       <div className="far-studio-shell" style={{ "--fs-u": frame.u, background: theme.page }}>
         <header className="far-studio-header far-chrome far-studio-chrome">
           <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
@@ -191,9 +202,16 @@ export function StudioReader({ deck, onBack, locked }) {
                   >
                     <h2 id="fs-dialog-title" className="far-studio-display far-studio-title-md">{dialog.title}</h2>
                     <p className="far-studio-body" style={{ marginTop: 12 }}>{dialog.body}</p>
-                    <button ref={dialogBtn} type="button" className="far-studio-btn" style={{ marginTop: 18 }} onClick={() => setDialog(null)}>
-                      Fermer
-                    </button>
+                    <div style={{ display: "flex", gap: 10, marginTop: 18, flexWrap: "wrap" }}>
+                      {dialog.href ? (
+                        <a className="far-studio-btn" href={dialog.href} target="_blank" rel="noreferrer">
+                          {dialog.hrefLabel || "Ouvrir le lien"}
+                        </a>
+                      ) : null}
+                      <button ref={dialogBtn} type="button" className="far-studio-btn" onClick={() => setDialog(null)}>
+                        Fermer
+                      </button>
+                    </div>
                   </div>
                 </div>
               ) : null}

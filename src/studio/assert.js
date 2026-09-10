@@ -5,6 +5,7 @@
 import { GALLERY_BUDGET } from "./galleryDeck.js";
 import { sumValues } from "./math.js";
 import { createStudioDeck } from "./createStudioDeck.js";
+import { buildCyrilMp4BanquesDeck } from "./decks/cyrilMp4Banques.js";
 
 const total = sumValues(GALLERY_BUDGET.items);
 if (total !== 180) {
@@ -30,4 +31,41 @@ if (deck.engine !== "studio" || deck.slides[1].id !== "close") {
   process.exit(1);
 }
 
-console.log("studio assert ok", { budget: total, slides: deck.slides.length });
+const banks = buildCyrilMp4BanquesDeck();
+const expectedIds = ["cover", "creator", "repertoire", "audience", "preuves", "interet", "collaborer", "piste", "dispositif", "cadre", "close"];
+if (banks.id !== "cyril-mp4-banques" || banks.slides.length !== 11) {
+  console.error("deck banques: 11 slides attendues", banks.slides.length);
+  process.exit(1);
+}
+if (banks.slides.map((s) => s.id).join() !== expectedIds.join()) {
+  console.error("deck banques: ids inattendus", banks.slides.map((s) => s.id));
+  process.exit(1);
+}
+const blob = JSON.stringify(banks);
+for (const forbidden of ["8,5M", "8.5M", "personnes touchées cumul", "libre de toute exclusivité", "impact garanti", "Gold / Silver"]) {
+  if (blob.includes(forbidden)) {
+    console.error("deck banques: formulation interdite", forbidden);
+    process.exit(1);
+  }
+}
+if (!blob.includes("+3,5 M") || !blob.includes("+1,4 M")) {
+  console.error("deck banques: résultats Deblock / Odoo manquants");
+  process.exit(1);
+}
+const genericLogos = banks.slides[0].logos || [];
+if (genericLogos.length) {
+  console.error("deck banques: logo banque présent en version générique");
+  process.exit(1);
+}
+
+const named = buildCyrilMp4BanquesDeck({ bankName: "Banque Exemple", objective: "proximity", sectorCase: "shopify" });
+if (!named.title.includes("Banque Exemple")) {
+  console.error("personnalisation: titre inchangé");
+  process.exit(1);
+}
+if (JSON.stringify(named.slides.find((s) => s.id === "preuves")).includes("Deblock")) {
+  console.error("personnalisation: Deblock encore présent après repli Shopify");
+  process.exit(1);
+}
+
+console.log("studio assert ok", { budget: total, slides: deck.slides.length, banques: banks.slides.length });

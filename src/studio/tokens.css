@@ -316,6 +316,7 @@
 
 html[data-far-live-export="1"] .far-studio-shell {
   background: var(--fs-slide);
+  height: 100%;
 }
 html[data-far-live-export="1"] .far-studio-stage {
   padding: 0;
@@ -328,6 +329,25 @@ html[data-far-live-export="1"] .far-studio-frame {
   border-radius: 0;
   border: 0;
   box-shadow: none;
+}
+
+.far-studio-plain-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.far-studio-plain-btn:focus-visible {
+  outline: 2px solid var(--fs-accent);
+  outline-offset: 3px;
+}
+
+.far-studio a.far-studio-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 @media (max-width: 820px) {

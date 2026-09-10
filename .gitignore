@@ -24,8 +24,10 @@ dist-ssr
 *.sw?
 .vercel
 
-# PDF générés en local (scripts/export-pdfs.mjs)
-exports/*.pdf
-exports/*.png
-exports/screenshots/
+# PDF et captures générés en local (scripts/export-pdfs.mjs, capture-*)
+exports/
 .env*
+
+# Notes privées (hors bundle, hors site)
+private/
+notes-privees/

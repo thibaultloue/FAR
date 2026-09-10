@@ -94,10 +94,61 @@ export function FlowChart({ source, items, unit = "", uid = "fs-flow" }) {
   );
 }
 
+/** Chaîne éditoriale : nœuds nommés, sans montants fictifs. */
+export function NodeFlow({ nodes = [], uid = "fs-nodes", onSelect }) {
+  return (
+    <ol
+      id={uid}
+      className="far-studio-node-flow"
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${Math.max(nodes.length, 1)}, minmax(0, 1fr))`,
+        gap: "calc(10px * var(--fs-u))",
+        listStyle: "none",
+        margin: 0,
+        padding: 0,
+        alignItems: "stretch",
+      }}
+    >
+      {nodes.map((node, i) => (
+        <li key={node.id || i} style={{ display: "flex", alignItems: "stretch", gap: "calc(8px * var(--fs-u))", minWidth: 0 }}>
+          <button
+            type="button"
+            className="far-studio-plain-btn"
+            onClick={() => onSelect?.(node)}
+            style={{
+              flex: 1,
+              minWidth: 0,
+              padding: "calc(12px * var(--fs-u))",
+              background: "var(--fs-surface)",
+              border: "1px solid var(--fs-line)",
+              borderRadius: "var(--fs-radius-sm)",
+              borderTop: "3px solid var(--fs-accent)",
+              textAlign: "left",
+              cursor: node.detail ? "pointer" : "default",
+            }}
+          >
+            <div className="far-studio-kicker">{node.kicker || `0${i + 1}`}</div>
+            <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(18px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em", marginTop: 4 }}>
+              {node.label}
+            </div>
+            {node.body ? <p className="far-studio-body" style={{ fontSize: "calc(15px * var(--fs-u))", margin: "4px 0 0" }}>{node.body}</p> : null}
+          </button>
+          {i < nodes.length - 1 ? (
+            <span aria-hidden style={{ alignSelf: "center", color: "var(--fs-accent)", fontSize: "calc(22px * var(--fs-u))", flexShrink: 0 }}>
+              →
+            </span>
+          ) : null}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 /** Frise : phasage dans le temps. */
 export function Timeline({ steps, uid = "fs-time" }) {
   return (
-    <ol id={uid} style={{ display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: "calc(14px * var(--fs-u))", listStyle: "none", margin: 0, padding: 0, flex: 1 }}>
+    <ol id={uid} style={{ display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))`, gap: "calc(14px * var(--fs-u))", listStyle: "none", margin: 0, padding: 0 }}>
       {steps.map((step, i) => (
         <li key={step.id || i} style={{ display: "flex", flexDirection: "column", gap: "calc(10px * var(--fs-u))" }}>
           <div style={{ height: 3, background: "var(--fs-line)", position: "relative", marginTop: 8 }}>
