@@ -12,12 +12,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const outDir = path.join(root, "exports", "cyril-mp4-banques");
 const PORT = 4192;
-const ALL_SLIDES = ["cover", "creator", "repertoire", "audience", "preuves", "interet", "collaborer", "piste", "dispositif", "cadre", "close"];
-const SHOTS = ["cover", "repertoire", "preuves", "piste", "dispositif", "close"];
+const ALL_SLIDES = ["cover", "creator", "figures", "repertoire", "ecosystem", "group", "interest", "preuves", "collaborer", "close"];
+const SHOTS = ["cover", "figures", "group", "interest", "preuves", "close"];
 const VIEWPORTS = [
   { name: "1440x900", width: 1440, height: 900, slides: ALL_SLIDES },
   { name: "1280x720", width: 1280, height: 720, slides: SHOTS },
-  { name: "mobile", width: 390, height: 844, slides: ["cover", "preuves", "close"] },
+  { name: "mobile", width: 390, height: 844, slides: ["cover", "figures", "close"] },
 ];
 
 function pingOnce(port) {

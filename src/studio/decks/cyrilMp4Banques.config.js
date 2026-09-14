@@ -2,28 +2,31 @@
  * Personnalisation CYRILmp4 × Banques.
  *
  * La version générique laisse bankName et bankLogo à null.
- * Renseigner un destinataire fait évoluer l'opportunité, le rôle, le périmètre
- * et le contact. Ne pas inventer l'objectif d'une enseigne.
+ * Renseigner un destinataire fait évoluer l'intérêt (pont mis en avant) et le contact.
  *
  * Usage :
  *   import { buildCyrilMp4BanquesDeck } from "./cyrilMp4Banques.js";
- *   buildCyrilMp4BanquesDeck({ bankName: "…", objective: "proximity", projectTitle: "…" });
+ *   buildCyrilMp4BanquesDeck({ bankName: "…", objective: "proximity", sectorCase: "deblock" });
+ *
+ * sectorCase :
+ *   - "shopify" (défaut V2) → Odoo + Shopify
+ *   - "deblock" → Deblock + Odoo (après validation FAR)
  */
 export const OBJECTIVES = {
   presence: {
     id: "presence",
-    title: "Présence à l'esprit",
-    body: "Rendre la marque reconnaissable dans un contenu choisi.",
+    title: "Faire connaître votre marque",
+    body: "Associer votre banque à ses contenus et à ses prises de parole.",
   },
   proximity: {
     id: "proximity",
-    title: "Proximité",
-    body: "L'associer à un projet et à une expérience compréhensibles.",
+    title: "Montrer l’utilité de vos services",
+    body: "Voyages, paiements, organisation de projets : des usages à travailler à partir de votre offre.",
   },
   offer: {
     id: "offer",
-    title: "Intérêt pour une offre",
-    body: "Proposer une suite pertinente lorsque le produit et l'audience le permettent.",
+    title: "Incarner l’entrepreneuriat",
+    body: "S’appuyer sur son expérience pour parler de création d’activité, de développement et de transmission.",
   },
 };
 
@@ -31,14 +34,8 @@ export const DEFAULT_CONFIG = {
   bankName: null,
   bankLogo: null,
   objective: null,
-  audienceNote: null,
   accent: "#C9A24B",
-  projectTitle: null,
-  projectHook: null,
-  partnerRole: null,
-  sectorCase: "deblock",
-  perimeterNote: null,
-  calendarNote: null,
+  sectorCase: "shopify",
   contactName: "Thibault Loué",
   contactDetail: "thibault.loue@far-agence.com",
 };

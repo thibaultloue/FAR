@@ -13,6 +13,9 @@ export function StudioReader({ deck, onBack, locked }) {
   const [toc, setToc] = useState(false);
   const [dialog, setDialog] = useState(null);
   const [expanded, setExpanded] = useState(false);
+  const chromeMode = deck.readerChrome === "auto" ? "auto" : "default";
+  const [chromeVisible, setChromeVisible] = useState(chromeMode !== "auto");
+  const chromeTimer = useRef(null);
   const index = Math.max(0, slides.findIndex((s) => s.id === curId));
   const slide = slides[index] || slides[0];
   const theme = resolveTheme(slide.theme || deck.theme, deck.themeOverrides);
@@ -21,6 +24,17 @@ export function StudioReader({ deck, onBack, locked }) {
   const stageRef = useRef(null);
   const frameRef = useRef(null);
   const [frame, setFrame] = useState({ w: REF_H * (16 / 9), h: REF_H, u: 1 });
+
+  const revealChrome = useCallback(() => {
+    if (chromeMode !== "auto") return;
+    setChromeVisible(true);
+    if (chromeTimer.current) clearTimeout(chromeTimer.current);
+    chromeTimer.current = setTimeout(() => setChromeVisible(false), 2200);
+  }, [chromeMode]);
+
+  useEffect(() => () => {
+    if (chromeTimer.current) clearTimeout(chromeTimer.current);
+  }, []);
 
   const go = useCallback(
     (next) => {
@@ -67,7 +81,7 @@ export function StudioReader({ deck, onBack, locked }) {
     const ro = new ResizeObserver(apply);
     ro.observe(stage);
     return () => ro.disconnect();
-  }, []);
+  }, [chromeMode, chromeVisible]);
 
   const onKey = useCallback(
     (e) => {
@@ -130,9 +144,10 @@ export function StudioReader({ deck, onBack, locked }) {
 
   return (
     <div
-      className="far-studio"
+      className={`far-studio${chromeVisible ? " is-chrome-visible" : ""}`}
       data-theme={theme.id}
       data-engine="far-studio-v1"
+      data-chrome={chromeMode}
       style={{
         "--fs-accent": theme.accent,
         "--fs-accent-soft": `color-mix(in srgb, ${theme.accent} 18%, transparent)`,
@@ -140,9 +155,14 @@ export function StudioReader({ deck, onBack, locked }) {
         "--fs-slide": theme.slide,
         "--fs-ink": theme.ink,
       }}
+      onMouseMove={revealChrome}
+      onTouchStart={revealChrome}
     >
       <div className="far-studio-shell" style={{ "--fs-u": frame.u, background: theme.page }}>
-        <header className="far-studio-header far-chrome far-studio-chrome">
+        <header
+          className="far-studio-header far-chrome far-studio-chrome"
+          onFocusCapture={revealChrome}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
             {!locked && onBack ? (
               <button type="button" className="far-studio-btn" onClick={onBack}>
@@ -244,7 +264,10 @@ export function StudioReader({ deck, onBack, locked }) {
           </div>
         </div>
 
-        <div className="far-studio-dock far-chrome far-studio-chrome">
+        <div
+          className="far-studio-dock far-chrome far-studio-chrome"
+          onFocusCapture={revealChrome}
+        >
           <button type="button" className="far-studio-btn" onClick={() => setToc((v) => !v)}>
             Sommaire
           </button>

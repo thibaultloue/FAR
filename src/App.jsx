@@ -3481,7 +3481,7 @@ const META = {
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
   belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Idea pitch · « 24 hours on the world's highest luxury train » · 7 slides",tag:"IDEA PITCH",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
-  "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Présentation partenariat  ·  prenez part à la prochaine aventure  ·  11 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
+  "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Créateur · explorateur · entrepreneur  ·  10 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},

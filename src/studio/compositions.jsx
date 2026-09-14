@@ -19,6 +19,11 @@ export const LAYOUTS = {
   pilot: Pilot,
   device: Device,
   framework: Framework,
+  figures: Figures,
+  ecosystem: Ecosystem,
+  group: GroupHub,
+  bridges: Bridges,
+  formats: Formats,
 };
 
 function SlideShell({ kicker, source, children, style }) {
@@ -323,7 +328,9 @@ export function Closing({ slide, theme }) {
                 {slide.kicker ? <Kicker>{slide.kicker}</Kicker> : null}
                 <Display size="lg" style={{ marginTop: "calc(12px * var(--fs-u))", maxWidth: "12em" }}>{slide.title}</Display>
                 {slide.action ? <Body lead style={{ marginTop: "calc(18px * var(--fs-u))" }}>{slide.action}</Body> : null}
-                {slide.contact ? <Body style={{ marginTop: "calc(14px * var(--fs-u))", fontSize: "calc(18px * var(--fs-u))" }}>{slide.contact}</Body> : null}
+                {slide.contact ? (
+                  <Body style={{ marginTop: "calc(14px * var(--fs-u))", fontSize: "calc(18px * var(--fs-u))", whiteSpace: "pre-line" }}>{slide.contact}</Body>
+                ) : null}
               </div>
               {slide.source ? <Source>{slide.source}</Source> : <div />}
             </div>
@@ -347,7 +354,7 @@ export function Closing({ slide, theme }) {
           {slide.kicker ? <Kicker>{slide.kicker}</Kicker> : null}
           <Display size="lg" style={{ marginTop: "calc(12px * var(--fs-u))", maxWidth: "14em" }}>{slide.title}</Display>
           {slide.action ? <Body lead style={{ marginTop: "calc(22px * var(--fs-u))" }}>{slide.action}</Body> : null}
-          {slide.contact ? <Body style={{ marginTop: "calc(14px * var(--fs-u))" }}>{slide.contact}</Body> : null}
+          {slide.contact ? <Body style={{ marginTop: "calc(14px * var(--fs-u))", whiteSpace: "pre-line" }}>{slide.contact}</Body> : null}
         </div>
         {slide.source ? <Source>{slide.source}</Source> : <div />}
       </div>
@@ -666,9 +673,281 @@ function VideoTile({ video, featured, onOpen, style }) {
         <div style={{ fontFamily: "var(--fs-font-display)", fontSize: featured ? "calc(22px * var(--fs-u))" : "calc(17px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em", marginTop: 4 }}>
           {video.title}
         </div>
-        <Body style={{ fontSize: "calc(16px * var(--fs-u))", margin: 0 }}>{video.role}</Body>
+        {video.result ? (
+          <div style={{ fontFamily: "var(--fs-font-display)", fontSize: featured ? "calc(28px * var(--fs-u))" : "calc(22px * var(--fs-u))", fontWeight: 750, letterSpacing: "-0.04em", marginTop: 6 }}>
+            {video.result}
+          </div>
+        ) : null}
+        {video.role ? <Body style={{ fontSize: "calc(16px * var(--fs-u))", margin: video.result ? "2px 0 0" : 0 }}>{video.role}</Body> : null}
       </div>
     </button>
+  );
+}
+
+/** Chiffres amples — une mesure = un bloc dominant. */
+export function Figures({ slide }) {
+  const metrics = slide.metrics || [];
+  const contrast = slide.variant === "contrast";
+  return (
+    <Reveal>
+      <SlideShell
+        kicker={slide.kicker}
+        source={slide.source}
+        style={
+          contrast
+            ? {
+                background: "var(--fs-contrast)",
+                color: "var(--fs-contrast-ink)",
+                justifyContent: "space-between",
+                ["--fs-muted"]: "rgba(244,240,232,.58)",
+                ["--fs-faint"]: "rgba(244,240,232,.42)",
+                ["--fs-ink"]: "var(--fs-contrast-ink)",
+              }
+            : undefined
+        }
+      >
+        <Display size="md" style={{ margin: "calc(4px * var(--fs-u)) 0 calc(18px * var(--fs-u))", color: "inherit" }}>
+          {slide.title}
+        </Display>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${Math.min(metrics.length, 3)}, minmax(0, 1fr))`,
+            gap: "calc(22px * var(--fs-u))",
+            flex: 1,
+            alignItems: "center",
+          }}
+        >
+          {metrics.map((m) => (
+            <div key={m.label} style={{ minWidth: 0 }}>
+              <div
+                style={{
+                  fontFamily: "var(--fs-font-display)",
+                  fontSize: "calc(110px * var(--fs-u))",
+                  fontWeight: 750,
+                  letterSpacing: "-0.06em",
+                  lineHeight: 0.92,
+                  color: "var(--fs-accent)",
+                }}
+              >
+                {m.value}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--fs-font-display)",
+                  fontSize: "calc(24px * var(--fs-u))",
+                  fontWeight: 700,
+                  marginTop: "calc(14px * var(--fs-u))",
+                  letterSpacing: "-0.03em",
+                  color: "inherit",
+                }}
+              >
+                {m.label}
+              </div>
+              {m.asOf ? (
+                <div className="far-studio-caption" style={{ marginTop: 6 }}>
+                  {m.asOf}
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </SlideShell>
+    </Reveal>
+  );
+}
+
+/** Cartographie éditoriale : YouTube dominant, Instagram, LinkedIn. */
+export function Ecosystem({ slide }) {
+  const channels = slide.channels || [];
+  const lead = channels[0];
+  const rest = channels.slice(1);
+  return (
+    <Reveal>
+      <SlideShell kicker={slide.kicker} source={slide.source}>
+        <Display size="md" style={{ margin: "calc(4px * var(--fs-u)) 0 calc(14px * var(--fs-u))" }}>{slide.title}</Display>
+        <div className="far-studio-grid-12" style={{ flex: 1, minHeight: 0 }}>
+          {lead ? (
+            <div style={{ gridColumn: "1 / 8", display: "flex", flexDirection: "column", gap: "calc(12px * var(--fs-u))", minHeight: 0 }}>
+              <Kicker>{lead.handle || lead.label}</Kicker>
+              <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(28px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em" }}>{lead.title || lead.label}</div>
+              <Body lead style={{ fontSize: "calc(22px * var(--fs-u))" }}>{lead.body}</Body>
+              {lead.photo ? (
+                <div className="far-studio-yt" style={{ width: "100%", maxWidth: "100%", aspectRatio: "16 / 9", marginTop: "auto" }}>
+                  <img src={asset(lead.photo.src)} alt={lead.photo.alt || ""} />
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+          <div style={{ gridColumn: "8 / 13", display: "flex", flexDirection: "column", gap: "calc(14px * var(--fs-u))", minHeight: 0 }}>
+            {rest.map((ch) => (
+              <div
+                key={ch.id || ch.label}
+                style={{
+                  flex: 1,
+                  minHeight: 0,
+                  padding: "calc(16px * var(--fs-u))",
+                  background: "var(--fs-surface)",
+                  border: "1px solid var(--fs-line)",
+                  borderRadius: "var(--fs-radius)",
+                  borderTop: "3px solid var(--fs-accent)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: 8,
+                }}
+              >
+                <Kicker>{ch.handle || ch.label}</Kicker>
+                <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(24px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em" }}>{ch.title || ch.label}</div>
+                <Body style={{ fontSize: "calc(19px * var(--fs-u))", margin: 0 }}>{ch.body}</Body>
+              </div>
+            ))}
+          </div>
+        </div>
+      </SlideShell>
+    </Reveal>
+  );
+}
+
+/** Hub entrepreneurial : groupe au centre, branches autour. */
+export function GroupHub({ slide }) {
+  const branches = slide.branches || [];
+  return (
+    <Reveal>
+      <SlideShell kicker={slide.kicker} source={slide.source}>
+        <Display size="md" style={{ margin: "calc(2px * var(--fs-u)) 0 calc(8px * var(--fs-u))" }}>{slide.title}</Display>
+        {slide.body ? <Body style={{ marginBottom: "calc(14px * var(--fs-u))", fontSize: "calc(21px * var(--fs-u))" }}>{slide.body}</Body> : null}
+        <div
+          style={{
+            alignSelf: "center",
+            padding: "calc(14px * var(--fs-u)) calc(28px * var(--fs-u))",
+            borderRadius: 999,
+            background: "var(--fs-contrast)",
+            color: "var(--fs-contrast-ink)",
+            fontFamily: "var(--fs-font-display)",
+            fontSize: "calc(22px * var(--fs-u))",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            marginBottom: "calc(16px * var(--fs-u))",
+          }}
+        >
+          {slide.hub || "Groupe La Porte"}
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+            gap: "calc(10px * var(--fs-u))",
+            flex: 1,
+            minHeight: 0,
+          }}
+        >
+          {branches.map((b) => (
+            <div
+              key={b.id || b.name}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+                padding: "calc(12px * var(--fs-u))",
+                background: "var(--fs-surface)",
+                border: "1px solid var(--fs-line)",
+                borderRadius: "var(--fs-radius)",
+                borderTop: "3px solid var(--fs-accent)",
+                minHeight: 0,
+              }}
+            >
+              <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(17px * var(--fs-u))", fontWeight: 750, letterSpacing: "-0.03em", lineHeight: 1.2 }}>{b.name}</div>
+              <Body style={{ fontSize: "calc(15px * var(--fs-u))", margin: 0 }}>{b.role}</Body>
+              {b.example ? (
+                <div style={{ marginTop: "auto", paddingTop: 8, borderTop: "1px solid var(--fs-line)" }}>
+                  <div className="far-studio-caption">{b.example}</div>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </SlideShell>
+    </Reveal>
+  );
+}
+
+/** Atout → objectif, trois lignes. */
+export function Bridges({ slide }) {
+  return (
+    <Reveal>
+      <SlideShell kicker={slide.kicker} source={slide.source}>
+        <Display size="md" style={{ margin: "calc(4px * var(--fs-u)) 0 calc(16px * var(--fs-u))" }}>{slide.title}</Display>
+        <div style={{ display: "flex", flexDirection: "column", gap: "calc(14px * var(--fs-u))", flex: 1, justifyContent: "center" }}>
+          {(slide.bridges || []).map((row) => (
+            <div
+              key={row.id}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.05fr auto 1fr",
+                gap: "calc(16px * var(--fs-u))",
+                alignItems: "center",
+                padding: "calc(16px * var(--fs-u)) calc(18px * var(--fs-u))",
+                background: row.featured ? "var(--fs-accent-soft)" : "var(--fs-surface)",
+                border: "1px solid var(--fs-line)",
+                borderRadius: "var(--fs-radius)",
+              }}
+            >
+              <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(23px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+                {row.from}
+              </div>
+              <div aria-hidden style={{ color: "var(--fs-accent)", fontSize: "calc(28px * var(--fs-u))", fontWeight: 700 }}>
+                →
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(23px * var(--fs-u))", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+                  {row.to}
+                </div>
+                {row.body ? <Body style={{ fontSize: "calc(18px * var(--fs-u))", margin: "6px 0 0" }}>{row.body}</Body> : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </SlideShell>
+    </Reveal>
+  );
+}
+
+/** Trois formats éditoriaux égaux, sans photo. */
+export function Formats({ slide }) {
+  const items = slide.formats || slide.paths || [];
+  return (
+    <Reveal>
+      <SlideShell kicker={slide.kicker} source={slide.source}>
+        <Display size="md" style={{ margin: "calc(4px * var(--fs-u)) 0 calc(18px * var(--fs-u))" }}>{slide.title}</Display>
+        <div className="far-studio-grid-12" style={{ flex: 1, alignItems: "stretch" }}>
+          {items.map((item, i) => (
+            <div
+              key={item.id || item.title}
+              style={{
+                gridColumn: `${i * 4 + 1} / ${i * 4 + 5}`,
+                display: "flex",
+                flexDirection: "column",
+                gap: "calc(10px * var(--fs-u))",
+                padding: "calc(18px * var(--fs-u))",
+                background: "var(--fs-surface)",
+                border: "1px solid var(--fs-line)",
+                borderRadius: "var(--fs-radius)",
+                borderTop: "3px solid var(--fs-accent)",
+                minHeight: 0,
+              }}
+            >
+              <Kicker>{item.kicker || `0${i + 1}`}</Kicker>
+              <div style={{ fontFamily: "var(--fs-font-display)", fontSize: "calc(28px * var(--fs-u))", fontWeight: 750, letterSpacing: "-0.03em" }}>{item.title}</div>
+              <Body style={{ fontSize: "calc(20px * var(--fs-u))" }}>{item.body}</Body>
+            </div>
+          ))}
+        </div>
+        {slide.signature ? (
+          <Body style={{ marginTop: "calc(16px * var(--fs-u))", fontSize: "calc(18px * var(--fs-u))" }}>{slide.signature}</Body>
+        ) : null}
+      </SlideShell>
+    </Reveal>
   );
 }
 

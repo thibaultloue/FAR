@@ -11,6 +11,7 @@ export function createStudioDeck({
   themeOverrides,
   slides,
   exportName,
+  readerChrome = "default",
 }) {
   if (!id) throw new Error("createStudioDeck: `id` requis");
   if (!Array.isArray(slides) || !slides.length) throw new Error("createStudioDeck: au moins une slide");
@@ -29,6 +30,8 @@ export function createStudioDeck({
     theme,
     themeOverrides,
     exportName: exportName || title,
+    /** `auto` : chrome hors composition, visible au mouvement / focus. Autres decks inchangés. */
+    readerChrome,
     slides: normalized,
   };
 }
