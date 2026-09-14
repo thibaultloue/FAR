@@ -1,14 +1,19 @@
 Miniatures YouTube
-  Fichiers yt-*.jpg : aperçus officiels des vidéos CYRILmp4 liées dans le deck.
-  Usage : illustration des contenus cités, avec lien vers la vidéo.
+  yt-bVk4i_PYxug.jpg : aperçu officiel « 2€ dans la ville la moins chère d'Afrique » (CYRILmp4)
+  yt-ZKlLgxLz_qI.jpg : aperçu officiel hôtels insolites (cas Odoo)
+  yt-myElp75-ZIc.jpg : aperçu officiel intégration Shopify
+  yt-nCDJo4w-Z8U.jpg : aperçu cité pour Deblock (hors parcours par défaut)
+  yt-70I94z_2toM.jpg / yt-T6A36ypJXI8.jpg : hors parcours V3
+
+Visuels Groupe La Porte (pages officielles, consultés le 14 sept. 2026)
+  fondateur.webp : portrait du fondateur — couverture
+  grand-rex.webp : avant-première (Grand Rex) — parcours
+  studio-steam.webp : miniature « J’ai acheté les jeux Steam les plus chers » (CYRILstudio)
+  tournage.webp : tournage / production — portfolio La Porte
+  tryhard-keyboard.webp : clavier Tryhard — La Porte Beta
+  academie-banner.webp : visuel La Porte Académie
 
 Photo-indice
   indice.jpg : Aït Benhaddou, Yair Haklai, Wikimedia Commons.
   Licence : Creative Commons Attribution-Share Alike 4.0 International.
-  https://commons.wikimedia.org/wiki/File:A%C3%AFt_Benhaddou.jpg
-  Usage : illustration du concept « retrouver un lieu à partir d'une photo ».
-  Ce n'est pas un photogramme CYRILmp4 ni le lieu d'un tournage prévu.
-
-  yt-T6A36ypJXI8.jpg : miniature YouTube officielle
-  Vidéo : « 300 heures sur les traces d'animaux sauvages en Namibie » (CYRILmp4)
-  https://www.youtube.com/watch?v=T6A36ypJXI8
+  Hors parcours V3.

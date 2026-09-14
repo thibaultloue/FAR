@@ -3481,7 +3481,8 @@ const META = {
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
   belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Idea pitch · « 24 hours on the world's highest luxury train » · 7 slides",tag:"IDEA PITCH",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
-  "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Créateur · explorateur · entrepreneur  ·  10 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
+  "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Créateur & entrepreneur  ·  11 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
+  "toinelag-bouygues-kids-watch":{l:"Toinelag × Bouygues Telecom",s:"Kids Watch · pièce secrète · 8 slides",tag:"PITCH IDÉE",card:"toinelagbouygues"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
@@ -4856,6 +4857,7 @@ const HOME_CARD_VIS = {
   toinelag: { img: "/toinelag-avatar.png", imgW: 78, border: "3px solid rgba(20,20,20,.15)" },
   toinelagplaydoh: { img: "/toinelag-avatar.png", imgW: 78 },
   toinelagikea: { img: "/toinelag-avatar.png", imgW: 78 },
+  "toinelag-bouygues-kids-watch": { img: "/toinelag-avatar.png", imgW: 78, imgType: "photo" },
   cyrilclubmed: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   cyrilslip: { img: "/slip-francais-logo.png", imgW: 72 },
   ponant: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
@@ -4912,7 +4914,7 @@ const HOME_FOLDERS = [
     accent: "#FFE14A",
     text: "#FFFFFF",
     photo: "/toinelag-avatar.png",
-    decks: ["toinelag", "toinelagplaydoh", "toinelagikea"],
+    decks: ["toinelag-bouygues-kids-watch", "toinelag", "toinelagplaydoh", "toinelagikea"],
   },
   {
     id: "pitch",
@@ -5173,6 +5175,7 @@ function Home({ onOpen }) {
     otacospepe: { bg: "#111111", c: "#FFC400", tBg: "rgba(255,122,0,.2)", tC: "#FF7A00" },
     toinelag: { bg: "#FFE14A", c: "#141414", tBg: "rgba(30,116,232,.22)", tC: "#0F3D7A" },
     toinelagikea: { bg: "#0058A3", c: "#FFFFFF", tBg: "rgba(255,219,0,.2)", tC: "#FFDB00" },
+    toinelagbouygues: { bg: "#071E32", c: "#F5F8FA", tBg: "rgba(0,156,204,.22)", tC: "#5EC8E8" },
     garmin: { bg: "#050A0F", c: "#F7FBFF", tBg: "rgba(0,169,224,.16)", tC: "#00A9E0" },
     ponant: { bg: "#0A1B33", c: "#F4EFE6", tBg: "rgba(201,162,75,.2)", tC: "#C9A24B" },
     whitedesert: { bg: "#081521", c: "#EAF4F8", tBg: "rgba(95,179,217,.2)", tC: "#5FB3D9" },
@@ -5702,6 +5705,7 @@ export default function App() {
 
   return (
     <Gate>
+      <style>{`html[data-far-live-export="1"] .far-chrome,html[data-far-live-export="1"] .far-studio-chrome{display:none!important;}`}</style>
       {route.view === "studio" && route.d && getStudioDeck(route.d) ? (
         <StudioReader key={route.d} deck={getStudioDeck(route.d)} onBack={goBack} />
       ) : route.view === "deck" && route.d ? (

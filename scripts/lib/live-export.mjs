@@ -62,19 +62,34 @@ async function launchBrowser() {
 }
 
 async function authAndCatalog(page, base) {
-  await page.goto(`${base}/`, { waitUntil: "domcontentloaded", timeout: 120000 });
+  const errors = [];
+  page.on("pageerror", (err) => errors.push(String(err)));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") errors.push(msg.text());
+  });
+  await page.goto(`${base}/`, { waitUntil: "load", timeout: 120000 });
   await page.evaluate(() => sessionStorage.setItem("far_auth", "1"));
-  await page.goto(`${base}/`, { waitUntil: "domcontentloaded", timeout: 120000 });
-  await page.waitForTimeout(400);
-  const catalog = await page.evaluate(() => window.__FAR_DECK_CATALOG || []);
-  if (!catalog.length) throw new Error("Catalogue decks introuvable (__FAR_DECK_CATALOG). Rebuild requis.");
-  return catalog;
+  await page.reload({ waitUntil: "load", timeout: 120000 });
+  try {
+    await page.waitForFunction(
+      () => Array.isArray(window.__FAR_DECK_CATALOG) && window.__FAR_DECK_CATALOG.length > 0,
+      null,
+      { timeout: 60000 },
+    );
+  } catch (err) {
+    const extra = errors.slice(0, 8).join(" | ");
+    throw new Error(`Catalogue decks introuvable (__FAR_DECK_CATALOG). ${extra || err.message}`);
+  }
+  return page.evaluate(() => window.__FAR_DECK_CATALOG || []);
 }
 
 async function prepSlide(page, deckId) {
   await page.evaluate((id) => {
     document.documentElement.setAttribute("data-far-live-export", "1");
     if (id) document.documentElement.setAttribute("data-far-deck", id);
+    document.querySelectorAll(".far-chrome, .far-studio-chrome").forEach((el) => {
+      el.style.setProperty("display", "none", "important");
+    });
   }, deckId);
   await page.evaluate(() => document.fonts?.ready?.catch(() => {}));
   await page.evaluate(async () => {
@@ -197,21 +212,25 @@ export async function runLiveExport(opts = {}) {
   const outRoot = path.join(root, "exports");
   fs.mkdirSync(outRoot, { recursive: true });
 
-  const vite = spawn("npx", ["vite", "preview", "--port", String(port), "--strictPort", "--host", "127.0.0.1"], {
-    cwd: root,
-    stdio: "inherit",
-    shell: false,
-  });
+  const existingBase = (opts.base || process.env.FAR_EXPORT_URL || "").replace(/\/$/, "");
+  const vite = existingBase
+    ? null
+    : spawn("npx", ["vite", "preview", "--port", String(port), "--strictPort", "--host", "127.0.0.1"], {
+        cwd: root,
+        stdio: "inherit",
+        shell: false,
+      });
 
   let browser;
   const failures = [];
   try {
-    await new Promise((r) => setTimeout(r, 1500));
-    const host = await waitForServer(port);
-    const base = `http://${host}:${port}`;
+    const base = existingBase || `http://${await (async () => {
+      await new Promise((r) => setTimeout(r, 1500));
+      return waitForServer(port);
+    })()}:${port}`;
     const launched = await launchBrowser();
     browser = launched.browser;
-    console.log("engine", launched.engine);
+    console.log("engine", launched.engine, "base", base);
 
     const ctx = await browser.newContext({
       viewport: { width: W, height: H },
@@ -249,7 +268,9 @@ export async function runLiveExport(opts = {}) {
     }
   } finally {
     if (browser) await browser.close().catch(() => {});
-    vite.kill("SIGTERM");
-    await new Promise((r) => setTimeout(r, 800));
+    if (vite) {
+      vite.kill("SIGTERM");
+      await new Promise((r) => setTimeout(r, 800));
+    }
   }
 }

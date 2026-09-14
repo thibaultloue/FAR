@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { asset, prefersReducedMotion } from "./asset.js";
+import { asset } from "./asset.js";
 
-export function Kicker({ children }) {
-  return <div className="far-studio-kicker">{children}</div>;
+export function Kicker({ children, style }) {
+  return <div className="far-studio-kicker" style={style}>{children}</div>;
 }
 
 export function Display({ as: Tag = "h1", size = "title", children, style }) {
@@ -30,8 +29,30 @@ export function Source({ children }) {
 
 export function Photo({ src, alt, fit = "cover", focus = "center center", credit, style, className = "" }) {
   return (
-    <figure className={`far-studio-photo ${className}`} style={style}>
-      <img src={asset(src)} alt={alt} style={{ objectFit: fit, objectPosition: focus }} />
+    <figure
+      className={`far-studio-photo ${className}`}
+      style={{
+        margin: 0,
+        position: "relative",
+        overflow: "hidden",
+        minWidth: 0,
+        minHeight: 0,
+        width: "100%",
+        height: "100%",
+        ...style,
+      }}
+    >
+      <img
+        src={asset(src)}
+        alt={alt}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "block",
+          objectFit: fit,
+          objectPosition: focus || "center center",
+        }}
+      />
       {credit ? <figcaption className="far-studio-caption" style={{ position: "absolute", left: 12, bottom: 10, color: "rgba(255,255,255,.78)" }}>{credit}</figcaption> : null}
     </figure>
   );
@@ -103,18 +124,11 @@ export function FarMark({ variant = "black", size = 72 }) {
   );
 }
 
-export function Reveal({ children, delay = 0, y = 12 }) {
-  const box = { height: "100%", minHeight: 0, minWidth: 0, display: "flex", flexDirection: "column" };
-  if (prefersReducedMotion()) return <div style={box}>{children}</div>;
+export function Reveal({ children }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.42, delay, ease: [0.22, 1, 0.36, 1] }}
-      style={box}
-    >
+    <div style={{ height: "100%", minHeight: 0, minWidth: 0, display: "flex", flexDirection: "column" }}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 

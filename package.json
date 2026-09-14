@@ -12,7 +12,8 @@
     "export-live": "npm run build && node scripts/export-live.mjs",
     "test:studio": "node src/studio/assert.js",
     "capture-studio": "node scripts/capture-studio-gallery.mjs",
-    "capture-cyril-banques": "node scripts/capture-cyril-banques.mjs"
+    "capture-cyril-banques": "node scripts/capture-cyril-banques.mjs",
+    "capture-toinelag-bouygues": "node scripts/capture-toinelag-bouygues.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.36.0",

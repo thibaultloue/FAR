@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { resolveTheme } from "./themes.js";
-import { renderLayout } from "./compositions.jsx";
-import { prefersReducedMotion } from "./asset.js";
+import { StudioLayout } from "./compositions.jsx";
 
 const REF_H = 765;
 
@@ -121,7 +119,6 @@ export function StudioReader({ deck, onBack, locked }) {
     dialogBtn.current?.focus();
   }, [dialog]);
 
-  const reduce = prefersReducedMotion();
   const ctx = useMemo(
     () => ({
       theme,
@@ -199,18 +196,9 @@ export function StudioReader({ deck, onBack, locked }) {
               data-slide-id={slide.id}
               style={{ "--fs-u": frame.u }}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={slide.id}
-                  initial={reduce ? false : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={reduce ? undefined : { opacity: 0 }}
-                  transition={{ duration: 0.28 }}
-                  style={{ position: "absolute", inset: 0 }}
-                >
-                  {renderLayout(slide, ctx)}
-                </motion.div>
-              </AnimatePresence>
+              <div key={slide.id} style={{ position: "absolute", inset: 0, opacity: 1 }}>
+                <StudioLayout slide={slide} {...ctx} />
+              </div>
               {dialog ? (
                 <div className="far-studio-dialog-root" role="presentation" onClick={() => setDialog(null)}>
                   <div
@@ -295,8 +283,4 @@ function readSlideRef(slides, hash) {
   if (String(asNum) === raw && asNum >= 0 && asNum < slides.length) return slides[asNum].id;
   const hit = slides.find((s) => s.id === raw);
   return hit ? hit.id : slides[0]?.id;
-}
-
-export function isStudioDeckId(id, registry) {
-  return Boolean(id && registry?.[id]);
 }

@@ -12,12 +12,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
 const outDir = path.join(root, "exports", "cyril-mp4-banques");
 const PORT = 4192;
-const ALL_SLIDES = ["cover", "creator", "figures", "repertoire", "ecosystem", "group", "interest", "preuves", "collaborer", "close"];
-const SHOTS = ["cover", "figures", "group", "interest", "preuves", "close"];
+const ALL_SLIDES = ["cover", "parcours", "mp4", "studio", "social", "group", "cas-odoo", "cas-deux", "interest", "collaborer", "close"];
+const SHOTS = ["cover", "mp4", "studio", "social", "group", "cas-odoo", "cas-deux", "collaborer", "close"];
 const VIEWPORTS = [
   { name: "1440x900", width: 1440, height: 900, slides: ALL_SLIDES },
   { name: "1280x720", width: 1280, height: 720, slides: SHOTS },
-  { name: "mobile", width: 390, height: 844, slides: ["cover", "figures", "close"] },
+  { name: "mobile", width: 390, height: 844, slides: ["cover", "mp4", "studio", "group", "cas-odoo", "close"] },
 ];
 
 function pingOnce(port) {
@@ -108,11 +108,11 @@ try {
     report.frames.push({ viewport: vp.name, sizes, unique: [...new Set(sizes.map((s) => `${s.w}x${s.h}`))] });
 
     if (vp.name === "1440x900") {
-      await page.goto(`http://127.0.0.1:${PORT}/#cyril-mp4-banques/repertoire`, { waitUntil: "domcontentloaded" });
-      await page.waitForSelector("[data-slide-id=repertoire]");
+      await page.goto(`http://127.0.0.1:${PORT}/#cyril-mp4-banques/mp4`, { waitUntil: "domcontentloaded" });
+      await page.waitForSelector("[data-slide-id=mp4]");
       await page.locator(".far-studio-plain-btn").first().click();
       await page.waitForSelector("[role=dialog]");
-      await page.screenshot({ path: path.join(outDir, "1440x900-repertoire-modal.png"), type: "png" });
+      await page.screenshot({ path: path.join(outDir, "1440x900-mp4-modal.png"), type: "png" });
       await page.keyboard.press("Escape");
       await page.waitForTimeout(200);
       const dialogGone = await page.evaluate(() => !document.querySelector("[role=dialog]"));
@@ -125,6 +125,20 @@ try {
       await page.waitForTimeout(400);
       await page.screenshot({ path: path.join(outDir, "1440x900-cover-reduced-motion.png"), type: "png" });
       report.keyboard = { dialogGone, afterKey };
+
+      await page.evaluate(() => {
+        sessionStorage.setItem("far_auth", "1");
+        sessionStorage.setItem("far_cyril_cases", "adopte");
+      });
+      await page.goto(`http://127.0.0.1:${PORT}/?cases=adopte#cyril-mp4-banques/cas-deux`, { waitUntil: "domcontentloaded", timeout: 120000 });
+      await page.waitForSelector('[data-slide-id="cas-deux"]', { timeout: 30000 });
+      await page.waitForFunction(() => document.body.innerText.includes("Adopte") && document.body.innerText.includes("905 k"), { timeout: 15000 });
+      await page.evaluate(() => document.fonts?.ready?.catch(() => {}));
+      await page.waitForTimeout(600);
+      const adoptePartner = await page.evaluate(() => document.body.innerText.includes("Adopte") && document.body.innerText.includes("905 k"));
+      await page.screenshot({ path: path.join(outDir, "1440x900-cas-adopte.png"), type: "png" });
+      await page.evaluate(() => sessionStorage.removeItem("far_cyril_cases"));
+      report.adopteVariant = { partnerVisible: adoptePartner };
     }
 
     await ctx.close();
@@ -135,6 +149,7 @@ try {
   console.log("captures", outDir);
   console.log(JSON.stringify(report, null, 2));
   if (report.privateNotesInPublic.length) process.exitCode = 1;
+  if (report.adopteVariant && !report.adopteVariant.partnerVisible) process.exitCode = 1;
 } finally {
   vite.kill("SIGTERM");
 }

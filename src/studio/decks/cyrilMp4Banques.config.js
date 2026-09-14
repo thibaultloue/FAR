@@ -6,27 +6,30 @@
  *
  * Usage :
  *   import { buildCyrilMp4BanquesDeck } from "./cyrilMp4Banques.js";
- *   buildCyrilMp4BanquesDeck({ bankName: "…", objective: "proximity", sectorCase: "deblock" });
+ *   buildCyrilMp4BanquesDeck({ bankName: "…", objective: "proximity", sectorCase: "adopte" });
  *
  * sectorCase :
- *   - "shopify" (défaut V2) → Odoo + Shopify
- *   - "deblock" → Deblock + Odoo (après validation FAR)
+ *   - "shopify" (défaut) → Odoo + Shopify
+ *   - "adopte" → Odoo + Adopte (variante, pas une slide supplémentaire)
+ *   - "deblock" → Odoo + Deblock (après validation FAR)
+ *
+ * Bascule privée en session : sessionStorage.far_cyril_cases = "adopte" | "deblock"
  */
 export const OBJECTIVES = {
   presence: {
     id: "presence",
-    title: "Faire connaître votre marque",
-    body: "Associer votre banque à ses contenus et à ses prises de parole.",
+    title: "Voyage & mobilité",
+    body: "Avec CYRILmp4, faire découvrir un service dans une expérience où il a une utilité réelle.",
   },
   proximity: {
     id: "proximity",
-    title: "Montrer l’utilité de vos services",
-    body: "Voyages, paiements, organisation de projets : des usages à travailler à partir de votre offre.",
+    title: "Culture gaming",
+    body: "Avec CYRILstudio, associer la marque à un univers éditorial identifié et à un rendez-vous choisi avec Cyril.",
   },
   offer: {
     id: "offer",
-    title: "Incarner l’entrepreneuriat",
-    body: "S’appuyer sur son expérience pour parler de création d’activité, de développement et de transmission.",
+    title: "Entrepreneuriat",
+    body: "Avec son expérience de fondateur, raconter ce que signifie lancer un produit, développer une activité ou transmettre un savoir-faire.",
   },
 };
 
@@ -34,7 +37,7 @@ export const DEFAULT_CONFIG = {
   bankName: null,
   bankLogo: null,
   objective: null,
-  accent: "#C9A24B",
+  accent: null,
   sectorCase: "shopify",
   contactName: "Thibault Loué",
   contactDetail: "thibault.loue@far-agence.com",

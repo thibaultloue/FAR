@@ -1,0 +1,55 @@
+Toinelag × Bouygues Telecom · Kids Watch
+Assets publics, consultés le 14/09/2026. Utilisation à valider pour diffusion publique.
+
+Logo
+  logo-bouygues-telecom.png
+  https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2021/05/Logo-BouyguesTelecom-Vertical-RVB-Mai2021.png
+  Médiathèque officielle Bouygues Telecom. Couleurs d’origine conservées.
+
+Produit
+  packshot-mt46-black.png
+  https://www.bouyguestelecom.fr/catalogue/image-resize/full/media/catalog/product/t/c/tcl_family_watch_mt46x_black_01.png
+  Packshot officiel TCL Kids Watch MT46, vue de face.
+
+  kids-watch-appel.webp
+  https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2025/06/Kids-Watch-visuel-2-1.png
+  Gros plan d’un appel — communication officielle, pas un participant de la vidéo proposée.
+
+  kids-watch-lien.webp
+  https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2025/06/Kids-Watch-–-visuel-3.png
+  Montre et téléphone en communication.
+
+  kids-watch-face.jpg
+  https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2025/06/Kids-Watch-–-visuel-4.png
+  Montre tenue en main, écran allumé.
+
+  kids-watch-famille.webp
+  https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2025/06/Kids-Watch-–-visuel-1.png
+  Lien parent-enfant, visuel officiel. Ce n’est pas la famille de Toinelag.
+
+Portrait FAR
+  portrait-toinelag.png — photographie déjà autorisée dans FAR (toinelag-cover.png).
+
+Miniatures YouTube — slide preuve uniquement (16:9 intactes)
+  thumb-canape.jpg     https://i.ytimg.com/vi/nz4vgxKggLU/maxresdefault.jpg
+  thumb-trampoline.jpg https://i.ytimg.com/vi/MbA7IqSUAhc/maxresdefault.jpg
+  thumb-brainrot.jpg   https://i.ytimg.com/vi/RHjiRAvg0x8/maxresdefault.jpg
+
+Stills Toinelag — une image par usage de slide, jamais répétée
+  still-escalier.jpg   https://i.ytimg.com/vi/CzKLD3T50oQ/maxresdefault.jpg   cover
+  still-underbed.jpg   https://i.ytimg.com/vi/_IZ023gdd-8/maxresdefault.jpg  concept gauche
+  still-sofa-kid.jpg   https://i.ytimg.com/vi/pGOJ9nFKm6c/maxresdefault.jpg  concept droite
+  still-publique.jpg   https://i.ytimg.com/vi/Y97zBeLF7YU/maxresdefault.jpg  acte 1
+  still-cachecache.jpg https://i.ytimg.com/vi/Ah-8nR7tEzA/maxresdefault.jpg  acte 2
+  still-bookshelf.jpg  https://i.ytimg.com/vi/-UHGfWqoLBM/maxresdefault.jpg  acte 3
+  still-fridge.jpg     https://i.ytimg.com/vi/DYShkwxKiLc/maxresdefault.jpg  hero dispositif
+
+Couleurs extraites du logo (pas une charte officielle)
+  Cyan #009CCC · Marine #0054A4 · Orange #E8580C
+  Neutres de composition : nuit #071E32 · clair #F5F8FA
+
+V3 — 14/09/2026
+  Couverture inchangée (still-escalier + packshot trois-quarts).
+  Slide produit : kids-watch-appel.webp uniquement (vue officielle avec appel réel).
+  S4 / S5 / S7 / S8 : aucune photographie.
+  Miniatures YouTube strictement 16:9, titres oEmbed, vues sourcées dans sources-data-v3.json.

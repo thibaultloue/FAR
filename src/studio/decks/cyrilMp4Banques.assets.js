@@ -2,7 +2,7 @@
  * Manifeste public des assets et sources du deck CYRILmp4 × Banques.
  * Aucune note privée ici.
  */
-export const CONSULTED_ON = "11 sept. 2026";
+export const CONSULTED_ON = "14 sept. 2026";
 
 export const SOURCES = {
   laporteProfile: {
@@ -37,63 +37,83 @@ export const SOURCES = {
     label: "Chaîne YouTube CYRILmp4",
     url: "https://www.youtube.com/@CYRILmp4",
   },
+  studio: {
+    label: "Chaîne YouTube CYRILstudio",
+    url: "https://www.youtube.com/@CYRILstudio",
+  },
 };
 
 /** Source courte pour slides commerciales — pas de commentaire de fabrication. */
-export const SOURCE_LINE_SHORT = "Repères publiés par La Porte · Date de mesure non précisée.";
+export const SOURCE_LINE_SHORT = "La Porte · chiffres de présentation ; dates de mesure non précisées.";
 
 export const SOURCE_LINE = `${SOURCES.laporteProfile.label}, consulté le ${CONSULTED_ON}. Chiffres de présentation, pas un export analytics. La date de consultation n'est pas une date de mesure.`;
 
 export const ASSETS = {
-  cover: {
-    src: "/garmin-cyril-photo.png",
-    alt: "Cyril en situation d'exploration, photographie déjà publiée sur far.thibaultloue.com",
-    focus: "center 22%",
-    credit: "FAR · photographie déjà publiée",
-    usage: "Couverture et conclusion",
+  founder: {
+    src: "/cyril-mp4-banques/fondateur.webp",
+    alt: "Portrait de Cyril Soudant, fondateur du Groupe La Porte",
+    focus: "center 32%",
+    credit: "Groupe La Porte",
+    usage: "Couverture uniquement",
   },
-  portrait: {
+  grandRex: {
+    src: "/cyril-mp4-banques/grand-rex.webp",
+    alt: "Cyril sur scène lors d’une avant-première, Grand Rex",
+    focus: "center 28%",
+    credit: "Groupe La Porte",
+    usage: "Parcours",
+  },
+  experience: {
     src: "/havas/cyril-portrait.jpg",
-    alt: "Portrait de Cyril Soudant / CYRILmp4",
-    focus: "center 18%",
+    alt: "Cyril en tournage au coucher du soleil",
+    focus: "center 42%",
     credit: "FAR · portrait roster",
-    usage: "Slide présentation",
+    usage: "Au-delà de YouTube",
   },
   shooting: {
-    src: "/garmin-cyril-thumb-2.png",
-    alt: "Cyril en tournage, détail déjà publié sur le site FAR",
-    focus: "center 30%",
-    usage: "Contrepoint de tournage",
+    src: "/cyril-mp4-banques/tournage.webp",
+    alt: "Tournage La Porte Production, clap de cinéma sur un décor",
+    focus: "center 42%",
+    credit: "Groupe La Porte",
+    usage: "Portfolio La Porte · créer & produire",
   },
-  terrain: {
-    src: "/garmin-cyril-thumb-1.png",
-    alt: "Cyril sur le terrain, photographie déjà publiée sur le site FAR",
-    focus: "center 35%",
-    usage: "Mise en situation",
+  tryhard: {
+    src: "/cyril-mp4-banques/tryhard-keyboard.webp",
+    alt: "Clavier Tryhard, marque de périphériques gaming La Porte Beta",
+    focus: "center center",
+    credit: "La Porte Beta",
+    usage: "Portfolio La Porte · produit",
   },
-  production: {
-    src: "/garmin-cyril-thumb-3.png",
-    alt: "Cyril en production, photographie déjà publiée sur le site FAR",
-    focus: "center 40%",
-    usage: "Visuel production",
+  academy: {
+    src: "/cyril-mp4-banques/academie-banner.webp",
+    alt: "Cyril avec une caméra, visuel La Porte Académie",
+    focus: "center 28%",
+    credit: "La Porte Académie",
+    usage: "Portfolio La Porte · transmettre",
   },
   africa: {
     src: "/cyril-mp4-banques/yt-bVk4i_PYxug.jpg",
     alt: "Miniature YouTube : 2€ dans la ville la moins chère d'Afrique",
     href: "https://www.youtube.com/watch?v=bVk4i_PYxug",
-    usage: "Aperçu de la vidéo liée",
+    usage: "Exemple CYRILmp4",
+  },
+  steam: {
+    src: "/cyril-mp4-banques/studio-steam.webp",
+    alt: "Miniature : J’ai acheté les jeux Steam les plus chers, CYRILstudio",
+    href: "https://www.youtube.com/watch?v=HlEZiqQNOGg",
+    usage: "Exemple CYRILstudio",
   },
   train: {
     src: "/cyril-mp4-banques/yt-70I94z_2toM.jpg",
     alt: "Miniature YouTube : 24H sur le train le plus dangereux du monde",
     href: "https://www.youtube.com/watch?v=70I94z_2toM",
-    usage: "Aperçu de la vidéo liée",
+    usage: "Hors parcours par défaut",
   },
   wildlife: {
     src: "/cyril-mp4-banques/yt-T6A36ypJXI8.jpg",
     alt: "Miniature YouTube : 300 heures sur les traces d'animaux sauvages en Namibie",
     href: "https://www.youtube.com/watch?v=T6A36ypJXI8",
-    usage: "Aperçu de la vidéo documentaire 2022",
+    usage: "Hors parcours par défaut",
   },
   hotels: {
     src: "/cyril-mp4-banques/yt-ZKlLgxLz_qI.jpg",
@@ -112,6 +132,12 @@ export const ASSETS = {
     alt: "Miniature YouTube de l'intégration Shopify 2024",
     href: "https://www.youtube.com/watch?v=myElp75-ZIc",
     usage: "Cas Shopify",
+  },
+  adopte: {
+    src: "/grandjd/cyril-adopte-thumb.jpg",
+    alt: "Miniature : La vérité sur les restaurants de Stars (ft. LE GRAND JD)",
+    href: "https://www.youtube.com/watch?v=lIoROwhuoBM",
+    usage: "Variante Adopte — miniature du deck Grand JD × FAR, chaîne vérifiée CYRILmp4",
   },
   shopifyLogo: {
     src: "/shopify-logo.png",

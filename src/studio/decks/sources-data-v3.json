@@ -1,0 +1,109 @@
+{
+  "deckId": "toinelag-bouygues-kids-watch",
+  "consultedOn": "14/09/2026",
+  "note": "Fichier sources V3 reconstitué à partir du brief du 14/09/2026. Le JSON d’origine n’était pas joint au dépôt. Chiffres de vues vidéo et d’ampleur chaîne : tels que sourcés dans le brief. Titres YouTube revérifiés par oEmbed le 14/09/2026.",
+  "channel": {
+    "handle": "@toinelag",
+    "url": "https://www.youtube.com/@toinelag",
+    "channelId": "UCtEdzIcoxjFfpexBhNfMiwA",
+    "subscribersDisplayed": "1,97 M",
+    "subscribersScope": "abonnés YouTube · chaîne principale",
+    "viewsDisplayed": "872 M",
+    "viewsRaw": "872,1 M",
+    "viewsScope": "vues cumulées de la chaîne · tous formats confondus",
+    "source": {
+      "label": "NoxInfluencer",
+      "url": "https://www.noxinfluencer.com/youtube/channel/UCtEdzIcoxjFfpexBhNfMiwA",
+      "updated": "14/09/2026",
+      "note": "1,97 M d’abonnés et 872,1 M de vues totales, mise à jour indiquée au 14/09/2026. Le compteur d’abonnés est aussi retrouvé dans l’indexation YouTube. Arrondir les vues à 872 M. Ce n’est pas une moyenne des vidéos longues ni une audience unique. Page NoxInfluencer consultée le 14/09/2026 en V3 : données de base masquées (paywall) ; les chiffres du brief du 14/09 sont conservés."
+    }
+  },
+  "audienceFar": {
+    "age": { "value": "7–15 ans", "label": "cœur d’audience communiqué par FAR" },
+    "tv": { "value": "≈ 60 %", "label": "consommation sur TV, communiquée par FAR" },
+    "limits": [
+      "Sans export Studio ni période détaillée.",
+      "60 % de consommation TV ne signifie pas 60 % de co-visionnage.",
+      "Ne pas quantifier l’exposition des parents.",
+      "Ne pas présenter l’intégralité des 7–15 ans comme la cible produit : la Kids Watch est présentée pour les 9 ans et plus."
+    ],
+    "source": {
+      "label": "Brief FAR",
+      "url": "https://www.groupe-laporte.com/far-by-la-porte"
+    }
+  },
+  "videos": [
+    {
+      "id": "nz4vgxKggLU",
+      "title": "J'ai Construit une Pièce Secrète dans mon Canapé !",
+      "titleVerified": "oEmbed YouTube 14/09/2026",
+      "viewsDisplayed": "8,7 M",
+      "views": {
+        "youtubeIndexed": "8,7 M",
+        "noxinfluencer": "8,73 M",
+        "noxUpdated": "14/09/2026"
+      },
+      "thumb": "https://i.ytimg.com/vi/nz4vgxKggLU/maxresdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=nz4vgxKggLU"
+    },
+    {
+      "id": "MbA7IqSUAhc",
+      "title": "Je Construis une Pièce Secrète dans un Trampoline Park",
+      "titleVerified": "oEmbed YouTube 14/09/2026",
+      "viewsDisplayed": "7,1 M",
+      "views": {
+        "youtubeIndexed": "7,1 M",
+        "legacyPortfolio": "7,2 M affichés sur le portfolio Rayan Riabi / WebTalent, date de mesure non précisée — ne pas conserver comme chiffre actuel"
+      },
+      "thumb": "https://i.ytimg.com/vi/MbA7IqSUAhc/maxresdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=MbA7IqSUAhc"
+    },
+    {
+      "id": "RHjiRAvg0x8",
+      "title": "Je CONSTRUIS une PIÈCE SECRÈTE dans Steal a Brainrot",
+      "titleVerified": "oEmbed YouTube 14/09/2026",
+      "viewsDisplayed": "3,2 M",
+      "views": {
+        "noxinfluencer": "3,17 M",
+        "noxUpdated": "14/09/2026",
+        "socialramaJ6": "1,4 M au 6 mai 2026 (arrêt à 12 h) — relevé historique, pas le total récent"
+      },
+      "commercial": "Collaboration Vinted, 2026. Documentée par SocialRama.",
+      "doNotConfuseWith": "Steal a Brainrot dans la Vraie Vie ! — autre vidéo",
+      "thumb": "https://i.ytimg.com/vi/RHjiRAvg0x8/maxresdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=RHjiRAvg0x8"
+    }
+  ],
+  "comment": {
+    "text": "Se qui veule que toinelag fasse une pièce secrète dans le studio de unchained",
+    "videoId": "CzKLD3T50oQ",
+    "videoUrl": "https://www.youtube.com/watch?v=CzKLD3T50oQ",
+    "videoTitle": "J'ai Construit une Pièce Secrète dans mon Escalier !",
+    "origin": "Extrait retrouvé dans l’indexation publique de la vidéo de l’escalier.",
+    "availableMetadata": "Auteur, date et nombre de likes non disponibles dans le résultat consulté.",
+    "verification": "Recherche du commentaire dans le navigateur le 14/09/2026 : page YouTube non exploitable (timeout). Conservation de la citation textuelle sourcée. Pas de fausse capture YouTube."
+  },
+  "product": {
+    "name": "Kids Watch",
+    "model": "TCL Kids Watch MT46",
+    "fromAge": "dès 9 ans",
+    "page": {
+      "url": "https://www.bouyguestelecom.fr/kids-watch",
+      "consulted": "14/09/2026"
+    },
+    "packshotCover": {
+      "file": "packshot-mt46-black.png",
+      "url": "https://www.bouyguestelecom.fr/catalogue/image-resize/full/media/catalog/product/t/c/tcl_family_watch_mt46x_black_01.png",
+      "angle": "trois-quarts, écran horloge — réservé à la couverture"
+    },
+    "packshotProduct": {
+      "file": "kids-watch-appel.webp",
+      "url": "https://www.corporate.bouyguestelecom.fr/wp-content/uploads/2025/06/Kids-Watch-visuel-2-1.png",
+      "angle": "vue de face officielle avec appel vidéo réel — slide produit uniquement. Ne pas retoucher l’écran."
+    }
+  },
+  "socialrama": {
+    "url": "https://www.socialrama.fr/les-videos-les-plus-vues-de-la-semaine-30-04-06-05/",
+    "note": "1,4 M de vues au 6 mai 2026 pour Steal a Brainrot, publiée le 30/04/2026, collaboration commerciale avec Vinted."
+  }
+}
