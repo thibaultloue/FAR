@@ -170,7 +170,7 @@ export function createSFarPositionnementV3(P) {
     },
   ];
 
-  const CASE_SOURCE = "Compteurs : deck Grand JD × FAR · V2";
+  const YT = { fontFamily: "Roboto, Arial, Helvetica, sans-serif" };
 
   const YtPlay = ({ w = 56, h = 40 }) => (
     <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
@@ -182,6 +182,242 @@ export function createSFarPositionnementV3(P) {
         <path d="M45 24 27 14v20z" fill="#fff" />
       </svg>
     </div>
+  );
+
+  const YtVerified = ({ size = 12 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden>
+      <circle cx="12" cy="12" r="10" fill="#606060" />
+      <path d="M10.2 15.4 7.1 12.3l1.2-1.2 1.9 1.9 4.5-4.5 1.2 1.2-5.7 5.7z" fill="#fff" />
+    </svg>
+  );
+
+  const CaseLabel = ({ t, children, s }) => (
+    <div
+      style={{
+        ...mo,
+        fontSize: 10,
+        fontWeight: 700,
+        letterSpacing: 1.8,
+        color: t.d,
+        marginBottom: 4,
+        textTransform: "uppercase",
+        lineHeight: 1.3,
+        ...s,
+      }}
+    >
+      {children}
+    </div>
+  );
+
+  const YtCard = ({
+    thumb,
+    alt,
+    videoTitle,
+    channel,
+    avatar,
+    views,
+    subscribers,
+    likes,
+    description,
+    playW = 56,
+    playH = 40,
+    fill,
+  }) => (
+    <div
+      style={{
+        flex: fill ? 1 : undefined,
+        display: "flex",
+        flexDirection: "column",
+        background: "#FFFFFF",
+        borderRadius: 12,
+        overflow: "hidden",
+        border: "1px solid rgba(0,0,0,.08)",
+        boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06)",
+        minHeight: fill ? 0 : undefined,
+      }}
+    >
+      <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", flexShrink: 0, background: "#0F0F0F" }}>
+        <img src={thumb} alt={alt} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        <YtPlay w={playW} h={playH} />
+      </div>
+      <div
+        style={{
+          flex: fill ? 1 : undefined,
+          display: "flex",
+          flexDirection: "column",
+          padding: fill ? "12px 14px 14px" : "10px 12px 12px",
+          gap: fill ? 10 : 8,
+          minHeight: fill ? 0 : undefined,
+        }}
+      >
+        <div style={{ ...YT, fontSize: fill ? 15 : 14, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25, letterSpacing: "-0.01em" }}>{videoTitle}</div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: fill ? "wrap" : undefined }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+            <img
+              src={avatar}
+              alt=""
+              style={{ width: fill ? 34 : 28, height: fill ? 34 : 28, borderRadius: "50%", objectFit: "cover", flexShrink: 0, display: "block" }}
+            />
+            <div style={{ minWidth: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                <span style={{ ...YT, fontSize: fill ? 12.5 : 12, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>{channel}</span>
+                <YtVerified size={fill ? 12 : 11} />
+              </div>
+              {subscribers ? <div style={{ ...YT, fontSize: fill ? 11 : 10.5, color: "#606060", lineHeight: 1.2 }}>{subscribers}</div> : null}
+            </div>
+            <div
+              style={{
+                ...YT,
+                marginLeft: 4,
+                flexShrink: 0,
+                background: "#0F0F0F",
+                color: "#fff",
+                fontSize: fill ? 11.5 : 11,
+                fontWeight: 600,
+                padding: fill ? "7px 12px" : "6px 10px",
+                borderRadius: 999,
+                lineHeight: 1,
+              }}
+            >
+              S&apos;abonner
+            </div>
+          </div>
+          {likes ? (
+            <div
+              style={{
+                ...YT,
+                display: "flex",
+                alignItems: "center",
+                gap: 5,
+                background: "#F2F2F2",
+                borderRadius: 999,
+                padding: fill ? "6px 10px" : "5px 9px",
+                fontSize: fill ? 11.5 : 11,
+                fontWeight: 500,
+                color: "#0F0F0F",
+                lineHeight: 1,
+                flexShrink: 0,
+              }}
+            >
+              <svg width={fill ? 14 : 13} height={fill ? 14 : 13} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M18.77 11h-4.05l.58-3.59.03-.32c0-.41-.17-.8-.44-1.06L14.09 5.5 9.41 10.18A1.5 1.5 0 0 0 9 11.23V18a1.5 1.5 0 0 0 1.5 1.5h6.28a2 2 0 0 0 1.87-1.31l2.26-5.29A1.75 1.75 0 0 0 18.77 11zM5.5 19.5A1.5 1.5 0 0 0 7 18v-6.5A1.5 1.5 0 0 0 5.5 10h-1A1.5 1.5 0 0 0 3 11.5V18a1.5 1.5 0 0 0 1.5 1.5h1z" />
+              </svg>
+              <span>{likes}</span>
+            </div>
+          ) : null}
+        </div>
+        <div style={{ flex: fill ? 1 : undefined, background: "#F2F2F2", borderRadius: fill ? 12 : 10, padding: fill ? "10px 12px" : "8px 10px", minHeight: fill ? 0 : undefined }}>
+          <div style={{ ...YT, fontSize: fill ? 12 : 11.5, fontWeight: 700, color: "#0F0F0F", lineHeight: fill ? 1.3 : 1.25, marginBottom: fill ? 4 : 2 }}>{views}</div>
+          {description ? (
+            <div style={{ ...YT, fontSize: fill ? 11.5 : 11, color: "#0F0F0F", lineHeight: fill ? 1.45 : 1.35 }}>
+              {description} <span style={{ fontWeight: 700 }}>…afficher plus</span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+
+  const CaseProofCard = ({ t, k, d, fill }) => (
+    <div
+      style={{
+        background: t.card,
+        border: `1px solid ${t.brd}`,
+        borderRadius: 18,
+        padding: fill ? "18px 20px" : "12px 14px",
+        boxShadow: t.cS,
+        flex: fill ? 1 : undefined,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+        <div style={{ width: 6, height: 6, borderRadius: "50%", background: t.a, marginTop: fill ? 8 : 6, flexShrink: 0 }} />
+        <div>
+          <div style={{ ...sa, fontSize: fill ? 15 : 12.5, fontWeight: 700, color: t.c, lineHeight: fill ? 1.25 : 1.2, marginBottom: fill ? 4 : 1 }}>{k}</div>
+          <div style={{ ...sa, fontSize: fill ? 14 : 12, color: t.m, lineHeight: fill ? 1.45 : 1.3 }}>{d}</div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const CaseComments = ({ t, comments }) => (
+    <div style={{ display: "flex", flexDirection: "column", borderRadius: 12, border: `1px solid ${t.brd}`, background: t.card, overflow: "hidden", boxShadow: t.cS }}>
+      {comments.map((c, i) => (
+        <div
+          key={c.user}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "28px minmax(0,1fr)",
+            columnGap: 8,
+            alignItems: "start",
+            padding: "8px 12px",
+            borderBottom: i < comments.length - 1 ? `1px solid ${t.brd}` : "none",
+          }}
+        >
+          <div
+            aria-hidden
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: "50%",
+              background: c.color,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="8.2" r="3.4" fill="rgba(255,255,255,.92)" />
+              <path d="M5.2 19.2c.6-3.4 3.2-5.2 6.8-5.2s6.2 1.8 6.8 5.2" fill="rgba(255,255,255,.92)" />
+            </svg>
+          </div>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 1, flexWrap: "wrap" }}>
+              <span style={{ ...sa, fontSize: 11.5, fontWeight: 700, color: t.c, lineHeight: 1.2 }}>{c.user}</span>
+              {c.when ? <span style={{ ...sa, fontSize: 11, color: t.d, lineHeight: 1.2 }}>{c.when}</span> : null}
+            </div>
+            <div style={{ ...sa, fontSize: 12.5, color: t.c, lineHeight: 1.3 }}>{c.text}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+
+  const CaseSplit = ({ t, tag, title, lead, titleSize = 38, label, video, proofs }) => (
+    <M {...MV()} variants={stg(0.05)} style={{ width: "100%" }}>
+      <M variants={fu(8)}>
+        <Tg t={t} s={{ marginBottom: 16 }}>
+          {tag}
+        </Tg>
+      </M>
+      <M variants={fu(10)}>
+        <Hl t={t} s={{ fontSize: titleSize, marginBottom: 10, lineHeight: 1.08, maxWidth: "100%" }}>
+          {title}
+        </Hl>
+      </M>
+      <M variants={fu(8)}>
+        <Sh t={t} s={{ maxWidth: "100%", marginBottom: 18, fontSize: 18, lineHeight: 1.55 }}>
+          {lead}
+        </Sh>
+      </M>
+      <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.95fr) minmax(0,1.05fr)", gap: 20, alignItems: "stretch" }}>
+        <M variants={fu(10)} style={{ display: "flex", flexDirection: "column", minHeight: "100%" }}>
+          <CaseLabel t={t}>{label}</CaseLabel>
+          <YtCard fill playW={68} playH={48} {...video} />
+        </M>
+        <M variants={fu(12)} style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100%" }}>
+          <CaseLabel t={t} s={{ marginBottom: 0 }}>
+            Pourquoi ça marche
+          </CaseLabel>
+          {proofs.map((p) => (
+            <CaseProofCard key={p.k} t={t} k={p.k} d={p.d} fill />
+          ))}
+        </M>
+      </div>
+    </M>
   );
 
   const BeamEyebrow = ({ leg, color }) => (
@@ -386,79 +622,6 @@ export function createSFarPositionnementV3(P) {
         </div>
       </div>
     </PaperSheet>
-  );
-
-  const CaseProof = ({ t, k, d }) => (
-    <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-      <div style={{ width: 6, height: 6, borderRadius: "50%", background: t.a, marginTop: 6, flexShrink: 0 }} />
-      <div>
-        <div style={{ ...sa, fontSize: 12.5, fontWeight: 700, color: t.c, lineHeight: 1.2, marginBottom: 2 }}>{k}</div>
-        <div style={{ ...sa, fontSize: 13, color: t.m, lineHeight: 1.38 }}>{d}</div>
-      </div>
-    </div>
-  );
-
-  const YtCard = ({ thumb, alt, videoTitle, channel, avatar, views }) => {
-    const yt = { fontFamily: "Roboto, Arial, Helvetica, sans-serif" };
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          background: "#FFFFFF",
-          borderRadius: 12,
-          overflow: "hidden",
-          border: "1px solid rgba(0,0,0,.08)",
-          boxShadow: "0 1px 2px rgba(0,0,0,.04), 0 6px 18px rgba(0,0,0,.06)",
-        }}
-      >
-        <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#0F0F0F" }}>
-          <img src={thumb} alt={alt} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
-          <YtPlay />
-        </div>
-        <div style={{ padding: "10px 12px 12px", display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ ...yt, fontSize: 14, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.25 }}>{videoTitle}</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <img src={avatar} alt="" style={{ width: 28, height: 28, borderRadius: "50%", objectFit: "cover", flexShrink: 0, display: "block" }} />
-            <div style={{ minWidth: 0 }}>
-              <div style={{ ...yt, fontSize: 12, fontWeight: 600, color: "#0F0F0F", lineHeight: 1.2 }}>{channel}</div>
-              <div style={{ ...yt, fontSize: 11, fontWeight: 700, color: "#0F0F0F", lineHeight: 1.2 }}>{views}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const CaseSlide = ({ t, tag, title, video, proofs, extra }) => (
-    <M {...MV()} variants={stg(0.05)} style={{ width: "100%" }}>
-      <M variants={fu(8)}>
-        <Tg t={t} s={{ marginBottom: 10 }}>
-          {tag}
-        </Tg>
-      </M>
-      <M variants={fu(10)}>
-        <Hl t={t} s={{ fontSize: 26, marginBottom: 12, lineHeight: 1.12, maxWidth: 980 }}>
-          {title}
-        </Hl>
-      </M>
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.95fr) minmax(0,1.05fr)", gap: 16, alignItems: "start" }}>
-        <M variants={fu(10)}>
-          <YtCard {...video} />
-        </M>
-        <M variants={fu(12)} style={{ display: "flex", flexDirection: "column", gap: 12, paddingTop: 2 }}>
-          {proofs.map((p) => (
-            <CaseProof key={p.k} t={t} k={p.k} d={p.d} />
-          ))}
-        </M>
-      </div>
-      {extra ? (
-        <M variants={fu(10)} style={{ marginTop: 12 }}>
-          {extra}
-        </M>
-      ) : null}
-      <div style={{ ...mo, fontSize: 10, fontWeight: 500, letterSpacing: 0.4, color: t.d, marginTop: 10 }}>{CASE_SOURCE}</div>
-    </M>
   );
 
   const manifestoHook = "Chez FAR, nous pensons qu'un créateur ne se résume pas à son audience.";
@@ -688,60 +851,83 @@ export function createSFarPositionnementV3(P) {
       r: (t) => (
         <M {...MV()} variants={stg(0.05)} style={{ width: "100%" }}>
           <M variants={fu(8)}>
-            <Tg t={t} s={{ marginBottom: 8 }}>
+            <Tg t={t} s={{ marginBottom: 16 }}>
               CAS · INTÉGRATION · EMMA × FASTGOODCUISINE
             </Tg>
           </M>
           <M variants={fu(10)}>
-            <Hl t={t} s={{ fontSize: 24, marginBottom: 12, lineHeight: 1.12, maxWidth: 1000 }}>
+            <Hl t={t} s={{ fontSize: 32, marginBottom: 6, lineHeight: 1.08 }}>
               Le bon angle donne à la marque sa place dans le contenu.
             </Hl>
           </M>
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1.05fr) minmax(0,1.05fr) minmax(0,1.1fr)", gap: 14, alignItems: "start" }}>
-            <M variants={fu(8)}>
+          <M variants={fu(8)}>
+            <Sh t={t} s={{ maxWidth: "100%", marginBottom: 10, fontSize: 14, whiteSpace: "nowrap" }}>
+              Emma n&apos;avait rien à faire dans un test resto sur le papier. L&apos;angle (le lit comme véhicule McDo) la rend légitime, et l&apos;audience en parle seule en commentaire.
+            </Sh>
+          </M>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,0.92fr) minmax(0,1.08fr)", gap: 16, alignItems: "start" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <CaseLabel t={t}>Exemple d&apos;intégration pour la marque EMMA</CaseLabel>
               <YtCard
                 thumb={emmaThumbUrl}
-                alt="J'ai Testé Les Limites De 10 Restaurants !"
+                alt="Je teste les limites des restaurants"
                 videoTitle="J'ai Testé Les Limites De 10 Restaurants !"
                 channel="FastGoodCuisine"
                 avatar={pu("/fgc.webp")}
-                views="6,8 M de vues"
+                subscribers="8,77 M d'abonnés"
+                likes="127 k"
+                views="6,8 M de vues · il y a 1 mois"
+                description={
+                  <>
+                    Soldes Emma jusqu&apos;à -50% + 10% avec le code FASTGOOD. <span style={{ color: "#065FD4" }}>emma.fr…</span>
+                  </>
+                }
               />
-            </M>
-            <M variants={fu(10)}>
-              <div style={{ ...mo, fontSize: 10, fontWeight: 700, letterSpacing: 1.4, textTransform: "uppercase", color: t.d, marginBottom: 6 }}>
-                Plan
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1.15fr) minmax(0,0.95fr)", gap: 12, alignItems: "center" }}>
+                <div>
+                  <CaseLabel t={t}>Plan d&apos;intégration</CaseLabel>
+                  <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 10, overflow: "hidden" }}>
+                    <img
+                      src={emmaIntegrationUrl}
+                      alt="Plan intégration"
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block" }}
+                    />
+                  </div>
+                  <div style={{ ...sa, fontSize: 11.5, fontStyle: "italic", color: t.m, lineHeight: 1.3, marginTop: 4 }}>
+                    Mc Drive en voiture-matelas EMMA
+                  </div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 8, paddingTop: 12 }}>
+                  {[
+                    { k: "L'angle", d: "Le lit devient le véhicule de l'expérience McDo." },
+                    { k: "Le format", d: "Intégration longue, écrite avec le créateur." },
+                    { k: "Le résultat", d: "L'audience reprend le produit en commentaire." },
+                  ].map((x) => (
+                    <div key={x.k} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: t.a, marginTop: 6, flexShrink: 0 }} />
+                      <div>
+                        <div style={{ ...sa, fontSize: 12.5, fontWeight: 700, color: t.c, lineHeight: 1.2, marginBottom: 1 }}>{x.k}</div>
+                        <div style={{ ...sa, fontSize: 12, color: t.m, lineHeight: 1.3 }}>{x.d}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div style={{ width: "100%", aspectRatio: "16/9", borderRadius: 10, overflow: "hidden", background: "#0F0F0F", border: "1px solid rgba(0,0,0,.08)" }}>
-                <img
-                  src={emmaIntegrationUrl}
-                  alt="Le lit Emma au drive"
-                  style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
-                />
-              </div>
-            </M>
-            <M variants={fu(12)} style={{ display: "flex", flexDirection: "column", gap: 10, paddingTop: 18 }}>
-              {[
-                { k: "L'idée", d: "Le lit Emma devient le véhicule d'une expérience au drive." },
-                { k: "Le rôle de la marque", d: "Le produit participe à la scène, dans une intégration écrite avec le créateur." },
-                { k: "La preuve", d: "L'audience reprend spontanément l'idée du lit-voiture dans les commentaires." },
-              ].map((p) => (
-                <CaseProof key={p.k} t={t} k={p.k} d={p.d} />
-              ))}
-            </M>
+              <CaseLabel t={t} s={{ marginBottom: 0 }}>
+                Ce qu&apos;en dit l&apos;audience
+              </CaseLabel>
+              <CaseComments
+                t={t}
+                comments={[
+                  { color: "#6B8FCE", user: "@lemongoleoriginel", when: "il y a 7 heures", text: "Allo j'aimerais bien acheter votre voiture lit je voudrais l'acheter" },
+                  { color: "#5BA88A", user: "@karlo6769", when: "il y a 3 semaines", text: "C vraiment random le lit dehors j'adore 😂 😂" },
+                  { color: "#C48A5A", user: "@Lamb-m9c", when: "il y a 1 mois", text: "Incroyable, le lit, voiture" },
+                ]}
+              />
+            </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 10 }}>
-            {[
-              { user: "@lemongoleoriginel", text: "Allo j'aimerais bien acheter votre voiture lit je voudrais l'acheter" },
-              { user: "@karlo6769", text: "C vraiment random le lit dehors j'adore 😂 😂" },
-            ].map((c) => (
-              <div key={c.user} style={{ padding: "8px 12px", background: t.card, border: `1px solid ${t.brd}`, borderRadius: 8 }}>
-                <div style={{ ...sa, fontSize: 11, fontWeight: 700, color: t.c, marginBottom: 2 }}>{c.user}</div>
-                <div style={{ ...sa, fontSize: 12.5, color: t.m, lineHeight: 1.3 }}>{c.text}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{ ...mo, fontSize: 10, fontWeight: 500, letterSpacing: 0.4, color: t.d, marginTop: 8 }}>{CASE_SOURCE}</div>
         </M>
       ),
     },
@@ -749,22 +935,29 @@ export function createSFarPositionnementV3(P) {
     {
       title: "Cas · Ubisoft",
       r: (t) => (
-        <CaseSlide
+        <CaseSplit
           t={t}
           tag="CAS · VIDÉO DÉDIÉE · TOINELAG × UBISOFT"
           title="Un partenariat peut devenir le sujet de la vidéo."
+          titleSize={38}
+          lead="Un format pensé pour Ubisoft de bout en bout : angle, gameplay, saison The Crew Motorfest."
+          label="Exemple de vidéo dédiée"
           video={{
             thumb: toinelagUbiThumbUrl,
             alt: "Je Ressens la Douleur des Accidents dans la Vraie Vie",
             videoTitle: "Je Ressens la Douleur des Accidents dans la Vraie Vie",
             channel: "Toinelag Gaming",
             avatar: pu("/toinelag.webp"),
-            views: "3,3 M de vues",
+            subscribers: "853 k d'abonnés",
+            likes: "25 k",
+            views: "3,3 M de vues · il y a 5 mois",
+            description:
+              "Je teste un simulateur d'accidents ! La nouvelle saison de The Crew Motorfest est disponible gratuitement. La vidéo est réalisée en partenariat avec Ubisoft.",
           }}
           proofs={[
-            { k: "L'idée", d: "Transformer l'univers de The Crew Motorfest en expérience physique et divertissante." },
-            { k: "Le rôle de la marque", d: "Un épisode pensé pour Ubisoft, du concept au passage dans le jeu et à l'appel à l'action." },
-            { k: "La preuve", d: "Une vidéo dédiée, avec un partenariat annoncé clairement et un appel à l'action produit." },
+            { k: "L'angle", d: "Ressentir un accident pour de vrai, et rendre tangible la casse, la vitesse et le fun de The Crew Motorfest." },
+            { k: "Le format", d: "Un épisode entier écrit pour Ubisoft : hook sensoriel, passage jeu, saison + Trackforge. 1 seule marque, du premier au dernier plan." },
+            { k: "Le résultat", d: "3,3 M de vues, partenariat annoncé clairement, CTA produit (saison gratuite + circuits à tester)." },
           ]}
         />
       ),
@@ -773,23 +966,28 @@ export function createSFarPositionnementV3(P) {
     {
       title: "Cas · Adopte",
       r: (t) => (
-        <CaseSlide
+        <CaseSplit
           t={t}
           tag="CAS · OPÉRATION PREMIUM · CYRILMP4 × ADOPTE"
           title="Une expérience de marque portée par deux créateurs."
+          titleSize={36}
+          lead="Un concept date / restos de stars, porté par CYRILmp4 avec Le Grand JD — bien au-delà d'une intégration classique."
+          label="Exemple d'opération premium"
           video={{
             thumb: cyrilAdopteThumbUrl,
             alt: "La vérité sur les restaurants de Stars (ft. LE GRAND JD)",
             videoTitle: "La vérité sur les restaurants de Stars (ft. LE GRAND JD)",
             channel: "CYRILmp4",
             avatar: pu("/cyrilmp4.webp"),
-            views: "905 k vues",
+            subscribers: "5 M d'abonnés",
+            likes: "30 k",
+            views: "905 k de vues · Collaboration commerciale Adopte",
+            description: "Je teste et découvre ce que cachent les restos de célébrités. Pour rencontrer de belles personnes sur Adopte : code CYRILMP4. ft. LE GRAND JD.",
           }}
           proofs={[
-            { k: "L'idée", d: "Une rencontre autour des restaurants de stars, portée par CYRILmp4 avec Le Grand JD." },
-            { k: "Le rôle de la marque", d: "Adopte s'inscrit dans le récit de rencontre et dans l'expérience, avec une collaboration commerciale et un appel à l'action identifiés." },
-            { k: "La preuve", d: "Un concept conçu autour de l'expérience et du duo de créateurs." },
-            { k: "Le mécanisme", d: "Une opération premium ponctuelle : l'expérience et le duo portent le format, la marque s'y inscrit." },
+            { k: "L'angle", d: "Un date en restos de stars : expérience réelle, conversation, découverte. Adopte s'inscrit dans le récit, pas en overlay." },
+            { k: "Le format", d: "Opération premium : concept brand + duo de créateurs. CYRILmp4 porte l'expérience avec Le Grand JD, la marque porte le CTA." },
+            { k: "Le résultat", d: "905 k de vues, collab commerciale claire, code promo Adopte. Preuve qu'un format expérience tient pour une marque et pour les créateurs." },
           ]}
         />
       ),
