@@ -772,7 +772,6 @@ export function createSFarPositionnementV3(P) {
 
     {
       title: "Cas · Adopte",
-      hidden: true,
       r: (t) => (
         <CaseSlide
           t={t}
@@ -801,6 +800,7 @@ export function createSFarPositionnementV3(P) {
 
     {
       title: "Ce que le créateur y gagne",
+      hidden: true,
       r: (t) => (
         <M {...MV()} variants={stg(0.06)} style={{ width: "100%" }}>
           <SlideHead t={t} tag="POURQUOI NOUS REJOINDRE" title="Ce que le créateur y gagne." titleS={{ fontSize: 34, marginBottom: 20 }} />
