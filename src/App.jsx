@@ -3452,7 +3452,7 @@ const META = {
   case1:{l:"Cas Pratique 1",s:"Stratégie de développement commercial FAR sur 12 mois",tag:"STRATÉGIE",card:"dark"},
   farposition:{l:"FAR · Positionnement",s:"Faire grandir les univers créateurs  -  12 slides",tag:"POSITIONNEMENT",card:"dark"},
   farposition2:{l:"FAR · Positionnement V2",s:"Le partenaire du créateur  -  22 slides",tag:"POSITIONNEMENT",card:"dark"},
-  farposition3:{l:"FAR · Positionnement V3",s:"L'agence qui construit autour des créateurs  -  19 slides",tag:"POSITIONNEMENT",card:"farpos3"},
+  farposition3:{l:"FAR · Positionnement V3",s:"L'agence qui construit autour des créateurs  -  21 slides",tag:"POSITIONNEMENT",card:"farpos3"},
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   sponsors2027:{l:"FAR · CYRIL 2027",s:"mp4 & studio  ·  atelier interne  ·  8 slides",tag:"ATELIER",card:"sponsors2027"},
   sponsors2027fgc:{l:"FAR · FGC 2027",s:"YouTube · verticaux · Pop's & Pepe  ·  atelier interne  ·  9 slides",tag:"ATELIER",card:"sponsors2027fgc"},

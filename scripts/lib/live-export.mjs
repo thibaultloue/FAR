@@ -68,7 +68,11 @@ async function authAndCatalog(page, base) {
     if (msg.type() === "error") errors.push(msg.text());
   });
   await page.goto(`${base}/`, { waitUntil: "load", timeout: 120000 });
-  await page.evaluate(() => sessionStorage.setItem("far_auth", "1"));
+  await page.evaluate(() => {
+    sessionStorage.setItem("far_auth", "1");
+    sessionStorage.setItem("far_share_pos3", "1");
+    sessionStorage.setItem("far_share_jd", "1");
+  });
   await page.reload({ waitUntil: "load", timeout: 120000 });
   try {
     await page.waitForFunction(
