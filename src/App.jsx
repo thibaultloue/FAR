@@ -13,6 +13,7 @@ import { createSFarRoster } from "./sfarRoster.jsx";
 import { createSFGCMarmiton } from "./sfgcMarmiton.jsx";
 import { createSSponsors2027 } from "./sSponsors2027.jsx";
 import { createSSponsors2027Fgc } from "./sSponsors2027Fgc.jsx";
+import { createSSponsors2027Toinelag } from "./sSponsors2027Toinelag.jsx";
 import { createSFGCPicard } from "./sFgcPicard.jsx";
 import { StudioReader, getStudioDeck, listStudioDecks, resolveStudioDeckId } from "./studio/index.js";
 
@@ -241,6 +242,43 @@ const TSponsors2027Fgc = {
   sectionT: "#FFFCF7",
   cR: 12,
   cS: "0 2px 24px rgba(28,20,16,.06)",
+  lv: "black",
+};
+
+/** Atelier Toinelag 2027 : papier workshop, jaune / bleu Toinelag. */
+const TSponsors2027Toinelag = {
+  bg: "#FFF9DC",
+  c: "#141414",
+  c2: "#FFFFFF",
+  m: "rgba(20,20,20,.58)",
+  d: "rgba(20,20,20,.34)",
+  a: "#1E74E8",
+  a2: "#FFE14A",
+  card: "#FFFFFF",
+  cardT: "#141414",
+  cardAlt: "rgba(30,116,232,.1)",
+  pill: "rgba(30,116,232,.12)",
+  pillA: "rgba(255,225,74,.35)",
+  brd: "rgba(20,20,20,.12)",
+  bar: "rgba(20,20,20,.09)",
+  barF: "#1E74E8",
+  nav: "#141414",
+  navT: "#FFE14A",
+  note: "#141414",
+  noteT: "#FFFBEF",
+  th: "#141414",
+  thT: "#1E74E8",
+  th2: "rgba(30,116,232,.1)",
+  th2T: "#141414",
+  ex: "#1E74E8",
+  exT: "#FFFFFF",
+  no: "#FFFFFF",
+  noT: "#141414",
+  noBrd: "rgba(20,20,20,.12)",
+  section: "#1E74E8",
+  sectionT: "#FFFFFF",
+  cR: 12,
+  cS: "0 2px 24px rgba(20,20,20,.06)",
   lv: "black",
 };
 
@@ -574,7 +612,7 @@ const TOtacosPepe = {
   section:"#E30713", sectionT:"#FFF4C7", cR:18, cS:"none", lv:"black", logoVariant:"black",
 };
 const TProfil = T1;
-const TM = { case1:T1, farposition:T1, farposition2:T1, farposition3:TFarPos3, sponsors2027:TSponsors2027, sponsors2027fgc:TSponsors2027Fgc, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcpicard:TFGCPicard, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
+const TM = { case1:T1, farposition:T1, farposition2:T1, farposition3:TFarPos3, sponsors2027:TSponsors2027, sponsors2027fgc:TSponsors2027Fgc, sponsors2027toinelag:TSponsors2027Toinelag, farmarques:TFarMarques, stratcom:T1, farroster:T1, case2:T2, grandjd:TGrandJd, grandjd2:TGrandJd2, bouseuh:TBouseuh, unchained:TUnchained, shopify:TS, rode:TR, fastgoodcuisine:TFGC, fgcmarque:TFGCMarque, fgcpicard:TFGCPicard, fgcdeliveroo:TFgcDeliveroo, fgcmarmiton:T1, toinelag:TToinelag, toinelagplaydoh:TToinelag, toinelagikea:TToinelagIkea, cyrilclubmed:TC, cyrilmp4:TC, ponant:TPonant, whitedesert:TWhiteDesert, orientexpress:TOrientExpress, belmond:TBelmond, garmin:TGarmin, edf:TEdf, cyrilslip:TSlip, otacospepe:TOtacosPepe, profil:TProfil };
 
 // ─── FONTS ────────────────────────────────────────────────────────────────────
 const FC = `@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:opsz,wght@14..32,300..800&family=JetBrains+Mono:wght@400;500;600&family=Karla:ital,wght@0,400..700;1,400..700&display=swap');
@@ -722,7 +760,7 @@ const deckUsesT1Hatch = (deck) => DECKS_T1_HATCH.has(deck);
 const isFarPositionDeck = (deck) => deck === "farposition" || deck === "farposition2" || deck === "farposition3";
 const isGrandJdDeck = (deck) => deck === "grandjd" || deck === "grandjd2";
 /** Cadre live 16:9 papier (pas de scroll) : Grand JD + Positionnement V3. */
-const usesPaperFrame = (deck) => isGrandJdDeck(deck) || deck === "farposition3" || deck === "sponsors2027" || deck === "sponsors2027fgc";
+const usesPaperFrame = (deck) => isGrandJdDeck(deck) || deck === "farposition3" || deck === "sponsors2027" || deck === "sponsors2027fgc" || deck === "sponsors2027toinelag";
 
 const DeckMotif = ({deck}) => {
   if(deckUsesT1Hatch(deck)) return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}}><defs><pattern id="dm1" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="40" stroke="rgba(0,0,0,.025)" strokeWidth="1"/></pattern></defs><rect fill="url(#dm1)" width="100%" height="100%"/></svg>;
@@ -738,6 +776,7 @@ const DeckMotif = ({deck}) => {
   if(deck==="otacospepe") return <div style={{position:"absolute",inset:0,overflow:"hidden",pointerEvents:"none"}}>{[...Array(28)].map((_,i)=><div key={i} style={{position:"absolute",left:`${(i*31+7)%100}%`,top:`${(i*43+13)%100}%`,width:8+(i%5)*5,height:8+(i%5)*5,borderRadius:i%2?999:4,transform:`rotate(${(i*17)%50-25}deg)`,background:i%3===0?"rgba(227,7,19,.14)":i%3===1?"rgba(255,122,1,.18)":"rgba(17,17,17,.06)"}}/>)}</div>;
   if(deck==="sponsors2027") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} aria-hidden><defs><pattern id="dmws27" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="0.75" fill="rgba(18,22,26,.045)"/></pattern></defs><rect fill="url(#dmws27)" width="100%" height="100%"/></svg>;
   if(deck==="sponsors2027fgc") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} aria-hidden><defs><pattern id="dmws27fgc" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="0.75" fill="rgba(224,31,42,.06)"/><circle cx="18" cy="20" r="0.65" fill="rgba(15,107,88,.05)"/></pattern></defs><rect fill="url(#dmws27fgc)" width="100%" height="100%"/></svg>;
+  if(deck==="sponsors2027toinelag") return <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none"}} aria-hidden><defs><pattern id="dmws27toine" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="0.75" fill="rgba(30,116,232,.07)"/><circle cx="18" cy="20" r="0.65" fill="rgba(255,225,74,.18)"/></pattern></defs><rect fill="url(#dmws27toine)" width="100%" height="100%"/></svg>;
   return null;
 };
 
@@ -752,6 +791,7 @@ const SV={
   farposition3:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   sponsors2027:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   sponsors2027fgc:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
+  sponsors2027toinelag:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farmarques:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   farroster:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
   stratcom:{i:{opacity:0},a:{opacity:1},e:{opacity:0},t:{duration:.25,ease:"easeInOut"}},
@@ -3392,6 +3432,10 @@ const SSponsors2027Fgc = createSSponsors2027Fgc({
   FarLogo, pu,
 });
 
+const SSponsors2027Toinelag = createSSponsors2027Toinelag({
+  FarLogo, pu,
+});
+
 const SFGCPicard = createSFGCPicard({ pu });
 
 /** Annexes Positionnement V2/V3 = slides talents 5→12 du deck Agence & Roster. */
@@ -3436,12 +3480,12 @@ const SFGCMarmiton = createSFGCMarmiton({
 // ═══════════════════════════════════════════════════════════════════════════════
 // DATA + META
 // ═══════════════════════════════════════════════════════════════════════════════
-const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farposition3:SFarPositionnement3, sponsors2027:SSponsors2027, sponsors2027fgc:SSponsors2027Fgc, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcpicard:SFGCPicard, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
+const ALL = { case1:S1, farposition:SFarPositionnement, farposition2:SFarPositionnement2, farposition3:SFarPositionnement3, sponsors2027:SSponsors2027, sponsors2027fgc:SSponsors2027Fgc, sponsors2027toinelag:SSponsors2027Toinelag, farmarques:SFarMarques, stratcom:SStratCom, farroster:SFarRoster, case2:S2, grandjd:SGrandJd, grandjd2:SGrandJd2, bouseuh:SBouseuh, unchained:SUnchained, shopify:SS, rode:SR, fastgoodcuisine:SFGC, fgcmarque:SFGCMarque, fgcpicard:SFGCPicard, fgcdeliveroo:SFgcDeliveroo, fgcmarmiton:SFGCMarmiton, otacospepe:SOtacosPepe, toinelag:SToinelag, toinelagplaydoh:SToinelagPlayDoh, toinelagikea:SToinelagIkea, cyrilclubmed:SCyrilClubMed, cyrilslip:SCyrilSlip, ponant:SPonant, whitedesert:SWhiteDesert, orientexpress:SOrientExpress, belmond:SBelmond, cyrilmp4:SCyril, garmin:SGarmin, edf:SEdf, profil:SProfil };
 /** Decks accessibles uniquement via lien partagé (#clé/mdp), pas depuis l'accueil. */
 const SHARE_ONLY_DECKS = new Set(["farposition3"]);
 
 /** Liens partagés / SEO informel : id court → id interne (ex. deck « sur la route » = CYRILmp4). */
-const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", grandjd2: "grandjd2", legrandjdv2: "grandjd2", jdv2: "grandjd2", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", positionnement2: "farposition2", positionnementv2: "farposition2", farpositionv2: "farposition2", farposition2: "farposition2", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom", sponsors2027: "sponsors2027", brainstorm: "sponsors2027", cyril2027: "sponsors2027", sponsors2027fgc: "sponsors2027fgc", fgc2027: "sponsors2027fgc", brainstormfgc: "sponsors2027fgc", picard: "fgcpicard", picardfgc: "fgcpicard", fgcpicard: "fgcpicard" };
+const DECK_ALIASES = { roster: "farroster", farroster: "farroster", createurs: "farroster", havas: "farroster", havasplay: "farroster", grandjd: "grandjd", legrandjd: "grandjd", jd: "grandjd", phantasma: "grandjd", urbex: "grandjd", grandjd2: "grandjd2", legrandjdv2: "grandjd2", jdv2: "grandjd2", bouseuh: "bouseuh", lebouseuh: "bouseuh", lockd: "bouseuh", unchained: "unchained", charlesphilip: "unchained", tryhard: "unchained", route: "cyrilmp4", cyril: "cyrilmp4", cyrilmp: "cyrilmp4", garmincyril: "garmin", slip: "cyrilslip", lsf: "cyrilslip", slipfrancais: "cyrilslip", cyrilslip: "cyrilslip", leslipfrancais: "cyrilslip", fgc: "fastgoodcuisine", fastgood: "fastgoodcuisine", fgcx: "fgcmarque", fgcmarque: "fgcmarque", fastgoodmarque: "fgcmarque", deliveroo: "fgcdeliveroo", fgcdeliveroo: "fgcdeliveroo", deliveroofgc: "fgcdeliveroo", burger: "fgcdeliveroo", burgergeant: "fgcdeliveroo", deliveroofastgood: "fgcdeliveroo", marmiton: "fgcmarmiton", marmitonfgc: "fgcmarmiton", fgcmarmiton: "fgcmarmiton", otacos: "otacospepe", pepeotacos: "otacospepe", toine: "toinelag", tl: "toinelag", playdoh: "toinelagplaydoh", toineplaydoh: "toinelagplaydoh", hasbro: "toinelagplaydoh", toinelagplaydoh: "toinelagplaydoh", ikea: "toinelagikea", toineikea: "toinelagikea", toinelagikea: "toinelagikea", ikeacyril: "toinelagikea", piecesecrete: "toinelagikea", clubmed: "cyrilclubmed", cyrilclubmed: "cyrilclubmed", clubmedcyril: "cyrilclubmed", ponant: "ponant", croisiere: "ponant", cyrilponant: "ponant", ponantcyril: "ponant", croisierecyril: "ponant", whitedesert: "whitedesert", antarctica: "whitedesert", antarctique: "whitedesert", cyrilwhitedesert: "whitedesert", whitedesertcyril: "whitedesert", orientexpress: "orientexpress", oeguerlain: "orientexpress", guerlainorientexpress: "orientexpress", cyrilorientexpress: "orientexpress", orientexpressguerlain: "orientexpress", guerlain: "orientexpress", belmond: "belmond", andeanexplorer: "belmond", cyrilbelmond: "belmond", belmondcyril: "belmond", andean: "belmond", edfcyril: "edf", reacteur: "edf", grandtour: "edf", positionnement: "farposition", perspectives: "farposition", farplateforme: "farposition", positionnement2: "farposition2", positionnementv2: "farposition2", farpositionv2: "farposition2", farposition2: "farposition2", marques: "farmarques", brands: "farmarques", pourlesmarques: "farmarques", forbrands: "farmarques", farmarques: "farmarques", farbrands: "farmarques", strategie: "stratcom", commercial: "stratcom", strategiecommerciale: "stratcom", filet: "stratcom", agences: "stratcom", sponsors2027: "sponsors2027", brainstorm: "sponsors2027", cyril2027: "sponsors2027", sponsors2027fgc: "sponsors2027fgc", fgc2027: "sponsors2027fgc", brainstormfgc: "sponsors2027fgc", sponsors2027toinelag: "sponsors2027toinelag", toinelag2027: "sponsors2027toinelag", brainstormtoinelag: "sponsors2027toinelag", picard: "fgcpicard", picardfgc: "fgcpicard", fgcpicard: "fgcpicard" };
 function normalizeDeckId(raw) {
   if (!raw) return null;
   const id = DECK_ALIASES[raw] ?? raw;
@@ -3456,6 +3500,7 @@ const META = {
   farmarques:{l:"FAR · pour les marques",s:"Entrer dans la culture créateur, avec méthode  -  7 slides",tag:"MARQUES",card:"marques"},
   sponsors2027:{l:"FAR · CYRIL 2027",s:"mp4 & studio  ·  atelier interne  ·  8 slides",tag:"ATELIER",card:"sponsors2027"},
   sponsors2027fgc:{l:"FAR · FGC 2027",s:"YouTube · verticaux · Pop's & Pepe  ·  atelier interne  ·  9 slides",tag:"ATELIER",card:"sponsors2027fgc"},
+  sponsors2027toinelag:{l:"FAR · TOINELAG 2027",s:"YouTube · Gaming / +  ·  atelier interne  ·  8 slides",tag:"ATELIER",card:"sponsors2027toinelag"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
   farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
@@ -3530,7 +3575,7 @@ const PDF_PAGE_W_MM = 338.67;
 const PDF_PAGE_H_MM = 190.5;
 
 function isPaperExportDeck(deckId) {
-  return isGrandJdDeck(deckId) || deckId === "farposition3" || deckId === "sponsors2027" || deckId === "sponsors2027fgc";
+  return isGrandJdDeck(deckId) || deckId === "farposition3" || deckId === "sponsors2027" || deckId === "sponsors2027fgc" || deckId === "sponsors2027toinelag";
 }
 
 function pdfRenderSize(deckId) {
@@ -3887,7 +3932,7 @@ function pdfSlideMaxWidth(deckId, slideIndex, slideCount, slideTitle = "") {
     if (isCover || slideIndex === 1 || isLast || slideTitle === "Annexes") return 1000;
     return 1176;
   }
-  if (deckId === "sponsors2027" || deckId === "sponsors2027fgc") return 1320;
+  if (deckId === "sponsors2027" || deckId === "sponsors2027fgc" || deckId === "sponsors2027toinelag") return 1320;
   if (isGrandJdDeck(deckId)) {
     if (slideTitle === "Merci" || slideTitle.startsWith("Intercalaire")) return 1760;
     if (slideTitle === "Manifesto" || slideTitle === "Next steps" || slideTitle === "Tes besoins") return 1000;
@@ -4244,6 +4289,7 @@ function loadSlideComments(key) {
 const WORKSHOP_STORES = {
   sponsors2027: { prefix: "far_ws_sponsors2027_v7", file: "FAR_CYRIL_2027" },
   sponsors2027fgc: { prefix: "far_ws_sponsors2027_fgc_v1", file: "FAR_FGC_2027" },
+  sponsors2027toinelag: { prefix: "far_ws_sponsors2027_toinelag_v1", file: "FAR_TOINELAG_2027" },
 };
 
 function flushWorkshopFields() {
@@ -4841,6 +4887,7 @@ const HOME_CARD_VIS = {
   farroster: { logo: "far" },
   sponsors2027: { img: "/cyrilmp4.webp", imgW: 80, imgType: "photo" },
   sponsors2027fgc: { img: "/fgc.webp", imgW: 72, imgType: "photo" },
+  sponsors2027toinelag: { img: "/toinelag.webp", imgW: 72, imgType: "photo" },
   case1: { logo: "far" },
   case2: { img: "/lebouseuh.png", imgW: 100, imgType: "photo" },
   grandjd: { logo: "far" },
@@ -4880,7 +4927,7 @@ const HOME_FOLDERS = [
     accent: "#FFAA00",
     text: "#F8F6F1",
     showFarMark: true,
-    decks: ["sponsors2027", "sponsors2027fgc", "farposition2", "farposition", "farmarques", "stratcom", "farroster"],
+    decks: ["sponsors2027", "sponsors2027fgc", "sponsors2027toinelag", "farposition2", "farposition", "farmarques", "stratcom", "farroster"],
   },
   {
     id: "cyril",
@@ -5165,6 +5212,7 @@ function Home({ onOpen }) {
     farpos3: { bg: "#F1F0EC", c: "#12161A", tBg: "rgba(255,170,0,.2)", tC: "#C47A00" },
     sponsors2027: { bg: "#12161A", c: "#F3F1EC", tBg: "rgba(255,170,0,.22)", tC: "#FFAA00" },
     sponsors2027fgc: { bg: "#FFF2F5", c: "#1C1410", tBg: "rgba(224,31,42,.14)", tC: "#E01F2A" },
+    sponsors2027toinelag: { bg: "#FFE14A", c: "#141414", tBg: "rgba(30,116,232,.18)", tC: "#1E74E8" },
     bouseuh: { bg: "#0D0F12", c: "#F3F5F4", tBg: "rgba(198,242,78,.18)", tC: "#C6F24E" },
     unchained: { bg: "#0E0A16", c: "#F3F0FA", tBg: "rgba(177,76,255,.2)", tC: "#B14CFF" },
     shopify: { bg: "#81B840", c: "#1a2e05", tBg: "rgba(0,0,0,.1)", tC: "#1a2e05" },
