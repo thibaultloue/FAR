@@ -3502,7 +3502,7 @@ const META = {
   sponsors2027fgc:{l:"FAR · FGC 2027",s:"YouTube · verticaux · Pop's & Pepe  ·  atelier interne  ·  9 slides",tag:"ATELIER",card:"sponsors2027fgc"},
   sponsors2027toinelag:{l:"FAR · TOINELAG 2027",s:"YouTube · Gaming / +  ·  atelier interne  ·  8 slides",tag:"ATELIER",card:"sponsors2027toinelag"},
   stratcom:{l:"FAR · Stratégie commerciale",s:"Filet commercial, 3 layers, marques & talents  -  12 slides",tag:"COMMERCIAL",card:"dark"},
-  farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence & créateurs  -  13 slides",tag:"ROSTER",card:"dark"},
+  farroster:{l:"FAR · Agence & Roster",s:"Présentation générique agence et créateurs",tag:"ROSTER",card:"dark"},
   case2:{l:"Cas Pratique 2",s:"Pitch créateur & marques  -  Le Bouseuh",tag:"PITCH",card:"light"},
   grandjd:{l:"Le Grand JD × FAR",s:"Prospection créateur · apport d'affaires · 10 slides",tag:"PROSPECTION",card:"grandjd"},
   grandjd2:{l:"Le Grand JD × FAR · V2",s:"Prospection créateur · besoins, preuves & remplissage · 17 slides",tag:"PROSPECTION",card:"grandjd2"},
@@ -3522,12 +3522,14 @@ const META = {
   cyrilclubmed:{l:"CYRILmp4 × Club Med",s:"Pitch idée · « 24h dans le plus vieux Club Med du monde » · 7 slides",tag:"PITCH IDÉE",card:"dark"},
   cyrilslip:{l:"Le Slip Français × CYRILmp4",s:"Pitch idée · « Unboxing — le caleçon français » · 7 slides",tag:"PITCH IDÉE",card:"slip"},
   ponant:{l:"PONANT × CYRILmp4",s:"Pitch idée · « Les détails cachés d'une croisière de luxe » · 7 slides",tag:"PITCH IDÉE",card:"ponant"},
+  "cyril-mp4-msc-yacht-club":{l:"CYRILmp4 × MSC Cruises",s:"Idea pitch · MSC Yacht Club · 7 slides",tag:"IDEA PITCH",card:"cyrilmsc"},
   whitedesert:{l:"White Desert × CYRILmp4",s:"Idea pitch · « 100 hours at the end of the Earth » · 7 slides",tag:"PITCH IDÉE",card:"whitedesert"},
   orientexpress:{l:"Orient Express × Guerlain × CYRILmp4",s:"Pitch idée · « 100 heures sur le plus grand voilier du monde » · 7 slides",tag:"PITCH IDÉE",card:"orientexpress"},
   belmond:{l:"Belmond Andean Explorer × CYRILmp4",s:"Idea pitch · « 24 hours on the world's highest luxury train » · 7 slides",tag:"IDEA PITCH",card:"belmond"},
   cyrilmp4:{l:"Activation Auto × CYRILmp4",s:"[MARQUE] × CYRILmp4  -  « La route fait partie de l'histoire »",tag:"ACTIVATION",card:"dark"},
   "cyril-mp4-banques":{l:"CYRILmp4 × Banques",s:"Créateur & entrepreneur  ·  11 slides",tag:"PARTENARIAT",card:"cyrilbanques"},
   "toinelag-bouygues-kids-watch":{l:"Toinelag × Bouygues Telecom",s:"Kids Watch · pièce secrète · 8 slides",tag:"PITCH IDÉE",card:"toinelagbouygues"},
+  "toinelag-sfr-kids-watch":{l:"Toinelag × SFR",s:"Kids Watch Plus · pièce secrète · 7 slides",tag:"PITCH IDÉE",card:"toinelagsfr"},
   garmin:{l:"Garmin × CYRILmp4",s:"Sport connecté, GPS & aventures MP4",tag:"ACTIVATION",card:"garmin"},
   edf:{l:"EDF × CYRILmp4",s:"Le Grand Tour S2  -  « On marche sur un réacteur nucléaire »",tag:"ACTIVATION",card:"edf"},
   profil:{l:"Mon profil",s:"CV · parcours, compétences & expériences",tag:"CV",card:"dark"},
@@ -4864,7 +4866,7 @@ function DeckCard({id,st,d,onOpen,delay,children}) {
           <span style={{...mo,fontSize:10,fontWeight:600,letterSpacing:2,padding:"5px 12px",borderRadius:5,background:st.tBg,color:st.tC,marginBottom:18,display:"inline-block"}}>{d.tag}</span>
           <h3 style={{...sa,fontSize:24,fontWeight:700,marginBottom:8}}>{d.l}</h3>
           <p style={{...sa,fontSize:14,opacity:.55,lineHeight:1.5,marginBottom:18}}>{d.s}</p>
-          <div style={{...mo,fontSize:11,opacity:.3}}>{ALL[id]?.length || getStudioDeck(id)?.slides?.length || "—"} slides</div>
+          <div style={{...mo,fontSize:11,opacity:.3}}>{getStudioDeck(id)?.slides?.length || ALL[id]?.length || "—"} slides</div>
         </div>
         <div style={{flexShrink:0}}>{children}</div>
       </div>
@@ -4905,9 +4907,11 @@ const HOME_CARD_VIS = {
   toinelagplaydoh: { img: "/toinelag-avatar.png", imgW: 78 },
   toinelagikea: { img: "/toinelag-avatar.png", imgW: 78 },
   "toinelag-bouygues-kids-watch": { img: "/toinelag-avatar.png", imgW: 78, imgType: "photo" },
+  "toinelag-sfr-kids-watch": { img: "/toinelag-avatar.png", imgW: 78, imgType: "photo" },
   cyrilclubmed: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   cyrilslip: { img: "/slip-francais-logo.png", imgW: 72 },
   ponant: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
+  "cyril-mp4-msc-yacht-club": { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   whitedesert: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   orientexpress: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
   belmond: { img: "/cyrilmp4.png", imgW: 80, imgType: "photo" },
@@ -4939,7 +4943,7 @@ const HOME_FOLDERS = [
     text: "#F4EFE6",
     photo: "/cyrilmp4.png",
     photoRound: true,
-    decks: ["cyril-mp4-banques", "cyrilslip", "cyrilclubmed", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
+    decks: ["cyril-mp4-banques", "cyrilslip", "cyrilclubmed", "cyril-mp4-msc-yacht-club", "ponant", "whitedesert", "orientexpress", "belmond", "cyrilmp4", "garmin", "edf"],
   },
   {
     id: "fgc",
@@ -4961,7 +4965,7 @@ const HOME_FOLDERS = [
     accent: "#FFE14A",
     text: "#FFFFFF",
     photo: "/toinelag-avatar.png",
-    decks: ["toinelag-bouygues-kids-watch", "toinelag", "toinelagplaydoh", "toinelagikea"],
+    decks: ["toinelag-sfr-kids-watch", "toinelag-bouygues-kids-watch", "toinelag", "toinelagplaydoh", "toinelagikea"],
   },
   {
     id: "pitch",
@@ -5224,8 +5228,10 @@ function Home({ onOpen }) {
     toinelag: { bg: "#FFE14A", c: "#141414", tBg: "rgba(30,116,232,.22)", tC: "#0F3D7A" },
     toinelagikea: { bg: "#0058A3", c: "#FFFFFF", tBg: "rgba(255,219,0,.2)", tC: "#FFDB00" },
     toinelagbouygues: { bg: "#071E32", c: "#F5F8FA", tBg: "rgba(0,156,204,.22)", tC: "#5EC8E8" },
+    toinelagsfr: { bg: "#16080C", c: "#F7F4F4", tBg: "rgba(235,0,4,.22)", tC: "#FF6B6B" },
     garmin: { bg: "#050A0F", c: "#F7FBFF", tBg: "rgba(0,169,224,.16)", tC: "#00A9E0" },
     ponant: { bg: "#0A1B33", c: "#F4EFE6", tBg: "rgba(201,162,75,.2)", tC: "#C9A24B" },
+    cyrilmsc: { bg: "#0B2245", c: "#F4F1EA", tBg: "rgba(198,161,90,.22)", tC: "#C6A15A" },
     whitedesert: { bg: "#081521", c: "#EAF4F8", tBg: "rgba(95,179,217,.2)", tC: "#5FB3D9" },
     orientexpress: { bg: "#12100E", c: "#F3EDE3", tBg: "rgba(196,160,82,.2)", tC: "#C4A052" },
     belmond: { bg: "#241A16", c: "#F5F0E8", tBg: "rgba(201,164,91,.2)", tC: "#C9A45B" },

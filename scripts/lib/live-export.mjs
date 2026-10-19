@@ -207,6 +207,32 @@ async function captureDeck(page, base, deck, outRoot) {
   return images;
 }
 
+/** PDF 16:9 à texte sélectionnable, uniquement pour ce deck. Chromium : page.pdf n'existe pas sous WebKit. */
+async function exportFgcSelectablePdf(base, pdfPath) {
+  const { chromium } = await import("playwright");
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1360, height: 765 } });
+    await page.addInitScript(() => sessionStorage.setItem("far_auth", "1"));
+    await page.goto(`${base}/#fgc-bp-premier-resto/revue`, { waitUntil: "domcontentloaded", timeout: 120000 });
+    await page.waitForSelector("[data-fgc-slide]", { timeout: 30000 });
+    await page.evaluate(async () => { await document.fonts.ready; });
+    await page.waitForTimeout(400);
+    const count = await page.locator("[data-fgc-slide]").count();
+    if (count !== 9) throw new Error(`revue FGC : ${count} slides`);
+    await page.pdf({
+      path: pdfPath,
+      width: "1360px",
+      height: "765px",
+      printBackground: true,
+      preferCSSPageSize: true,
+      margin: { top: "0", right: "0", bottom: "0", left: "0" },
+    });
+  } finally {
+    await browser.close();
+  }
+}
+
 /**
  * @param {{ ids?: string[], port?: number }} opts
  */
@@ -256,8 +282,8 @@ export async function runLiveExport(opts = {}) {
     for (const deck of decks) {
       try {
         console.log("→", deck.id, `(${deck.slides} slides)`);
-        const images = await captureDeck(page, base, deck, outRoot);
         const pdfPath = path.join(outRoot, `${deck.file}.pdf`);
+        const images = await captureDeck(page, base, deck, outRoot);
         await writePdf(images, pdfPath);
         console.log("  pdf", pdfPath);
       } catch (err) {

@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-22T09:01:14.004Z",
+  "outputDirectory": "/Users/thibaultloue/Desktop/Thibault/01_AI/05_FAR/far-decks/public/decks/fgc-bp-premier-resto/assets",
+  "results": [
+    {
+      "id": "halle",
+      "filename": "halle-trista-le.jpg",
+      "status": "downloaded",
+      "bytes": 873614,
+      "source": "https://unsplash.com/photos/busy-indoor-market-with-food-stalls-and-people-fHZmgNvEGK0",
+      "url": "https://images.unsplash.com/photo-1773578211636-714172670337?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    },
+    {
+      "id": "halle-reserve",
+      "filename": "halle-lance-anderson.jpg",
+      "status": "downloaded",
+      "bytes": 1284063,
+      "source": "https://unsplash.com/photos/variety-stalls-inside-the-building-_5MxZFAVgyE",
+      "url": "https://images.unsplash.com/photo-1478122251258-df9e3b3b3e12?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": false
+    },
+    {
+      "id": "charles",
+      "filename": "charles-taster.jpg",
+      "status": "downloaded",
+      "bytes": 307202,
+      "source": "https://taster.com/our-brands/pepe-chicken/",
+      "url": "https://taster.com/wp-content/uploads/2024/10/pepechicken-charles-compressed-scaled-e1759839080979-1390x1223.jpg?x59233=",
+      "verifiedVisualAtSource": false
+    },
+    {
+      "id": "preparation",
+      "filename": "preparation-louis-hansel.jpg",
+      "status": "downloaded",
+      "bytes": 818767,
+      "source": "https://unsplash.com/photos/a-chef-is-preparing-pizzas-in-a-kitchen-WlMaIRoh7j8",
+      "url": "https://images.unsplash.com/photo-1564936281440-2c36f57db305?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    },
+    {
+      "id": "service",
+      "filename": "service-louis-hansel.jpg",
+      "status": "downloaded",
+      "bytes": 1608306,
+      "source": "https://unsplash.com/photos/chef-preparing-foods-0sYLBZjgTTw",
+      "url": "https://images.unsplash.com/photo-1577219492769-b63a779fac28?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    },
+    {
+      "id": "sandwich",
+      "filename": "sandwich-esra-afsar.jpg",
+      "status": "downloaded",
+      "bytes": 1017328,
+      "source": "https://unsplash.com/photos/focaccia-sandwich-with-olives-and-coffee-on-table-x9kkiqVIguA",
+      "url": "https://images.unsplash.com/photo-1762335753259-45f97def5ae8?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    },
+    {
+      "id": "familial",
+      "filename": "plat-familial-nilufar-nattaq.jpg",
+      "status": "downloaded",
+      "bytes": 1276476,
+      "source": "https://unsplash.com/photos/a-bowl-of-stew-with-potatoes-carrots-and-meat-WgrOML7JhSU",
+      "url": "https://images.unsplash.com/photo-1689860892307-7db54ab276ba?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    },
+    {
+      "id": "vegetal",
+      "filename": "vegetal-maria-vig.jpg",
+      "status": "downloaded",
+      "bytes": 444782,
+      "source": "https://unsplash.com/photos/sliced-vegetables-in-bowl-beside-breads-xb0E6Ty1rpA",
+      "url": "https://images.unsplash.com/photo-1578657084274-03b9d153b0dc?fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.0.3&q=60&w=3000",
+      "verifiedVisualAtSource": true
+    }
+  ]
+}

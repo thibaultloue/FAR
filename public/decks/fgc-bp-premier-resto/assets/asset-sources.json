@@ -1,0 +1,143 @@
+{
+  "deckSlug": "fgc-bp-premier-resto",
+  "retrievedAt": "2026-09-22",
+  "photoFilesIncluded": false,
+  "photos": [
+    {
+      "id": "halle",
+      "filename": "halle-trista-le.jpg",
+      "author": "Trista Le",
+      "page": "https://unsplash.com/photos/busy-indoor-market-with-food-stalls-and-people-fHZmgNvEGK0",
+      "url": "https://images.unsplash.com/photo-1773578211636-714172670337?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        1
+      ],
+      "position": "50% 64%",
+      "usage": "Halle couverte avec public. Image de référence de lieu ; aucune réservation ni implantation en France établie.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/halle-trista-le.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "halle-reserve",
+      "filename": "halle-lance-anderson.jpg",
+      "author": "Lance Anderson",
+      "page": "https://unsplash.com/photos/variety-stalls-inside-the-building-_5MxZFAVgyE",
+      "url": "https://images.unsplash.com/photo-1478122251258-df9e3b3b3e12?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": false,
+      "slides": [],
+      "position": "50% 60%",
+      "usage": "Réserve uniquement. West Side Market, Cleveland. Source retrouvée, fichier image à inspecter après import. Ne pas afficher comme lieu retenu.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/halle-lance-anderson.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "charles",
+      "filename": "charles-taster.jpg",
+      "author": "Taster / Pepe Chicken — crédit photographe à confirmer",
+      "page": "https://taster.com/our-brands/pepe-chicken/",
+      "url": "https://taster.com/wp-content/uploads/2024/10/pepechicken-charles-compressed-scaled-e1759839080979-1390x1223.jpg?x59233=",
+      "license": "Image de marque : usage et crédit à confirmer auprès de FGC/Taster",
+      "verifiedVisual": false,
+      "slides": [
+        4
+      ],
+      "position": "50% 35%",
+      "usage": "Portrait référencé par Taster comme Charles / FastGoodCuisine. Préférer le portrait officiel déjà autorisé du repo. Inspecter avant usage. Aucun photomontage modifiant son visage.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/charles-taster.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "preparation",
+      "filename": "preparation-louis-hansel.jpg",
+      "author": "Louis Hansel",
+      "page": "https://unsplash.com/photos/a-chef-is-preparing-pizzas-in-a-kitchen-WlMaIRoh7j8",
+      "url": "https://images.unsplash.com/photo-1564936281440-2c36f57db305?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        4,
+        10
+      ],
+      "position": "46% 58%",
+      "usage": "Geste de préparation derrière un comptoir, mains et produit. Référence de tournage ; aucune personne ne représente un candidat.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/preparation-louis-hansel.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "service",
+      "filename": "service-louis-hansel.jpg",
+      "author": "Louis Hansel",
+      "page": "https://unsplash.com/photos/chef-preparing-foods-0sYLBZjgTTw",
+      "url": "https://images.unsplash.com/photo-1577219492769-b63a779fac28?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        5
+      ],
+      "position": "50% 63%",
+      "usage": "Geste d’envoi sous lampe de passe, portrait vertical. Cadrer le geste et les assiettes. Référence de service, pas cuisine confirmée.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/service-louis-hansel.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "sandwich",
+      "filename": "sandwich-esra-afsar.jpg",
+      "author": "Esra Afşar",
+      "page": "https://unsplash.com/photos/focaccia-sandwich-with-olives-and-coffee-on-table-x9kkiqVIguA",
+      "url": "https://images.unsplash.com/photo-1762335753259-45f97def5ae8?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        3
+      ],
+      "position": "48% 52%",
+      "usage": "Exemple d’univers sandwich. Recadrer sur la focaccia, éviter les logos du plateau dans le cadrage final. Pas une recette promise ni un partenaire.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/sandwich-esra-afsar.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "familial",
+      "filename": "plat-familial-nilufar-nattaq.jpg",
+      "author": "nilufar nattaq",
+      "page": "https://unsplash.com/photos/a-bowl-of-stew-with-potatoes-carrots-and-meat-WgrOML7JhSU",
+      "url": "https://images.unsplash.com/photo-1689860892307-7db54ab276ba?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        3
+      ],
+      "position": "61% 38%",
+      "usage": "Plat cuisiné généreux, ambiance sombre. Exemple d’univers cuisine familiale, casting et recette à venir.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/plat-familial-nilufar-nattaq.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    },
+    {
+      "id": "vegetal",
+      "filename": "vegetal-maria-vig.jpg",
+      "author": "Maria Vig",
+      "page": "https://unsplash.com/photos/sliced-vegetables-in-bowl-beside-breads-xb0E6Ty1rpA",
+      "url": "https://images.unsplash.com/photo-1578657084274-03b9d153b0dc?fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.0.3&q=60&w=3000",
+      "license": "Unsplash License",
+      "verifiedVisual": true,
+      "slides": [
+        3
+      ],
+      "position": "43% 57%",
+      "usage": "Univers végétal / frais. Recadrer sur le bol ; ne pas montrer le verre à pied ni suggérer une carte boissons alcoolisées.",
+      "localPath": "public/decks/fgc-bp-premier-resto/assets/vegetal-maria-vig.jpg",
+      "downloadStatus": "À importer par Cursor ; les téléchargements de photos vers cet environnement ont échoué."
+    }
+  ],
+  "licenseSources": [
+    "https://unsplash.com/license",
+    "https://help.unsplash.com/en/articles/2612329-releases-and-trademarks"
+  ],
+  "notes": [
+    "Les sources ont été retrouvées sur le web. verifiedVisual=true signifie que l’image a été affichée et inspectée, pas que ses octets sont inclus dans ce pack.",
+    "Aucun modèle, candidat, conseiller, lieu ou récit personnel n’est confirmé par ces photographies.",
+    "Les SVG présents dans le pack sont des schémas originaux de principe, pas des plans de sécurité, rendus de lieu réservé ou documents comptables réels."
+  ]
+}

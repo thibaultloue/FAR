@@ -1,0 +1,21 @@
+{
+  "deck": "fgc-bp-premier-resto",
+  "version": 2,
+  "font": "Manrope, fontsource 5.2.8, latin woff2, graisses 400 500 600 700",
+  "displayed": [
+    { "file": "charles-taster.jpg", "slide": 1, "focus": "68% 36%" },
+    { "file": "/fgc.webp", "slide": 6, "focus": "62% 36%", "note": "Portrait HD déjà au catalogue FAR, 2000×2000" },
+    { "file": "preparation-louis-hansel.jpg", "slides": [2, 5] },
+    { "file": "service-louis-hansel.jpg", "slide": 5, "focus": "32% 72%", "scale": 1.4 },
+    { "file": "halle-trista-le.jpg", "slide": 4, "scale": 1.55, "origin": "48% 92%" },
+    { "file": "sandwich-esra-afsar.jpg", "slide": 3, "scale": 2.25, "origin": "36% 40%" },
+    { "file": "plat-familial-nilufar-nattaq.jpg", "slide": 3, "scale": 1.08, "origin": "58% 44%" },
+    { "file": "vegetal-maria-vig.jpg", "slide": 3, "scale": 1.45, "origin": "56% 66%" }
+  ],
+  "notDisplayed": [
+    "charles-far.webp (500 px)",
+    "fastgoodcuisine.png (900 px, même portrait que fgc.webp)",
+    "charles-pepe.webp (import HTTP 404)",
+    "halle-lance-anderson.jpg (West Side Market, réserve)"
+  ]
+}

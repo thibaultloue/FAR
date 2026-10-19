@@ -1,5 +1,5 @@
 /**
- * Manifeste public — Toinelag × Bouygues Telecom · Kids Watch · V3.
+ * Manifeste public — Toinelag × Bouygues Telecom · Kids Watch · V4.
  * Aucune note privée ici. Chiffres : sources-data-v3.json.
  */
 import data from "./sources-data-v3.json" with { type: "json" };
@@ -83,15 +83,13 @@ export const ASSETS = {
   },
   productCall: {
     src: `${BASE}/kids-watch-appel.webp`,
-    alt: "Kids Watch en appel vidéo, visuel officiel Bouygues Telecom — écran réel, pas une simulation Toinelag",
+    alt: "Kids Watch en appel vidéo, visuel officiel Bouygues Telecom",
     fit: "contain",
-    credit: "Bouygues Telecom · visuel officiel",
   },
   portrait: {
     src: `${BASE}/portrait-toinelag.png`,
     alt: "Portrait de Toinelag",
     focus: "center 18%",
-    credit: "FAR",
   },
   trampoline: {
     src: `${BASE}/thumb-trampoline.jpg`,
@@ -105,11 +103,15 @@ export const ASSETS = {
     src: `${BASE}/thumb-brainrot.jpg`,
     alt: "Miniature YouTube : Je CONSTRUIS une PIÈCE SECRÈTE dans Steal a Brainrot",
   },
+  watchWrist: {
+    src: `${BASE}/kids-watch-wrist.png`,
+    alt: "Enfant portant une Kids Watch, écran allumé",
+    focus: "68% 48%",
+  },
   escalier: {
     src: `${BASE}/still-escalier.jpg`,
     alt: "Toinelag dans une pièce secrète sous un escalier",
     focus: "center 48%",
-    credit: "Référence éditoriale · Escalier — pas un tournage Bouygues",
   },
 };
 

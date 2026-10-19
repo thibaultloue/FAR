@@ -2,14 +2,57 @@ import { asset } from "./asset.js";
 import { Body, Display, FarMark, Kicker, LogoMark, Photo, Reveal, Source } from "./primitives.jsx";
 import { BarChart, FlowChart, Timeline, NodeFlow, formatAmount, sumValues } from "./diagrams.jsx";
 import {
+  BrandBenefits,
   CloseTimeline,
   CreatorScale,
   DeviceArch,
-  FormatProductFit,
   GameBoard,
-  ProductAnnotate,
+  VideoFormat,
   YoutubeProof,
 } from "./decks/toinelagBouyguesKidsWatch.layouts.jsx";
+import { FgcBudget, FgcCasting, FgcConcept, FgcContext, FgcCover, FgcDelib, FgcImprevu, FgcLieu, FgcNext, FgcParrains, FgcPops, FgcReview, FgcRun } from "./decks/fgcBpPremierResto.layouts.jsx";
+import {
+  FgcBudgetV2,
+  FgcCastingV2,
+  FgcChallenge1V2,
+  FgcChallenge2V2,
+  FgcCoachV2,
+  FgcConceptV2,
+  FgcContextV2,
+  FgcCoverV2,
+  FgcEnigmaAltV2,
+  FgcEnigmaV2,
+  FgcFinaleV2,
+  FgcIntroV2,
+  FgcJuryV2,
+  FgcNextV2,
+  FgcPopsV2,
+  FgcReviewV2,
+  FgcRunV2,
+  FgcSignatureV2,
+} from "./decks/fgcBpPremierRestoV2.layouts.jsx";
+import {
+  FgcPicardAmplification,
+  FgcPicardCover,
+  FgcPicardCreator,
+  FgcPicardDistribution,
+  FgcPicardNext,
+  FgcPicardProduct,
+} from "./decks/fgcPicard.layouts.jsx";
+import {
+  FarRosterAgency,
+  FarRosterBek,
+  FarRosterClose,
+  FarRosterCover,
+  FarRosterCyril,
+  FarRosterFgc,
+  FarRosterIndex,
+  FarRosterRoutin,
+  FarRosterStudio,
+  FarRosterTeeqzy,
+  FarRosterToinelag,
+  FarRosterToinelagPlus,
+} from "./decks/farRoster.layouts.jsx";
 
 const LAYOUTS = {
   cover: Cover,
@@ -53,11 +96,60 @@ const LAYOUTS = {
   closeCalendar: CloseCalendar,
   creatorScale: CreatorScale,
   youtubeProof: YoutubeProof,
-  formatProductFit: FormatProductFit,
+  videoFormat: VideoFormat,
   gameBoard: GameBoard,
-  productAnnotate: ProductAnnotate,
+  brandBenefits: BrandBenefits,
   deviceArch: DeviceArch,
   closeTimeline: CloseTimeline,
+  fgcCover: FgcCover,
+  fgcContext: FgcContext,
+  fgcConcept: FgcConcept,
+  fgcCasting: FgcCasting,
+  fgcParrains: FgcParrains,
+  fgcLieu: FgcLieu,
+  fgcRun: FgcRun,
+  fgcImprevu: FgcImprevu,
+  fgcDelib: FgcDelib,
+  fgcBudget: FgcBudget,
+  fgcPops: FgcPops,
+  fgcNext: FgcNext,
+  fgcReview: FgcReview,
+  fgcCoverV2: FgcCoverV2,
+  fgcContextV2: FgcContextV2,
+  fgcConceptV2: FgcConceptV2,
+  fgcCastingV2: FgcCastingV2,
+  fgcRunV2: FgcRunV2,
+  fgcChallenge1V2: FgcChallenge1V2,
+  fgcChallenge2V2: FgcChallenge2V2,
+  fgcEnigmaAltV2: FgcEnigmaAltV2,
+  fgcEnigmaV2: FgcEnigmaV2,
+  fgcSignatureV2: FgcSignatureV2,
+  fgcFinaleV2: FgcFinaleV2,
+  fgcIntroV2: FgcIntroV2,
+  fgcCoachV2: FgcCoachV2,
+  fgcJuryV2: FgcJuryV2,
+  fgcBudgetV2: FgcBudgetV2,
+  fgcPopsV2: FgcPopsV2,
+  fgcNextV2: FgcNextV2,
+  fgcReviewV2: FgcReviewV2,
+  fgcPicardCover: FgcPicardCover,
+  fgcPicardCreator: FgcPicardCreator,
+  fgcPicardProduct: FgcPicardProduct,
+  fgcPicardDistribution: FgcPicardDistribution,
+  fgcPicardAmplification: FgcPicardAmplification,
+  fgcPicardNext: FgcPicardNext,
+  farRosterCover: FarRosterCover,
+  farRosterAgency: FarRosterAgency,
+  farRosterIndex: FarRosterIndex,
+  farRosterFgc: FarRosterFgc,
+  farRosterCyril: FarRosterCyril,
+  farRosterStudio: FarRosterStudio,
+  farRosterToinelag: FarRosterToinelag,
+  farRosterToinelagPlus: FarRosterToinelagPlus,
+  farRosterRoutin: FarRosterRoutin,
+  farRosterBek: FarRosterBek,
+  farRosterTeeqzy: FarRosterTeeqzy,
+  farRosterClose: FarRosterClose,
 };
 
 function SlideShell({ kicker, source, sourceLinks, children, style }) {
@@ -1928,7 +2020,7 @@ export function CampaignCover({ slide, logos }) {
   const packshot = slide.packshot;
   return (
     <Reveal>
-      <div className="far-studio-slide" style={{ padding: 0, height: "100%", background: "#071E32", color: "#F5F8FA" }}>
+      <div className="far-studio-slide" style={{ padding: 0, height: "100%", background: slide.surface?.bg || "#071E32", color: slide.surface?.color || "#F5F8FA" }}>
         {photo ? (
           <Photo src={photo.src} alt={photo.alt} focus={photo.focus} style={{ position: "absolute", inset: 0, height: "100%", borderRadius: 0 }} />
         ) : null}
@@ -1937,8 +2029,7 @@ export function CampaignCover({ slide, logos }) {
           style={{
             position: "absolute",
             inset: 0,
-            background:
-              "linear-gradient(90deg, rgba(7,30,50,.92) 0%, rgba(7,30,50,.58) 42%, rgba(7,30,50,.12) 68%, rgba(7,30,50,.28) 100%)",
+            background: slide.surface?.veil || "linear-gradient(90deg, rgba(7,30,50,.92) 0%, rgba(7,30,50,.58) 42%, rgba(7,30,50,.12) 68%, rgba(7,30,50,.28) 100%)",
           }}
         />
         <div
@@ -1956,7 +2047,7 @@ export function CampaignCover({ slide, logos }) {
             <FarMark variant="yellow" size={78} />
             <LogoRow logos={logos || slide.logos} invert={false} />
           </div>
-          <div style={{ maxWidth: "22em" }}>
+          <div style={{ maxWidth: "34em" }}>
             {slide.kicker ? <Kicker style={{ whiteSpace: "nowrap" }}>{slide.kicker}</Kicker> : null}
             <Display
               size="lg"
@@ -1972,11 +2063,12 @@ export function CampaignCover({ slide, logos }) {
               ))}
             </Display>
             {slide.context ? (
-              <Body lead style={{ marginTop: "calc(16px * var(--fs-u))", fontSize: "calc(22px * var(--fs-u))", color: "inherit", opacity: 0.88 }}>
+              <Body lead style={{ marginTop: "calc(16px * var(--fs-u))", fontSize: `calc(${slide.contextSize || 22}px * var(--fs-u))`, color: "inherit", opacity: 0.88, whiteSpace: "nowrap" }}>
                 {slide.context}
               </Body>
             ) : null}
           </div>
+          {(slide.tag || slide.photoCaption) ? (
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 16 }}>
             <div style={{ fontSize: "calc(13px * var(--fs-u))", letterSpacing: "0.04em", color: "rgba(245,248,250,.55)" }}>{slide.tag}</div>
             {slide.photoCaption ? (
@@ -1985,6 +2077,7 @@ export function CampaignCover({ slide, logos }) {
               </div>
             ) : null}
           </div>
+          ) : <div />}
         </div>
         {packshot ? (
           <img

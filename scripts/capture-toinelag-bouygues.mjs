@@ -13,7 +13,7 @@ const root = path.join(__dirname, "..");
 const outDir = path.join(root, "exports", "toinelag-bouygues-kids-watch");
 const PORT = 4193;
 const DECK = "toinelag-bouygues-kids-watch";
-const ALL_SLIDES = ["cover", "creator", "proof", "idea", "rundown", "product", "device", "close"];
+const ALL_SLIDES = ["cover", "creator", "proof", "rundown", "device", "product", "close"];
 const VIEWPORTS = [
   { name: "1440x900", width: 1440, height: 900, slides: ALL_SLIDES },
   { name: "1280x720", width: 1280, height: 720, slides: ALL_SLIDES },

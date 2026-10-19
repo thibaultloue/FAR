@@ -1,0 +1,349 @@
+@font-face {
+  font-family: Manrope;
+  src: url("/decks/fgc-bp-premier-resto/fonts/manrope-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/decks/fgc-bp-premier-resto/fonts/manrope-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/decks/fgc-bp-premier-resto/fonts/manrope-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Manrope;
+  src: url("/decks/fgc-bp-premier-resto/fonts/manrope-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+[data-deck="far-roster"] {
+  --ink: #14191f;
+  --paper: #f7f3ee;
+  --muted: #66707a;
+  --line: #d9d4cc;
+  --gold: #e6a100;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Manrope, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+[data-deck="far-roster"] *,
+[data-deck="far-roster"] *::before,
+[data-deck="far-roster"] *::after { box-sizing: border-box; }
+[data-deck="far-roster"] :is(h1, h2, p, figure, ul, li) { margin: 0; }
+[data-deck="far-roster"] :is(h1, h2, strong) {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+[data-deck="far-roster"] ul { list-style: none; padding: 0; }
+[data-deck="far-roster"] img { display: block; }
+
+[data-deck="far-roster"] .fr-slide {
+  width: 1360px;
+  height: 765px;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+}
+.far-studio-canvas [data-deck="far-roster"] .fr-slide {
+  transform: scale(var(--fs-u));
+  transform-origin: top left;
+}
+[data-deck="far-roster"] .fr-in { width: 1360px; height: 765px; position: relative; }
+[data-deck="far-roster"] .fr-kicker {
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+[data-deck="far-roster"] h1 {
+  font-size: 48px;
+  line-height: 1.02;
+}
+
+[data-deck="far-roster"] .fr-cover {
+  height: 765px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 120px;
+  gap: 18px;
+}
+[data-deck="far-roster"] .fr-cover h1 { max-width: 980px; }
+[data-deck="far-roster"] .fr-lead {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.4;
+}
+[data-deck="far-roster"] .fr-tag {
+  color: var(--gold);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+[data-deck="far-roster"] .fr-foot {
+  color: var(--muted);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+[data-deck="far-roster"] .fr-page {
+  height: 765px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 56px 36px;
+}
+[data-deck="far-roster"] .fr-page h1 { margin-top: 10px; }
+[data-deck="far-roster"] .fr-page > .fr-lead {
+  margin-top: 10px;
+  font-size: 18px;
+  max-width: 920px;
+}
+
+[data-deck="far-roster"] .fr-agency-top {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 28px;
+  margin-top: 14px;
+  align-items: center;
+}
+[data-deck="far-roster"] .fr-agency-top h1 { font-size: 40px; margin-bottom: 12px; }
+[data-deck="far-roster"] .fr-agency-top p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+[data-deck="far-roster"] .fr-agency-top p + p { margin-top: 8px; }
+[data-deck="far-roster"] .fr-agency-top img {
+  width: 220px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+[data-deck="far-roster"] .fr-group {
+  align-self: center;
+  margin-top: 18px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: #1a1a1a;
+  color: #ffaa00;
+  font-size: 16px;
+  font-weight: 800;
+}
+[data-deck="far-roster"] .fr-group span {
+  margin-left: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+}
+[data-deck="far-roster"] .fr-entities {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+[data-deck="far-roster"] .fr-entities article {
+  min-height: 132px;
+  padding: 14px 14px 12px;
+  border-radius: 12px;
+  background: #1a1a1a;
+  color: rgba(255, 255, 255, 0.72);
+}
+[data-deck="far-roster"] .fr-entities h2 {
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+[data-deck="far-roster"] .fr-entities p { font-size: 13px; line-height: 1.35; }
+[data-deck="far-roster"] .fr-entities .is-on {
+  outline: 3px solid #fff;
+}
+[data-deck="far-roster"] .fr-entities .is-on h2 { color: #ffaa00; }
+
+[data-deck="far-roster"] .fr-roster {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  margin-top: 22px;
+  min-height: 0;
+}
+[data-deck="far-roster"] .fr-roster article {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: var(--cbg);
+  color: #fff;
+  min-height: 0;
+}
+[data-deck="far-roster"] .fr-roster img {
+  width: 92px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--cacc);
+}
+[data-deck="far-roster"] .fr-roster h2 { font-size: 20px; margin-bottom: 6px; }
+[data-deck="far-roster"] .fr-roster p {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+}
+[data-deck="far-roster"] .fr-roster span {
+  color: var(--cacc);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+[data-deck="far-roster"] .fr-roster strong { font-size: 14px; }
+
+[data-deck="far-roster"] .fr-profile {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  height: 765px;
+}
+[data-deck="far-roster"] .fr-profile figure {
+  height: 765px;
+  overflow: hidden;
+  background: var(--cbg);
+}
+[data-deck="far-roster"] .fr-profile figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+[data-deck="far-roster"] .fr-profile-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 32px 36px 24px;
+  background: var(--cbg);
+  color: #fff;
+}
+[data-deck="far-roster"] .fr-profile .fr-kicker { color: var(--cacc); }
+[data-deck="far-roster"] .fr-profile h1 { margin-top: 8px; font-size: 40px; color: #fff; }
+[data-deck="far-roster"] .fr-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+[data-deck="far-roster"] .fr-chips span {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--cacc);
+  color: var(--cbg);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+[data-deck="far-roster"] .fr-profile .fr-desc {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  line-height: 1.4;
+}
+[data-deck="far-roster"] .fr-profile .fr-stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 14px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+[data-deck="far-roster"] .fr-stats div { flex: 1; min-width: 0; }
+[data-deck="far-roster"] .fr-profile .fr-stats p {
+  color: var(--cacc);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+[data-deck="far-roster"] .fr-profile .fr-stats strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 32px;
+  line-height: 1;
+  color: #fff;
+}
+[data-deck="far-roster"] .fr-profile .fr-stats span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+[data-deck="far-roster"] .fr-collabs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin-top: 12px;
+}
+[data-deck="far-roster"] .fr-profile .fr-collabs li {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  line-height: 1.35;
+  padding-left: 14px;
+  position: relative;
+}
+[data-deck="far-roster"] .fr-collabs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cacc);
+}
+[data-deck="far-roster"] .fr-videos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+[data-deck="far-roster"] .fr-videos img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+[data-deck="far-roster"] .fr-profile .fr-videos p {
+  margin-top: 6px;
+  color: var(--cacc);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+[data-deck="far-roster"] .fr-profile .fr-videos h2 {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: #fff;
+}

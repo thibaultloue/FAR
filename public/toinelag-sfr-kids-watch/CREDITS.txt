@@ -1,0 +1,22 @@
+Toinelag × SFR · Kids Watch Plus
+Assets publics. Utilisation à valider pour diffusion publique.
+
+Logo
+  logo-sfr.png
+  https://commons.wikimedia.org/wiki/File:SFR-2014-logo.svg
+  Rendu PNG du SVG officiel (le SVG Inkscape ne se peint pas correctement dans le lecteur).
+  Marque SFR depuis 2014. Rouge du fichier : #EB0004 / #EE0004.
+
+Produit
+  kids-watch-visio.jpg
+  https://www.honor.com/content/dam/honor/common/products/honor-choice/kids-watch-plus/imgs/pc/section-4g-hd-video-call.jpg
+  Visuel officiel HONOR CHOICE Kids Watch Plus, appel vidéo. Page SFR consultée le 08/10/2026 :
+  https://www.sfr.fr/honor-honorchoicekidswatchplus
+  Appel audio, appel vidéo, messages. Contacts autorisés. Sans internet ni réseaux sociaux. Géolocalisation.
+
+Portrait et preuves Toinelag
+  portrait-toinelag.png, thumb-*.jpg, still-escalier.jpg
+  Mêmes fichiers que le deck Toinelag × Bouygues Telecom (photographies créateur, pas le produit opérateur).
+
+Couleur de composition
+  Rouge SFR #EB0004 · nuit #16080C · clair #F7F4F4
